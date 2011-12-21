@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  current_title: MyString
+  issues: MyText
+  memberships: MyText
+  committee_assignments: MyText
+
+two:
+  name: MyString
+  current_title: MyString
+  issues: MyText
+  memberships: MyText
+  committee_assignments: MyText
