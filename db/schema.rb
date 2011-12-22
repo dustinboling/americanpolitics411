@@ -11,14 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111221191434) do
+ActiveRecord::Schema.define(:version => 20111222220118) do
 
   create_table "people", :force => true do |t|
-    t.string   "name"
-    t.string   "current_title"
-    t.text     "issues"
-    t.text     "memberships"
-    t.text     "committee_assignments"
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.string   "suffix"
+    t.date     "date_of_birth"
+    t.date     "date_of_death"
+    t.string   "title"
+    t.text     "bio"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

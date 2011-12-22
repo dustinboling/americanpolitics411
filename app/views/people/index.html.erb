@@ -1,12 +1,15 @@
-<h1>Listing people</h1>
+<h1>Modify People</h1>
 
 <table>
   <tr>
-    <th>Name</th>
-    <th>Current title</th>
-    <th>Issues</th>
-    <th>Memberships</th>
-    <th>Committee assignments</th>
+    <th>First name</th>
+    <th>Middle name</th>
+    <th>Last name</th>
+    <th>Suffix</th>
+    <th>Date of birth</th>
+    <th>Date of death</th>
+    <th>Title</th>
+    <th>Bio</th>
     <th></th>
     <th></th>
     <th></th>
@@ -14,18 +17,21 @@
 
 <% @people.each do |person| %>
   <tr>
-    <td><%= person.name %></td>
-    <td><%= person.current_title %></td>
-    <td><%= person.issues %></td>
-    <td><%= person.memberships %></td>
-    <td><%= person.committee_assignments %></td>
+    <td><%= person.first_name %></td>
+    <td><%= person.middle_name %></td>
+    <td><%= person.last_name %></td>
+    <td><%= person.suffix %></td>
+    <td><%= person.date_of_birth %></td>
+    <td><%= person.date_of_death %></td>
+    <td><%= person.title %></td>
+    <td><%= person.bio %></td>
     <td><%= link_to 'Show', person %></td>
     <td><%= link_to 'Edit', edit_person_path(person) %></td>
-    <td><%= link_to 'Destroy', person, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', person, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Person', new_person_path %>
+<%= link_to 'Create New Person', new_person_path %>

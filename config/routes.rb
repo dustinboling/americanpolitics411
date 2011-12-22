@@ -1,6 +1,6 @@
-Politics411::Application.routes.draw do
+Politics411::Application.routes.draw do  
   resources :people
-  
+
   root :to => 'people#index'
   
   # The priority is based upon order of creation:

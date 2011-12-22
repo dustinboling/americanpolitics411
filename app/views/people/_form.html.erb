@@ -12,24 +12,36 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
   </div>
   <div class="field">
-    <%= f.label :current_title %><br />
-    <%= f.text_field :current_title %>
+    <%= f.label :middle_name %><br />
+    <%= f.text_field :middle_name %>
   </div>
   <div class="field">
-    <%= f.label :issues %><br />
-    <%= f.text_area :issues %>
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
   </div>
   <div class="field">
-    <%= f.label :memberships %><br />
-    <%= f.text_area :memberships %>
+    <%= f.label :suffix %><br />
+    <%= f.text_field :suffix %>
   </div>
   <div class="field">
-    <%= f.label :committee_assignments %><br />
-    <%= f.text_area :committee_assignments %>
+    <%= f.label :date_of_birth %><br />
+    <%= f.date_select :date_of_birth, :order => [:month, :day, :year], :start_year => 1901 %>
+  </div>
+  <div class="field">
+    <%= f.label :date_of_death %><br />
+    <%= f.date_select :date_of_death, :order => [:month, :day, :year], :start_year => 1901, :include_blank => true, :default => nil %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :bio %><br />
+    <%= f.text_area :bio %>
   </div>
   <div class="actions">
     <%= f.submit %>
