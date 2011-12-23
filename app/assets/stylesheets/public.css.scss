@@ -1,0 +1,13 @@
+header { height: 3em; text-align: center; background: #000; color: #FFF; }
+header h1 { padding-top: .35em; margin: 0; }
+
+body { background: #eee; }
+
+/* Buttons for Admin Area CRUD */
+a.link { float: left; padding: 2px 5px; margin: 0 0 1em 1em; 
+  background: #25304c; color: #fff;  border: 1px solid #4C2516;
+  text-decoration: none; font-size: 0.8em; text-align: center; }
+
+a.button { float: right; padding: 2px 5px; margin: 0 0 1em 1em; 
+  background: #25304c; color: #fff;  border: 1px solid #4C2516;
+  text-decoration: none; font-size: 0.8em; text-align: center; }

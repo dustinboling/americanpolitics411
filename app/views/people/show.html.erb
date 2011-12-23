@@ -1,4 +1,8 @@
+<% @page_title = "Show Person: #{@person.first_name} #{@person.middle_name} #{@person.last_name}" %>
+
 <p id="notice"><%= notice %></p>
+
+<h1>Details For <%= @person.first_name %> <%= @person.last_name %></h1>
 
 <p>
   <b>First name:</b>
@@ -42,4 +46,4 @@
 
 
 <%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back', people_path %>
+<%= link_to 'Back to List', people_path %>

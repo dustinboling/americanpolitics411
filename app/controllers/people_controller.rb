@@ -1,4 +1,7 @@
 class PeopleController < ApplicationController
+  
+  layout 'admin'
+  
   # GET /people
   # GET /people.json
   def index
