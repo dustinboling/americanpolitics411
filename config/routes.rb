@@ -1,6 +1,20 @@
 Politics411::Application.routes.draw do  
+  resources :degrees
+
+  get "degrees/edit"
+
+  get "degrees/list"
+
+  get "degrees/new"
+
+  get "degrees/show"
+
   resources :people
-  resources :universities
+  resources :universities do
+    collection do
+      get 'new2'
+    end
+  end
     
   root :to => "people#index"
   

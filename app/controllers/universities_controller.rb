@@ -24,6 +24,10 @@ class UniversitiesController < ApplicationController
     @people = Person.order('id ASC')
   end
   
+  def new2
+    @university = University.new(params[:university])
+  end
+  
   def create
     # instantiates new object
     @university = University.new(params[:university])
@@ -40,11 +44,13 @@ class UniversitiesController < ApplicationController
   
   def edit
    @university = University.find(params[:id])
+   @universities = University.order('id ASC')
+   @people = Person.order('id ASC')
   end
   
   def update
     # find object
-    @university = University.find(params[:id])
+    @university = University.find(params[:university])
     # update object
     if @university.update_attributes(params[:id])
       # if update succeeds, redirect to list action

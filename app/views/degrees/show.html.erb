@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>University:</b>
+  <%= @degree.university %>
+</p>
+
+<p>
+  <b>Person:</b>
+  <%= @degree.person %>
+</p>
+
+<p>
+  <b>Degree earned:</b>
+  <%= @degree.degree_earned %>
+</p>
+
+<p>
+  <b>Year earned:</b>
+  <%= @degree.year_earned %>
+</p>
+
+
+<%= link_to 'Edit', edit_degree_path(@degree) %> |
+<%= link_to 'Back', degrees_path %>

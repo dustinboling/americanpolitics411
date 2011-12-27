@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111223190156) do
+ActiveRecord::Schema.define(:version => 20111227205606) do
+
+  create_table "degrees", :force => true do |t|
+    t.integer  "university_id"
+    t.integer  "person_id"
+    t.string   "degree_earned"
+    t.date     "year_earned"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "degrees", ["person_id"], :name => "index_degrees_on_person_id"
+  add_index "degrees", ["university_id"], :name => "index_degrees_on_university_id"
 
   create_table "people", :force => true do |t|
     t.string   "first_name"
@@ -25,6 +37,8 @@ ActiveRecord::Schema.define(:version => 20111223190156) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "professional_experience"
+    t.text     "literary_work"
   end
 
   create_table "universities", :force => true do |t|

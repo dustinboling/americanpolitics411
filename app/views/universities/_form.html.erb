@@ -1,4 +1,4 @@
-<%= form_for :university, :url => { :action => 'create', :id => @university.id } do |f| %>
+<%= form_for :university, :url => { :action => 'update', :id => @university.id } do |f| %>
   <% if @university.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@university.errors.count, "error") %> prohibited this person from being saved:</h2>
@@ -12,18 +12,13 @@
   <% end %>
 	
 	<div class="field">
-    <%= f.label :person_id, 'Select Person' %><br />
-    <%= f.select(:person_id, @people.collect {|s| [s.first_name + s.last_name, s.id]}, :include_blank => true, :selected => nil) %>
+    <%= f.label :person_id, 'Person' %><br />
+    <%= f.select(:person_id, options_for_select(@people.collect {|s| [s.first_name + s.last_name, s.id]}, @person.id)) %>
   </div>
-	<div class="field">
-		<%= f.label :name, "Add New University" %><br />
-    <%= f.text_field :name %>
-	</div>
-	<!-- ><p style="font-weight: bold">-OR-</p>
    <div class="field">
-     <%= f.label :name, 'Use Existing University' %><br />
-     <%= f.select(:name, @universities.collect {|t| [t.name, t.id]}, :include_blank => true, :selected => nil) %>
-   </div> -->
+     <%= f.label :name, 'University' %><br />
+     <%= f.select(:name, @universities.collect {|t| [t.name]}, :include_blank => true, :selected => nil) %>
+   </div>
   <div class="field">
     <%= f.label :degree_earned %><br />
     <%= f.text_field :degree_earned %>
