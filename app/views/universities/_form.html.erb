@@ -1,4 +1,4 @@
-<%= form_for :university, :url => { :action => 'update', :id => @university.id } do |f| %>
+<%= form_for :university, :url => { :action => 'create', :id => @university.id } do |f| %>
   <% if @university.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@university.errors.count, "error") %> prohibited this person from being saved:</h2>
