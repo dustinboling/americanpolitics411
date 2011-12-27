@@ -28,8 +28,7 @@
     <td><%= person.date_of_death %></td>
     <td><%= person.title %></td>
     <td><%= person.bio %></td>
-		<td><%= person.universities.size %>
-		<td><%= link_to('Add University', {:controller => 'universities', :action => 'index', :person_id => person.id}, :class => 'button edit') %>
+		<td><%= person.universities.size %> <%= link_to('Show/Add', {:controller => 'universities', :action => 'index', :person_id => person.id}) %></td>
     <td><%= link_to 'Show', person, :class => 'button show' %></td>
     <td><%= link_to 'Edit', edit_person_path(person), :class => 'button edit' %></td>
     <td><%= link_to 'Destroy', person, confirm: 'Are you sure?', method: :delete, :class => 'button delete' %></td>
