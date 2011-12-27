@@ -1,0 +1,38 @@
+<%= form_for :university, :url => { :action => 'create', :id => @university.id } do |f| %>
+  <% if @university.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@university.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+      <ul>
+      <% @university.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	
+	<div class="field">
+    <%= f.label :person_id, 'Select Person' %><br />
+    <%= f.select(:person_id, @people.collect {|s| [s.first_name + s.last_name, s.id]}, :include_blank => true, :selected => nil) %>
+  </div>
+	<div class="field">
+		<%= f.label :name, "Add New University" %><br />
+    <%= f.text_field :name %>
+	</div>
+	<!-- ><p style="font-weight: bold">-OR-</p>
+   <div class="field">
+     <%= f.label :name, 'Use Existing University' %><br />
+     <%= f.select(:name, @universities.collect {|t| [t.name, t.id]}, :include_blank => true, :selected => nil) %>
+   </div> -->
+  <div class="field">
+    <%= f.label :degree_earned %><br />
+    <%= f.text_field :degree_earned %>
+  </div>
+  <div class="field">
+    <%= f.label :year_completed %><br />
+    <%= f.date_select :year_completed, :order => [:year], :start_year => 1901 %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Add University" %>
+  </div>
+<% end %>

@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+		<th>Person_ID</th>
     <th>First name</th>
     <th>Middle name</th>
     <th>Last name</th>
@@ -10,6 +11,7 @@
     <th>Date of death</th>
     <th>Title</th>
     <th>Bio</th>
+		<th>Universities Attended</th>
     <th></th>
     <th></th>
     <th></th>
@@ -17,6 +19,7 @@
 
 <% @people.each do |person| %>
   <tr>
+		<td><%= person.id %>
     <td><%= person.first_name %></td>
     <td><%= person.middle_name %></td>
     <td><%= person.last_name %></td>
@@ -25,6 +28,8 @@
     <td><%= person.date_of_death %></td>
     <td><%= person.title %></td>
     <td><%= person.bio %></td>
+		<td><%= person.universities.size %>
+		<td><%= link_to('Add University', {:controller => 'universities', :action => 'index', :person_id => person.id}, :class => 'button edit') %>
     <td><%= link_to 'Show', person, :class => 'button show' %></td>
     <td><%= link_to 'Edit', edit_person_path(person), :class => 'button edit' %></td>
     <td><%= link_to 'Destroy', person, confirm: 'Are you sure?', method: :delete, :class => 'button delete' %></td>
@@ -35,3 +40,5 @@
 <br />
 
 <%= link_to 'Create New Person', new_person_path, :class => 'link' %>
+
+<%= link_to 'Create New University', new_university_path, :class => 'link' %>

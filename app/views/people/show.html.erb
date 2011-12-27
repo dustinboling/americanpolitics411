@@ -43,7 +43,10 @@
   <b>Bio:</b>
   <%= @person.bio %>
 </p>
-
+<p>
+	<b>Universities Attended:</b>
+	<%= @person.universities.find(:all).collect { |v| [ v.name] } %>
+</p>
 
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back to List', people_path %>

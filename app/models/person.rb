@@ -1,9 +1,9 @@
 class Person < ActiveRecord::Base
   
+  has_many :universities
+  
   validates_presence_of :first_name, :last_name, :date_of_birth
   
-  # here are some scopes for if
-  scope :dead, where(:is_dead => true)
-  scope :not_dead, where(:is_dead => false)
+  scope :sorted, order('people.person_id ASC')
   
 end

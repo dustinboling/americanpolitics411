@@ -9,6 +9,7 @@ class CreatePeople < ActiveRecord::Migration
       t.date :date_of_death
       t.string :title
       t.text :bio
+      t.integer :position
 
       t.timestamps
     end

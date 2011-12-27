@@ -1,0 +1,25 @@
+<% @page_title = "#{@university.name}" %>
+
+<p id="notice"><%= notice %></p>
+
+<h1>University Details For</h1>
+
+<p>
+  <b>University:</b>
+  <%= @university.name %>
+</p>
+
+<p>
+  <b>Degree Earned:</b>
+  <%= @university.degree_earned %>
+</p>
+
+<p>
+  <b>Diploma Year:</b>
+  <%= @university.year_completed %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_university_path(@university) %> |
+<%= link_to 'Back to List', universities_path %>

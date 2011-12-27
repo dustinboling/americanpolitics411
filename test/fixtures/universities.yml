@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  degree_earned: MyString
+  name: MyString
+  year_started: 2011-12-23
+  year_ended: 2011-12-23
+
+two:
+  degree_earned: MyString
+  name: MyString
+  year_started: 2011-12-23
+  year_ended: 2011-12-23

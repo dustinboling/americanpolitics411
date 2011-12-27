@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111222220118) do
+ActiveRecord::Schema.define(:version => 20111223190156) do
 
   create_table "people", :force => true do |t|
     t.string   "first_name"
@@ -22,8 +22,21 @@ ActiveRecord::Schema.define(:version => 20111222220118) do
     t.date     "date_of_death"
     t.string   "title"
     t.text     "bio"
+    t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "universities", :force => true do |t|
+    t.string   "degree_earned"
+    t.string   "name"
+    t.date     "year_completed"
+    t.integer  "person_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "universities", ["person_id"], :name => "index_universities_on_person_id"
 
 end

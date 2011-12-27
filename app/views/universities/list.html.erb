@@ -1,0 +1,29 @@
+<h1>Modify Universities</h1>
+
+<table>
+	<tr>
+		<th></th>
+		<th>Degree</th>
+		<th>University</th>
+		<th>Completed</th>
+		<th>Actions</th>
+	</tr>
+	
+<%= link_to("Add New University", {:action => 'new', :person_id => @person.id}) %>
+
+<% @universities.each do |university| %>
+	<tr>
+		<td></td>
+		<td><%= university.degree_earned %></td>
+		<td><%= university.name %></td>
+		<td><%= university.year_completed %></td>
+		<td class="actions">
+			<%= link_to("Show", university, :class => 'action button') %>
+			<%= link_to("Edit", {:action => 'edit', :id => university.id}, :class => 'action button') %>
+			<%= link_to("Delete", {:action => 'delete', :id => university.id}, :class => 'action button') %>
+		</td>
+	</tr>
+	<% end %>
+</table>
+
+<%= link_to 'Create New University', new_university_path, :class => 'link' %>

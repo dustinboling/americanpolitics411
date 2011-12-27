@@ -14,11 +14,16 @@ class PeopleController < ApplicationController
       format.json { render json: @people }
     end
   end
+  
+  def list
+    @people = People.order("people.id DESC")
+  end
 
   # GET /people/1
   # GET /people/1.json
   def show
     @person = Person.find(params[:id])
+    @universities = University.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
