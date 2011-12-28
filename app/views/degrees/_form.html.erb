@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :person %><br />
-    <%= f.select(:person_id, @people.collect {|u| [u.last_name + ", " + u.first_name, u.id]})%>
+    <%= f.select(:person_id, options_for_select(@people.collect {|u| [u.last_name + ", " + u.first_name, u.id]}, @person.id))%>
   </div>
 	<!-- <div class="field">
     <%= f.label :person_id %><br />

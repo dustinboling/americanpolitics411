@@ -1,7 +1,9 @@
+<div class="subject list">
+
 <h1>Modify People</h1>
 
-<table>
-  <tr>
+<table class="listing">
+  <tr class="header">
 		<!-- <th>Person_ID</th> -->
     <th>First name</th>
     <th>Middle name</th>
@@ -13,6 +15,7 @@
     <th>Bio</th>
     <th>Professional Experience</th>
     <th>Literary Work</th>
+		<th>Universities Attended</th>
 		<th>Degrees Earned</th>
     <th></th>
     <th></th>
@@ -20,7 +23,7 @@
   </tr>
 
 <% @people.each do |person| %>
-  <tr>
+  <tr class="<%= cycle('odd', 'even') %>">
 		<!-- <td><%= person.id %></td> -->
     <td><%= person.first_name %></td>
     <td><%= person.middle_name %></td>
@@ -32,6 +35,7 @@
     <td><%= person.bio %></td>
 		<td><%= person.professional_experience %></td>
 		<td><%= person.literary_work %></td>
+		<td><%= person.universities.collect {|x| [x.name]} %></td>
 		<td><%= person.degrees.size %> <%= link_to('Show/Add', {:controller => 'degrees', :action => 'new', :person_id => person.id}) %></td>
     <td><%= link_to 'Show', person, :class => 'button show' %></td>
     <td><%= link_to 'Edit', edit_person_path(person), :class => 'button edit' %></td>
@@ -45,3 +49,5 @@
 <%= link_to 'Create New Person', new_person_path, :class => 'link' %>
 
 <%= link_to('Add University', {:controller => 'universities', :action => 'new'}, :class => 'link') %>
+
+</div>
