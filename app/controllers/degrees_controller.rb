@@ -28,6 +28,9 @@ class DegreesController < ApplicationController
   # GET /degrees/new.json
   def new
     @degree = Degree.new
+    @universities = University.order('id ASC')
+    @people = Person.order('id ASC')
+    @person = Person.find_by_id(params[:person_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -47,7 +50,7 @@ class DegreesController < ApplicationController
 
     respond_to do |format|
       if @degree.save
-        format.html { redirect_to @degree, notice: 'Degree was successfully created.' }
+        format.html { redirect_to @degree, notice: 'Degree was successfully added.' }
         format.json { render json: @degree, status: :created, location: @degree }
       else
         format.html { render action: "new" }

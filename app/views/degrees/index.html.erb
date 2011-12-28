@@ -3,7 +3,7 @@
 <table>
   <tr>
     <th>University</th>
-    <th>Person</th>
+    <th>Person_ID</th>
     <th>Degree earned</th>
     <th>Year earned</th>
     <th></th>
@@ -13,8 +13,8 @@
 
 <% @degrees.each do |degree| %>
   <tr>
-    <td><%= degree.university %></td>
-    <td><%= degree.person %></td>
+    <td><%= degree.university.name %></td>
+    <td><%= degree.person_id %></td>
     <td><%= degree.degree_earned %></td>
     <td><%= degree.year_earned %></td>
     <td><%= link_to 'Show', degree %></td>

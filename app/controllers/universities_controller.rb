@@ -1,74 +1,96 @@
 class UniversitiesController < ApplicationController
-
+  
   layout 'admin'
   
   before_filter :find_person
   
+  # GET /universities
+  # GET /universities.json
   def index
-    list
-    render('list')
+    @universities = University.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @universities }
+    end
   end
   
   def list
     @universities = University.sorted.where(:person_id => @person.id)
   end
-  
+
+  # GET /universities/1
+  # GET /universities/1.json
   def show
     @universities = University.find(params[:id])
     @university = University.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @university }
+    end
   end
-  
+
+  # GET /universities/new
+  # GET /universities/new.json
   def new
     @university = University.new
     @universities = University.order('id ASC')
     @people = Person.order('id ASC')
-  end
-  
-  def new2
-    @university = University.new(params[:university])
-  end
-  
-  def create
-    # instantiates new object
-    @university = University.new(params[:university])
-    # save the object
-    if @university.save
-      # if save succeeds, redirect to the list action
-      flash[:notice] = "University created."
-      redirect_to(:controller => 'people', :action => 'index')
-    else
-      # if save fails, redisplay form
-      render('new')
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @university }
     end
   end
-  
+
+  # GET /universities/1/edit
   def edit
-   @university = University.find(params[:id])
-   @universities = University.order('id ASC')
-   @people = Person.order('id ASC')
+    @university = University.find(params[:id])
   end
-  
-  def update
-    # find object
-    @university = University.find(params[:university])
-    # update object
-    if @university.update_attributes(params[:id])
-      # if update succeeds, redirect to list action
-      flash[:notice] = "University updated."
-    else
-      # If update fails redisplay form
-      render('edit')
+
+  # POST /universities
+  # POST /universities.json
+  def create
+    @university = University.new(params[:university])
+
+    respond_to do |format|
+      if @university.save
+        format.html { redirect_to @university, notice: 'University was successfully created.' }
+        format.json { render json: @university, status: :created, location: @university }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @university.errors, status: :unprocessable_entity }
+      end
     end
   end
-  
-  def delete
-    @university = University.find(params[:id])    
+
+  # PUT /universities/1
+  # PUT /universities/1.json
+  def update
+    @university = University.find(params[:id])
+
+    respond_to do |format|
+      if @university.update_attributes(params[:university])
+        format.html { redirect_to @university, notice: 'University was successfully updated.' }
+        format.json { head :ok }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @university.errors, status: :unprocessable_entity }
+      end
+    end
   end
-  
+
+  # DELETE /universities/1
+  # DELETE /universities/1.json
   def destroy
-    University.find(params[:id]).destroy
-    flash[:notice] = "Page destroyed."
-    redirect_to(:action => 'list')
+    @university = University.find(params[:id])
+    @university.destroy
+
+    respond_to do |format|
+      format.html { redirect_to universities_url }
+      format.json { head :ok }
+    end
   end
   
   private
@@ -78,6 +100,5 @@ class UniversitiesController < ApplicationController
       @person = Person.find_by_id(params[:person_id])
     end
   end
-
   
 end

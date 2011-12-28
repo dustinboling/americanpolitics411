@@ -1,14 +1,13 @@
 class CreateUniversities < ActiveRecord::Migration
   def change
     create_table :universities do |t|
-      t.string :degree_earned
       t.string :name
-      t.date :year_completed
-      t.integer :person_id
-      t.integer :position      
+      t.references :person
+      t.references :degree
 
       t.timestamps
     end
     add_index :universities, :person_id
+    add_index :universities, :degree_id
   end
 end

@@ -12,8 +12,8 @@
     <th>Title</th>
     <th>Bio</th>
     <th>Professional Experience</th>
-    <th>Literary Work</th>		
-		<th>Universities Attended</th>
+    <th>Literary Work</th>
+		<th>Degrees Earned</th>
     <th></th>
     <th></th>
     <th></th>
@@ -32,7 +32,7 @@
     <td><%= person.bio %></td>
 		<td><%= person.professional_experience %></td>
 		<td><%= person.literary_work %></td>
-		<td><%= person.universities.size %> <%= link_to('Show/Add', {:controller => 'universities', :action => 'index', :person_id => person.id}) %></td>
+		<td><%= person.degrees.size %> <%= link_to('Show/Add', {:controller => 'degrees', :action => 'new', :person_id => person.id}) %></td>
     <td><%= link_to 'Show', person, :class => 'button show' %></td>
     <td><%= link_to 'Edit', edit_person_path(person), :class => 'button edit' %></td>
     <td><%= link_to 'Destroy', person, confirm: 'Are you sure?', method: :delete, :class => 'button delete' %></td>
@@ -44,4 +44,4 @@
 
 <%= link_to 'Create New Person', new_person_path, :class => 'link' %>
 
-<%= link_to('Add University', {:controller => 'universities', :action => 'new2'}, :class => 'link') %>
+<%= link_to('Add University', {:controller => 'universities', :action => 'new'}, :class => 'link') %>
