@@ -12,6 +12,7 @@ class PeopleController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @people }
+      format.xml {render xml: @people }
     end
   end
   
@@ -23,7 +24,7 @@ class PeopleController < ApplicationController
   # GET /people/1.json
   def show
     @person = Person.find(params[:id])
-    @universities = University.find :all
+    @degrees = Degree.find :all
   
 
     respond_to do |format|

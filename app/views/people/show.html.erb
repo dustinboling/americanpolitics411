@@ -44,8 +44,12 @@
   <%= @person.bio %>
 </p>
 <p>
-	<b>Universities Attended:</b>
-	<%= @person.universities.find(:all).collect { |v| [ v.name] } %>
+	<b>Education</b>
+  <%= @person.degrees.each do |degree|
+			
+			end %>
+	
+	
 </p>
 <p>
 	<b>Religion</b>
@@ -53,7 +57,7 @@
 </p>
 <p>
 	<b>Related To</b>
-	<%= @person.family_members.find(:all).collect { |w| [w.name] } %>
+	<%= @person.family_members.collect { |w| [w.name] } %>
 </p>
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back to List', people_path %>

@@ -21,6 +21,8 @@ class DegreesController < ApplicationController
   # GET /degrees/1.json
   def show
     @degree = Degree.find(params[:id])
+    @universities = University.find :all
+    @people = Person.find :all
 
     respond_to do |format|
       format.html # show.html.erb
