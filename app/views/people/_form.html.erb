@@ -12,7 +12,6 @@
   <% end %>
 
   <div class="field">
-  <div class="field">
     <%= f.label :title %><br />
     <%= f.text_field :title %>
   </div>
@@ -31,13 +30,17 @@
     <%= f.label :suffix %><br />
     <%= f.text_field :suffix %>
   </div>
+	<div class="field">
+		<%= f.label :religion, 'Religion' %><br />
+		<%= collection_select(:person, :religion_id, Religion.all, :id, :name, :prompt => true) %>
+	</div>
   <div class="field">
     <%= f.label :date_of_birth %><br />
     <%= f.date_select :date_of_birth, :order => [:month, :day, :year], :start_year => 1901 %>
   </div>
   <div class="field">
     <%= f.label :date_of_death %><br />
-    <%= f.date_select :date_of_death, :order => [:month, :day, :year], :start_year => 1901, :include_blank => true, :default => nil %>
+    <%= f.date_select :date_of_death, :order => [:month, :day, :year], :start_year => 1851, :include_blank => true, :default => nil %>
   </div>
   <div class="field">
     <%= f.label :bio %><br />
@@ -55,3 +58,4 @@
     <%= f.submit %>
   </div>
 <% end %>
+

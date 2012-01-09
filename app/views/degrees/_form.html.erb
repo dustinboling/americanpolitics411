@@ -16,13 +16,9 @@
     <%= f.select(:university_id, @universities.collect {|t| [t.name, t.id]}, :include_blank => true, :selected => nil) %>
   </div>
   <div class="field">
-    <%= f.label :person %><br />
+    <%= f.label :person_id %><br />
     <%= f.select(:person_id, options_for_select(@people.collect {|u| [u.last_name + ", " + u.first_name, u.id]}, @person.id))%>
   </div>
-	<!-- <div class="field">
-    <%= f.label :person_id %><br />
-    <%= @person.id %>
-  </div> --> <!-- does not pass correctly -->
   <div class="field">
     <%= f.label :degree_earned %><br />
     <%= f.text_field :degree_earned %>

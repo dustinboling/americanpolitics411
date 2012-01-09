@@ -36,6 +36,7 @@ class PeopleController < ApplicationController
   # GET /people/new.json
   def new
     @person = Person.new
+    @religions = Religion.find :all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -46,12 +47,15 @@ class PeopleController < ApplicationController
   # GET /people/1/edit
   def edit
     @person = Person.find(params[:id])
+    @religions = Religion.order('id ASC')
   end
 
   # POST /people
   # POST /people.json
   def create
     @person = Person.new(params[:person])
+    @religions = Religion.find :all
+
 
     respond_to do |format|
       if @person.save

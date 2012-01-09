@@ -17,6 +17,8 @@
     <th>Literary Work</th>
 		<th>Universities Attended</th>
 		<th>Degrees Earned</th>
+		<th>Family Members</th>
+		<th>Religion ID</th>
     <th></th>
     <th></th>
     <th></th>
@@ -36,7 +38,12 @@
 		<td><%= person.professional_experience %></td>
 		<td><%= person.literary_work %></td>
 		<td><%= person.universities.collect {|x| [x.name]} %></td>
-		<td><%= person.degrees.size %> <%= link_to('Show/Add', {:controller => 'degrees', :action => 'new', :person_id => person.id}) %></td>
+		<td><%= person.degrees.size %> <%= link_to('Show', {:controller => 'degrees', :action => 'index', :person_id => person.id}) %>
+		<%= link_to('Add', {:controller => 'degrees', :action => 'new', :person_id => person.id}) %>
+		</td>
+		<td><%= person.family_members.size %>
+				<%= link_to('Add', {:controller => 'family_members', :action => 'new', :person_id => person.id}) %></td>
+		<td><%= person.religion_id %></td>
     <td><%= link_to 'Show', person, :class => 'button show' %></td>
     <td><%= link_to 'Edit', edit_person_path(person), :class => 'button edit' %></td>
     <td><%= link_to 'Destroy', person, confirm: 'Are you sure?', method: :delete, :class => 'button delete' %></td>
@@ -49,5 +56,6 @@
 <%= link_to 'Create New Person', new_person_path, :class => 'link' %>
 
 <%= link_to('Add University', {:controller => 'universities', :action => 'new'}, :class => 'link') %>
+<%= link_to('Add Religion', {:controller => 'religions', :action => 'new'}, :class => 'link') %>
 
 </div>

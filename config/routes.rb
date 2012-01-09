@@ -1,17 +1,18 @@
 Politics411::Application.routes.draw do  
-  resources :universities
+  resources :family_members
 
-  resources :degrees
-  
+  get "industry_contributors/new"
+
+  get "industry_contributors/show"
+
+  get "industry_contributors/_form"
+
+  resources :religions
+
+  resources :universities
+  resources :degrees 
   resources :people
 
-  get "degrees/edit"
-
-  get "degrees/list"
-
-  get "degrees/new"
-
-  get "degrees/show"
   
   # resources :universities do
   #   collection do

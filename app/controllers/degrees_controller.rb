@@ -12,6 +12,10 @@ class DegreesController < ApplicationController
       format.json { render json: @degrees }
     end
   end
+  
+  def list
+    @degrees = Degree.find :all
+  end
 
   # GET /degrees/1
   # GET /degrees/1.json
