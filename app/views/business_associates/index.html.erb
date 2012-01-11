@@ -1,0 +1,31 @@
+<h1>Listing business_associates</h1>
+
+<table>
+  <tr>
+    <th>Organization</th>
+    <th>Person</th>
+    <th>Full name</th>
+    <th>Position</th>
+    <th>Business relationship</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @business_associates.each do |business_associate| %>
+  <tr>
+    <td><%= business_associate.organization_id %></td>
+    <td><%= business_associate.person_id %></td>
+    <td><%= business_associate.full_name %></td>
+    <td><%= business_associate.position %></td>
+    <td><%= business_associate.business_relationship %></td>
+    <td><%= link_to 'Show', business_associate %></td>
+    <td><%= link_to 'Edit', edit_business_associate_path(business_associate) %></td>
+    <td><%= link_to 'Destroy', business_associate, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Business associate', new_business_associate_path %>

@@ -1,7 +1,7 @@
 <%= form_for(@family_member) do |f| %>
   <% if @family_member.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@family_member.errors.count, "error") %> prohibited this degree from being saved:</h2>
+      <h2><%= pluralize(@family_member.errors.count, "error") %> prohibited this family member from being saved:</h2>
 
       <ul>
       <% @family_member.errors.full_messages.each do |msg| %>

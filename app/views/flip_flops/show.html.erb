@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Person:</b>
+  <%= @flip_flop.person_id %>
+</p>
+
+<p>
+  <b>Year:</b>
+  <%= @flip_flop.year %>
+</p>
+
+<p>
+  <b>Issue:</b>
+  <%= @flip_flop.issue %>
+</p>
+
+<p>
+  <b>Flipflop:</b>
+  <%= @flip_flop.flipflop %>
+</p>
+
+
+<%= link_to 'Edit', edit_flip_flop_path(@flip_flop) %> |
+<%= link_to 'Back', flip_flops_path %>

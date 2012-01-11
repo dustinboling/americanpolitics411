@@ -37,7 +37,7 @@ class PeopleController < ApplicationController
   # GET /people/new.json
   def new
     @person = Person.new
-    @religions = Religion.find :all
+    @religions = Religion.order('id ASC')
 
     respond_to do |format|
       format.html # new.html.erb

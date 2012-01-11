@@ -1,0 +1,2 @@
+module FlipFlopsHelper
+end

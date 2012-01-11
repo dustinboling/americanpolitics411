@@ -47,6 +47,9 @@ class DegreesController < ApplicationController
   # GET /degrees/1/edit
   def edit
     @degree = Degree.find(params[:id])
+    @universities = University.order('id ASC')
+    @people = Person.order('id ASC')
+    @person = Person.find_by_id(params[:person_id])
   end
 
   # POST /degrees

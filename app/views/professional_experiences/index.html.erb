@@ -1,0 +1,31 @@
+<h1>Listing professional_experiences</h1>
+
+<table>
+  <tr>
+    <th>Person</th>
+    <th>Position</th>
+    <th>Date started</th>
+    <th>Date ended</th>
+    <th>Accomplishments</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @professional_experiences.each do |professional_experience| %>
+  <tr>
+    <td><%= professional_experience.person_id %></td>
+    <td><%= professional_experience.position %></td>
+    <td><%= professional_experience.date_started %></td>
+    <td><%= professional_experience.date_ended %></td>
+    <td><%= professional_experience.accomplishments %></td>
+    <td><%= link_to 'Show', professional_experience %></td>
+    <td><%= link_to 'Edit', edit_professional_experience_path(professional_experience) %></td>
+    <td><%= link_to 'Destroy', professional_experience, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Professional experience', new_professional_experience_path %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  person_id: 1
+  year: 2012-01-10
+  issue: MyString
+  flipflop: MyText
+
+two:
+  person_id: 1
+  year: 2012-01-10
+  issue: MyString
+  flipflop: MyText

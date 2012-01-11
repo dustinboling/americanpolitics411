@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  person_id: 1
+  position: MyString
+  date_started: 2012-01-10
+  date_ended: 2012-01-10
+  accomplishments: MyText
+
+two:
+  person_id: 1
+  position: MyString
+  date_started: 2012-01-10
+  date_ended: 2012-01-10
+  accomplishments: MyText

@@ -1,4 +1,26 @@
 Politics411::Application.routes.draw do  
+  resources :personal_assets
+
+  resources :transactions
+
+  resources :litigations
+
+  resources :accusations
+
+  resources :endorsements
+
+  resources :professional_experiences
+
+  resources :business_associates
+
+  resources :organizations
+
+  resources :flip_flops
+
+  resources :articles
+
+  resources :videos
+
   resources :family_members
 
   get "industry_contributors/new"

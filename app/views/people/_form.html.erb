@@ -11,6 +11,7 @@
     </div>
   <% end %>
 
+	<div class="field">
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name %>
   </div>
@@ -28,7 +29,7 @@
   </div>
 	<div class="field">
 		<%= f.label :religion, 'Religion' %><br />
-		<%= collection_select(:person, :religion_id, Religion.all, :id, :name, :prompt => true) %>
+		<%= collection_select(:person, :religion_id, Religion.all, :id, :name, {:include_blank => true}) %>
 	</div>
   <div class="field">
     <%= f.label :date_of_birth %><br />

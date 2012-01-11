@@ -1,0 +1,37 @@
+<%= form_for(@business_associate) do |f| %>
+  <% if @business_associate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@business_associate.errors.count, "error") %> prohibited this degree from being saved:</h2>
+
+      <ul>
+      <% @business_associate.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :organization %><br />
+    <%= f.select(:organization_id, @organizations.collect {|t| [t.name, t.id]}, :include_blank => true, :selected => nil) %>
+  </div>
+  <div class="field">
+    <%= f.label :person_id %><br />
+    <%= f.select(:person_id, options_for_select(@people.collect {|u| [u.last_name + ", " + u.first_name, u.id]}, @person.id))%>
+  </div>
+  <div class="field">
+    <%= f.label :full_name %><br />
+    <%= f.text_field :full_name %>
+  </div>
+  <div class="field">
+    <%= f.label :position %><br />
+    <%= f.text_field :position %>
+  </div>
+  <div class="field">
+    <%= f.label :business_relationship %><br />
+    <%= f.text_field :business_relationship %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

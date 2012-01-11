@@ -1,4 +1,7 @@
 class ReligionsController < ApplicationController
+  
+  layout 'admin'
+  
   # GET /religions
   # GET /religions.json
   def index

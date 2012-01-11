@@ -1,0 +1,29 @@
+<h1>Listing litigations</h1>
+
+<table>
+  <tr>
+    <th>Person</th>
+    <th>Date</th>
+    <th>Litigation</th>
+    <th>Outcome</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @litigations.each do |litigation| %>
+  <tr>
+    <td><%= litigation.person_id %></td>
+    <td><%= litigation.date %></td>
+    <td><%= litigation.litigation %></td>
+    <td><%= litigation.outcome %></td>
+    <td><%= link_to 'Show', litigation %></td>
+    <td><%= link_to 'Edit', edit_litigation_path(litigation) %></td>
+    <td><%= link_to 'Destroy', litigation, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Litigation', new_litigation_path %>

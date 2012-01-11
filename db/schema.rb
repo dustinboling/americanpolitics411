@@ -11,7 +11,44 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120109194215) do
+ActiveRecord::Schema.define(:version => 20120111000732) do
+
+  create_table "accusations", :force => true do |t|
+    t.integer  "person_id"
+    t.date     "date"
+    t.string   "accusation"
+    t.boolean  "outcome"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "accusations", ["person_id"], :name => "index_accusations_on_person_id"
+
+  create_table "articles", :force => true do |t|
+    t.integer  "person_id"
+    t.string   "title"
+    t.text     "excerpt"
+    t.string   "article_url"
+    t.string   "pdf_url"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "articles", ["person_id"], :name => "index_articles_on_person_id"
+
+  create_table "business_associates", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "person_id"
+    t.string   "full_name"
+    t.string   "position"
+    t.text     "business_relationship"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "business_associates", ["organization_id"], :name => "index_business_associates_on_organization_id"
+  add_index "business_associates", ["person_id"], :name => "index_business_associates_on_person_id"
 
   create_table "degrees", :force => true do |t|
     t.integer  "university_id"
@@ -25,6 +62,16 @@ ActiveRecord::Schema.define(:version => 20120109194215) do
   add_index "degrees", ["person_id"], :name => "index_degrees_on_person_id"
   add_index "degrees", ["university_id"], :name => "index_degrees_on_university_id"
 
+  create_table "endorsements", :force => true do |t|
+    t.integer  "person_id"
+    t.date     "year"
+    t.string   "organization_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "endorsements", ["person_id"], :name => "index_endorsements_on_person_id"
+
   create_table "family_members", :force => true do |t|
     t.string   "name"
     t.string   "relationship"
@@ -35,6 +82,34 @@ ActiveRecord::Schema.define(:version => 20120109194215) do
   end
 
   add_index "family_members", ["person_id"], :name => "index_family_members_on_person_id"
+
+  create_table "flip_flops", :force => true do |t|
+    t.integer  "person_id"
+    t.date     "year"
+    t.string   "issue"
+    t.text     "flipflop"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "flip_flops", ["person_id"], :name => "index_flip_flops_on_person_id"
+
+  create_table "litigations", :force => true do |t|
+    t.integer  "person_id"
+    t.date     "date"
+    t.string   "litigation"
+    t.boolean  "outcome"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "litigations", ["person_id"], :name => "index_litigations_on_person_id"
+
+  create_table "organizations", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "people", :force => true do |t|
     t.string   "first_name"
@@ -70,6 +145,34 @@ ActiveRecord::Schema.define(:version => 20120109194215) do
     t.integer  "family_members_id"
   end
 
+  create_table "personal_assets", :force => true do |t|
+    t.integer  "person_id"
+    t.string   "organization_name"
+    t.boolean  "action"
+    t.date     "date"
+    t.integer  "value_min"
+    t.integer  "value_max"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "personal_assets", ["person_id"], :name => "index_personal_assets_on_person_id"
+
+  create_table "professional_experiences", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "organization_id"
+    t.string   "position"
+    t.date     "date_started"
+    t.date     "date_ended"
+    t.text     "accomplishments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "professional_experiences", ["organization_id"], :name => "index_professional_experiences_on_organization_id"
+  add_index "professional_experiences", ["person_id"], :name => "index_professional_experiences_on_person_id"
+
   create_table "religions", :force => true do |t|
     t.string   "name"
     t.integer  "person_id"
@@ -78,6 +181,18 @@ ActiveRecord::Schema.define(:version => 20120109194215) do
   end
 
   add_index "religions", ["person_id"], :name => "index_religions_on_person_id"
+
+  create_table "transactions", :force => true do |t|
+    t.integer  "person_id"
+    t.string   "organization_name"
+    t.boolean  "action"
+    t.date     "date"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "transactions", ["person_id"], :name => "index_transactions_on_person_id"
 
   create_table "universities", :force => true do |t|
     t.string   "name"
@@ -89,5 +204,18 @@ ActiveRecord::Schema.define(:version => 20120109194215) do
 
   add_index "universities", ["degree_id"], :name => "index_universities_on_degree_id"
   add_index "universities", ["person_id"], :name => "index_universities_on_person_id"
+
+  create_table "videos", :force => true do |t|
+    t.integer  "person_id"
+    t.date     "date"
+    t.string   "title"
+    t.text     "description"
+    t.string   "video_url"
+    t.string   "thumbnail_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "videos", ["person_id"], :name => "index_videos_on_person_id"
 
 end

@@ -44,10 +44,9 @@
   <%= @person.bio %>
 </p>
 <p>
-	<b>Education</b>
-  <%= @person.degrees.each do |degree|
-			
-			end %>
+	<b>Education</b><br />
+  <%= @person.degrees.collect {|x| x.degree_earned}.to_sentence %><br />
+	<%= @person.universities.collect { |y| y.name }.to_sentence %>
 	
 	
 </p>
@@ -57,7 +56,7 @@
 </p>
 <p>
 	<b>Related To</b>
-	<%= @person.family_members.collect { |w| [w.name] } %>
+	<%= @person.family_members.collect { |w| w.name }.to_sentence %>
 </p>
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back to List', people_path %>

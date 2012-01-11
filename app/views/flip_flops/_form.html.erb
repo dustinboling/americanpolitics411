@@ -1,0 +1,33 @@
+<%= form_for(@flip_flop) do |f| %>
+  <% if @flip_flop.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@flip_flop.errors.count, "error") %> prohibited this flip-flop from being saved:</h2>
+
+      <ul>
+      <% @flip_flop.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :person, 'Person ID' %><br />
+    <%= f.select(:person_id, options_for_select(@people.collect {|u| [u.last_name + ", " + u.first_name, u.id]}, @person.id))%>
+  </div>
+  <div class="field">
+    <%= f.label :year, "Year of Flip-flop" %><br />
+    <%= f.date_select(:year, :start_year => 1951, :discard_day => true, :discard_month => true) %>
+  </div>
+  <div class="field">
+    <%= f.label :issue %><br />
+    <%= f.text_field :issue %>
+  </div>
+ <div class="field">
+    <%= f.label :flipflop %><br />
+    <%= f.text_area :flipflop %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

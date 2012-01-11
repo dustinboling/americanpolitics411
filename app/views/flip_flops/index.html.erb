@@ -1,0 +1,29 @@
+<h1>Listing flip_flops</h1>
+
+<table>
+  <tr>
+    <th>Person</th>
+    <th>Year</th>
+    <th>Issue</th>
+    <th>Flipflop</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @flip_flops.each do |flip_flop| %>
+  <tr>
+    <td><%= flip_flop.person_id %></td>
+    <td><%= flip_flop.year %></td>
+    <td><%= flip_flop.issue %></td>
+    <td><%= flip_flop.flipflop %></td>
+    <td><%= link_to 'Show', flip_flop %></td>
+    <td><%= link_to 'Edit', edit_flip_flop_path(flip_flop) %></td>
+    <td><%= link_to 'Destroy', flip_flop, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Flip flop', new_flip_flop_path %>

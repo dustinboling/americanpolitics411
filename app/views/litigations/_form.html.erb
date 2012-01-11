@@ -1,0 +1,37 @@
+<%= form_for(@litigation) do |f| %>
+  <% if @litigation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@litigation.errors.count, "error") %> prohibited this litigation from being saved:</h2>
+
+      <ul>
+      <% @litigation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :person_id %><br />
+    <%= f.select(:person_id, options_for_select(@people.collect {|u| [u.last_name + ", " + u.first_name, u.id]}, @person.id))%>
+  </div>
+	<div class="field">
+    <%= f.label :date, "Year" %><br />
+    <%= f.date_select(:date, :start_year => 1951) %>
+  </div>
+	<div class="field">
+    <%= f.label :litigation %><br />
+    <%= f.text_field :litigation %>
+  </div>
+	<div class="field">
+    <%= f.label :outcome, 'Lost' %><br />
+    <%= f.radio_button :outcome, "0" %>
+  </div>
+	<div class="field">
+    <%= f.label :outcome, 'Won' %><br />
+		<%= f.radio_button :outcome, "1" %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
