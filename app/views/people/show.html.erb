@@ -33,12 +33,6 @@
   <b>Date of death:</b>
   <%= @person.date_of_death %>
 </p>
-
-<p>
-  <b>Title:</b>
-  <%= @person.title %>
-</p>
-
 <p>
   <b>Bio:</b>
   <%= @person.bio %>
@@ -53,8 +47,9 @@
 </p>
 <p>
 	<b>Education:</b><br />
-  <%= @person.degrees.collect {|x| x.degree_earned}.to_sentence %><br />
-	<%= @person.universities.collect { |y| y.name }.to_sentence %>
+  <%= @person.degrees.collect { |x| x.degree_earned }.to_sentence %><br />
+	<%= @person.universities.collect { |u| 
+				"<a href='#{university_path(u)}'>#{u.name}</a>" }.to_sentence.html_safe %>
 </p>
 <p>
 	<b>Endorsements:</b>
@@ -67,13 +62,13 @@
 	<%= @person.religion.name %>
 </p>
 <p>
-	<b>Transactions:</b>
+	<b>Transactions on File:</b>
 	<%= @person.transactions.size %>
 </p>
 <p>
 	<b>Related To:</b>
 	<%= @person.family_members.collect { |w| 
-				"#{w.name} (#{w.relationship})" }.to_sentence %>
+				"<a href='#{person_path(w)}'>#{w.name} (#{w.relationship})</a>" }.to_sentence.html_safe %>
 </p>
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back to List', people_path %>

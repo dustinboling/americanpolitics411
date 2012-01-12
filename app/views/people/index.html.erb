@@ -5,29 +5,21 @@
 <table class="listing">
   <tr class="header">
 		<!-- <th>Person_ID</th> -->
-    <th>First name</th>
-    <th>Middle name</th>
-    <th>Last name</th>
-    <th>Suffix</th>
-    <th>Date of birth</th>
-    <th>Date of death</th>
-    <th>Title</th>
-    <th>Bio</th>
-    <th>Professional Experience</th>
-    <th>Literary Work</th>
+    <th>Name</th>
 		<th>Universities Attended</th>
 		<th>Endorsements</th>
 		<th>Transactions</th>
 		<th>Assets</th>
+		<th>Campaign Platforms</th>
 		<th>Flip-flops</th>
 		<th>Accusations</th>
 		<th>Litigations</th>
 		<th>Degrees Earned</th>
+		<th>Contributors</th>
 		<th>Business Associates</th>
 		<th>Family Members</th>
 		<th>Articles</th>
 		<th>Videos</th>
-		<th>Religion ID</th>
     <th></th>
     <th></th>
     <th></th>
@@ -36,16 +28,7 @@
 <% @people.each do |person| %>
   <tr class="<%= cycle('odd', 'even') %>">
 		<!-- <td><%= person.id %></td> -->
-    <td><%= person.first_name %></td>
-    <td><%= person.middle_name %></td>
-    <td><%= person.last_name %></td>
-    <td><%= person.suffix %></td>
-    <td><%= person.date_of_birth %></td>
-    <td><%= person.date_of_death %></td>
-    <td><%= person.title %></td>
-    <td><%= person.bio %></td>
-		<td><%= person.professional_experience %></td> <!-- note: this has been moved out to a model of its own, if needed -->
-		<td><%= person.literary_work %></td>
+    <td><a href="<%= person_path(person) %>"><%= person.full_name %></a></td>
 		<td>
 			<%= person.universities.collect { |u| 
 							"<a href='#{university_path(u)}'>#{u.name}</a>" }.to_sentence(options = 
@@ -66,6 +49,10 @@
 			<%= link_to('Add', {:controller => 'personal_assets', :action => 'new', :person_id => person.id}) %>
 		</td>
 		<td>
+			<%= person.campaign_platforms.size %>
+			<%= link_to('Add', {:controller => 'campaign_platforms', :action => 'new', :person_id => person.id}) %>
+		</td>
+		<td>
 			<%= person.flip_flops.size %>
 			<%= link_to('Add', {:controller => 'flip_flops', :action => 'new', :person_id => person.id}) %>
 		</td>
@@ -82,23 +69,27 @@
 			<%= link_to('Add', {:controller => 'degrees', :action => 'new', :person_id => person.id}) %>
 		</td>
 		<td>
+			<%= person.contributors.size %>
+			<%= link_to('Add', {:controller => 'contributors', :action => 'new', :person_id => person.id}) %>
+		</td>
+		<td>
 			<%= person.business_associates.size %>
 			<%= link_to('Add', {:controller => 'business_associates', :action => 'new', :person_id => person.id}) %>
 		</td>
 		<td>
-			<%= person.family_members.size %>
+			<%= person.family_members.collect { |fm| fm.name }.to_sentence %><br />
 			<%= link_to('Add', {:controller => 'family_members', :action => 'new', :person_id => person.id}) %>
 		</td>
 		<td>
-			<%= person.articles.size %>
+			<%= person.articles.collect { |a| 
+						"<a href='#{article_path(a)}'>#{a.title}</a>" }.to_sentence.html_safe %><br />
 			<%= link_to('Add', {:controller => 'articles', :action => 'new', :person_id => person.id}) %>
-			<%= link_to("View Articles", {:controller => 'articles', :action => 'list', :person_id => person.id}) %>
+			<!-- <%= link_to("View Articles", {:controller => 'articles', :action => 'list', :person_id => person.id}) %> -->
 		</td>
 		<td>
 			<%= person.videos.size  %>
 			<%= link_to('Add', {:controller => 'videos', :action => 'new', :person_id => person.id}) %>
 		</td>
-		<td><%= person.religion_id %></td>
     <td><%= link_to 'Show', person, :class => 'button show' %></td>
     <td><%= link_to 'Edit', edit_person_path(person), :class => 'button edit' %></td>
     <td><%= link_to 'Destroy', person, confirm: 'Are you sure?', method: :delete, :class => 'button delete' %></td>

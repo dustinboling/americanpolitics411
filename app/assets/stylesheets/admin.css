@@ -2,6 +2,7 @@ table { border-collapse: collapse; }
 table tr th, table tr td { vertical-align: top; text-align: left; 
   padding: 3px; }
 
+
 .list table { clear: both; width: 100%; }
 .list table tr td { border: 1px solid #999; }
 .show table { clear: both; margin: 0 200px; width: 300px; }

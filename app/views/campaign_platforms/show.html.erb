@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Person:</b>
+  <%= @campaign_platform.person_id %>
+</p>
+
+<p>
+  <b>Campaign year:</b>
+  <%= @campaign_platform.campaign_year %>
+</p>
+
+<p>
+  <b>Topic:</b>
+  <%= @campaign_platform.topic %>
+</p>
+
+<p>
+  <b>Position on issue:</b>
+  <%= @campaign_platform.position_on_issue %>
+</p>
+
+
+<%= link_to 'Edit', edit_campaign_platform_path(@campaign_platform) %> |
+<%= link_to 'Back', campaign_platforms_path %>

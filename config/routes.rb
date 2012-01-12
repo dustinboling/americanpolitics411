@@ -1,8 +1,16 @@
 Politics411::Application.routes.draw do  
   
-  resources :people do
-    resources :articles
-  end
+  match "/people/all" => "people#all"
+  
+  resources :campaign_platforms
+
+  resources :supporters
+
+  resources :contributors
+
+  resources :people 
+  
+  resources :articles
   
   resources :attachments
 
@@ -39,13 +47,6 @@ Politics411::Application.routes.draw do
   resources :universities
   
   resources :degrees
-
-  
-  # resources :universities do
-  #   collection do
-  #     get 'new2'
-  #   end
-  # end
     
   root :to => "people#index"
   

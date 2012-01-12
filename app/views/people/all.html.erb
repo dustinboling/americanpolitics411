@@ -1,0 +1,5 @@
+<h3>All People</h3>
+
+<% @people.each do |person| %>
+		<a href="<%= person_path(person) %>"><%= person.first_name + " " + person.last_name %></a><br />
+<% end %>

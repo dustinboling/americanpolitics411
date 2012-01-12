@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120111232458) do
+ActiveRecord::Schema.define(:version => 20120112222614) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -56,6 +56,28 @@ ActiveRecord::Schema.define(:version => 20120111232458) do
 
   add_index "business_associates", ["organization_id"], :name => "index_business_associates_on_organization_id"
   add_index "business_associates", ["person_id"], :name => "index_business_associates_on_person_id"
+
+  create_table "campaign_platforms", :force => true do |t|
+    t.integer  "person_id"
+    t.date     "campaign_year"
+    t.string   "topic"
+    t.string   "position_on_issue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "campaign_platforms", ["person_id"], :name => "index_campaign_platforms_on_person_id"
+
+  create_table "contributors", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "organization_id"
+    t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contributors", ["organization_id"], :name => "index_contributors_on_organization_id"
+  add_index "contributors", ["person_id"], :name => "index_contributors_on_person_id"
 
   create_table "degrees", :force => true do |t|
     t.integer  "university_id"
@@ -125,7 +147,6 @@ ActiveRecord::Schema.define(:version => 20120111232458) do
     t.string   "suffix"
     t.date     "date_of_birth"
     t.date     "date_of_death"
-    t.string   "title"
     t.text     "bio"
     t.integer  "position"
     t.datetime "created_at"
@@ -190,6 +211,16 @@ ActiveRecord::Schema.define(:version => 20120111232458) do
   end
 
   add_index "religions", ["person_id"], :name => "index_religions_on_person_id"
+
+  create_table "supporters", :force => true do |t|
+    t.string   "group_name"
+    t.string   "support_percentage"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "supporters", ["person_id"], :name => "index_supporters_on_person_id"
 
   create_table "transactions", :force => true do |t|
     t.integer  "person_id"

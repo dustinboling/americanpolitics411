@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Person:</b>
+  <%= @contributor.person_id %>
+</p>
+
+<p>
+  <b>Organization:</b>
+  <%= @contributor.organization_id %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @contributor.amount %>
+</p>
+
+
+<%= link_to 'Edit', edit_contributor_path(@contributor) %> |
+<%= link_to 'Back', contributors_path %>

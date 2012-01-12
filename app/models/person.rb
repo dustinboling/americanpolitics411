@@ -14,13 +14,15 @@ class Person < ActiveRecord::Base
   has_many :litigations
   has_many :transactions
   has_many :personal_assets
+  has_many :contributors
+  has_many :campaign_platforms
   
   validates_presence_of :first_name, :last_name, :date_of_birth, :religion
   
   scope :sorted, order('people.person_id ASC')
   
-  def name
-    "#{first_name} #{last_name}"
+  def full_name
+    "#{first_name} #{middle_name} #{last_name}"
   end
   
 end

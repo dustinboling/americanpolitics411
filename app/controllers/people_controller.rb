@@ -4,6 +4,18 @@ class PeopleController < ApplicationController
   
   layout 'admin'
   
+  # GET /all
+  # GET /all.json
+  def all
+    @people = Person.order("people.id ASC")
+    
+    respond_to do |format|
+      format.html # all.html.erb
+      format.json { render json: @people}
+      format.xml { render xml: @people }
+    end
+  end
+  
   # GET /people
   # GET /people.json
   def index

@@ -1,0 +1,29 @@
+<%= form_for(@contributor) do |f| %>
+  <% if @contributor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contributor.errors.count, "error") %> prohibited this contributor from being saved:</h2>
+
+      <ul>
+      <% @contributor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<div class="field">
+    <%= f.label :person_id %><br />
+    <%= f.select(:person_id, options_for_select(@people.collect {|u| [u.last_name + ", " + u.first_name, u.id]}, @person.id))%>
+  </div>
+  <div class="field">
+    <%= f.label :organization %><br />
+    <%= f.select(:organization_id, @organizations.collect {|t| [t.name]}, :include_blank => true, :selected => nil) %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br />
+    <%= f.number_field :amount %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
