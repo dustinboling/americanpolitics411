@@ -47,8 +47,7 @@ class TransactionsController < ApplicationController
   # POST /transactions.json
   def create
     @transaction = Transaction.new(params[:transaction])
-    @organizations = Organization.order('id ASC')
-
+    
     respond_to do |format|
       if @transaction.save
         format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
