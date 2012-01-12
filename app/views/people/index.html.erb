@@ -46,7 +46,13 @@
     <td><%= person.bio %></td>
 		<td><%= person.professional_experience %></td> <!-- note: this has been moved out to a model of its own, if needed -->
 		<td><%= person.literary_work %></td>
-		<td><%= person.universities.collect {|x| x.name}.to_sentence(options = {:two_words_connector => "<br />", :last_word_connector => "<br />", :words_connector => "<br />"}).html_safe %></td>
+		<td>
+			<%= person.universities.collect { |u| 
+							"<a href='#{university_path(u)}'>#{u.name}</a>" }.to_sentence(options = 
+									{ :two_words_connector => "<br />", 
+										:last_word_connector => "<br />", 
+										:words_connector => "<br />"}).html_safe %>
+		</td>
 		<td>
 			<%= person.endorsements.size %>
 			<%= link_to('Add', {:controller => 'endorsements', :action => 'new', :person_id => person.id}) %>
@@ -73,7 +79,6 @@
 		</td>
 		<td>
 			<%= person.degrees.size %> 
-			<%= link_to('Show', {:controller => 'degrees', :action => 'index', :person_id => person.id}) %>
 			<%= link_to('Add', {:controller => 'degrees', :action => 'new', :person_id => person.id}) %>
 		</td>
 		<td>
@@ -86,7 +91,8 @@
 		</td>
 		<td>
 			<%= person.articles.size %>
-			<%= link_to('Add', {:controller => 'articles', :action => 'new', :person_id=> person.id}) %>
+			<%= link_to('Add', {:controller => 'articles', :action => 'new', :person_id => person.id}) %>
+			<%= link_to("View Articles", {:controller => 'articles', :action => 'list', :person_id => person.id}) %>
 		</td>
 		<td>
 			<%= person.videos.size  %>

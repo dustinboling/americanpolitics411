@@ -2,6 +2,8 @@ class ArticlesController < ApplicationController
   
   layout 'admin'
   
+  before_filter :find_person
+  
   # GET /articles
   # GET /articles.json
   def index
@@ -22,6 +24,10 @@ class ArticlesController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @article }
     end
+  end
+  
+  def list
+    @articles = Article.where(:person_id => @person.id)
   end
 
   # GET /articles/new
@@ -85,4 +91,13 @@ class ArticlesController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  private
+  
+  def find_person
+    if params[:person_id]
+      @person = Person.find_by_id(params[:person_id])
+    end
+  end
+  
 end

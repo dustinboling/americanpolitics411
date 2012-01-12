@@ -21,15 +21,11 @@
   </div>
 	<div class="field">
     <%= f.label :litigation %><br />
-    <%= f.text_field :litigation %>
+    <%= f.text_area :litigation %>
   </div>
 	<div class="field">
-    <%= f.label :outcome, 'Lost' %><br />
-    <%= f.radio_button :outcome, "0" %>
-  </div>
-	<div class="field">
-    <%= f.label :outcome, 'Won' %><br />
-		<%= f.radio_button :outcome, "1" %>
+    <%= f.label :outcome %><br />
+    <%= f.text_area :outcome %>
   </div>
   <div class="actions">
     <%= f.submit %>

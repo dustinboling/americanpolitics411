@@ -1,4 +1,4 @@
-<% @page_title = "Show Person: #{@person.first_name} #{@person.middle_name} #{@person.last_name}" %>
+<% @page_title = "#{@person.first_name} #{@person.middle_name} #{@person.last_name}" %>
 
 <p id="notice"><%= notice %></p>
 
@@ -44,19 +44,36 @@
   <%= @person.bio %>
 </p>
 <p>
-	<b>Education</b><br />
-  <%= @person.degrees.collect {|x| x.degree_earned}.to_sentence %><br />
-	<%= @person.universities.collect { |y| y.name }.to_sentence %>
-	
-	
+	<b>Professional Experience:</b>
+	<%= @person.professional_experience %>
 </p>
 <p>
-	<b>Religion</b>
+	<b>Literary Work:</b>
+	<%= @person.literary_work %>
+</p>
+<p>
+	<b>Education:</b><br />
+  <%= @person.degrees.collect {|x| x.degree_earned}.to_sentence %><br />
+	<%= @person.universities.collect { |y| y.name }.to_sentence %>
+</p>
+<p>
+	<b>Endorsements:</b>
+	<%= @person.endorsements.collect { |e| 
+				"#{e.organization_name} in #{e.year.year}" }.to_sentence %>
+</p>
+<p>
+<p>
+	<b>Religion:</b>
 	<%= @person.religion.name %>
 </p>
 <p>
-	<b>Related To</b>
-	<%= @person.family_members.collect { |w| w.name }.to_sentence %>
+	<b>Transactions:</b>
+	<%= @person.transactions.size %>
+</p>
+<p>
+	<b>Related To:</b>
+	<%= @person.family_members.collect { |w| 
+				"#{w.name} (#{w.relationship})" }.to_sentence %>
 </p>
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back to List', people_path %>

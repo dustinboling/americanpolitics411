@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120111000732) do
+ActiveRecord::Schema.define(:version => 20120111232458) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
     t.date     "date"
-    t.string   "accusation"
-    t.boolean  "outcome"
+    t.text     "accusation"
+    t.text     "outcome"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -29,13 +29,20 @@ ActiveRecord::Schema.define(:version => 20120111000732) do
     t.string   "title"
     t.text     "excerpt"
     t.string   "article_url"
-    t.string   "pdf_url"
     t.date     "date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "articles", ["person_id"], :name => "index_articles_on_person_id"
+
+  create_table "attachments", :force => true do |t|
+    t.integer  "article_id"
+    t.string   "title"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "business_associates", :force => true do |t|
     t.integer  "organization_id"
@@ -86,7 +93,7 @@ ActiveRecord::Schema.define(:version => 20120111000732) do
   create_table "flip_flops", :force => true do |t|
     t.integer  "person_id"
     t.date     "year"
-    t.string   "issue"
+    t.text     "issue"
     t.text     "flipflop"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -97,8 +104,8 @@ ActiveRecord::Schema.define(:version => 20120111000732) do
   create_table "litigations", :force => true do |t|
     t.integer  "person_id"
     t.date     "date"
-    t.string   "litigation"
-    t.boolean  "outcome"
+    t.text     "litigation"
+    t.text     "outcome"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -155,8 +162,10 @@ ActiveRecord::Schema.define(:version => 20120111000732) do
     t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organization_id"
   end
 
+  add_index "personal_assets", ["organization_id"], :name => "index_personal_assets_on_organization_id"
   add_index "personal_assets", ["person_id"], :name => "index_personal_assets_on_person_id"
 
   create_table "professional_experiences", :force => true do |t|
@@ -190,8 +199,10 @@ ActiveRecord::Schema.define(:version => 20120111000732) do
     t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organization_id"
   end
 
+  add_index "transactions", ["organization_id"], :name => "index_transactions_on_organization_id"
   add_index "transactions", ["person_id"], :name => "index_transactions_on_person_id"
 
   create_table "universities", :force => true do |t|

@@ -27,10 +27,9 @@
     <%= f.label :article_url %><br />
     <%= f.text_field :article_url %>
   </div>
- <div class="field">
-    <%= f.label :pdf_url %><br />
-    <%= f.text_field :pdf_url %>
-  </div>
+	<div class="field">
+		<%= link_to('Add an Attachment', {:controller => 'attachments', :action => 'new', :person_id => @person.id}) %>
+	</div>
   <div class="actions">
     <%= f.submit %>
   </div>

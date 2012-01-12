@@ -19,4 +19,8 @@ class Person < ActiveRecord::Base
   
   scope :sorted, order('people.person_id ASC')
   
+  def name
+    "#{first_name} #{last_name}"
+  end
+  
 end

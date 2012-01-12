@@ -1,4 +1,11 @@
 Politics411::Application.routes.draw do  
+  
+  resources :people do
+    resources :articles
+  end
+  
+  resources :attachments
+
   resources :personal_assets
 
   resources :transactions
@@ -17,8 +24,6 @@ Politics411::Application.routes.draw do
 
   resources :flip_flops
 
-  resources :articles
-
   resources :videos
 
   resources :family_members
@@ -32,8 +37,8 @@ Politics411::Application.routes.draw do
   resources :religions
 
   resources :universities
-  resources :degrees 
-  resources :people
+  
+  resources :degrees
 
   
   # resources :universities do

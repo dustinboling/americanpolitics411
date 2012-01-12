@@ -4,6 +4,7 @@
   <tr>
     <th>Person</th>
     <th>Organization name</th>
+		<th>Organization ID</th>
     <th>Action</th>
     <th>Date</th>
     <th>Value</th>
@@ -16,7 +17,8 @@
   <tr>
     <td><%= transaction.person_id %></td>
     <td><%= transaction.organization_name %></td>
-    <td><%= transaction.action %></td>
+    <td><%= transaction.organization_id %></td>
+		<td><%= transaction.action %></td>
     <td><%= transaction.date %></td>
     <td><%= transaction.value %></td>
     <td><%= link_to 'Show', transaction %></td>
@@ -28,4 +30,4 @@
 
 <br />
 
-<%= link_to 'New Transaction', new_transaction_path %>
+<%= link_to '<< Back to People', people_path %>

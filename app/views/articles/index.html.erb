@@ -6,7 +6,6 @@
     <th>Title</th>
     <th>Excerpt</th>
     <th>Article url</th>
-    <th>Pdf url</th>
     <th>Date</th>
     <th></th>
     <th></th>
@@ -19,7 +18,6 @@
     <td><%= article.title %></td>
     <td><%= article.excerpt %></td>
     <td><%= article.article_url %></td>
-    <td><%= article.pdf_url %></td>
     <td><%= article.date %></td>
     <td><%= link_to 'Show', article %></td>
     <td><%= link_to 'Edit', edit_article_path(article) %></td>
@@ -30,4 +28,4 @@
 
 <br />
 
-<%= link_to 'New Article', new_article_path %>
+<%= link_to '<< Back to People', people_path %>

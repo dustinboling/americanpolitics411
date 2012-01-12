@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :organization %><br />
-    <%= f.select(:organization_name, @organizations.collect {|t| [t.name]}, :prompt => :true) %>
+    <%= f.select(:organization_id, @organizations.collect {|t| [t.name, t.id]}, :prompt => :true) %>
   </div>
   <div class="field">
     <%= f.label :person_id %><br />
@@ -27,12 +27,10 @@
     <%= f.label :value %><br />
     <%= f.text_field :value %>
   </div>
-	<div class="field">
-    <%= f.label :action, 'Sold' %><br />
+	<div class="field radio">
+    <%= f.label :action, 'Sold' %>
     <%= f.radio_button :action, "0" %>
-  </div>
-	<div class="field">
-    <%= f.label :action, 'Purchased' %><br />
+    <%= f.label :action, 'Purchased' %>
 		<%= f.radio_button :action, "1" %>
   </div>
   <div class="actions">

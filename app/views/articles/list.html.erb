@@ -1,0 +1,20 @@
+<table class="listing" summary="Page list">
+  <tr class="header">
+    <th>Title</th>
+    <th>Excerpt</th>
+    <th>Article URL</th>
+    <th>Actions</th>
+  </tr>
+  <% @articles.each do |article| %>
+  <tr>
+    <td><%= article.title %></td>
+    <td><%= article.excerpt %></td>
+    <td><%= article.article_url %></td>
+    <td>
+      <%= link_to("Edit", {:action => 'edit', :id => article.id, :person_id => @person.id}, :class => 'action edit') %>
+      <%= link_to("Delete", {:action => 'delete', :id => article.id, :person_id => @person.id}, :class => 'action delete') %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+</div>
