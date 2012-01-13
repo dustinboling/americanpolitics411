@@ -1,0 +1,33 @@
+<%= form_for(@contributors_interest_group) do |f| %>
+  <% if @contributors_interest_group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contributors_interest_group.errors.count, "error") %> prohibited this contributors_interest_group from being saved:</h2>
+
+      <ul>
+      <% @contributors_interest_group.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<div class="field">
+    <%= f.label :person_id %><br />
+    <%= f.select(:person_id, options_for_select(@people.collect {|u| [u.last_name + ", " + u.first_name, u.id]}, @person.id)) %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br />
+    <%= f.number_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :year %><br />
+    <%= f.date_select :year, :discard_day => :true, :discard_month => true %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

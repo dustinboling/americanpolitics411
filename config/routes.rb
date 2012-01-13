@@ -1,5 +1,17 @@
 Politics411::Application.routes.draw do  
   
+  resources :contributors_interest_group_sectors
+
+  resources :contributors_interest_groups
+
+  resources :contributors_pacs
+
+  resources :political_offices
+
+  resources :earmarks
+
+  resources :sponsored_legislations
+
   match "/people/all" => "people#all"
   
   resources :campaign_platforms

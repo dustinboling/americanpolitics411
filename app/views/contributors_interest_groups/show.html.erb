@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Person:</b>
+  <%= @contributors_interest_group.person_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @contributors_interest_group.name %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @contributors_interest_group.amount %>
+</p>
+
+<p>
+  <b>Year:</b>
+  <%= @contributors_interest_group.year %>
+</p>
+
+
+<%= link_to 'Edit', edit_contributors_interest_group_path(@contributors_interest_group) %> |
+<%= link_to 'Back', contributors_interest_groups_path %>

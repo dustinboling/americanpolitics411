@@ -1,0 +1,33 @@
+<%= form_for(@contributors_pac) do |f| %>
+  <% if @contributors_pac.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contributors_pac.errors.count, "error") %> prohibited this contributors_pac from being saved:</h2>
+
+      <ul>
+      <% @contributors_pac.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :person_id %><br />
+    <%= f.select(:person_id, options_for_select(@people.collect {|u| [u.last_name + ", " + u.first_name, u.id]}, @person.id)) %>
+  </div>
+  <div class="field">
+    <%= f.label :year %><br />
+    <%= f.date_select :year, :discard_day => :true, :discard_month => true %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br />
+    <%= f.number_field :amount %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

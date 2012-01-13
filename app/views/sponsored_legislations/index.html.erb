@@ -1,0 +1,31 @@
+<h1>Listing sponsored_legislations</h1>
+
+<table>
+  <tr>
+    <th>Person</th>
+    <th>Sponsor</th>
+    <th>Bill number</th>
+    <th>Year of congress</th>
+    <th>Url</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sponsored_legislations.each do |sponsored_legislation| %>
+  <tr>
+    <td><%= sponsored_legislation.person_id %></td>
+    <td><%= sponsored_legislation.sponsor %></td>
+    <td><%= sponsored_legislation.bill_number %></td>
+    <td><%= sponsored_legislation.year_of_congress %></td>
+    <td><%= sponsored_legislation.url %></td>
+    <td><%= link_to 'Show', sponsored_legislation %></td>
+    <td><%= link_to 'Edit', edit_sponsored_legislation_path(sponsored_legislation) %></td>
+    <td><%= link_to 'Destroy', sponsored_legislation, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '<< Back to People', people_path %>

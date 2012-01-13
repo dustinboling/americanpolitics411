@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  person_id: 1
+  position: MyString
+  district: MyString
+  office: MyString
+  date_started: 2012-01-13
+  date_finished: 2012-01-13
+
+two:
+  person_id: 1
+  position: MyString
+  district: MyString
+  office: MyString
+  date_started: 2012-01-13
+  date_finished: 2012-01-13

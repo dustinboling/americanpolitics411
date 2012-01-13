@@ -1,0 +1,29 @@
+<h1>Listing contributors_interest_group_sectors</h1>
+
+<table>
+  <tr>
+    <th>Person</th>
+    <th>Name</th>
+    <th>Amount</th>
+    <th>Year</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @contributors_interest_group_sectors.each do |contributors_interest_group_sector| %>
+  <tr>
+    <td><%= contributors_interest_group_sector.person_id %></td>
+    <td><%= contributors_interest_group_sector.name %></td>
+    <td><%= contributors_interest_group_sector.amount %></td>
+    <td><%= contributors_interest_group_sector.year %></td>
+    <td><%= link_to 'Show', contributors_interest_group_sector %></td>
+    <td><%= link_to 'Edit', edit_contributors_interest_group_sector_path(contributors_interest_group_sector) %></td>
+    <td><%= link_to 'Destroy', contributors_interest_group_sector, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '<< Back to People', people_path %>

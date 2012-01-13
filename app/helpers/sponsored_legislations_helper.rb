@@ -1,0 +1,2 @@
+module SponsoredLegislationsHelper
+end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120112222614) do
+ActiveRecord::Schema.define(:version => 20120113222509) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -79,6 +79,39 @@ ActiveRecord::Schema.define(:version => 20120112222614) do
   add_index "contributors", ["organization_id"], :name => "index_contributors_on_organization_id"
   add_index "contributors", ["person_id"], :name => "index_contributors_on_person_id"
 
+  create_table "contributors_interest_group_sectors", :force => true do |t|
+    t.integer  "person_id"
+    t.string   "name"
+    t.integer  "amount"
+    t.date     "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contributors_interest_group_sectors", ["person_id"], :name => "index_contributors_interest_group_sectors_on_person_id"
+
+  create_table "contributors_interest_groups", :force => true do |t|
+    t.integer  "person_id"
+    t.string   "name"
+    t.integer  "amount"
+    t.date     "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contributors_interest_groups", ["person_id"], :name => "index_contributors_interest_groups_on_person_id"
+
+  create_table "contributors_pacs", :force => true do |t|
+    t.integer  "person_id"
+    t.string   "name"
+    t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "year"
+  end
+
+  add_index "contributors_pacs", ["person_id"], :name => "index_contributors_pacs_on_person_id"
+
   create_table "degrees", :force => true do |t|
     t.integer  "university_id"
     t.integer  "person_id"
@@ -90,6 +123,20 @@ ActiveRecord::Schema.define(:version => 20120112222614) do
 
   add_index "degrees", ["person_id"], :name => "index_degrees_on_person_id"
   add_index "degrees", ["university_id"], :name => "index_degrees_on_university_id"
+
+  create_table "earmarks", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "organization_id"
+    t.text     "description"
+    t.string   "sector"
+    t.integer  "amount"
+    t.date     "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "earmarks", ["organization_id"], :name => "index_earmarks_on_organization_id"
+  add_index "earmarks", ["person_id"], :name => "index_earmarks_on_person_id"
 
   create_table "endorsements", :force => true do |t|
     t.integer  "person_id"
@@ -189,6 +236,19 @@ ActiveRecord::Schema.define(:version => 20120112222614) do
   add_index "personal_assets", ["organization_id"], :name => "index_personal_assets_on_organization_id"
   add_index "personal_assets", ["person_id"], :name => "index_personal_assets_on_person_id"
 
+  create_table "political_offices", :force => true do |t|
+    t.integer  "person_id"
+    t.string   "position"
+    t.string   "district"
+    t.string   "office"
+    t.date     "date_started"
+    t.date     "date_finished"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "political_offices", ["person_id"], :name => "index_political_offices_on_person_id"
+
   create_table "professional_experiences", :force => true do |t|
     t.integer  "person_id"
     t.integer  "organization_id"
@@ -211,6 +271,18 @@ ActiveRecord::Schema.define(:version => 20120112222614) do
   end
 
   add_index "religions", ["person_id"], :name => "index_religions_on_person_id"
+
+  create_table "sponsored_legislations", :force => true do |t|
+    t.integer  "person_id"
+    t.boolean  "sponsor"
+    t.string   "bill_number"
+    t.date     "year_of_congress"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sponsored_legislations", ["person_id"], :name => "index_sponsored_legislations_on_person_id"
 
   create_table "supporters", :force => true do |t|
     t.string   "group_name"

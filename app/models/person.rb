@@ -16,6 +16,12 @@ class Person < ActiveRecord::Base
   has_many :personal_assets
   has_many :contributors
   has_many :campaign_platforms
+  has_many :sponsored_legislations
+  has_many :earmarks
+  has_many :political_offices
+  has_many :contributors_pacs
+  has_many :contributors_interest_groups
+  has_many :contributors_interest_group_sectors
   
   validates_presence_of :first_name, :last_name, :date_of_birth, :religion
   
