@@ -1,8 +1,8 @@
 class Person < ActiveRecord::Base
   
+  belongs_to :religion
   has_many :universities, :through => :degrees
   has_many :degrees
-  belongs_to :religion
   has_many :family_members
   has_many :videos
   has_many :articles
