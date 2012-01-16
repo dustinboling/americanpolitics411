@@ -8,6 +8,8 @@ gem 'rails', '3.1.3'
 gem 'pg'
 gem 'json'
 
+gem 'sorcery'
+
 
 
 # Gems used only for assets and not required

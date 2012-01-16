@@ -1,3 +1,6 @@
+.user-nav { position: absolute; right: 40px; top: 20px;}
+.user-nav a { color: #FFF; text-decoration: none; }
+
 table { border-collapse: collapse; }
 table tr th, table tr td { vertical-align: top; text-align: left; 
   padding: 3px; }
