@@ -5,7 +5,7 @@ class Person < ActiveRecord::Base
   has_many :degrees
   
   has_many :family_members
-  accepts_nested_attributes_for :family_members, :allow_destroy => true
+  accepts_nested_attributes_for :family_members, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
   
   has_many :articles
   has_many :flip_flops

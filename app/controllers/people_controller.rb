@@ -62,7 +62,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
     @people = Person.order('id ASC')
     @religions = Religion.order('id ASC')
-    @person.family_members.build
+    
     
   end
 

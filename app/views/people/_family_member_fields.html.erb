@@ -1,0 +1,18 @@
+<div class="fields">
+		<%= f.hidden_field :person_id, :value => @person.id %>
+		
+	<p>
+		<%= f.label :name, "Related to" %><br />
+		<%= f.text_field :name %>
+		<!-- <%= f.select(:name, options_for_select(@people.collect {|r| [r.last_name + ", " + r.first_name]})) %> -->
+	</p>
+  <p>
+    <%= f.label :relationship %><br />
+    <%= f.text_field :relationship %>
+  </p>
+  <p>
+    <%= f.label :notes %><br />
+    <%= f.text_field :notes %>
+  </p>
+	<%= link_to_remove_fields "remove family member", f %>
+</div>

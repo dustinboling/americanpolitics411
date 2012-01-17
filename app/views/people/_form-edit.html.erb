@@ -11,56 +11,13 @@
     </div>
   <% end %>
 
-	<div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :middle_name %><br />
-    <%= f.text_field :middle_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :suffix %><br />
-    <%= f.text_field :suffix %>
-  </div>
-	<div class="field">
-		<%= f.label :religion, 'Religion' %><br />
-		<%= collection_select(:person, :religion_id, Religion.all, :id, :name, {:include_blank => true}) %>
-	</div>
-  <div class="field">
-    <%= f.label :date_of_birth %><br />
-    <%= f.date_select :date_of_birth, :order => [:month, :day, :year], :start_year => 1901 %>
-  </div>
-  <div class="field">
-    <%= f.label :date_of_death %><br />
-    <%= f.date_select :date_of_death, :order => [:month, :day, :year], :start_year => 1851, :include_blank => true, :default => nil %>
-  </div>
-  <div class="field">
-    <%= f.label :bio %><br />
-    <%= f.text_area :bio %>
-  </div>
-  <div class="field">
-    <%= f.label :professional_experience %><br />
-    <%= f.text_area :professional_experience %>
-  </div>
-  <div class="field">
-    <%= f.label :literary_work %><br />
-    <%= f.text_area :literary_work %>
-  </div>
-	<div class="field">
-    <% f.fields_for :family_members do |builder| %><br />
-			<p>
-				<%= builder.label :name, "Name of Family Member" %>
-				<%= builder.select(:name, options_for_select(@people.collect {|r| [r.last_name + ", " + r.first_name]})) %>
-			</p>
-    <% end %>
-  </div>
+	<%= render 'form-personal', :f => f %>
+	
+  <%= f.fields_for :family_members do |builder| %>
+		<%= render 'family_member_fields', :f => builder %>
+  <% end %>
+	<p><%= link_to_add_fields "Add New Family Member", f, :family_members %></p>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
-
