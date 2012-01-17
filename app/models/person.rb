@@ -3,8 +3,10 @@ class Person < ActiveRecord::Base
   belongs_to :religion
   has_many :universities, :through => :degrees
   has_many :degrees
+  
   has_many :family_members
-  has_many :videos
+  accepts_nested_attributes_for :family_members, :allow_destroy => true
+  
   has_many :articles
   has_many :flip_flops
   has_and_belongs_to_many :organizations
@@ -22,10 +24,15 @@ class Person < ActiveRecord::Base
   has_many :contributors_pacs
   has_many :contributors_interest_groups
   has_many :contributors_interest_group_sectors
+  has_many :professional_experiences
+  
+  has_many :person_videos
+  has_many :videos, :through => :person_videos
   
   validates_presence_of :first_name, :last_name, :date_of_birth, :religion
   
   scope :sorted, order('people.person_id ASC')
+  
   
   def full_name
     "#{first_name} #{middle_name} #{last_name}"

@@ -17,3 +17,13 @@ table tr th, table tr td { vertical-align: top; text-align: left;
 
 .odd { background: #ddd; }
 .even { background: none; }
+
+/* people#edit */
+#admin-navigation-side {
+	float: left;
+}
+
+#form-details {
+	float: left;
+	padding-left: 10px;
+}

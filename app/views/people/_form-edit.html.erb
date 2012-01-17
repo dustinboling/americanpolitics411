@@ -1,0 +1,66 @@
+<%= form_for(@person) do |f| %>
+  <% if @person.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+      <ul>
+      <% @person.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :middle_name %><br />
+    <%= f.text_field :middle_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :suffix %><br />
+    <%= f.text_field :suffix %>
+  </div>
+	<div class="field">
+		<%= f.label :religion, 'Religion' %><br />
+		<%= collection_select(:person, :religion_id, Religion.all, :id, :name, {:include_blank => true}) %>
+	</div>
+  <div class="field">
+    <%= f.label :date_of_birth %><br />
+    <%= f.date_select :date_of_birth, :order => [:month, :day, :year], :start_year => 1901 %>
+  </div>
+  <div class="field">
+    <%= f.label :date_of_death %><br />
+    <%= f.date_select :date_of_death, :order => [:month, :day, :year], :start_year => 1851, :include_blank => true, :default => nil %>
+  </div>
+  <div class="field">
+    <%= f.label :bio %><br />
+    <%= f.text_area :bio %>
+  </div>
+  <div class="field">
+    <%= f.label :professional_experience %><br />
+    <%= f.text_area :professional_experience %>
+  </div>
+  <div class="field">
+    <%= f.label :literary_work %><br />
+    <%= f.text_area :literary_work %>
+  </div>
+	<div class="field">
+    <% f.fields_for :family_members do |builder| %><br />
+			<p>
+				<%= builder.label :name, "Name of Family Member" %>
+				<%= builder.select(:name, options_for_select(@people.collect {|r| [r.last_name + ", " + r.first_name]})) %>
+			</p>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

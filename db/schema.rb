@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120113231750) do
+ActiveRecord::Schema.define(:version => 20120116205539) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -220,6 +220,16 @@ ActiveRecord::Schema.define(:version => 20120113231750) do
     t.integer  "family_members_id"
   end
 
+  create_table "person_videos", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "video_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "person_videos", ["person_id"], :name => "index_person_videos_on_person_id"
+  add_index "person_videos", ["video_id"], :name => "index_person_videos_on_video_id"
+
   create_table "personal_assets", :force => true do |t|
     t.integer  "person_id"
     t.string   "organization_name"
@@ -293,6 +303,12 @@ ActiveRecord::Schema.define(:version => 20120113231750) do
   end
 
   add_index "supporters", ["person_id"], :name => "index_supporters_on_person_id"
+
+  create_table "tests", :force => true do |t|
+    t.string   "test1"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "transactions", :force => true do |t|
     t.integer  "person_id"

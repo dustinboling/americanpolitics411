@@ -117,7 +117,7 @@
 			<!-- <%= link_to("View Articles", {:controller => 'articles', :action => 'list', :person_id => person.id}) %> -->
 		</td>
 		<td>
-			<%= person.videos.size  %>
+			<%= person.videos.size %>
 			<%= link_to('Add', {:controller => 'videos', :action => 'new', :person_id => person.id}) %>
 		</td>
     <td><%= link_to 'Show', person, :class => 'button show' %></td>
