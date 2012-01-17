@@ -10,6 +10,8 @@ gem 'json'
 
 gem 'sorcery'
 
+gem 'annotate', '~> 2.4.1.beta' 
+
 # Gems for development mode only. 
 gem 'rspec-rails', :group => [:test, :development]
 group :test do

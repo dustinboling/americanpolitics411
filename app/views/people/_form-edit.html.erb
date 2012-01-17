@@ -1,3 +1,4 @@
+<div id="tabs-1">
 <%= form_for(@person) do |f| %>
   <% if @person.errors.any? %>
     <div id="error_explanation">
@@ -11,13 +12,43 @@
     </div>
   <% end %>
 
-	<%= render 'form-personal', :f => f %>
-	
-  <%= f.fields_for :family_members do |builder| %>
-		<%= render 'family_member_fields', :f => builder %>
+	<%= render 'form-personal', :f => f %>	
+	<%= render 'submit_button', :f => f %>
+
+</div> <!-- /#personal-tab -->
+
+<div id="tabs-2">	
+  <%= f.fields_for :family_members do |family_member| %>
+		<%= render 'family_member_fields', :f => family_member %>
   <% end %>
 	<p><%= link_to_add_fields "Add New Family Member", f, :family_members %></p>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	
+	<%= f.fields_for :business_associates do |business_associate| %>
+		<%= render 'business_associate_fields', :f => business_associate %>
+	<% end %>
+	<p><%= link_to_add_fields "Add New Business Associate", f, :business_associates %></p>
+  <%= render 'submit_button', :f => f %>
+</div> <!-- /#relationships-tab -->
+
+<div id="tabs-3">	
+	<%= f.fields_for :personal_assets do |asset| %>
+		<%= render 'personal_asset_fields', :f => asset %>
+	<% end %>
+	<p><%= link_to_add_fields "Add New Asset", f, :personal_assets %></p>
+	
+	<%= f.fields_for :transactions do |transaction| %>
+		<%= render 'transaction_fields', :f => transaction  %>
+	<% end %>
+	<p><%= link_to_add_fields "Add New Transaction", f, :transactions %>
+	<%= render 'submit_button', :f => f %>
+</div> <!-- /#financial-tab -->
+
+<div id="tabs-4">
+	<%= f.fields_for :degrees do |degree| %>
+		<%= render 'degree_fields', :f => degree %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Degree", f, :degrees %>
+	<%= render 'submit_button', :f => f %>	
+</div>
+
 <% end %>

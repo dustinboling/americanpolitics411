@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: universities
+#
+#  id         :integer         not null, primary key
+#  name       :string(255)
+#  person_id  :integer
+#  degree_id  :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class University < ActiveRecord::Base
   
   has_many :people, :through => :degrees

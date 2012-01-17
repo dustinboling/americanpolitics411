@@ -1,0 +1,20 @@
+<div class="fields">
+	<%= f.hidden_field :person_id, :value => @person.id %>
+	<p>
+	   <%= f.label :organization %><br />
+	   <%= f.select(:organization_id, @organizations.collect {|t| [t.name, t.id]}, :include_blank => true, :selected => nil) %>
+	</p>
+	<p>
+		<%= f.label :full_name, "Name of Business Associate" %><br />
+		<%= f.text_field :full_name %>
+	</p>
+	<p>
+    <%= f.label :business_relationship %><br />
+    <%= f.text_field :business_relationship %>
+  </p>
+  <p>
+    <%= f.label :position %><br />
+    <%= f.text_field :position %>
+  </p>
+	<%= link_to_remove_fields "remove business associate", f %>
+</div>

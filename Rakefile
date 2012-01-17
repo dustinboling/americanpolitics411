@@ -5,3 +5,5 @@
 require File.expand_path('../config/application', __FILE__)
 
 Politics411::Application.load_tasks
+
+ENV['position_in_class']   = "before"

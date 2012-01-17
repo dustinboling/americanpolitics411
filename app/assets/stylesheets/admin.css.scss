@@ -1,0 +1,61 @@
+.user-nav { position: absolute; right: 40px; top: 20px;}
+.user-nav a { color: #FFF; text-decoration: none; }
+
+table { border-collapse: collapse; }
+table tr th, table tr td { vertical-align: top; text-align: left; 
+  padding: 3px; }
+
+
+.list table { clear: both; width: 100%; }
+.list table tr td { border: 1px solid #999; }
+.show table { clear: both; margin: 0 200px; width: 300px; }
+.show table.wide { width: 600px; margin: 0 50px; }
+.show table tr th { white-space: nowrap; padding-right: 5px;}
+.show table tr td { border: 1px solid #666666; }
+.edit table, .new table { margin: 0 auto; }
+
+
+.odd { background: #ddd; }
+.even { background: none; }
+
+/* people#edit */
+#admin-navigation-side {
+	float: left;
+}
+
+#form-details {
+	margin-left: 100px;
+}
+
+/* Vertical Tabs */
+.ui-tabs-vertical { width: 55em; }
+.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: left; width: 350px; }
+
+
+/* Autocomplete */
+ul.ui-autocomplete {
+  position: absolute;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: solid 1px #999;
+  cursor: default;
+  li {
+    background-color: #FFF;
+    border-top: solid 1px #DDD;
+    margin: 0;
+    padding: 0;
+    a {
+      color: #000;
+      display: block;
+      padding: 3px;
+    }
+    a.ui-state-hover, a.ui-state-active {
+      background-color: #FFFCB2;
+    }
+  }
+}

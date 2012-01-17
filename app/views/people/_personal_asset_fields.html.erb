@@ -1,0 +1,32 @@
+<div class="fields">
+	<%= f.hidden_field :person_id, :value => @person.id %>
+	<p>
+			<%= f.label :organization %><br />
+	    <%= f.select(:organization_id, options_for_select(@organizations.collect {|t| [t.name, t.id]}), :include_blank => true, :selected => nil) %>
+	</p>
+	<p>
+    <%= f.label :date, "Year" %><br />
+    <%= f.date_select(:date, :start_year => 1951) %>
+  </p>
+	<p>
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </p>
+  <p>
+    <%= f.label :value_min %><br />
+    <%= f.text_field :value_min %>
+  </p>
+  <p>
+    <%= f.label :value_max %><br />
+    <%= f.text_field :value_max %>
+  </p>
+  <p>
+    <%= f.label :action, 'Sold' %><br />
+    <%= f.radio_button :action, "0" %>
+  </p>
+  <p>
+    <%= f.label :action, 'Purchased' %><br />
+		<%= f.radio_button :action, "1" %>
+  </p>
+	<%= link_to_remove_fields "remove asset", f %>
+</div>
