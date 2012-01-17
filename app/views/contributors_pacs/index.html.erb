@@ -1,0 +1,27 @@
+<h1>Listing contributors_pacs</h1>
+
+<table>
+  <tr>
+    <th>Person</th>
+    <th>Name</th>
+    <th>Amount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @contributors_pacs.each do |contributors_pac| %>
+  <tr>
+    <td><%= contributors_pac.person_id %></td>
+    <td><%= contributors_pac.name %></td>
+    <td><%= contributors_pac.amount %></td>
+    <td><%= link_to 'Show', contributors_pac %></td>
+    <td><%= link_to 'Edit', edit_contributors_pac_path(contributors_pac) %></td>
+    <td><%= link_to 'Destroy', contributors_pac, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '<< Back to People', people_path %>

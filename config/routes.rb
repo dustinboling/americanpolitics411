@@ -1,5 +1,24 @@
 Politics411::Application.routes.draw do  
   
+  get "login" => "sessions#new", :as => "login"
+  get "logout" => "sessions#destroy", :as => "logout"
+  get "signup" => "users#new", :as => "signup"
+  
+  resources :users
+  resources :sessions
+
+  resources :contributors_interest_group_sectors
+
+  resources :contributors_interest_groups
+
+  resources :contributors_pacs
+
+  resources :political_offices
+
+  resources :earmarks
+
+  resources :sponsored_legislations
+
   match "/people/all" => "people#all"
   
   resources :campaign_platforms

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Person:</b>
+  <%= @sponsored_legislation.person_id %>
+</p>
+
+<p>
+  <b>Sponsor:</b>
+  <%= @sponsored_legislation.sponsor %>
+</p>
+
+<p>
+  <b>Bill number:</b>
+  <%= @sponsored_legislation.bill_number %>
+</p>
+
+<p>
+  <b>Year of congress:</b>
+  <%= @sponsored_legislation.year_of_congress %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @sponsored_legislation.url %>
+</p>
+
+
+<%= link_to 'Edit', edit_sponsored_legislation_path(@sponsored_legislation) %> |
+<%= link_to 'Back', sponsored_legislations_path %>

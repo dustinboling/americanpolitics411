@@ -1,0 +1,2 @@
+module ContributorsPacsHelper
+end

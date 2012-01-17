@@ -11,11 +11,17 @@
 		<th>Transactions</th>
 		<th>Assets</th>
 		<th>Campaign Platforms</th>
+		<th>Offices Held</th>
+		<th>Sponsored Legislation</th>
 		<th>Flip-flops</th>
 		<th>Accusations</th>
 		<th>Litigations</th>
 		<th>Degrees Earned</th>
 		<th>Contributors</th>
+		<th>Contributors (PAC)</th>
+		<th>Contributors (IG)</th>
+		<th>Contributors (IG Sectors)
+		<th>Earmarks</th>
 		<th>Business Associates</th>
 		<th>Family Members</th>
 		<th>Articles</th>
@@ -53,6 +59,14 @@
 			<%= link_to('Add', {:controller => 'campaign_platforms', :action => 'new', :person_id => person.id}) %>
 		</td>
 		<td>
+			<%= person.political_offices.size %>
+			<%= link_to('Add', {:controller => 'political_offices', :action => 'new', :person_id => person.id}) %>
+		</td>
+		<td>
+			<%= person.sponsored_legislations.size %>
+			<%= link_to('Add', {:controller => 'sponsored_legislations', :action => 'new', :person_id => person.id}) %>
+		</td>
+		<td>
 			<%= person.flip_flops.size %>
 			<%= link_to('Add', {:controller => 'flip_flops', :action => 'new', :person_id => person.id}) %>
 		</td>
@@ -73,6 +87,22 @@
 			<%= link_to('Add', {:controller => 'contributors', :action => 'new', :person_id => person.id}) %>
 		</td>
 		<td>
+			<%= person.contributors_pacs.size %>
+			<%= link_to('Add', {:controller => 'contributors_pacs', :action => 'new', :person_id => person.id}) %>
+		</td>
+		<td>
+			<%= person.contributors_interest_groups.size %>
+			<%= link_to('Add', {:controller => 'contributors_interest_groups', :action => 'new', :person_id => person.id}) %>
+		</td>
+		<td>
+			<%= person.contributors_interest_group_sectors.size %>
+			<%= link_to('Add', {:controller => 'contributors_interest_group_sectors', :action => 'new', :person_id => person.id}) %>
+		</td>
+		<td>
+			<%= person.earmarks.size %>
+			<%= link_to('Add', {:controller => 'earmarks', :action => 'new', :person_id => person.id}) %>
+		</td>
+		<td>
 			<%= person.business_associates.size %>
 			<%= link_to('Add', {:controller => 'business_associates', :action => 'new', :person_id => person.id}) %>
 		</td>
@@ -87,7 +117,7 @@
 			<!-- <%= link_to("View Articles", {:controller => 'articles', :action => 'list', :person_id => person.id}) %> -->
 		</td>
 		<td>
-			<%= person.videos.size  %>
+			<%= person.videos.size %>
 			<%= link_to('Add', {:controller => 'videos', :action => 'new', :person_id => person.id}) %>
 		</td>
     <td><%= link_to 'Show', person, :class => 'button show' %></td>

@@ -1,0 +1,68 @@
+<ul id="admin-menu">
+	<li><a href="#">Personal</a>
+		<ul>
+			<li><a href="#">Education</a></li>
+					<ul>
+						<li><a href=""></a>Degrees</li>
+					</ul>			
+			</li>
+			<li><a href="">Basic Info</a></li>
+			<li><a href="">Contact Info</a></li>
+			<li><a href="">Literary Work</a></li>
+			<li><a href="">Net Worth</a></li>
+			<li><a href="">Professional Experience</a></li>
+		</ul>
+	</li>
+	<li><a href="#">Relationships</a>
+		<ul>
+			<li><a href="">Family Members</a></li>
+			<li><a href="">Business Associates</a></li>
+		</ul>
+	</li>
+	<li><a href="">Establishment</a>
+		<ul>
+			<li><a href="">Demographics</a></li>
+			<li><a href="">Earmarks</a></li>
+			<li><a href="">Political Offices Held</a></li>
+			<li><a href="">Contributions</a>
+				<ul>
+					<li><a href="">Contributions (Organizaional)</a></li>
+					<li><a href="">Contributions (PAC)</a></li>
+					<li><a href="">Contributions (Interest Group)</a></li>
+					<li><a href="">Contributions (Interest Group - Sector)</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li><a href="">Political</a>
+		<ul>
+			<li><a href="">Voting Behavior</a></li>
+			<li><a href="">Issue Positions</a></li>
+			<li><%= link_to('Add Endorsement', {:controller => 'endorsements', :action => 'new', :person_id => @person.id}) %></li>
+			<li><a href="">Flip Flops</a></li>
+			<li><a href="">Campaign Platforms</a></li>
+		</ul>
+	</li>
+	<li><a href="">Financial</a>
+		<ul>
+			<li><a href="">Assets</a></li>
+			<li><a href="">Transactions</a></li>
+		</ul>
+	</li>
+	<li><a href="">Controversy</a>
+		<ul>
+			<li><a href="">Accusations</a></li>
+			<li><a href="">Litigation</a></li>
+		</ul>
+	</li>
+	<li><a href="">Media</a>
+		<ul>
+			<li><a href="">Add Video</a></li>
+			<li><a href="">Add Article</a></li>
+		</ul>
+	</li>
+	
+		
+		
+			
+			

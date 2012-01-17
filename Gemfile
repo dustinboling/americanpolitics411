@@ -8,6 +8,15 @@ gem 'rails', '3.1.3'
 gem 'pg'
 gem 'json'
 
+gem 'sorcery'
+
+# Gems for development mode only. 
+gem 'rspec-rails', :group => [:test, :development]
+group :test do
+  gem 'factory_girl_rails'
+  gem 'capybara'
+end
+
 
 # Gems used only for assets and not required
 # in production environments by default.

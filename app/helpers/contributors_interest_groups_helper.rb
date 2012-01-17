@@ -1,0 +1,2 @@
+module ContributorsInterestGroupsHelper
+end

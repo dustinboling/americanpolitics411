@@ -1,6 +1,6 @@
 class PeopleController < ApplicationController
   
-  http_basic_authenticate_with :name => "admin", :password => "123456"
+  before_filter :require_login
   
   layout 'admin'
   
@@ -50,7 +50,7 @@ class PeopleController < ApplicationController
   def new
     @person = Person.new
     @religions = Religion.order('id ASC')
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @person }
@@ -60,7 +60,10 @@ class PeopleController < ApplicationController
   # GET /people/1/edit
   def edit
     @person = Person.find(params[:id])
+    @people = Person.order('id ASC')
     @religions = Religion.order('id ASC')
+    @person.family_members.build
+    
   end
 
   # POST /people
@@ -72,7 +75,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to @person, notice: 'Person was successfully created.' }
+        format.html { redirect_to :action => 'edit', :id => @person.id, :notice => 'Person added successfully' }
         format.json { render json: @person, status: :created, location: @person }
       else
         format.html { render action: "new" }
