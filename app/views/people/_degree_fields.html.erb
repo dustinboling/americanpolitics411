@@ -7,7 +7,7 @@
 	</p>
 	<p>
     <%= f.label :year_earned, "Year" %><br />
-    <%= f.date_select(:year_earned, :start_year => 1951) %>
+    <%= f.date_select(:year_earned, :start_year => 1951, :discard_day => true, :discard_month => true) %>
   </p>
 	<p>
     <%= f.label :degree_earned %><br />
