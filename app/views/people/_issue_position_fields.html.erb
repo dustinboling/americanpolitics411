@@ -1,0 +1,16 @@
+<div class="fields">
+	<%= f.hidden_field :person_id, :value => @person.id %>
+	<p>
+    <%= f.label :issue_topic %><br />
+    <%= f.text_field :issue_topic %>
+  </p>
+	<p>
+    <%= f.label :question %><br />
+    <%= f.text_field :question %>
+  </p>
+	<p>
+    <%= f.label :position %><br />
+    <%= f.text_field :position %>
+  </p>
+	<%= link_to_remove_fields "remove issue position", f %>
+</div>

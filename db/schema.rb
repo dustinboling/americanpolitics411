@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120116205539) do
+ActiveRecord::Schema.define(:version => 20120118213213) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -141,11 +141,12 @@ ActiveRecord::Schema.define(:version => 20120116205539) do
   create_table "endorsements", :force => true do |t|
     t.integer  "person_id"
     t.date     "year"
-    t.string   "organization_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organization_id"
   end
 
+  add_index "endorsements", ["organization_id"], :name => "index_endorsements_on_organization_id"
   add_index "endorsements", ["person_id"], :name => "index_endorsements_on_person_id"
 
   create_table "family_members", :force => true do |t|
@@ -169,6 +170,17 @@ ActiveRecord::Schema.define(:version => 20120116205539) do
   end
 
   add_index "flip_flops", ["person_id"], :name => "index_flip_flops_on_person_id"
+
+  create_table "issue_positions", :force => true do |t|
+    t.integer  "person_id"
+    t.string   "issue_topic"
+    t.string   "question"
+    t.string   "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "issue_positions", ["person_id"], :name => "index_issue_positions_on_person_id"
 
   create_table "litigations", :force => true do |t|
     t.integer  "person_id"

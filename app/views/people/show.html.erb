@@ -54,7 +54,7 @@
 <p>
 	<b>Endorsements:</b>
 	<%= @person.endorsements.collect { |e| 
-				"#{e.organization_name} in #{e.year.year}" }.to_sentence %>
+				"#{e.organization_id} in #{e.year.year}" }.to_sentence %>
 </p>
 <p>
 <p>

@@ -12,8 +12,7 @@
     </div>
   <% end %>
 
-	<%= render 'form-personal', :f => f %>	
-	<%= render 'submit_button', :f => f %>
+	<%= render 'form-personal', :f => f %>
 
 </div> <!-- /#personal-tab -->
 
@@ -27,7 +26,6 @@
 		<%= render 'business_associate_fields', :f => business_associate %>
 	<% end %>
 	<p><%= link_to_add_fields "Add New Business Associate", f, :business_associates %></p>
-  <%= render 'submit_button', :f => f %>
 </div> <!-- /#relationships-tab -->
 
 <div id="tabs-3">	
@@ -39,16 +37,30 @@
 	<%= f.fields_for :transactions do |transaction| %>
 		<%= render 'transaction_fields', :f => transaction  %>
 	<% end %>
-	<p><%= link_to_add_fields "Add New Transaction", f, :transactions %>
-	<%= render 'submit_button', :f => f %>
+	<p><%= link_to_add_fields "Add New Transaction", f, :transactions %></p>
 </div> <!-- /#financial-tab -->
 
 <div id="tabs-4">
 	<%= f.fields_for :degrees do |degree| %>
 		<%= render 'degree_fields', :f => degree %>
 	<% end %>
-	<p><%= link_to_add_fields "Add Degree", f, :degrees %>
-	<%= render 'submit_button', :f => f %>	
+	<p><%= link_to_add_fields "Add Degree", f, :degrees %></p>
 </div>
+
+<div id="tabs-5">
+	<%= f.fields_for :endorsements do |endorsement| %>
+		<%= render 'endorsement_fields', :f => endorsement %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Endorsement", f, :endorsements %></p>
+	
+	<%= f.fields_for :issue_positions do |issue_position| %>
+		<%= render 'issue_position_fields', :f => issue_position %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Issue Position", f, :issue_positions %></p>
+	
+</div>
+
+
+<p><%= f.submit %></p>
 
 <% end %>

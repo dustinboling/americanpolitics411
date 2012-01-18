@@ -64,6 +64,7 @@ class PeopleController < ApplicationController
     @religions = Religion.order('id ASC')
     @organizations = Organization.order('id ASC')
     @universities = University.order('id ASC')
+    @person.family_members.build
     
   end
 
@@ -92,8 +93,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.update_attributes(params[:person])
-        format.html { redirect_to :action => 'edit', :id => @person.id }
-        flash[:notice] = "#{@person.full_name} has been updated"
+        format.html { redirect_to @person, :notice => 'Person has been successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

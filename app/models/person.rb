@@ -58,12 +58,17 @@ class Person < ActiveRecord::Base
   accepts_nested_attributes_for :degrees, :reject_if => lambda { |e| e[:degree_earned].blank? }, :allow_destroy => true
   has_many :universities, :through => :degrees
   
+  # maps to edit -> politics
+  has_many :endorsements
+  accepts_nested_attributes_for :endorsements, :reject_if => lambda { |f| f[:organization_id].blank? }, :allow_destroy => true
   
+  has_many :issue_positions
+  accepts_nested_attributes_for :issue_positions, :reject_if => lambda { |g| g[:issue_topic].blank? }, :allow_destroy => true
   
   has_many :articles
   has_many :flip_flops
   has_and_belongs_to_many :organizations
-  has_many :endorsements
+  
   has_many :accusations
   has_many :litigations
   
