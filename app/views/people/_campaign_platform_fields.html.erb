@@ -1,0 +1,16 @@
+<div class="fields">
+	<%= f.hidden_field :person_id, :value => @person.id %>
+	<p>
+    <%= f.label :campaign_year, "Year" %><br />
+    <%= f.date_select(:campaign_year, :start_year => 1951, :discard_day => true, :discard_month => true) %>
+  </p>
+	<p>
+    <%= f.label :topic %><br />
+    <%= f.text_field :topic %>
+  </p>
+	<p>
+    <%= f.label :position_on_issue %><br />
+    <%= f.text_field :position_on_issue %>
+  </p>
+	<%= link_to_remove_fields "remove campaign platform", f %>
+</div>

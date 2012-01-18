@@ -1,0 +1,16 @@
+<div class="fields">
+	<%= f.hidden_field :person_id, :value => @person.id %>
+	<p>
+	   <%= f.label :organization %><br />
+	   <%= f.select(:organization_id, options_for_select(@organizations.collect {|t| [t.name, t.id]}, f.object.organization_id.to_s)) %>
+	</p>
+	<p>
+    <%= f.label :year, "Year" %><br />
+    <%= f.date_select(:year, :start_year => 1951, :discard_day => true, :discard_month => true) %>
+  </p>
+  <p>
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount %>
+  </p>
+	<%= link_to_remove_fields "remove contributor (pac)", f %>
+</div>

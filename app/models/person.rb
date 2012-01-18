@@ -58,33 +58,60 @@ class Person < ActiveRecord::Base
   accepts_nested_attributes_for :degrees, :reject_if => lambda { |e| e[:degree_earned].blank? }, :allow_destroy => true
   has_many :universities, :through => :degrees
   
-  # maps to edit -> politics
+  # maps to edit -> political
   has_many :endorsements
   accepts_nested_attributes_for :endorsements, :reject_if => lambda { |f| f[:organization_id].blank? }, :allow_destroy => true
   
   has_many :issue_positions
   accepts_nested_attributes_for :issue_positions, :reject_if => lambda { |g| g[:issue_topic].blank? }, :allow_destroy => true
-  
-  has_many :articles
+
   has_many :flip_flops
-  has_and_belongs_to_many :organizations
+  accepts_nested_attributes_for :flip_flops, :allow_destroy => true
   
+  has_many :campaign_platforms
+  accepts_nested_attributes_for :campaign_platforms, :reject_if => lambda { |h| h[:topic].blank? }, :allow_destroy => true
+  
+  # maps to edit -> controversy
   has_many :accusations
-  has_many :litigations
+  accepts_nested_attributes_for :accusations, :allow_destroy => true
   
+  has_many :litigations
+  accepts_nested_attributes_for :litigations, :allow_destroy => true
+  
+  # maps to edit -> establishment
+  has_many :political_offices
+  accepts_nested_attributes_for :political_offices, :allow_destroy => true
   
   has_many :contributors
-  has_many :campaign_platforms
-  has_many :sponsored_legislations
+  accepts_nested_attributes_for :contributors, :allow_destroy => true
+  
   has_many :earmarks
-  has_many :political_offices
+  accepts_nested_attributes_for :earmarks, :allow_destroy => true
+  
   has_many :contributors_pacs
+  accepts_nested_attributes_for :contributors_pacs, :allow_destroy => true
+  
   has_many :contributors_interest_groups
+  accepts_nested_attributes_for :contributors_interest_groups, :allow_destroy => true
+  
   has_many :contributors_interest_group_sectors
+  accepts_nested_attributes_for :contributors_interest_group_sectors, :allow_destroy => true
+   
+  # maps to edit -> attachments
+  has_many :person_videos
+  # has_many :videos, :through => :person_videos
+  has_many :videos
+  accepts_nested_attributes_for :videos, :allow_destroy => true
+  
+  has_many :articles
+  accepts_nested_attributes_for :articles, :allow_destroy => true
+  
+  # ! not part of nested form (yet) !
+  has_and_belongs_to_many :organizations
+  has_many :sponsored_legislations
   has_many :professional_experiences
   
-  has_many :person_videos
-  has_many :videos, :through => :person_videos
+
   
   validates_presence_of :first_name, :last_name, :date_of_birth, :religion
   

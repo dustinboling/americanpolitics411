@@ -58,6 +58,61 @@
 	<% end %>
 	<p><%= link_to_add_fields "Add Issue Position", f, :issue_positions %></p>
 	
+	<%= f.fields_for :flip_flops do |flip_flop| %>
+		<%= render 'flip_flop_fields', :f => flip_flop %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Flip Flop", f, :flip_flops %></p>
+	
+	<%= f.fields_for :campaign_platforms do |campaign_platform| %>
+		<%= render 'campaign_platform_fields', :f => campaign_platform %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Campaign Platform", f, :campaign_platforms %></p>
+</div>
+
+<div id="tabs-6">
+	<%= f.fields_for :accusations do |accusation| %>
+		<%= render 'accusation_fields', :f => accusation %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Accusation", f, :accusations %></p>
+	
+	<%= f.fields_for :litigations do |litigation| %>
+		<%= render 'litigation_fields', :f => litigation %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Litigation", f, :litigations %></p>
+</div>
+
+<div id="tabs-7">
+	<%= f.fields_for :contributors do |contributor| %>
+		<%= render 'contributor_fields', :f => contributor %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Contributor", f, :contributors %></p>
+	
+	<%= f.fields_for :contributors_interest_groups do |contributor_ig| %>
+		<%= render 'contributors_interest_group_fields', :f => contributor_ig %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Contributor (Interest Group)", f, :contributors_interest_groups %></p>
+	
+	<%= f.fields_for :contributors_interest_group_sectors do |contributor_igs| %>
+		<%= render 'contributors_interest_group_sector_fields', :f => contributor_igs %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Contributor (Interest Group Sector)", f, :contributors_interest_group_sectors %></p>
+	
+	<%= f.fields_for :contributors_pacs do |contributor_pac| %>
+		<%= render 'contributors_pac_fields', :f => contributor_pac %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Contributor (PAC)", f, :contributors_pacs %></p>
+</div>
+
+<div id="tabs-8">
+	<%= f.fields_for :articles do |article| %>
+		<%= render 'article_fields', :f => article %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Article", f, :articles %></p>
+	
+	<%= f.fields_for :videos do |video| %>
+		<%= render 'video_fields', :f => video %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Contributor (PAC)", f, :videos %></p>
 </div>
 
 
