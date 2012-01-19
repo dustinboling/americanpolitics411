@@ -62,9 +62,9 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
     @people = Person.order('id ASC')
     @religions = Religion.order('id ASC')
-    @organizations = Organization.order('id ASC')
-    @universities = University.order('id ASC')
-    @person.family_members.build
+    @organizations = Organization.find (:all)
+    @universities = University.find(:all)
+
     
   end
 

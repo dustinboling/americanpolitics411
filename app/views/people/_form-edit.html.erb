@@ -17,7 +17,7 @@
 </div> <!-- /#personal-tab -->
 
 <div id="tabs-2">	
-  <%= f.fields_for :family_members do |family_member| %>
+  <%= f.fields_for(:family_members, @person.family_members) do |family_member| %>
 		<%= render 'family_member_fields', :f => family_member %>
   <% end %>
 	<p><%= link_to_add_fields "Add New Family Member", f, :family_members %></p>
@@ -114,7 +114,6 @@
 	<% end %>
 	<p><%= link_to_add_fields "Add Contributor (PAC)", f, :videos %></p>
 </div>
-
 
 <p><%= f.submit %></p>
 
