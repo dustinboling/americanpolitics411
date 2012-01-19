@@ -12,10 +12,14 @@
   <b>Date of birth:</b>
   <%= @person.date_of_birth %>
 </p>
-<p>
-  <b>Date of death:</b>
-  <%= @person.date_of_death %>
-</p>
+
+<% if !@person.date_of_death.nil? %>
+	<p>
+	  <b>Date of death:</b>
+	  <%= @person.date_of_death %>
+	</p>
+<% end %>
+
 <p>
   <b>Bio:</b>
   <%= @person.bio %>
@@ -30,9 +34,12 @@
 </p>
 <p>
 	<b>Education:</b><br />
-  <%= @person.degrees.collect { |x| x.degree_earned }.to_sentence %><br />
+  <%= @person.degrees.collect { |x| x.degree_earned }.first %> from
 	<%= @person.universities.collect { |u| 
-				"<a href='#{university_path(u)}'>#{u.name}</a>" }.to_sentence.html_safe %>
+				"<a href='#{university_path(u)}'>#{u.name}</a>" }.first.html_safe %><br />
+	<%= @person.degrees.collect { |x| x.degree_earned }.second %> from
+	<%= @person.universities.collect { |u| 
+				"<a href='#{university_path(u)}'>#{u.name}</a>" }.second.html_safe %><br />
 </p>
 <p>
 	<b>Endorsements:</b>
@@ -45,7 +52,7 @@
 	<%= @person.religion.name %>
 </p>
 <p>
-	<b>Transactions on File:</b>
+	<b>Transactions:</b>
 	<%= @person.transactions.size %>
 </p>
 <p>
