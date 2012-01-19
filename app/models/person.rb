@@ -117,6 +117,10 @@ class Person < ActiveRecord::Base
   
   scope :sorted, order('people.person_id ASC')
   
+  # use slugs for urls
+  def to_param
+    "#{id} #{full_name}".parameterize
+  end
   
   def full_name
     if !suffix.blank?

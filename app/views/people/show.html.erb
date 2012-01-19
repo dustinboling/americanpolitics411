@@ -1,5 +1,7 @@
 <% @page_title = "#{@person.first_name} #{@person.middle_name} #{@person.last_name}" %>
 
+<%= render 'public-navigation-side' %>
+
 <p id="notice"><%= notice %></p>
 
 <h1><%= @person.first_name %> <%= @person.last_name %></h1>
@@ -32,6 +34,8 @@
 	<b>Literary Work:</b>
 	<%= @person.literary_work %>
 </p>
+</div>
+
 <p>
 	<b>Education:</b><br />
   <%= @person.degrees.collect { |x| x.degree_earned }.first %> from
@@ -60,5 +64,6 @@
 	<%= @person.family_members.collect { |w| 
 				"<a href='#{person_path(w)}'>#{w.name} (#{w.relationship})</a>" }.to_sentence.html_safe %>
 </p>
+
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back to List', people_path %>
