@@ -1,0 +1,24 @@
+<div class="fields">
+	<%= f.hidden_field :person_id, :value => @person.id %>
+	<p>
+    <%= f.label :position %><br />
+    <%= f.text_field :position %>
+  </p>
+	<p>
+    <%= f.label :district %><br />
+    <%= f.text_field :district %>
+  </p>
+	<p>
+    <%= f.label :office %><br />
+    <%= f.text_field :office %>
+  </p>
+	<p>
+    <%= f.label :date_started, "Year" %><br />
+    <%= f.date_select(:date_started, :start_year => 1951) %>
+  </p>
+	<p>
+    <%= f.label :date_finished, "Year" %><br />
+    <%= f.date_select(:date_finished, :start_year => 1951) %>
+  </p>
+	<%= link_to_remove_fields "remove flip flop", f %>
+</div>

@@ -82,11 +82,14 @@ class Person < ActiveRecord::Base
   has_many :political_offices
   accepts_nested_attributes_for :political_offices, :allow_destroy => true
   
-  has_many :contributors
-  accepts_nested_attributes_for :contributors, :allow_destroy => true
-  
   has_many :earmarks
   accepts_nested_attributes_for :earmarks, :allow_destroy => true
+  
+  has_many :supporters
+  accepts_nested_attributes_for :supporters, :allow_destroy => true
+  
+  has_many :contributors
+  accepts_nested_attributes_for :contributors, :allow_destroy => true
   
   has_many :contributors_pacs
   accepts_nested_attributes_for :contributors_pacs, :allow_destroy => true

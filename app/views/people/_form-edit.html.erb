@@ -82,6 +82,21 @@
 </div>
 
 <div id="tabs-7">
+	<%= f.fields_for :political_offices do |political_office| %>
+		<%= render 'political_office_fields', :f => political_office %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Political Office", f, :political_offices %></p>
+	
+	<%= f.fields_for :earmarks do |earmark| %>
+		<%= render 'earmark_fields', :f => earmark %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Earmark", f, :earmarks %></p>
+	
+	<%= f.fields_for :supporters do |supporter| %>
+		<%= render 'supporter_fields', :f => supporter %>
+	<% end %>
+	<p><%= link_to_add_fields "Add Support Demographic", f, :supporters %></p>
+	
 	<%= f.fields_for :contributors do |contributor| %>
 		<%= render 'contributor_fields', :f => contributor %>
 	<% end %>

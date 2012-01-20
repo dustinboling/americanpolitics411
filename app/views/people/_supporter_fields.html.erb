@@ -1,0 +1,12 @@
+<div class="fields">
+	<%= f.hidden_field :person_id, :value => @person.id %>
+	<p>
+		<%= f.label :group_name %><br />
+		<%= f.text_field :group_name %>
+	</p>
+	<p>
+    <%= f.label :support_percentage %><br />
+    <%= f.text_field :support_percentage %>
+  </p>
+	<%= link_to_remove_fields "remove support demographic", f %>
+</div>

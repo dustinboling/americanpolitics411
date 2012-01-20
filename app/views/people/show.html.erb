@@ -121,6 +121,30 @@
 
 <h3>Establishment</h3>
 <p>
+	<b>Political Offices Held:</b>
+	<%= @person.political_offices.collect { |political_office| 
+				"<br />Position: #{political_office.position}<br />
+				District: #{political_office.district}<br />
+				Office: #{political_office.office}<br />
+				Date Started: #{political_office.date_started}<br />
+				Date Finished: #{political_office.date_finished}<br />"}.to_sentence.html_safe %>
+</p>
+<p>
+	<b>Earmarks:</b>
+	<%= @person.earmarks.collect { |earmark| 
+				"<br />Organization: #{Organization.find(earmark.organization_id).name}<br />
+				Description: #{earmark.description}<br />
+				Sector: #{earmark.sector}<br />
+				Amount: #{earmark.amount}<br />
+				Year: #{earmark.year.year}<br />"}.to_sentence.html_safe %>
+</p>
+<p>
+	<b>Demographics:</b>
+	<%= @person.supporters.collect { |supporter| 
+				"<br />Demographic: #{supporter.demographic}<br />
+				Percentage: #{supporter.support_percentage}"}.to_sentence.html_safe %>
+</p>
+<p>
 	<b>Contributors:</b>
 	<%= @person.contributors.collect { |contributor| 
 				"<br />Organization: #{Organization.find(contributor.organization_id).name}<br />
