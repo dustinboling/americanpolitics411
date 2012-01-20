@@ -12,6 +12,8 @@ gem 'sorcery'
 
 gem 'annotate', '~> 2.4.1.beta' 
 
+gem 'nokogiri'
+
 gem 'ruby-debug19', :require => 'ruby-debug'
 
 # Gems for development mode only. 

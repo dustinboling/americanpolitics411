@@ -1,5 +1,7 @@
 Politics411::Application.routes.draw do  
   
+  get "legislation/grab_xml"
+
   get "login" => "sessions#new", :as => "login"
   get "logout" => "sessions#destroy", :as => "logout"
   get "signup" => "users#new", :as => "signup"
