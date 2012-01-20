@@ -1,11 +1,16 @@
 <% @page_title = "#{@person.first_name} #{@person.middle_name} #{@person.last_name}" %>
 
-<%= render 'public-navigation-side' %>
+<div id="public-navigation-side">
+	<%= render 'public-navigation-side' %>
+</div>
 
+<div id="profile">
 <p id="notice"><%= notice %></p>
 
 <h1><%= @person.first_name %> <%= @person.last_name %></h1>
+<img src="<%= @person.photo_url %>"></img>
 
+<h3>Basic Info</h3>
 <p>
 	<b>Name:</b>
 	<%= @person.full_name %>
@@ -27,15 +32,9 @@
   <%= @person.bio %>
 </p>
 <p>
-	<b>Professional Experience:</b>
-	<%= @person.professional_experience %>
+	<b>Religion:</b>
+	<%= @person.religion.name %>
 </p>
-<p>
-	<b>Literary Work:</b>
-	<%= @person.literary_work %>
-</p>
-</div>
-
 <p>
 	<b>Education:</b><br />
   <%= @person.degrees.collect { |x| x.degree_earned }.first %> from
@@ -46,18 +45,19 @@
 				"<a href='#{university_path(u)}'>#{u.name}</a>" }.second.html_safe %><br />
 </p>
 <p>
-	<b>Endorsements:</b>
-	<%= @person.endorsements.collect { |e| 
-				"#{e.organization_id} in #{e.year.year}" }.to_sentence %>
+	<b>Professional Experience:</b>
+	<%= @person.professional_experience %>
 </p>
 <p>
-<p>
-	<b>Religion:</b>
-	<%= @person.religion.name %>
+	<b>Literary Work:</b>
+	<%= @person.literary_work %>
 </p>
+
+<h3>Relationships</h3>
 <p>
-	<b>Transactions:</b>
-	<%= @person.transactions.size %>
+	<b>Business Associates</b>
+	<%= @person.business_associates.collect { |ba| 
+				"#{ba.full_name} @ <a href='/organizations/#{ba.organization_id}'>#{Organization.find(ba.organization_id).name}</a>" }.to_sentence.html_safe %>	
 </p>
 <p>
 	<b>Related To:</b>
@@ -65,5 +65,109 @@
 				"<a href='#{person_path(w)}'>#{w.name} (#{w.relationship})</a>" }.to_sentence.html_safe %>
 </p>
 
+<h3>Transactions</h3>
+<p>
+	<b>Assets</b>
+	<%= @person.personal_assets.size %>
+</p>
+<p>
+	<b>Transactions:</b>
+	<%= @person.transactions.size %>
+</p>
+
+<h3>Political</h3>
+<p>
+	<b>Endorsements:</b>
+	<%= @person.endorsements.collect { |e| 
+				"#{e.organization_id} in #{e.year.year}" }.to_sentence %>
+</p>
+<p>
+	<b>Issue Positions:</b>
+	<%= @person.issue_positions.collect { |i| 
+				"<br />Issue Topic: #{i.issue_topic}<br />
+				 Question: #{i.question}<br/>
+				 Position: #{i.position}<br /"}.to_sentence.html_safe %>
+</p>
+<p>
+	<b>Flip Flops:</b>
+	<%= @person.flip_flops.collect { |f|
+		 		"<br />Year: #{f.year.year}<br />
+				 Issue: #{f.issue}<br />
+				 Flip-flop: #{f.flipflop}<br />" }.to_sentence.html_safe %>
+</p>
+<p>
+	<b>Campaign Platforms:</b>
+	<%= @person.campaign_platforms.collect { |c| 
+				"<br />Year: #{c.campaign_year.year}<br />
+				 Topic: #{c.topic}<br />
+				 Position #{c.position_on_issue}<br />"}.to_sentence.html_safe %>
+</p>
+
+<h3>Controversy</h3>
+<p>	
+	<b>Accusations:</b>
+	<%= @person.accusations.collect { |a| 
+				"<br />Year: #{a.date.year}<br />
+				 Accusation: #{a.accusation}<br />
+				 Outcome: #{a.outcome}<br />"}.to_sentence.html_safe %>
+</p>
+<p>
+	<b>Litigation:</b>
+	<%= @person.litigations.collect { |l| 
+				"<br />Year: #{l.date.year}<br />
+				 Litigation: #{l.litigation}<br />
+				 Outcome: #{l.outcome}<br />"}.to_sentence.html_safe %>
+</p>
+
+<h3>Establishment</h3>
+<p>
+	<b>Contributors:</b>
+	<%= @person.contributors.collect { |contributor| 
+				"<br />Organization: #{Organization.find(contributor.organization_id).name}<br />
+					Amount: #{contributor.amount}<br />"}.to_sentence.html_safe %>
+</p>
+<p>
+	<b>Contributors (Interest Groups):</b>
+	<%= @person.contributors_interest_groups.collect { |contributor_ig|
+		 		"<br />Year: #{contributor_ig.year.year}<br />
+				Organization: #{Organization.find(contributor_ig.organization_id).name}<br />
+				Amount: #{contributor_ig.amount}<br />"}.to_sentence.html_safe %>
+</p>
+<p>
+	<b>Contributors (Interest Group Sectors):</b>
+	<%= @person.contributors_interest_group_sectors.collect { |contributor_igs|
+				"<br />Year: #{contributor_igs.year.year}<br />
+				Organization: #{Organization.find(contributor_igs.organization_id).name}<br />
+				Amount: #{contributor_igs.amount}<br />"}.to_sentence.html_safe %>
+</p>
+<p>
+	<b>Contributors (PAC):</b>
+	<%= @person.contributors_pacs.collect { |contributor_pac| 
+				"<br />Year: #{contributor_pac.year.year}<br />
+				Organization: #{Organization.find(contributor_pac.organization_id).name}<br />
+				Amount: #{contributor_pac.amount}<br />"}.to_sentence.html_safe %>
+</p>
+
+<h3>Attachments</h3>
+<p>
+	<b>Articles:</b>
+	<%= @person.articles.collect { |article| 
+				"<br />Date: #{article.date}<br />
+				Title: #{article.title}<br />
+				Excerpt: #{article.excerpt}<br />
+				<a href='#{article_url}'>Link</a><br />"}.to_sentence.html_safe %>
+</p>
+<p>
+	<b>Videos:</b>
+	<%= @person.videos.collect { |video| 
+				"<br />Date: #{video.date}<br />
+				Title: #{video.title}<br />
+				Description: #{video.description}<br />
+				Thumb URL: #{video.thumbnail_url}<br />
+				Video URL: #{video.video_url}<br />"}.to_sentence.html_safe %>
+</p>
+
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back to List', people_path %>
+
+</div>
