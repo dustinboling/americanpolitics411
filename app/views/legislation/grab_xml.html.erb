@@ -1,28 +1,29 @@
-<% @title.each do |t| %>
-	<h1><%= t['title'] %></h1>
-<% end %>
+<h1><%= @title %></h1>
 
 <p>
 	<b>Date:</b>
-	<% @date.each do |date| %>
-		<%= date['action-date'] %>
-	<% end %>
+	<%= @date %>
 </p>
-
+<p>
+	<b>Congress:</b>
+	<%= @congress %>
+</p>
+<p>
+	<b>Session:</b>
+	<%= @session %>
+</p>
+<p>
+	<b>Legislation Number:</b>
+	<%= @legis_num %>
+</p>
 <p>
 	<b>Sponsor:</b>
-		<% @sponsors.each do |sponsor| %>
-			<%= sponsor["sponsor"] %>
-		<% end %>
+		<%= @sponsor %>
 </p>
-
 <p>
 	<b>Cosponsors:</b>
-		<% @cosponsors.each do |cosponsor| %>
-			<%= cosponsor['cosponsor'] %>
-		<% end %>
+		<%= @cosponsors %>
 </p>
-
 <p>
 	<b>Committee Name:</b>
 		<% @committee_names.each do |committee| %>
@@ -32,11 +33,8 @@
 
 <p>
 	<b>Body:</b>
-	<% @body.each do |body| %>
-		<%= body['legis-body'] %>
-	<% end %>
+	<%= @body %>
 </p>
-
 <p>
 	<b></b>
 	
