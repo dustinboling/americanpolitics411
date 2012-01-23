@@ -16,4 +16,8 @@ class BusinessAssociate < ActiveRecord::Base
   belongs_to :person
   belongs_to :organization
   
+  def find_organization_name
+    Organization.find(organization_id).name
+  end
+  
 end

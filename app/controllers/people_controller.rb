@@ -38,6 +38,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
     @degrees = Degree.find :all
     @organizations = Organization.find(:all)
+    @universities = University.find(:all)
   
 
     respond_to do |format|

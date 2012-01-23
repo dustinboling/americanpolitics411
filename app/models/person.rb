@@ -1,41 +1,6 @@
-# == Schema Information
-#
-# Table name: people
-#
-#  id                      :integer         not null, primary key
-#  first_name              :string(255)
-#  middle_name             :string(255)
-#  last_name               :string(255)
-#  suffix                  :string(255)
-#  date_of_birth           :date
-#  date_of_death           :date
-#  bio                     :text
-#  position                :integer
-#  created_at              :datetime
-#  updated_at              :datetime
-#  professional_experience :text
-#  literary_work           :text
-#  religion_id             :integer
-#  current_residence       :string(255)
-#  dates_in_office         :text
-#  photo_url               :string(255)
-#  contact_street_address  :string(255)
-#  contact_city            :string(255)
-#  contact_state           :string(255)
-#  contact_zip             :integer
-#  contact_phone           :string(255)
-#  contact_fax             :string(255)
-#  contact_email           :string(255)
-#  contact_web_page_name   :string(255)
-#  contact_web_page_url    :string(255)
-#  net_worth_ranking       :integer
-#  net_worth_minimum       :integer
-#  net_worth_average       :integer
-#  net_worth_maximum       :integer
-#  family_members_id       :integer
-#
-
 class Person < ActiveRecord::Base
+  
+  validates_presence_of :first_name, :last_name, :date_of_birth
   
   belongs_to :religion
   
@@ -114,10 +79,6 @@ class Person < ActiveRecord::Base
   has_many :sponsored_legislations
   has_many :professional_experiences
   
-
-  
-  validates_presence_of :first_name, :last_name, :date_of_birth, :religion
-  
   scope :sorted, order('people.person_id ASC')
   
   # use slugs for urls
@@ -133,5 +94,8 @@ class Person < ActiveRecord::Base
     end
   end
   
+  def find_university_name
+    self.University.find(x.university_id).name
+  end
   
 end

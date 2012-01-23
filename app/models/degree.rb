@@ -22,5 +22,9 @@ class Degree < ActiveRecord::Base
   def university_name=(name)
     self.university = University.find_or_create_by_name(name) if name.present?
   end
+  
+  def find_university_name
+    University.find(university_id).name
+  end
 
 end

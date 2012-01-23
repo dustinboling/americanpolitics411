@@ -37,12 +37,8 @@
 </p>
 <p>
 	<b>Education:</b><br />
-  <%= @person.degrees.collect { |x| x.degree_earned }.first %> from
-	<%= @person.universities.collect { |u| 
-				"<a href='#{university_path(u)}'>#{u.name}</a>" }.first.html_safe %><br />
-	<%= @person.degrees.collect { |x| x.degree_earned }.second %> from
-	<%= @person.universities.collect { |u| 
-				"<a href='#{university_path(u)}'>#{u.name}</a>" }.second.html_safe %><br />
+  <%= @person.degrees.collect { |x| 
+			"#{x.degree_earned} from <a href='/universities/#{x.university_id}'>#{x.find_university_name}</a><br />" }.to_sentence.html_safe %>
 </p>
 <p>
 	<b>Professional Experience:</b>
@@ -55,9 +51,9 @@
 
 <h3>Relationships</h3>
 <p>
-	<b>Business Associates</b>
+	<b>Business Associates:</b>
 	<%= @person.business_associates.collect { |ba| 
-				"#{ba.full_name} @ <a href='/organizations/#{ba.organization_id}'>#{Organization.find(ba.organization_id).name}</a>" }.to_sentence.html_safe %>	
+				"#{ba.full_name} @ <a href='/organizations/#{ba.organization_id}'>#{ba.find_organization_name}</a>" }.to_sentence.html_safe %>	
 </p>
 <p>
 	<b>Related To:</b>
@@ -67,7 +63,7 @@
 
 <h3>Transactions</h3>
 <p>
-	<b>Assets</b>
+	<b>Assets:</b>
 	<%= @person.personal_assets.size %>
 </p>
 <p>
@@ -132,7 +128,7 @@
 <p>
 	<b>Earmarks:</b>
 	<%= @person.earmarks.collect { |earmark| 
-				"<br />Organization: #{Organization.find(earmark.organization_id).name}<br />
+				"<br />Organization: #{earmark.find_organization_name}<br />
 				Description: #{earmark.description}<br />
 				Sector: #{earmark.sector}<br />
 				Amount: #{earmark.amount}<br />
@@ -147,7 +143,7 @@
 <p>
 	<b>Contributors:</b>
 	<%= @person.contributors.collect { |contributor| 
-				"<br />Organization: #{Organization.find(contributor.organization_id).name}<br />
+				"<br />Organization: #{contributor.find_organization_name}<br />
 					Amount: #{contributor.amount}<br />"}.to_sentence.html_safe %>
 </p>
 <p>
