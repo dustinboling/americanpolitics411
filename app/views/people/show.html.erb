@@ -37,8 +37,8 @@
 </p>
 <p>
 	<b>Education:</b><br />
-  <%= @person.degrees.collect { |x| 
-			"#{x.degree_earned} from <a href='/universities/#{x.university_id}'>#{x.find_university_name}</a><br />" }.to_sentence.html_safe %>
+  <%= @person.degrees.collect { |degree| 
+			"#{degree.degree_earned} from <a href='/universities/#{degree.university_id}'>#{degree.find_university_name}</a><br />" }.to_sentence.html_safe %>
 </p>
 <p>
 	<b>Professional Experience:</b>
@@ -52,13 +52,13 @@
 <h3>Relationships</h3>
 <p>
 	<b>Business Associates:</b>
-	<%= @person.business_associates.collect { |ba| 
-				"#{ba.full_name} @ <a href='/organizations/#{ba.organization_id}'>#{ba.find_organization_name}</a>" }.to_sentence.html_safe %>	
+	<%= @person.business_associates.collect { |business_associate| 
+				"#{business_associate.full_name} @ <a href='/organizations/#{business_associate.organization_id}'>#{business_associate.find_organization_name}</a>" }.to_sentence.html_safe %>	
 </p>
 <p>
 	<b>Related To:</b>
-	<%= @person.family_members.collect { |w| 
-				"<a href='#{person_path(w)}'>#{w.name} (#{w.relationship})</a>" }.to_sentence.html_safe %>
+	<%= @person.family_members.collect { |family_member| 
+				"<a href='#{person_path(family_member)}'>#{family_member.name} (#{family_member.relationship})</a>" }.to_sentence.html_safe %>
 </p>
 
 <h3>Transactions</h3>
@@ -74,45 +74,45 @@
 <h3>Political</h3>
 <p>
 	<b>Endorsements:</b>
-	<%= @person.endorsements.collect { |e| 
-				"#{e.organization_id} in #{e.year.year}" }.to_sentence %>
+	<%= @person.endorsements.collect { |endorsement| 
+				"#{endorsement.organization_id} in #{endorsement.year.year}" }.to_sentence %>
 </p>
 <p>
 	<b>Issue Positions:</b>
-	<%= @person.issue_positions.collect { |i| 
-				"<br />Issue Topic: #{i.issue_topic}<br />
-				 Question: #{i.question}<br/>
-				 Position: #{i.position}<br /"}.to_sentence.html_safe %>
+	<%= @person.issue_positions.collect { |issue_position| 
+				"<br />Issue Topic: #{issue_position.issue_topic}<br />
+				 Question: #{issue_position.question}<br/>
+				 Position: #{issue_position.position}<br /"}.to_sentence.html_safe %>
 </p>
 <p>
 	<b>Flip Flops:</b>
-	<%= @person.flip_flops.collect { |f|
-		 		"<br />Year: #{f.year.year}<br />
-				 Issue: #{f.issue}<br />
-				 Flip-flop: #{f.flipflop}<br />" }.to_sentence.html_safe %>
+	<%= @person.flip_flops.collect { |flip_flop|
+		 		"<br />Year: #{flip_flop.year.year}<br />
+				 Issue: #{flip_flop.issue}<br />
+				 Flip-flop: #{flip_flop.flipflop}<br />" }.to_sentence.html_safe %>
 </p>
 <p>
 	<b>Campaign Platforms:</b>
-	<%= @person.campaign_platforms.collect { |c| 
-				"<br />Year: #{c.campaign_year.year}<br />
-				 Topic: #{c.topic}<br />
-				 Position #{c.position_on_issue}<br />"}.to_sentence.html_safe %>
+	<%= @person.campaign_platforms.collect { |campaign_platform| 
+				"<br />Year: #{campaign_platform.campaign_year.year}<br />
+				 Topic: #{campaign_platform.topic}<br />
+				 Position #{campaign_platform.position_on_issue}<br />"}.to_sentence.html_safe %>
 </p>
 
 <h3>Controversy</h3>
 <p>	
 	<b>Accusations:</b>
-	<%= @person.accusations.collect { |a| 
-				"<br />Year: #{a.date.year}<br />
-				 Accusation: #{a.accusation}<br />
-				 Outcome: #{a.outcome}<br />"}.to_sentence.html_safe %>
+	<%= @person.accusations.collect { |accusation| 
+				"<br />Year: #{accusation.date.year}<br />
+				 Accusation: #{accusation.accusation}<br />
+				 Outcome: #{accusation.outcome}<br />"}.to_sentence.html_safe %>
 </p>
 <p>
 	<b>Litigation:</b>
-	<%= @person.litigations.collect { |l| 
-				"<br />Year: #{l.date.year}<br />
-				 Litigation: #{l.litigation}<br />
-				 Outcome: #{l.outcome}<br />"}.to_sentence.html_safe %>
+	<%= @person.litigations.collect { |litigation| 
+				"<br />Year: #{litigation.date.year}<br />
+				 Litigation: #{litigation.litigation}<br />
+				 Outcome: #{litigation.outcome}<br />"}.to_sentence.html_safe %>
 </p>
 
 <h3>Establishment</h3>
@@ -150,21 +150,21 @@
 	<b>Contributors (Interest Groups):</b>
 	<%= @person.contributors_interest_groups.collect { |contributor_ig|
 		 		"<br />Year: #{contributor_ig.year.year}<br />
-				Organization: #{Organization.find(contributor_ig.organization_id).name}<br />
+				Organization: #{contributor_ig.find_organization_name}<br />
 				Amount: #{contributor_ig.amount}<br />"}.to_sentence.html_safe %>
 </p>
 <p>
 	<b>Contributors (Interest Group Sectors):</b>
 	<%= @person.contributors_interest_group_sectors.collect { |contributor_igs|
 				"<br />Year: #{contributor_igs.year.year}<br />
-				Organization: #{Organization.find(contributor_igs.organization_id).name}<br />
+				Organization: #{contributor_igs.find_organization_name}<br />
 				Amount: #{contributor_igs.amount}<br />"}.to_sentence.html_safe %>
 </p>
 <p>
 	<b>Contributors (PAC):</b>
 	<%= @person.contributors_pacs.collect { |contributor_pac| 
 				"<br />Year: #{contributor_pac.year.year}<br />
-				Organization: #{Organization.find(contributor_pac.organization_id).name}<br />
+				Organization: #{contributor_pac.find_organization_name}<br />
 				Amount: #{contributor_pac.amount}<br />"}.to_sentence.html_safe %>
 </p>
 
