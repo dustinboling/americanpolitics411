@@ -75,7 +75,7 @@
 <p>
 	<b>Endorsements:</b>
 	<%= @person.endorsements.collect { |endorsement| 
-				"#{endorsement.organization_id} in #{endorsement.year.year}" }.to_sentence %>
+				"#{endorsement.find_organization_name} in #{endorsement.year.year}" }.to_sentence %>
 </p>
 <p>
 	<b>Issue Positions:</b>
@@ -184,7 +184,7 @@
 				Title: #{video.title}<br />
 				Description: #{video.description}<br />
 				Thumb URL: #{video.thumbnail_url}<br />
-				Video URL: #{video.video_url}<br />"}.to_sentence.html_safe %>
+				Video URL: <a href='#{video.video_url}'>#{video.video_url}</a><br />"}.to_sentence.html_safe %>
 </p>
 
 <%= link_to 'Edit', edit_person_path(@person) %> |
