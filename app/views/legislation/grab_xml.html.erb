@@ -1,2 +1,44 @@
-<h1>Legislation#grab_xml</h1>
-<p>Find me in app/views/legislation/grab_xml.html.erb</p>
+<% @title.each do |t| %>
+	<h1><%= t['title'] %></h1>
+<% end %>
+
+<p>
+	<b>Date:</b>
+	<% @date.each do |date| %>
+		<%= date['action-date'] %>
+	<% end %>
+</p>
+
+<p>
+	<b>Sponsor:</b>
+		<% @sponsors.each do |sponsor| %>
+			<%= sponsor["sponsor"] %>
+		<% end %>
+</p>
+
+<p>
+	<b>Cosponsors:</b>
+		<% @cosponsors.each do |cosponsor| %>
+			<%= cosponsor['cosponsor'] %>
+		<% end %>
+</p>
+
+<p>
+	<b>Committee Name:</b>
+		<% @committee_names.each do |committee| %>
+			<%= committee['committee-name'] %>
+		<% end %>
+</p>
+
+<p>
+	<b>Body:</b>
+	<% @body.each do |body| %>
+		<%= body['legis-body'] %>
+	<% end %>
+</p>
+
+<p>
+	<b></b>
+	
+</p>
+
