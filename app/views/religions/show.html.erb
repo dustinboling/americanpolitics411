@@ -4,7 +4,10 @@
   <b>Name:</b>
   <%= @religion.name %>
 </p>
-
+<p>
+	<b>People who are <%= @religion.name %>:</b><br />
+	<%= @religion.people.collect { |p| "#{p.full_name}" }.to_sentence %>
+</p>
 
 <%= link_to 'Edit', edit_religion_path(@religion) %> |
 <%= link_to 'Back', religions_path %>

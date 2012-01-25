@@ -9,4 +9,4 @@ class CreateOrganizationsPeople < ActiveRecord::Migration
       add_index :organizations_people, :person_id
       add_index :organizations_people, :organization_id
     end
-  end
+end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120123233654) do
+ActiveRecord::Schema.define(:version => 20120125182609) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -228,7 +228,7 @@ ActiveRecord::Schema.define(:version => 20120123233654) do
     t.datetime "updated_at"
     t.text     "professional_experience"
     t.text     "literary_work"
-    t.integer  "religion_id"
+    t.integer  "religion_id",             :default => 7, :null => false
     t.string   "current_residence"
     t.text     "dates_in_office"
     t.string   "photo_url"

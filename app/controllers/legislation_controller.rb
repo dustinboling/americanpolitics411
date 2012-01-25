@@ -1,4 +1,13 @@
 class LegislationController < ApplicationController
+  
+  def new
+    @legislation = Legislation.new
+  end
+  
+  def show
+    @legislation = Legislation.find[params(:id)]
+  end
+  
   def grab_xml
     require 'nokogiri'
     require 'open-uri'

@@ -1,4 +1,4 @@
-<% @page_title = "#{@person.first_name} #{@person.middle_name} #{@person.last_name}" %>
+<% @page_title = "#{@person.full_name}" %>
 
 <div id="public-navigation-side">
 	<%= render 'public-navigation-side' %>
@@ -19,14 +19,12 @@
   <b>Date of birth:</b>
   <%= @person.date_of_birth %>
 </p>
-
-<% if !@person.date_of_death.nil? %>
-	<p>
-	  <b>Date of death:</b>
-	  <%= @person.date_of_death %>
-	</p>
-<% end %>
-
+<p>
+  <b>Date of death:</b>
+	<% unless @person.date_of_death.nil? %>
+  	<%= @person.date_of_death %>
+	<% end %>
+</p>
 <p>
   <b>Bio:</b>
   <%= @person.bio %>

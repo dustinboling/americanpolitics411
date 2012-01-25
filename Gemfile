@@ -5,18 +5,17 @@ gem 'rails', '3.1.3'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
+# basic gems needed for infrastructure
 gem 'pg'
 gem 'json'
-
 gem 'sorcery'
-
-gem 'annotate', '~> 2.4.1.beta' 
-
 gem 'nokogiri'
 
-gem 'ruby-debug19', :require => 'ruby-debug'
+# helpful helper gems
+gem 'railroady'
+gem 'annotate', '~> 2.4.1.beta'
 
-# Gems for development mode only. 
+# Gems for development mode only.
 gem 'rspec-rails', :group => [:test, :development]
 group :test do
   gem 'factory_girl_rails'
