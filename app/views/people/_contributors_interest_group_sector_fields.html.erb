@@ -2,7 +2,7 @@
 	<%= f.hidden_field :person_id, :value => @person.id %>
 	<p>
 	   <%= f.label :organization %><br />
-	   <%= f.select(:organization_id, options_for_select(@organizations.collect {|t| [t.name, t.id]}, f.object.organization_id.to_s)) %>
+	   <%= f.select(:organization_id, options_for_select(@organizations.collect {|cigs| [cigs.name, cigs.id]}, f.object.organization_id.to_s)) %>
 	</p>
 	<p>
     <%= f.label :year, "Year" %><br />

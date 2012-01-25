@@ -1,8 +1,8 @@
 <div class="fields">
 	<%= f.hidden_field :person_id, :value => @person.id %>
 	<p>
-			<%= f.label :organization %><br />
-	    <%= f.select(:organization_id, options_for_select(@organizations.collect {|t| [t.name, t.id]}), :include_blank => true, :selected => nil) %>
+		<%= f.label :organization %><br />
+    <%= f.select(:organization_id, options_for_select(@organizations.collect {|a| [a.name, a.id]}, f.object.organization_id.to_s), :include_blank => true) %>
 	</p>
 	<p>
     <%= f.label :date, "Year" %><br />

@@ -92,6 +92,9 @@ class PeopleController < ApplicationController
   # PUT /people/1.json
   def update
     @person = Person.find(params[:id])
+    @religions = Religion.order('id ASC')
+    @organizations = Organization.find (:all)
+    @universities = University.find(:all)
 
     respond_to do |format|
       if @person.update_attributes(params[:person])

@@ -13,7 +13,7 @@ class Person < ActiveRecord::Base
   
   # maps to edit -> financial tab
   has_many :personal_assets
-  accepts_nested_attributes_for :personal_assets, :reject_if => lambda { |c| c[:action].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :personal_assets, :reject_if => lambda { |c| c[:organization].blank? }, :allow_destroy => true
   
   has_many :transactions
   accepts_nested_attributes_for :transactions, :reject_if => lambda { |d| d[:action].blank? }, :allow_destroy => true
