@@ -19,7 +19,7 @@
   </div>
 	<div class="field">
 		<%= f.label :religion, 'Religion' %><br />
-		<%= collection_select(:person, :religion_id, Religion.all, :id, :name, {:include_blank => true}) %>
+		<%= collection_select(:person, :religion_id, Religion.all, :id, :name) %>
 	</div>
   <div class="field">
     <%= f.label :date_of_birth %><br />
