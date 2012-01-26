@@ -8,8 +8,9 @@ gem 'rails', '3.1.3'
 # basic gems needed for infrastructure
 gem 'pg'
 gem 'json'
-gem 'sorcery'
 gem 'nokogiri'
+gem 'sorcery'
+gem 'cancan'
 
 # helpful helper gems
 gem 'railroady'

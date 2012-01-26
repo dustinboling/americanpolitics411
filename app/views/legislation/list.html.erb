@@ -1,5 +1,5 @@
 <h1>Legislation for 112th Year of Congress</h1>
 
 <% @legislations.each do |legislation| %>
-	<%= "<a href='http://thomas.loc.gov/home/gpoxmlc112/#{legislation.bill_uri}'>#{legislation.bill_uri}</a><br />".html_safe %>
+	<%= link_to legislation.bill_uri, {:controller => 'legislation', :action => 'show', :bill_uri => legislation.bill_uri } %>
 <% end %>

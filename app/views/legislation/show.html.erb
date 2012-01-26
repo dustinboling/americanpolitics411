@@ -1,0 +1,38 @@
+<h1><%= @legis_num %></h1>
+<h4><%= @short_title %></h4>
+
+<p>
+	<b>Date:</b>
+	<%= @date %>
+</p>
+<p>
+	<b>Congress:</b>
+	<%= @congress %>
+</p>
+<p>
+	<b>Session:</b>
+	<%= @session %>
+</p>
+<p>
+	<b>Sponsor:</b>
+		<%= @sponsor %>
+</p>
+<p>
+	<b>Cosponsors:</b>
+		<%= @cosponsors %>
+</p>
+<p>
+	<b>Committee Name:</b>
+		<% @committee_names.each do |committee| %>
+			<%= committee['committee-name'] %>
+		<% end %>
+</p>
+
+<p>
+	<b>Body:</b>
+	<%= @body %>
+</p>
+<p>
+	<b></b>
+	
+</p>

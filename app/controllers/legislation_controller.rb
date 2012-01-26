@@ -1,20 +1,18 @@
 class LegislationController < ApplicationController
   
+  require 'open-uri'
+  
   def new
     @legislation = Legislation.new
   end
   
   def show
-    @legislation = Legislation.find[params(:id)]
-  end
-  
-  def grab_xml
-    require 'nokogiri'
-    require 'open-uri'
+    @legislation = Legislation.find_by_bill_uri(:bill_uri)
     
-    @doc = Nokogiri::XML(open("http://thomas.loc.gov/home/gpoxmlc112/s2002_is.xml")).remove_namespaces!
+    @doc = Nokogiri::XML(open("http://thomas.loc.gov/home/gpoxmlc112/#{params[:bill_uri]}")).remove_namespaces!
     
     @title = @doc.xpath('//title').inner_text
+    @short_title = @doc.xpath('//short-title').inner_text
     @date = @doc.xpath('//action-date').inner_text
     @congress = @doc.xpath('//congress').inner_text    
     @session = @doc.xpath('//session').inner_text    
@@ -30,8 +28,6 @@ class LegislationController < ApplicationController
   end
   
   def make_list
-    require 'open-uri'
-    require 'nokogiri'
     
     url = "http://thomas.loc.gov/home/gpoxmlc112/"
     html = Nokogiri::HTML(open("http://thomas.loc.gov/home/gpoxmlc112/"))
