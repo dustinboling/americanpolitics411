@@ -8,7 +8,7 @@ Politics411::Application.routes.draw do
   
   resources :users
   resources :sessions
-
+  
   resources :contributors_interest_group_sectors
 
   resources :contributors_interest_groups
