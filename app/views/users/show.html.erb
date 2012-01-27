@@ -1,0 +1,17 @@
+<% @page_title = "Showing User: #{@user.username}" %>
+
+<p>
+	<b>Username:</b>
+	<%= @user.username %>
+</p>
+<p>
+	<b>Email:</b>
+	<%= @user.email %>
+</p>
+<p>
+	<b>Roles:</b>
+	<%= @user.roles_mask %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to '<< Back to List', users_path %>

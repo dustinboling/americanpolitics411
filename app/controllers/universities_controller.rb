@@ -1,5 +1,7 @@
 class UniversitiesController < ApplicationController
   
+  load_and_authorize_resource  
+  
   layout 'admin'
   
   before_filter :find_person

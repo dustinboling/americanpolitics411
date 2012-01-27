@@ -1,6 +1,7 @@
 class PeopleController < ApplicationController
   
-  before_filter :require_login
+  load_and_authorize_resource
+  skip_authorize_resource :only => :all
   
   layout 'admin'
   
@@ -30,6 +31,7 @@ class PeopleController < ApplicationController
   
   def list
     @people = People.order("people.id ASC")
+    
   end
 
   # GET /people/1

@@ -1,5 +1,7 @@
 class FlipFlopsController < ApplicationController
   
+  load_and_authorize_resource
+  
   layout 'admin'
   
   # GET /flip_flops

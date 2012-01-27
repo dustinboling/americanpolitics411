@@ -1,5 +1,19 @@
+<div id="notice">
+	<%= flash[:error] %>
+</div>
+
 <h3>All People</h3>
 
 <% @people.each do |person| %>
-		<a href="<%= person_path(person) %>"><%= person.first_name + " " + person.last_name %></a><br />
+		<a href="<%= person_path(person) %>"><%= person.first_name + " " + person.last_name %></a>
+	<% if can? :edit, Person %>
+		<a href ="<%= edit_person_path(person) %>">edit</a><br />
+	<% end %>
 <% end %>
+
+<% if can? :manage, :all  %>
+<h3>Superadmin Functions</h3>
+		<%= link_to "Add New User", signup_path %>
+		<%= link_to "Manage Users", users_path %>
+<% end %>
+

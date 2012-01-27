@@ -1,5 +1,7 @@
 class CampaignPlatformsController < ApplicationController
   
+  load_and_authorize_resource
+  
   layout 'admin'
   
   # GET /campaign_platforms

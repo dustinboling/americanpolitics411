@@ -1,5 +1,7 @@
 class PersonalAssetsController < ApplicationController
   
+  load_and_authorize_resource
+  
   layout 'admin'
   
   # GET /personal_assets

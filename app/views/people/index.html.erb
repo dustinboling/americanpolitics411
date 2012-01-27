@@ -1,5 +1,8 @@
 <div class="subject list">
 
+<%= flash[:error] %>
+
+<% if can? :read, @people %>
 <h1>Modify People</h1>
 
 <table class="listing">
@@ -20,7 +23,7 @@
 		<th>Contributors</th>
 		<th>Contributors (PAC)</th>
 		<th>Contributors (IG)</th>
-		<th>Contributors (IG Sectors)
+		<th>Contributors (IG Sectors)</th>
 		<th>Earmarks</th>
 		<th>Business Associates</th>
 		<th>Family Members</th>
@@ -134,4 +137,7 @@
 <%= link_to('Add University', {:controller => 'universities', :action => 'new'}, :class => 'link') %>
 <%= link_to('Add Religion', {:controller => 'religions', :action => 'new'}, :class => 'link') %>
 
+<% else %>
+	<%= "Must be logged in as admin!" %>
+<% end %>
 </div>

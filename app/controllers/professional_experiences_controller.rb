@@ -1,4 +1,7 @@
 class ProfessionalExperiencesController < ApplicationController
+  
+  load_and_authorize_resource
+  
   # GET /professional_experiences
   # GET /professional_experiences.json
   def index

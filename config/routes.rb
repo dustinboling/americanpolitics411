@@ -7,6 +7,7 @@ Politics411::Application.routes.draw do
   get "signup" => "users#new", :as => "signup"
   
   resources :users
+  match "/people/index" => "people#index"
   resources :sessions
   
   resources :contributors_interest_group_sectors
@@ -69,7 +70,7 @@ Politics411::Application.routes.draw do
   
   resources :degrees
     
-  root :to => "people#index"
+  root :to => "people#all"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

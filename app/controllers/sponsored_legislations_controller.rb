@@ -1,5 +1,7 @@
 class SponsoredLegislationsController < ApplicationController
   
+  load_and_authorize_resource
+  
   layout 'admin'
   
   # GET /sponsored_legislations

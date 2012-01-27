@@ -1,4 +1,7 @@
 class AttachmentsController < ApplicationController
+  
+  load_and_authorize_resource
+  
   # GET /attachments
   # GET /attachments.json
   def index

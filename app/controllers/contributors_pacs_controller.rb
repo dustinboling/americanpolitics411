@@ -1,5 +1,7 @@
 class ContributorsPacsController < ApplicationController
   
+  load_and_authorize_resource
+  
   layout 'admin'
   
   # GET /contributors_pacs

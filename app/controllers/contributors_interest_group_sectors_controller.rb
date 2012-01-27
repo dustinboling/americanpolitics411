@@ -1,5 +1,7 @@
 class ContributorsInterestGroupSectorsController < ApplicationController
-  
+
+  load_and_authorize_resource
+
   layout 'admin'
   
   # GET /contributors_interest_group_sectors

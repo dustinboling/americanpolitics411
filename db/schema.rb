@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120125193718) do
+ActiveRecord::Schema.define(:version => 20120127212346) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(:version => 20120125193718) do
   end
 
   add_index "articles", ["person_id"], :name => "index_articles_on_person_id"
+
+  create_table "assignments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "assignments", ["role_id"], :name => "index_assignments_on_role_id"
+  add_index "assignments", ["user_id"], :name => "index_assignments_on_user_id"
 
   create_table "attachments", :force => true do |t|
     t.integer  "article_id"
@@ -318,6 +328,12 @@ ActiveRecord::Schema.define(:version => 20120125193718) do
 
   add_index "religions", ["person_id"], :name => "index_religions_on_person_id"
 
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sponsored_legislations", :force => true do |t|
     t.integer  "person_id"
     t.boolean  "sponsor"
@@ -380,6 +396,7 @@ ActiveRecord::Schema.define(:version => 20120125193718) do
     t.datetime "updated_at"
     t.string   "remember_me_token"
     t.datetime "remember_me_token_expires_at"
+    t.integer  "roles_mask"
   end
 
   add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"

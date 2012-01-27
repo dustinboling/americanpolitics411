@@ -1,4 +1,7 @@
 class SupportersController < ApplicationController
+  
+  load_and_authorize_resource
+  
   # GET /supporters
   # GET /supporters.json
   def index
