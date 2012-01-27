@@ -11,9 +11,24 @@
 	<% end %>
 <% end %>
 
-<% if can? :manage, :all  %>
-<h3>Superadmin Functions</h3>
-		<%= link_to "Add New User", signup_path %>
-		<%= link_to "Manage Users", users_path %>
+
+
+<% if can? :edit, Person %>
+	<div id="admin-functions">
+		<h3>Admin Functions</h3>
+			<%= link_to 'Create New Person', new_person_path, :class => 'link' %>
+			<%= link_to('Add Organization', {:controller => 'organizations', :action => 'new'}, :class => 'link') %>
+			<%= link_to('Add University', {:controller => 'universities', :action => 'new'}, :class => 'link') %>
+			<%= link_to('Add Religion', {:controller => 'religions', :action => 'new'}, :class => 'link') %>
 <% end %>
+</div><div class="clear"></div>
+
+
+<% if can? :manage, :all  %>
+<div id="superadmin-functions" >
+	<h3>Superadmin Functions</h3>
+			<%= link_to "Add New User", signup_path, :class => 'link' %>
+			<%= link_to "Manage Users", users_path, :class => 'link' %>
+	<% end %>
+</div>
 
