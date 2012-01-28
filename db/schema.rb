@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120127212346) do
+ActiveRecord::Schema.define(:version => 20120127225455) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -172,6 +172,7 @@ ActiveRecord::Schema.define(:version => 20120127212346) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "person_id"
+    t.integer  "family_member"
   end
 
   add_index "family_members", ["person_id"], :name => "index_family_members_on_person_id"

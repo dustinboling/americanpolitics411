@@ -56,7 +56,7 @@
 <p>
 	<b>Related To:</b>
 	<%= @person.family_members.collect { |family_member| 
-				"<a href='#{person_path(family_member)}'>#{family_member.name} (#{family_member.relationship})</a>" }.to_sentence.html_safe %>
+				"<a href='#{family_member.family_member}'>#{family_member.find_person_name} (#{family_member.relationship})</a>" }.to_sentence.html_safe %>
 </p>
 
 <h3>Transactions</h3>
@@ -184,8 +184,9 @@
 				Thumb URL: #{video.thumbnail_url}<br />
 				Video URL: <a href='#{video.video_url}'>#{video.video_url}</a><br />"}.to_sentence.html_safe %>
 </p>
-
-<%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back to List', people_path %>
+<% if can? :edit, Person %>
+	<%= link_to 'Edit', edit_person_path(@person) %> |
+<% end %>
+	<%= link_to 'Back to List', :controller => 'people', :action => 'all' %>
 
 </div>

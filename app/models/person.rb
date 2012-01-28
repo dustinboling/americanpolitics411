@@ -6,17 +6,17 @@ class Person < ActiveRecord::Base
   
   # maps to edit -> relationships tab
   has_many :family_members
-  accepts_nested_attributes_for :family_members, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :family_members, :reject_if => lambda { |a| a[:person_id].blank? }, :allow_destroy => true
   
   has_many :business_associates
   accepts_nested_attributes_for :business_associates, :reject_if => lambda { |b| b[:full_name].blank? }, :allow_destroy => true
   
   # maps to edit -> financial tab
   has_many :personal_assets
-  accepts_nested_attributes_for :personal_assets, :reject_if => lambda { |c| c[:organization].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :personal_assets, :reject_if => lambda { |c| c[:organization_id].blank? }, :allow_destroy => true
   
   has_many :transactions
-  accepts_nested_attributes_for :transactions, :reject_if => lambda { |d| d[:action].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :transactions, :reject_if => lambda { |d| d[:organization_id].blank? }, :allow_destroy => true
   
   # maps to edit -> education tab
   has_many :degrees
@@ -96,6 +96,10 @@ class Person < ActiveRecord::Base
   
   def find_university_name
     self.University.find(x.university_id).name
+  end
+  
+  def find_person_name
+    self.Person.find(y.person_id).name
   end
   
 end

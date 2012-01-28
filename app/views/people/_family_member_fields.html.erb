@@ -1,9 +1,9 @@
 <div class="fields">
 	<%= f.hidden_field :person_id, :value => @person.id %>
 	<p>
-		<%= f.label :name, "Related to" %><br />
-		<%= f.text_field :name %>
-	</p>
+    <%= f.label :family_member, 'Related to' %><br />
+    <%= f.select(:family_member, options_for_select(@people.collect {|fm| [fm.full_name, fm.id]}, f.object.family_member.to_s)) %>
+  </p>
   <p>
     <%= f.label :relationship %><br />
     <%= f.text_field :relationship %>

@@ -14,4 +14,8 @@
 class FamilyMember < ActiveRecord::Base
   belongs_to :person
   
+  def find_person_name
+    Person.find(family_member).full_name
+  end
+  
 end

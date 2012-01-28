@@ -2,6 +2,13 @@ class LegislationController < ApplicationController
   
   require 'open-uri'
   
+  layout 'admin'
+  
+  def index
+    list
+    render('list')
+  end
+  
   def new
     @legislation = Legislation.new
   end
