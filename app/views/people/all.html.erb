@@ -5,13 +5,20 @@
 		</div>
 
 		<h3>All People</h3>
-
-			<% @people.each do |person| %>
-				<a href="<%= person_path(person) %>"><%= person.first_name + " " + person.last_name %></a>
-				<% if can? :edit, Person %>
-				<a href ="<%= edit_person_path(person) %>">edit</a><br />
+			<table class="zebra-striped span6">
+				<tr>
+					<th>Person</th>
+					<th>Actions<th>
+				</tr>
+				<% @people.each do |person| %>
+				<tr>
+					<td><a href="<%= person_path(person) %>"><%= person.first_name + " " + person.last_name %></a></td>
+					<% if can? :edit, Person %>
+					<td><span class="label warning"><a href ="<%= edit_person_path(person) %>">edit</a></span><td><br />
+				<% end %>
+				</tr>
 			<% end %>
-		<% end %>
+			</table>
 	</div>
 
 
@@ -25,12 +32,11 @@
 	<% end %>
 	</div><div class="clear"></div>
 
-
 	<% if can? :manage, :all  %>
 	<div id="superadmin-functions" >
 		<h3>Superadmin Functions</h3>
-				<%= link_to "Add New User", signup_path, :class => 'btn small primary' %>
-				<%= link_to "Manage Users", users_path, :class => 'btn small primary' %>
+			<%= link_to "Add New User", signup_path, :class => 'btn small primary' %>
+			<%= link_to "Manage Users", users_path, :class => 'btn small primary' %>
 		<% end %>
 	</div>
 </div>

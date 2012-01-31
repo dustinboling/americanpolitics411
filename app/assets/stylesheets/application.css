@@ -5,4 +5,5 @@
  *= require_self
  *= require twitter/bootstrap
  *= require admin
+ *= require jquery-ui-1.8.17.custom
 */
