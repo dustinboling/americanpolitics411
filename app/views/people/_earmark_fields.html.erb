@@ -5,12 +5,12 @@
 	   <%= f.select(:organization_id, options_for_select(@organizations.collect {|e| [e.name, e.id]}, f.object.organization_id.to_s), :include_blank => true) %>
 	</p>
 	<p>
-    <%= f.label :year, "Year" %>
+    <%= f.label :year, "Fiscal Year" %>
     <%= f.date_select(:year, :start_year => 1951, :discard_day => true, :discard_month => true) %>
   </p>
 	<p>
 		<%= f.label :description %>
-		<%= f.text_area :description %>
+		<%= f.text_area :description, :rows => 3 %>
 	</p>
 	<p>
     <%= f.label :sector %>
