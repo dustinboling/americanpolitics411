@@ -1,4 +1,8 @@
-.user-nav { position: absolute; right: 40px; top: 20px;}
+h3 { text-decoration: underline; text-transform: uppercase; }
+
+#all-people a { color: 000; }
+
+.user-nav { position: absolute; right: 40px; top: 1px;}
 .user-nav a { color: #FFF; text-decoration: none; }
 
 table { border-collapse: collapse; }
@@ -55,7 +59,7 @@ ul.ui-autocomplete {
       padding: 3px;
     }
     a.ui-state-hover, a.ui-state-active {
-      background-color: #FFFCB2;
+      background-color: #FFF;
     }
   }
 }
@@ -66,8 +70,5 @@ ul.ui-autocomplete {
 	float: left;
 	margin: auto;
 	width: 200px;
-	min-height: 3200px;
+	min-height: 6200px;
 }
-
-h3 { text-decoration: underline; text-transform: uppercase; }
-

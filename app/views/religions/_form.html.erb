@@ -1,11 +1,9 @@
-<%= form_for(@religion) do |f| %>
-<%= error_messages_for(@religion) %>
+	<%= form_for(@religion, :html => { :class => 'form-stacked' }) do |f| %>
+	<%= error_messages_for(@religion) %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+	    <%= f.label :name %><br />
+	    <%= f.text_field :name %>
+
+	    <%= f.submit :class => 'btn success'%>
+
+	<% end %>

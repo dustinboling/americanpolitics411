@@ -1,16 +1,18 @@
-<div class="fields">
+<div class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
 	<p>
-    <%= f.label :date, "Year" %><br />
+    <%= f.label :date, "Year" %>
     <%= f.date_select(:date, :start_year => 1951) %>
   </p>
 	<p>
-    <%= f.label :litigation %><br />
+    <%= f.label :litigation %>
     <%= f.text_area :litigation, :rows => 3 %>
   </p>
 	<p>
-    <%= f.label :outcome %><br />
+    <%= f.label :outcome %>
     <%= f.text_area :outcome, :rows => 3 %>
   </p>
-	<%= link_to_remove_fields "remove litigation", f %>
+	<span class="label important">
+		<%= link_to_remove_fields "remove litigation", f %>
+	</span>
 </div>

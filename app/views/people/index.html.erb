@@ -132,10 +132,10 @@
 
 <br />
 
-<%= link_to 'Create New Person', new_person_path, :class => 'link' %>
-<%= link_to('Add Organization', {:controller => 'organizations', :action => 'new'}, :class => 'link') %>
-<%= link_to('Add University', {:controller => 'universities', :action => 'new'}, :class => 'link') %>
-<%= link_to('Add Religion', {:controller => 'religions', :action => 'new'}, :class => 'link') %>
+<%= link_to 'Create New Person', new_person_path, :class => 'btn' %>
+<%= link_to('Add Organization', {:controller => 'organizations', :action => 'new'}, :class => 'btn') %>
+<%= link_to('Add University', {:controller => 'universities', :action => 'new'}, :class => 'btn') %>
+<%= link_to('Add Religion', {:controller => 'religions', :action => 'new'}, :class => 'btn small primary') %>
 
 <% else %>
 	<%= "Must be logged in as admin!" %>

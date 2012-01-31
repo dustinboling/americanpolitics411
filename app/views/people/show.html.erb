@@ -36,7 +36,8 @@
 <p>
 	<b>Education:</b><br />
   <%= @person.degrees.collect { |degree| 
-			"#{degree.degree_earned} from <a href='/universities/#{degree.university_id}'>#{degree.find_university_name}</a><br />" }.to_sentence.html_safe %>
+			"#{degree.degree_earned} from <a href='/universities/#{degree.university_id}'>#{degree.find_university_name}</a><br />" 
+			}.to_sentence(@person.no_separator).html_safe %>
 </p>
 <p>
 	<b>Professional Experience:</b>
@@ -47,22 +48,80 @@
 	<%= @person.literary_work %>
 </p>
 
+<h3>Contact Info</h3>
+<p>
+	<b>Street Address:</b>
+	<%= @person.contact_street_address %>		
+</p>
+<p>
+	<b>City:</b>
+	<%= @person.contact_city %>		
+</p>	
+<p>
+	<b>State:</b>
+	<%= @person.contact_state %>
+</p>
+<p>
+	<b>Zip:</b>
+	<%= @person.contact_zip %>		
+</p>
+<p>
+	<b>Phone:</b>
+	<%= @person.contact_phone %>
+</p>
+<p>
+	<b>Fax:</b>
+	<%= @person.contact_fax %>	
+</p>
+<p>
+	<b>Email:</b>
+	<%= @person.contact_email %>	
+</p>
+<p>
+	<b>Web Page:</b>
+	<%= @person.contact_web_page_name %>
+	(<a href="<%= @person.contact_web_page_url %>">Link</a>)	
+</p>
+
+
 <h3>Relationships</h3>
 <p>
 	<b>Business Associates:</b>
-	<%= @person.business_associates.collect { |business_associate| 
-				"#{business_associate.full_name} @ <a href='/organizations/#{business_associate.organization_id}'>#{business_associate.find_organization_name}</a>" }.to_sentence.html_safe %>	
+	<% if @person.business_associates.size > 0 %>
+		<%= @person.business_associates.collect { |business_associate| 
+					"#{business_associate.full_name} @ <a href='/organizations/#{business_associate.organization_id}'>#{business_associate.find_organization_name}</a>" 
+					}.to_sentence.html_safe %>
+	<% else %>
+		<%= "Information Not Yet Available. Research in progress." %>
+	<% end %>
 </p>
 <p>
 	<b>Related To:</b>
 	<%= @person.family_members.collect { |family_member| 
-				"<a href='#{family_member.family_member}'>#{family_member.find_person_name} (#{family_member.relationship})</a>" }.to_sentence.html_safe %>
+				"<a href='#{family_member.family_member}'>#{family_member.find_person_name} (#{family_member.relationship})</a> - #{family_member.notes}" 
+				}.to_sentence.html_safe %>
+</p>
+
+<h3>Financial</h3>
+<p>
+	<b>Net Worth</b><br />
+	Minimum:
+	<%= number_to_currency(@person.net_worth_minimum, :precision => 0) %><br />
+	Average:
+	<%= number_to_currency(@person.net_worth_average, :precision => 0) %><br />
+	Maximum:
+	<%= number_to_currency(@person.net_worth_maximum, :precision => 0) %><br />
 </p>
 
 <h3>Transactions</h3>
 <p>
 	<b>Assets:</b>
-	<%= @person.personal_assets.size %>
+	<%= @person.personal_assets.collect { |asset|
+				"<br /><b>Organization: </b>#{asset.find_organization_name}<br />
+				<b>Value (exact): </b>#{number_to_currency(asset.value, :precision => 0)}<br />
+				<b>Value (min): </b>#{number_to_currency(asset.value_min, :precision => 0)}<br />
+				<b>Value (max): </b>#{number_to_currency(asset.value_max, :precision => 0)}<br />" 
+				}.to_sentence(@person.no_separator).html_safe %>
 </p>
 <p>
 	<b>Transactions:</b>
@@ -78,9 +137,9 @@
 <p>
 	<b>Issue Positions:</b>
 	<%= @person.issue_positions.collect { |issue_position| 
-				"<br />Issue Topic: #{issue_position.issue_topic}<br />
-				 Question: #{issue_position.question}<br/>
-				 Position: #{issue_position.position}<br /"}.to_sentence.html_safe %>
+				"<br /><b>#{issue_position.issue_topic}</b><br />
+				 #{issue_position.question} <b>(#{issue_position.position})</b><br />"
+						}.to_sentence(@person.no_separator).html_safe %>
 </p>
 <p>
 	<b>Flip Flops:</b>
@@ -120,8 +179,12 @@
 				"<br />Position: #{political_office.position}<br />
 				District: #{political_office.district}<br />
 				Office: #{political_office.office}<br />
-				Date Started: #{political_office.date_started}<br />
-				Date Finished: #{political_office.date_finished}<br />"}.to_sentence.html_safe %>
+				Dates In Office: #{political_office.date_started.year} -
+					#{if political_office.date_finished.nil? 
+							'present'
+						else
+							political_office.date_finished.year
+						end}<br />"}.to_sentence.html_safe %>
 </p>
 <p>
 	<b>Earmarks:</b>
@@ -135,7 +198,7 @@
 <p>
 	<b>Demographics:</b>
 	<%= @person.supporters.collect { |supporter| 
-				"<br />Demographic: #{supporter.demographic}<br />
+				"<br />Demographic: #{supporter.group_name}<br />
 				Percentage: #{supporter.support_percentage}"}.to_sentence.html_safe %>
 </p>
 <p>
@@ -173,7 +236,7 @@
 				"<br />Date: #{article.date}<br />
 				Title: #{article.title}<br />
 				Excerpt: #{article.excerpt}<br />
-				<a href='#{article_url}'>Link</a><br />"}.to_sentence.html_safe %>
+				Link: <a href='#{article.article_url}'>#{article.article_url}</a><br />"}.to_sentence(@person.no_separator).html_safe %>
 </p>
 <p>
 	<b>Videos:</b>
@@ -182,7 +245,7 @@
 				Title: #{video.title}<br />
 				Description: #{video.description}<br />
 				Thumb URL: #{video.thumbnail_url}<br />
-				Video URL: <a href='#{video.video_url}'>#{video.video_url}</a><br />"}.to_sentence.html_safe %>
+				Video URL: <a href='#{video.video_url}'>#{video.video_url}</a><br />"}.to_sentence(@person.no_separator).html_safe %>
 </p>
 <% if can? :edit, Person %>
 	<%= link_to 'Edit', edit_person_path(@person) %> |

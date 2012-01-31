@@ -65,9 +65,9 @@ class PeopleController < ApplicationController
   def edit
     @person = Person.find(params[:id])
     @people = Person.order('id ASC')
-    @religions = Religion.order('id ASC')
-    @organizations = Organization.find (:all)
-    @universities = University.find(:all)
+    @religions = Religion.order('name ASC')
+    @organizations = Organization.order('name ASC')
+    @universities = University.order('name ASC')
 
     
   end
@@ -95,7 +95,7 @@ class PeopleController < ApplicationController
   def update
     @person = Person.find(params[:id])
     @people = Person.all
-    @religions = Religion.order('id ASC')
+    @religions = Religion.order('name ASC')
     @organizations = Organization.find (:all)
     @universities = University.find(:all)
 

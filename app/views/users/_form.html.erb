@@ -1,4 +1,4 @@
-<%= form_for(@user) do |f| %>
+<%= form_for(@user, :html => { :class => "form-stacked" }) do |f| %>
 <%= error_messages_for(@user) %>
 
   <div class="field">
@@ -17,7 +17,7 @@
     <% end %>
     <%= hidden_field_tag "user[roles][]", "" %>
 	</div>
-	<div class="actions">
-    <%= f.submit %>
-  </div>
+	
+    <%= f.submit :class => 'btn success' %>
+
 <% end %>

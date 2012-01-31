@@ -1,17 +1,16 @@
-<h1>Editing Record for: <%= @person.first_name %> <%= @person.last_name %></h1>
+<div class="container-fluid">
+	<h1>Editing: <%= @person.first_name %> <%= @person.last_name %></h1>
 
-<div id ="tabs">
-	<div id="admin-navigation-side">
-		<%= render 'admin-navigation-side' %>
-	</div>
-	<div id="form-details">
-		<%= render 'form-edit' %>
-	</div>
+	<div id ="tabs">
+		<div id="admin-navigation-side">
+			<%= render 'admin-navigation-side' %>
+		</div>
+		<div id="form-details">
+			<%= render 'form-edit' %>
+		</div>
 
-	<%= link_to 'Show', @person %> |
-	<%= link_to 'Back to List', people_path %>
+		<%= link_to 'Show', @person %> |
+		<%= link_to 'Back to List', people_path %>
 
-</div> <!-- /#tabs -->
-
-
-
+	</div> <!-- /#tabs -->
+</div>

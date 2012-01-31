@@ -26,5 +26,9 @@ class Degree < ActiveRecord::Base
   def find_university_name
     University.find(university_id).name
   end
+  
+  def no_separator
+    options={:words_connector => '', :two_words_connector => '', :last_word_connector => ''}
+  end
 
 end

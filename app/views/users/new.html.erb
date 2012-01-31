@@ -1,35 +1,36 @@
-<%= form_for @user do |f| %>
-<%= error_messages_for(@user) %>
+<div class="container">
+	<%= form_for(@user, :html => { :class => 'form-stacked' }) do |f| %>
+	<%= error_messages_for(@user) %>
 
-<h3>Sign Up</h3>
+	<h3>Add New User!</h3>
 
-	<div class="field">
-		<%= f.label :username %><br />
-		<%= f.text_field :username %>
-	</div>
-	<div class="field">
-		<%= f.label :email %><br />
-		<%= f.text_field :email %>
-	</div>
-	<div class="field">
-		<%= f.label :password %><br />
-		<%= f.password_field :password %>
-	</div>
-	<div class="field">
-		<%= f.label :password_confirmation %><br />
-		<%= f.password_field :password_confirmation %>
-	</div>
-	<div class="field">
-		<%= f.label :roles %><br />
-    <% for role in User::ROLES %>
-      <%= check_box_tag "user[roles][]", role, @user.roles.include?(role) %>
-      <%=h role.humanize %><br />
-    <% end %>
-    <%= hidden_field_tag "user[roles][]", "" %>
-	</div>
-	<div class="actions">
-		<%= f.submit %>
-		<% end %>
-	</div>
+		<p>
+			<%= f.label :username %>
+			<%= f.text_field :username %>
+		</p>
+		<p>
+			<%= f.label :email %>
+			<%= f.text_field :email %>
+		</p>
+		<p>
+			<%= f.label :password %>
+			<%= f.password_field :password %>
+		</p>
+		<p>
+			<%= f.label :password_confirmation %>
+			<%= f.password_field :password_confirmation %>
+		</p>
+		<p>
+			<%= f.label :roles %>
+	    <% for role in User::ROLES %>
+	      <%= check_box_tag "user[roles][]", role, @user.roles.include?(role) %>
+	      <%=h role.humanize %><br />
+	    <% end %>
+	    <%= hidden_field_tag "user[roles][]", "" %>
+		</p>
+		
+			<%= f.submit :class => 'btn success' %>
+			<% end %>
 
+</p>
 				

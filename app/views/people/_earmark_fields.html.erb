@@ -1,24 +1,26 @@
-<div class="fields">
+<div class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
 	<p>
-	   <%= f.label :organization %><br />
+	   <%= f.label :organization %>
 	   <%= f.select(:organization_id, options_for_select(@organizations.collect {|e| [e.name, e.id]}, f.object.organization_id.to_s), :include_blank => true) %>
 	</p>
 	<p>
-    <%= f.label :year, "Year" %><br />
+    <%= f.label :year, "Year" %>
     <%= f.date_select(:year, :start_year => 1951, :discard_day => true, :discard_month => true) %>
   </p>
 	<p>
-		<%= f.label :description %><br />
+		<%= f.label :description %>
 		<%= f.text_area :description %>
 	</p>
 	<p>
-    <%= f.label :sector %><br />
+    <%= f.label :sector %>
     <%= f.text_field :sector %>
   </p>
   <p>
-    <%= f.label :amount %><br />
+    <%= f.label :amount %>
     <%= f.text_field :amount %>
   </p>
-	<%= link_to_remove_fields "remove earmark", f %>
+	<span class="label important">
+		<%= link_to_remove_fields "remove earmark", f %>
+	</span>
 </div>

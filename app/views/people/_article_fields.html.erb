@@ -1,16 +1,18 @@
-<div class="fields">
+<div class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
 	<p>
-		<%= f.label :title %><br />
+		<%= f.label :title %>
 		<%= f.text_field :title %>
 	</p>
 	<p>
-    <%= f.label :excerpt %><br />
+    <%= f.label :excerpt %>
     <%= f.text_area :excerpt, :rows => 3 %>
   </p>
   <p>
-    <%= f.label :article_url %><br />
+    <%= f.label :article_url %>
     <%= f.text_field :article_url %>
   </p>
-	<%= link_to_remove_fields "remove article", f %>
+	<span class="label important">
+		<%= link_to_remove_fields "remove article", f %>
+	</span>
 </div>

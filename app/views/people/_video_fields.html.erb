@@ -1,20 +1,22 @@
-<div class="fields">
+<div class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
 	<p>
-		<%= f.label :title %><br />
+		<%= f.label :title %>
 		<%= f.text_field :title %>
 	</p>
 	<p>
-    <%= f.label :description %><br />
+    <%= f.label :description %>
     <%= f.text_area :description, :rows => 3 %>
   </p>
   <p>
-    <%= f.label :video_url %><br />
+    <%= f.label :video_url %>
     <%= f.text_field :video_url %>
   </p>
   <p>
-    <%= f.label :thumbnail_url %><br />
+    <%= f.label :thumbnail_url %>
     <%= f.text_field :thumbnail_url %>
   </p>
-	<%= link_to_remove_fields "remove video", f %>
+	<span class="label important">
+		<%= link_to_remove_fields "remove video", f %>
+	</span>
 </div>

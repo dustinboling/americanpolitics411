@@ -1,24 +1,26 @@
-<div class="fields">
+<div class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
 	<p>
-    <%= f.label :position %><br />
+    <%= f.label :position %>
     <%= f.text_field :position %>
   </p>
 	<p>
-    <%= f.label :district %><br />
+    <%= f.label :district %>
     <%= f.text_field :district %>
   </p>
 	<p>
-    <%= f.label :office %><br />
+    <%= f.label :office %>
     <%= f.text_field :office %>
   </p>
 	<p>
-    <%= f.label :date_started, "Year" %><br />
-    <%= f.date_select(:date_started, :start_year => 1951) %>
+    <%= f.label :date_started, "Year Started" %>
+    <%= f.date_select(:date_started, :start_year => 1951, :discard_day => true, :discard_month => true) %>
   </p>
 	<p>
-    <%= f.label :date_finished, "Year" %><br />
-    <%= f.date_select(:date_finished, :start_year => 1951) %>
+    <%= f.label :date_finished, "Year Ended" %>
+    <%= f.date_select(:date_finished, :start_year => 1951, :discard_day => true, :discard_month => true, :include_blank => true) %>
   </p>
-	<%= link_to_remove_fields "remove flip flop", f %>
+	<span class="label important">
+		<%= link_to_remove_fields "remove political office", f %>
+	</span>
 </div>

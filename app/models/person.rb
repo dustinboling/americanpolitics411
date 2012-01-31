@@ -102,4 +102,8 @@ class Person < ActiveRecord::Base
     self.Person.find(y.person_id).name
   end
   
+  def no_separator
+    options={:words_connector => '', :two_words_connector => '', :last_word_connector => ''}
+  end
+  
 end
