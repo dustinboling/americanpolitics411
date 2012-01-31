@@ -13,12 +13,14 @@
 				<% @people.each do |person| %>
 				<tr>
 					<td><a href="<%= person_path(person) %>"><%= person.first_name + " " + person.last_name %></a></td>
-					<% if can? :edit, Person %>
-					<td><span class="label warning"><a href ="<%= edit_person_path(person) %>">edit</a></span><td><br />
-				<% end %>
+					<td>
+						<% if can? :edit, Person %>
+							<span class="label warning"><a href ="<%= edit_person_path(person) %>">edit</a></span>
+						<% end %>
+					<td><br />
 				</tr>
 			<% end %>
-			</table>
+		</table>
 	</div>
 
 
