@@ -1,11 +1,11 @@
-<div class="container-fluid">
+<div class="container">
 	<h1>Editing: <%= @person.first_name %> <%= @person.last_name %></h1>
 
-	<div id ="tabs">
+	<div id ="tabs" class="span4">
 		<div id="admin-navigation-side">
 			<%= render 'admin-navigation-side' %>
 		</div>
-		<div id="form-details">
+		<div id="form-details" class="span12">
 			<%= render 'form-edit' %>
 		</div>
 

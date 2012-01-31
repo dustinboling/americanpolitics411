@@ -21,9 +21,9 @@ class LegislationController < ApplicationController
     @title = @doc.xpath('//title').inner_text
     @short_title = @doc.xpath('//short-title').inner_text
     @date = @doc.xpath('//action-date').inner_text
-    @congress = @doc.xpath('//congress').inner_text    
-    @session = @doc.xpath('//session').inner_text    
-    @legis_num = @doc.xpath('//legis-num').inner_text  
+    @congress = @doc.xpath('//congress').inner_text
+    @session = @doc.xpath('//session').inner_text
+    @legis_num = @doc.xpath('//legis-num').inner_text
     @sponsor = @doc.xpath('//sponsor').inner_text
     @cosponsors = @doc.xpath('//cosponsor').inner_text
     @committee_names = @doc.xpath('//committee-name').map do |committee|

@@ -31,7 +31,7 @@
 </p>
 <p>
 	<b>Religion:</b>
-	<%= @person.religion.name %>
+		<a href="/religions/<%= @person.religion_id %>"><%= @person.religion.name %></a>
 </p>
 <p>
 	<b>Education:</b><br />
@@ -117,15 +117,19 @@
 <p>
 	<b>Assets:</b>
 	<%= @person.personal_assets.collect { |asset|
-				"<br /><b>Organization: </b>#{asset.find_organization_name}<br />
-				<b>Value (exact): </b>#{number_to_currency(asset.value, :precision => 0)}<br />
-				<b>Value (min): </b>#{number_to_currency(asset.value_min, :precision => 0)}<br />
-				<b>Value (max): </b>#{number_to_currency(asset.value_max, :precision => 0)}<br />" 
+				"<br />Organization: #{asset.find_organization_name}<br />
+				Value (exact): #{number_to_currency(asset.value, :precision => 0)}<br />
+				Value (min): #{number_to_currency(asset.value_min, :precision => 0)}<br />
+				Value (max): #{number_to_currency(asset.value_max, :precision => 0)}<br />" 
 				}.to_sentence(@person.no_separator).html_safe %>
 </p>
 <p>
 	<b>Transactions:</b>
-	<%= @person.transactions.size %>
+	<%= @person.transactions.collect { |transaction| 
+				"<br>Action: #{transaction.action? ? 'Purchased' : 'Sold'}<br />
+				Organization: #{transaction.find_organization_name}<br />
+				Date: #{transaction.date.year}<br />
+				Value: #{number_to_currency(transaction.value, :precision => 0)}<br />"}.to_sentence(@person.no_separator).html_safe %>
 </p>
 
 <h3>Political</h3>
@@ -146,14 +150,14 @@
 	<%= @person.flip_flops.collect { |flip_flop|
 		 		"<br />Year: #{flip_flop.year.year}<br />
 				 Issue: #{flip_flop.issue}<br />
-				 Flip-flop: #{flip_flop.flipflop}<br />" }.to_sentence.html_safe %>
+				 Flip-flop: #{flip_flop.flipflop}<br />" }.to_sentence(@person.no_separator).html_safe %>
 </p>
 <p>
 	<b>Campaign Platforms:</b>
 	<%= @person.campaign_platforms.collect { |campaign_platform| 
 				"<br />Year: #{campaign_platform.campaign_year.year}<br />
 				 Topic: #{campaign_platform.topic}<br />
-				 Position #{campaign_platform.position_on_issue}<br />"}.to_sentence.html_safe %>
+				 Position: #{campaign_platform.position_on_issue}<br />"}.to_sentence(@person.no_separator).html_safe %>
 </p>
 
 <h3>Controversy</h3>
@@ -162,14 +166,14 @@
 	<%= @person.accusations.collect { |accusation| 
 				"<br />Year: #{accusation.date.year}<br />
 				 Accusation: #{accusation.accusation}<br />
-				 Outcome: #{accusation.outcome}<br />"}.to_sentence.html_safe %>
+				 Outcome: #{accusation.outcome}<br />"}.to_sentence(@person.no_separator).html_safe %>
 </p>
 <p>
 	<b>Litigation:</b>
 	<%= @person.litigations.collect { |litigation| 
 				"<br />Year: #{litigation.date.year}<br />
 				 Litigation: #{litigation.litigation}<br />
-				 Outcome: #{litigation.outcome}<br />"}.to_sentence.html_safe %>
+				 Outcome: #{litigation.outcome}<br />"}.to_sentence(@person.no_separator).html_safe %>
 </p>
 
 <h3>Establishment</h3>

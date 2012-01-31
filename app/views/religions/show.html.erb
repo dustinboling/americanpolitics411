@@ -1,13 +1,10 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+	<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @religion.name %>
-</p>
-<p>
-	<b>People who are <%= @religion.name %>:</b><br />
-	<%= @religion.people.collect { |p| "#{p.full_name}" }.to_sentence %>
-</p>
+	<h1><%= @religion.name %></h1>
 
-<%= link_to 'Edit', edit_religion_path(@religion) %> |
-<%= link_to 'Back', religions_path %>
+	<p>
+		<b>People who are <%= @religion.name %>:</b><br />
+		<%= @religion.people.collect { |p| "#{p.full_name}" }.to_sentence %>
+	</p>
+</div>

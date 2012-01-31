@@ -3,6 +3,7 @@
 	<p>
 	   <%= f.label :organization %>
 	   <%= f.select(:organization_id, options_for_select(@organizations.collect {|t| [t.name, t.id]}, f.object.organization_id.to_s)) %>
+	<%= link_to('Add a new organization.', {:controller => 'organizations', :action => 'new'})  %>
 	</p>
 	<p>
 		<%= f.label :full_name, "Name of Business Associate" %>

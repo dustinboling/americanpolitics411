@@ -1,15 +1,11 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+	<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @university.name %>
-</p>
-<p>
-	<b>People who have attended <%= @university.name %>:</b><br />
-	<%= @university.people.map { |p| 
-				"<a href='#{person_path(p)}'>#{p.first_name} #{p.last_name}</a>" }.to_sentence.html_safe %>
-</p>
+	<h1><%= @university.name %></h1>
 
-
-<%= link_to 'Edit', edit_university_path(@university) %> |
-<%= link_to 'Back', universities_path %>
+	<p>
+		<b>People who have attended <%= @university.name %>:</b><br />
+		<%= @university.people.map { |p| 
+					"<a href='#{person_path(p)}'>#{p.first_name} #{p.last_name}</a>" }.to_sentence.html_safe %>
+	</p>
+</div>
