@@ -1,5 +1,7 @@
 <% @page_title = "#{@person.full_name}" %>
 
+	<%= render :partial => 'layouts/supporters_pie' %>
+
 <div id="public-navigation-side">
 	<%= render 'public-navigation-side' %>
 </div>
@@ -287,9 +289,11 @@
 </p>
 <p>
 	<b>Supporters:</b>
-	<%= @person.supporters.collect { |supporter| 
-				"<br />Demographic: #{supporter.group_name}<br />
-				Percentage: #{supporter.support_percentage}"}.to_sentence(@person.no_separator).html_safe %>
+	<% unless @person.supporters.empty? %>
+		<div id="holder"></div>	
+	<% else %>
+		Information is not currently available, research is in progress.
+	<% end %>
 </p>
 <p>
 	<b>Contributors:</b>

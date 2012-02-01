@@ -106,4 +106,12 @@ class Person < ActiveRecord::Base
     options={:words_connector => '', :two_words_connector => '', :last_word_connector => ''}
   end
   
+  def supporter_numbers
+    self.supporters.collect { |supporter| "#{supporter.support_percentage}".to_i }
+  end
+  
+  def supporter_legend
+    self.supporters.each_with_index { |supporter, i| supporter.group_name }
+  end
+  
 end
