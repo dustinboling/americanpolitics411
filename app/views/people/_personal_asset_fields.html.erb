@@ -1,22 +1,12 @@
-<div class="fields actions">
+<tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
-	<p>
-		<%= f.label :organization %>
-    <%= f.select(:organization_id, options_for_select(@organizations.collect {|t| [t.name, t.id]}, f.object.organization_id.to_s)) %>
-	</p>
-	<p>
-    <%= f.label :value, "Exact Value (if available)" %>
-    <%= f.text_field :value %>
-  </p>
-  <p>
-    <%= f.label :value_min %>
-    <%= f.text_field :value_min %>
-  </p>
-  <p>
-    <%= f.label :value_max %>
-    <%= f.text_field :value_max %>
-  </p>
-	<span class="label important">
-		<%= link_to_remove_fields "remove asset", f %>
-	</span>
-</div>
+   <td><%= f.select(:organization_id, options_for_select(@organizations.collect {|t| [t.name, t.id]}, f.object.organization_id.to_s)) %></td>
+   <td><%= f.text_field :value %></td>
+   <td><%= f.text_field :value_min %></td>
+   <td><%= f.text_field :value_max %></td>
+	<td>
+		<span class="label important">
+			<%= link_to_remove_fields "remove", f %>
+		</span>
+	</td>
+</tr>

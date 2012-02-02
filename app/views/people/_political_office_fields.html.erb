@@ -1,26 +1,14 @@
-<div class="fields actions">
+<tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
-	<p>
-    <%= f.label :position %>
-    <%= f.text_field :position %>
-  </p>
-	<p>
-    <%= f.label :district %>
-    <%= f.text_field :district %>
-  </p>
-	<p>
-    <%= f.label :office %>
-    <%= f.text_field :office %>
-  </p>
-	<p>
-    <%= f.label :date_started, "Year Started" %>
-    <%= f.date_select(:date_started, :start_year => 1951, :discard_day => true, :discard_month => true) %>
-  </p>
-	<p>
-    <%= f.label :date_finished, "Year Ended" %>
-    <%= f.date_select(:date_finished, :start_year => 1951, :discard_day => true, :discard_month => true, :include_blank => true) %>
-  </p>
-	<span class="label important">
-		<%= link_to_remove_fields "remove political office", f %>
-	</span>
-</div>
+
+    <td><%= f.text_field :position %></td>
+    <td><%= f.text_field :district %></td>
+    <td><%= f.text_field :office %></td>
+    <td><%= f.date_select(:date_started, :start_year => 1951, :discard_day => true, :discard_month => true) %></td>
+    <td><%= f.date_select(:date_finished, :start_year => 1951, :discard_day => true, :discard_month => true, :include_blank => true) %></td>
+		<td>
+			<span class="label important">
+				<%= link_to_remove_fields "remove", f %>
+			</span>
+		</td>
+</tr>

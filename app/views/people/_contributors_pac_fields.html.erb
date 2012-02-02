@@ -1,18 +1,12 @@
-<div class="fields actions">
+<tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
-	<p>
-	  <%= f.label :name %>
-    <%= f.text_field :name %>
-	</p>
-	<p>
-    <%= f.label :year, "Year" %>
-    <%= f.date_select(:year, :start_year => 1951, :discard_day => true, :discard_month => true) %>
-  </p>
-  <p>
-    <%= f.label :amount %>
-    <%= f.text_field :amount %>
-  </p>
-	<span class="label important">
-		<%= link_to_remove_fields "remove contributor (pac)", f %>
-	</span>
-</div>
+
+    <td><%= f.text_field :name %></td>
+    <td><%= f.date_select(:year, :start_year => 1951, :discard_day => true, :discard_month => true) %></td>
+    <td><%= f.text_field :amount %></td>
+  	<td>
+			<span class="label important">
+				<%= link_to_remove_fields "remove", f %>
+			</span>
+		</td>
+</tr>

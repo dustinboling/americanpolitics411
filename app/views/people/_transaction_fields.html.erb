@@ -1,26 +1,14 @@
-<div class="fields actions">
+<tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
-	<p>
-			<%= f.label :organization %>
-	   <%= f.select(:organization_id, options_for_select(@organizations.collect {|t| [t.name, t.id]}, f.object.organization_id.to_s)) %>
-	</p>
-	<p>
-    <%= f.label :date, "Year" %>
-    <%= f.date_select(:date, :start_year => 1951) %>
-  </p>
-	<p>
-    <%= f.label :value %>
-    <%= f.text_field :value %>
-  </p>
-  <p>
-    <%= f.label :action, 'Sold' %>
-    <%= f.radio_button :action, false %>
-  </p>
-  <p>
-    <%= f.label :action, 'Purchased' %>
-		<%= f.radio_button :action, true %>
-  </p>
-	<span class="label important">
-		<%= link_to_remove_fields "remove transaction", f %>
-	</span>
-</div>
+	
+	  <td><%= f.select(:organization_id, options_for_select(@organizations.collect {|t| [t.name, t.id]}, f.object.organization_id.to_s)) %></td>
+    <td><%= f.date_select(:date, :start_year => 1951, :discard_day => true, :discard_month => true) %></td>
+    <td><%= f.text_field :value %></td>
+    <td><%= f.radio_button :action, false %>Sold</td>
+		<td><%= f.radio_button :action, true %>Bought</td>
+		<td>
+			<span class="label important">
+				<%= link_to_remove_fields "remove", f %>
+			</span>
+		</td>
+</tr>

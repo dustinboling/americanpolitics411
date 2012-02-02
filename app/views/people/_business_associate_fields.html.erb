@@ -1,23 +1,14 @@
-<div class="fields actions">
+<tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
-	<p>
-	   <%= f.label :organization %>
-	   <%= f.select(:organization_id, options_for_select(@organizations.collect {|t| [t.name, t.id]}, f.object.organization_id.to_s)) %>
-	<%= link_to('Add a new organization.', {:controller => 'organizations', :action => 'new'})  %>
-	</p>
-	<p>
-		<%= f.label :full_name, "Name of Business Associate" %>
-		<%= f.text_field :full_name %>
-	</p>
-	<p>
-    <%= f.label :business_relationship %>
-    <%= f.text_field :business_relationship %>
-  </p>
-  <p>
-    <%= f.label :position %>
-    <%= f.text_field :position %>
-  </p>
-	<span class="label important">
-		<%= link_to_remove_fields "remove business associate", f %>
-	</span>
-</div>
+
+
+	   <td class="span2"><%= f.select(:organization_id, options_for_select(@organizations.collect {|t| [t.name, t.id]}, f.object.organization_id.to_s)) %></td>
+		<td class="span2"><%= f.text_field :full_name, :class => 'span2' %></td>
+    <td class="span2"><%= f.text_field :business_relationship, :class => 'span2' %></td>
+    <td class="span2"><%= f.text_field :position, :class => 'span2' %></td>
+		<td>
+			<span class="label important">
+				<%= link_to_remove_fields "remove", f %>
+			</span>
+		</td>
+</tr>

@@ -1,18 +1,12 @@
-<div class="fields actions">
+<tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
-	<p>
-    <%= f.label :year, "Year" %>
-    <%= f.date_select(:year, :start_year => 1951, :discard_day => true, :discard_month => true) %>
-  </p>
-	<p>
-    <%= f.label :issue %>
-    <%= f.text_field :issue %>
-  </p>
-	<p>
-    <%= f.label :flipflop %>
-    <%= f.text_field :flipflop %>
-  </p>
-	<span class="label important">
-		<%= link_to_remove_fields "remove flip flop", f %>
-	</span>
-</div>
+
+    <td><%= f.date_select(:year, :start_year => 1951, :discard_day => true, :discard_month => true) %></td>
+    <td><%= f.text_field :issue %></td>
+    <td><%= f.text_field :flipflop %></td>
+		<td>
+			<span class="label important">
+				<%= link_to_remove_fields "remove", f %>
+			</span>
+		</td>
+</tr>

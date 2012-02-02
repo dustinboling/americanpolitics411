@@ -1,19 +1,14 @@
-<div class="fields actions">
+<tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
-	<p>
-		<%= f.label :university_id %>
+	<td>
 		<!-- <%= f.select(:university_id, options_for_select(@universities.collect {|t| [t.name, t.id]}, params[:university_id])) %> -->
 		<%= f.text_field :university_name, data: {universities_source: University.order(:name).map(&:name)} %>
-	</p>
-	<p>
-    <%= f.label :year_earned, "Year" %>
-    <%= f.date_select(:year_earned, :start_year => 1951, :discard_day => true, :discard_month => true) %>
-  </p>
-	<p>
-    <%= f.label :degree_earned %>
-    <%= f.text_field :degree_earned %>
-  </p>
-	<span class="label important">
-		<%= link_to_remove_fields "remove degree", f %>
-	</span>
-</div>
+	</td>
+    <td><%= f.date_select(:year_earned, :start_year => 1951, :discard_day => true, :discard_month => true) %></td>
+    <td><%= f.text_field :degree_earned %></td>
+		<td>
+			<span class="label important">
+				<%= link_to_remove_fields "remove", f %>
+			</span>
+		</td>
+</tr>

@@ -1,14 +1,11 @@
-<div class="fields actions">
+<tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
-	<p>
-	   <%= f.label :organization %>
-	   <%= f.select(:organization_id, options_for_select(@organizations.collect {|c| [c.name, c.id]}, f.object.organization_id.to_s), :include_blank => true) %>
-	</p>
-	<p>
-		<%= f.label :amount %>
-		<%= f.text_field :amount %>
-	</p>
-	<span class="label important">
-		<%= link_to_remove_fields "remove contributor", f %>
-	</span>
-</div>
+
+	  <td><%= f.select(:organization_id, options_for_select(@organizations.collect {|c| [c.name, c.id]}, f.object.organization_id.to_s), :include_blank => true) %></td>
+		<td><%= f.text_field :amount %></td>
+		<td>
+			<span class="label important">
+				<%= link_to_remove_fields "remove", f %>
+			</span>
+		</td>
+</tr>

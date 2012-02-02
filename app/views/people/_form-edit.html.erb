@@ -11,139 +11,279 @@
 </div>
 
 <div id="tabs-3">	
-	<h3 class="bump-left">Family Members</h3>
-  <%= f.fields_for(:family_members, @person.family_members) do |family_member| %>
-		<%= render 'family_member_fields', :f => family_member %>
-  <% end %>
-	<span class="label success"><%= link_to_add_fields "Add New Family Member", f, :family_members %></span><br />
-	
-	<h3 class="bump-left">Business Associates</h3>
-	<%= f.fields_for :business_associates do |business_associate| %>
-		<%= render 'business_associate_fields', :f => business_associate %>
-	<% end %>
-	<span class="label success"><%= link_to_add_fields "Add New Business Associate", f, :business_associates %></span><br />
-</div> <!-- /#relationships-tab -->
+	<%= render 'tab3', :f => f %> 
+</div> <!-- contains :family_members and :business_associates -->
 
-<div id="tabs-4">	
-	<h3 class="bump-left">Personal Assets</h3>
-	<%= f.fields_for :personal_assets do |asset| %>
-		<%= render 'personal_asset_fields', :f => asset %>
-	<% end %>
-	<span class="label success"><%= link_to_add_fields "Add New Asset", f, :personal_assets %></span><br />
+
+<div id="tabs-4">
+		<h3 class="bump-left">Personal Assets</h3>
+		<table class="zebra-striped">
+			<tr>
+				<th>Organization</th>
+				<th>Exact Value</th>
+				<th>Value (Min)</th>
+				<th>Value (max)</th>
+				<th></th>
+			</tr>
+			<%= f.fields_for :personal_assets do |asset| %>
+				<%= render 'personal_asset_fields', :f => asset %>
+			<% end %>
+		</table>
+		<span class="label success"><%= link_to_add_fields "Add New Asset", f, :personal_assets %></span><br />
 	
 	<h3 class="bump-left">Transactions</h3>
-	<%= f.fields_for :transactions do |transaction| %>
-		<%= render 'transaction_fields', :f => transaction  %>
-	<% end %>
-	<span class="label success"><%= link_to_add_fields "Add New Transaction", f, :transactions %></span><br />
+	<table class="zebra-striped">
+		<tr>
+			<th>Organization</th>
+			<th>Year</th>
+			<th>Value</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :transactions do |transaction| %>
+			<%= render 'transaction_fields', :f => transaction  %>
+		<% end %>
+	</table>
+		<span class="label success"><%= link_to_add_fields "Add New Transaction", f, :transactions %></span><br />
 </div> <!-- /#financial-tab -->
 
 <div id="tabs-5">
 	<h3 class="bump-left">Degrees</h3>
-	<%= f.fields_for :degrees do |degree| %>
-		<%= render 'degree_fields', :f => degree %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>University</th>
+			<th>Year</th>
+			<th>Degree Earned</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :degrees do |degree| %>
+			<%= render 'degree_fields', :f => degree %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Degree", f, :degrees %></span><br />
 </div>
 
 <div id="tabs-6">
 	<h3 class="bump-left">Endorsements</h3>
-	<%= f.fields_for :endorsements do |endorsement| %>
-		<%= render 'endorsement_fields', :f => endorsement %>
-	<% end %>
-	<span class="label success"><%= link_to_add_fields "Add Endorsement", f, :endorsements %></span><br />
+	<table class="zebra-striped">
+		<tr>
+			<th>Organization</th>
+			<th>Year</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :endorsements do |endorsement| %>
+			<%= render 'endorsement_fields', :f => endorsement %>
+		<% end %>
+	</table>
+		<span class="label success"><%= link_to_add_fields "Add Endorsement", f, :endorsements %></span><br />
 	
 	<h3 class="bump-left">Issue Positions</h3>
-	<%= f.fields_for :issue_positions do |issue_position| %>
-		<%= render 'issue_position_fields', :f => issue_position %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>Issue Topic</th>
+			<th>Question</th>
+			<th>Position</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :issue_positions do |issue_position| %>
+			<%= render 'issue_position_fields', :f => issue_position %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Issue Position", f, :issue_positions %></span><br />
 	
 	<h3 class="bump-left">Flip-Flops</h3>
-	<%= f.fields_for :flip_flops do |flip_flop| %>
-		<%= render 'flip_flop_fields', :f => flip_flop %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>Year</th>
+			<th>Issue</th>
+			<th>Flip-flop</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :flip_flops do |flip_flop| %>
+			<%= render 'flip_flop_fields', :f => flip_flop %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Flip Flop", f, :flip_flops %></span><br />
 	
 	<h3 class="bump-left">Campaign Platforms</h3>
-	<%= f.fields_for :campaign_platforms do |campaign_platform| %>
-		<%= render 'campaign_platform_fields', :f => campaign_platform %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>Year</th>
+			<th>Topic</th>
+			<th>Position</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :campaign_platforms do |campaign_platform| %>
+			<%= render 'campaign_platform_fields', :f => campaign_platform %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Campaign Platform", f, :campaign_platforms %></span><br />
 </div>
 
 <div id="tabs-7">
 	<h3 class="bump-left">Accusations</h3>
-	<%= f.fields_for :accusations do |accusation| %>
-		<%= render 'accusation_fields', :f => accusation %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>Year</th>
+			<th>Accusation</th>
+			<th>Outcome</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :accusations do |accusation| %>
+			<%= render 'accusation_fields', :f => accusation %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Accusation", f, :accusations %></span><br />
 	
 	<h3 class="bump-left">Litigations</h3>
-	<%= f.fields_for :litigations do |litigation| %>
-		<%= render 'litigation_fields', :f => litigation %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>Year</th>
+			<th>Accusation</th>
+			<th>Outcome</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :litigations do |litigation| %>
+			<%= render 'litigation_fields', :f => litigation %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Litigation", f, :litigations %></span><br />
 </div>
 
 <div id="tabs-8">
 	<h3 class="bump-left">Political Offices</h3>
-	<%= f.fields_for :political_offices do |political_office| %>
-		<%= render 'political_office_fields', :f => political_office %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>Position</th>
+			<th>District</th>
+			<th>Office</th>
+			<th>Year Started</th>
+			<th>Year Ended</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :political_offices do |political_office| %>
+			<%= render 'political_office_fields', :f => political_office %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Political Office", f, :political_offices %></span><br />
 	
 	<h3 class="bump-left">Earmarks</h3>
-	<%= f.fields_for :earmarks do |earmark| %>
-		<%= render 'earmark_fields', :f => earmark %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>Organization</th>
+			<th>Fiscal Year</th>
+			<th>Description</th>
+			<th>Sector</th>
+			<th>Amount</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :earmarks do |earmark| %>
+			<%= render 'earmark_fields', :f => earmark %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Earmark", f, :earmarks %></span><br />
 	
 	<h3 class="bump-left">Supporters</h3>
-	<%= f.fields_for :supporters do |supporter| %>
-		<%= render 'supporter_fields', :f => supporter %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>Group Name</th>
+			<th>Support Percentage</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :supporters do |supporter| %>
+			<%= render 'supporter_fields', :f => supporter %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Support Demographic", f, :supporters %></span><br />
 	
 	<h3 class="bump-left">Contributors</h3>
-	<%= f.fields_for :contributors do |contributor| %>
-		<%= render 'contributor_fields', :f => contributor %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>Organization</th>
+			<th>Amount</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :contributors do |contributor| %>
+			<%= render 'contributor_fields', :f => contributor %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Contributor", f, :contributors %></span><br />
 	
 	<h3 class="bump-left">Contributors (Interest Groups)</h3>
-	<%= f.fields_for :contributors_interest_groups do |contributor_ig| %>
-		<%= render 'contributors_interest_group_fields', :f => contributor_ig %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>Interest Group</th>
+			<th>Year</th>
+			<th>Amount</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :contributors_interest_groups do |contributor_ig| %>
+			<%= render 'contributors_interest_group_fields', :f => contributor_ig %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Contributor (Interest Group)", f, :contributors_interest_groups %></span><br />
 	
 	<h3 class="bump-left">Contributors (Interest Group Sectors)</h3>
-	<%= f.fields_for :contributors_interest_group_sectors do |contributor_igs| %>
-		<%= render 'contributors_interest_group_sector_fields', :f => contributor_igs %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>Sector</th>
+			<th>Year</th>
+			<th>Amount</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :contributors_interest_group_sectors do |contributor_igs| %>
+			<%= render 'contributors_interest_group_sector_fields', :f => contributor_igs %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Contributor (Interest Group Sector)", f, :contributors_interest_group_sectors %></span><br />
 	
 	<h3 class="bump-left">Contributors (PAC)</h3>
-	<%= f.fields_for :contributors_pacs do |contributor_pac| %>
-		<%= render 'contributors_pac_fields', :f => contributor_pac %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>PAC</th>
+			<th>Year</th>
+			<th>Amount</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :contributors_pacs do |contributor_pac| %>
+			<%= render 'contributors_pac_fields', :f => contributor_pac %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Contributor (PAC)", f, :contributors_pacs %></span><br />
 </div>
 
 <div id="tabs-9">
 	<h3 class="bump-left">Articles</h3>
-	<%= f.fields_for :articles do |article| %>
-		<%= render 'article_fields', :f => article %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>Title</th>
+			<th>Excerpt</th>
+			<th>Article URL</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :articles do |article| %>
+			<%= render 'article_fields', :f => article %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Article", f, :articles %></span><br /><br />
 	
 	<h3 class="bump-left">Videos</h3>
-	<%= f.fields_for :videos do |video| %>
-		<%= render 'video_fields', :f => video %>
-	<% end %>
+	<table class="zebra-striped">
+		<tr>
+			<th>Title</th>
+			<th>Description</th>
+			<th>Video URL</th>
+			<th>Thumb URL</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :videos do |video| %>
+			<%= render 'video_fields', :f => video %>
+		<% end %>
+	</table>
 	<span class="label success"><%= link_to_add_fields "Add Video", f, :videos %></span><br /><br />
 </div>
 
-<p><%= f.submit 'Update Person', :class => 'btn primary' %></p>
+<p class="right"><%= f.submit 'Update Person', :class => 'btn primary' %></p>
 
 <% end %>

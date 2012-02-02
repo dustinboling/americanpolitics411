@@ -1,18 +1,12 @@
-<div class="fields actions">
+<tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
-	<p>
-    <%= f.label :issue_topic %>
-    <%= f.text_field :issue_topic %>
-  </p>
-	<p>
-    <%= f.label :question %>
-    <%= f.text_field :question %>
-  </p>
-	<p>
-    <%= f.label :position %>
-    <%= f.text_field :position %>
-  </p>
-	<span class="label important">
-		<%= link_to_remove_fields "remove issue position", f %>
-	</span>
-</div>
+
+    <td><%= f.text_field :issue_topic %></td>
+    <td><%= f.text_field :question %></td>
+    <td><%= f.text_field :position %></td>
+		<td>
+			<span class="label important">
+				<%= link_to_remove_fields "remove", f %>
+			</span>
+		</td>
+</tr>

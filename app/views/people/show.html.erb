@@ -296,31 +296,66 @@
 	<% end %>
 </p>
 <p>
+	<table class="zebra-striped bordered-table span12">
+		<tr>
+			<th>Organization</th>
+			<th>Amount</th>
+		</tr>
 	<b>Contributors:</b>
 	<%= @person.contributors.collect { |contributor| 
-				"<br />Organization: #{contributor.find_organization_name}<br />
-					Amount: #{contributor.amount}<br />"}.to_sentence(@person.no_separator).html_safe %>
+				"<tr>
+					<td>#{contributor.find_organization_name}</td>
+					<td>#{number_to_currency(contributor.amount, :precision => 0)}</td>
+				</tr>"}.to_sentence(@person.no_separator).html_safe %>
+	</table>
 </p>
 <p>
+	<table class="zebra-striped bordered-table span12">
+		<tr>
+			<th>Year</th>
+			<th>Interest Group</th>
+			<th>Amount</th>
+		</tr>
 	<b>Contributors (Interest Groups):</b>
 	<%= @person.contributors_interest_groups.collect { |contributor_ig|
-		 		"<br />Year: #{contributor_ig.year.year}<br />
-				Organization: #{contributor_ig.find_organization_name}<br />
-				Amount: #{contributor_ig.amount}<br />"}.to_sentence(@person.no_separator).html_safe %>
+		 		"<tr>
+					<td>#{contributor_ig.year.year}</td>
+					<td>#{contributor_ig.name}</td>
+					<td>#{contributor_ig.amount}</td>
+				</tr>"}.to_sentence(@person.no_separator).html_safe %>
+	</table>
 </p>
 <p>
+	<table class="zebra-striped bordered-table span12">
+		<tr>
+			<th>Year</th>
+			<th>Sector</th>
+			<th>Amount</th>
+		</tr>
 	<b>Contributors (Interest Group Sectors):</b>
 	<%= @person.contributors_interest_group_sectors.collect { |contributor_igs|
-				"<br />Year: #{contributor_igs.year.year}<br />
-				Organization: #{contributor_igs.find_organization_name}<br />
-				Amount: #{contributor_igs.amount}<br />"}.to_sentence(@person.no_separator).html_safe %>
+				"<tr>
+					<td>#{contributor_igs.year.year}</td>
+					<td>#{contributor_igs.name}</td>
+					<td>#{contributor_igs.amount}</td>
+				</tr>"}.to_sentence(@person.no_separator).html_safe %>
+	</table>
 </p>
 <p>
+	<table class="zebra-striped bordered-table span12">
+		<tr>
+			<th>Year</th>
+			<th>PAC</th>
+			<th>Amount</th>
+		</tr>
 	<b>Contributors (PAC):</b>
 	<%= @person.contributors_pacs.collect { |contributor_pac| 
-				"<br />Year: #{contributor_pac.year.year}<br />
-				Organization: #{contributor_pac.find_organization_name}<br />
-				Amount: #{contributor_pac.amount}<br />"}.to_sentence(@person.no_separator).html_safe %>
+				"<tr>
+					<td>#{contributor_pac.year.year}</td>
+					<td>#{contributor_pac.name}</td>
+					<td>#{contributor_pac.amount}</td>
+				</tr>"}.to_sentence(@person.no_separator).html_safe %>
+	</table>
 </p>
 
 <h3>Attachments</h3>
