@@ -1,0 +1,39 @@
+<h3 class="bump-left">Personal Assets</h3>
+	<table class="zebra-striped">
+		<tr>
+			<th>Organization</th>
+			<th>Exact Value</th>
+			<th>Value (Min)</th>
+			<th>Value (max)</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :personal_assets do |asset| %>
+			<%= render 'personal_asset_fields', :f => asset %>
+		<% end %>
+		<tr>
+			<td>
+			<span class="label success"><%= link_to_add_fields "Add New Asset", f, :personal_assets %></span>
+			</td>
+		</tr>		
+	</table>
+
+
+<h3 class="bump-left">Transactions</h3>
+	<table class="zebra-striped">
+		<tr>
+			<th>Organization</th>
+			<th>Year</th>
+			<th>Value</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :transactions do |transaction| %>
+			<%= render 'transaction_fields', :f => transaction  %>
+		<% end %>
+		<tr>
+			<td>
+				<span class="label success"><%= link_to_add_fields "Add New Transaction", f, :transactions %></span>
+			</td>
+		</tr>
+	</table>

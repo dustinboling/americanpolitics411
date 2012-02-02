@@ -1,0 +1,35 @@
+<h3 class="bump-left">Accusations</h3>
+	<table class="zebra-striped">
+		<tr>
+			<th>Year</th>
+			<th>Accusation</th>
+			<th>Outcome</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :accusations do |accusation| %>
+			<%= render 'accusation_fields', :f => accusation %>
+		<% end %>
+		<tr>
+			<td>
+				<span class="label success"><%= link_to_add_fields "Add Accusation", f, :accusations %></span>
+			</td>
+		</tr>
+	</table>
+
+<h3 class="bump-left">Litigations</h3>
+	<table class="zebra-striped">
+		<tr>
+			<th>Year</th>
+			<th>Accusation</th>
+			<th>Outcome</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :litigations do |litigation| %>
+			<%= render 'litigation_fields', :f => litigation %>
+		<% end %>
+		<tr>
+			<td>
+				<span class="label success"><%= link_to_add_fields "Add Litigation", f, :litigations %></span>
+			</td>
+		</tr>
+	</table>

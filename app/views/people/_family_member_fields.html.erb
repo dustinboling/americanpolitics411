@@ -1,4 +1,4 @@
-<tr class="fields addme">
+<tr class="fields">
 	<%= f.hidden_field :person_id, :value => @person.id %>
     <td><%= f.select(:family_member, options_for_select(@people.collect {|fm| [fm.full_name, fm.id]}, f.object.family_member.to_s)) %></td>
     <td><%= f.text_field :relationship, :class => 'span2' %></td>

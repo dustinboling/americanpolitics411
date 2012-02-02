@@ -1,0 +1,17 @@
+<h3 class="bump-left">Degrees</h3>
+	<table class="zebra-striped">
+		<tr>
+			<th>University</th>
+			<th>Year</th>
+			<th>Degree Earned</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :degrees do |degree| %>
+			<%= render 'degree_fields', :f => degree %>
+		<% end %>
+		<tr>
+			<td>
+				<span class="label success"><%= link_to_add_fields "Add Degree", f, :degrees %></span><br />
+			</td>
+		</td>
+	</table>

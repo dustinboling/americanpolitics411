@@ -1,9 +1,9 @@
 <tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
    <td><%= f.select(:organization_id, options_for_select(@organizations.collect {|t| [t.name, t.id]}, f.object.organization_id.to_s)) %></td>
-   <td><%= f.text_field :value %></td>
-   <td><%= f.text_field :value_min %></td>
-   <td><%= f.text_field :value_max %></td>
+   <td><%= f.text_field :value, :class => 'span2' %></td>
+   <td><%= f.text_field :value_min, :class => 'span2' %></td>
+   <td><%= f.text_field :value_max, :class => 'span2' %></td>
 	<td>
 		<span class="label important">
 			<%= link_to_remove_fields "remove", f %>

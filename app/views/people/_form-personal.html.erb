@@ -25,11 +25,11 @@
 </div>
   <div class="field">
     <%= f.label :date_of_birth %>
-    <%= f.date_select :date_of_birth, :order => [:month, :day, :year], :start_year => 1901 %>
+    <%= f.date_select :date_of_birth, {:order => [:month, :day, :year], :start_year => 1901}, {:class => 'span2'} %>
   </div>
   <div class="field">
     <%= f.label :date_of_death %>
-    <%= f.date_select :date_of_death, :order => [:month, :day, :year], :start_year => 1851, :include_blank => true, :default => nil %>
+    <%= f.date_select :date_of_death, {:order => [:month, :day, :year], :start_year => 1851, :include_blank => true, :default => nil}, {:class => 'span2'} %>
   </div>
   <div class="field">
     <%= f.label :bio %>

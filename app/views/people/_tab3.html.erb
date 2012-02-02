@@ -9,9 +9,12 @@
 	  <%= f.fields_for(:family_members, @person.family_members) do |family_member| %>
 			<%= render 'family_member_fields', :f => family_member %>
 	  <% end %>
+		<tr class="addfield">
+			<td>
+				<span class="label success"><%= link_to_add_fields "Add New Family Member", f, :family_members %></span>
+			</td>
+		</tr>
 	</table>
-	<span class="label success"><%= link_to_add_fields "Add New Family Member", f, :family_members %></span>
-
 
 <h3 class="bump-left">Business Associates</h3>
 	<table class="zebra-striped">
@@ -25,5 +28,10 @@
 		<%= f.fields_for :business_associates do |business_associate| %>
 			<%= render 'business_associate_fields', :f => business_associate %>
 		<% end %>
+		<tr>
+			<td>
+				<span class="label success"><%= link_to_add_fields "Add New Business Associate", f, :business_associates %></span><br />
+			</td>
+		</tr>
 	</table>
-	<span class="label success"><%= link_to_add_fields "Add New Business Associate", f, :business_associates %></span><br />
+

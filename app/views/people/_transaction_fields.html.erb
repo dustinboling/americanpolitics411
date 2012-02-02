@@ -2,8 +2,8 @@
 	<%= f.hidden_field :person_id, :value => @person.id %>
 	
 	  <td><%= f.select(:organization_id, options_for_select(@organizations.collect {|t| [t.name, t.id]}, f.object.organization_id.to_s)) %></td>
-    <td><%= f.date_select(:date, :start_year => 1951, :discard_day => true, :discard_month => true) %></td>
-    <td><%= f.text_field :value %></td>
+    <td><%= f.date_select :date, {:start_year => 1951, :discard_day => true, :discard_month => true}, {:class => 'span2'} %></td>
+    <td><%= f.text_field :value, :class => 'span2' %></td>
     <td><%= f.radio_button :action, false %>Sold</td>
 		<td><%= f.radio_button :action, true %>Bought</td>
 		<td>

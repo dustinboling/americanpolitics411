@@ -1,0 +1,72 @@
+<h3 class="bump-left">Endorsements</h3>
+	<table class="zebra-striped">
+		<tr>
+			<th>Organization</th>
+			<th>Year</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :endorsements do |endorsement| %>
+			<%= render 'endorsement_fields', :f => endorsement %>
+		<% end %>
+		<tr>
+			<td>
+				<span class="label success"><%= link_to_add_fields "Add Endorsement", f, :endorsements %></span>
+			</td>
+		</tr>
+	</table>
+	
+
+<h3 class="bump-left">Issue Positions</h3>
+	<table class="zebra-striped">
+		<tr>
+			<th>Issue Topic</th>
+			<th>Question</th>
+			<th>Position</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :issue_positions do |issue_position| %>
+			<%= render 'issue_position_fields', :f => issue_position %>
+		<% end %>
+		<tr>
+			<td>
+				<span class="label success"><%= link_to_add_fields "Add Issue Position", f, :issue_positions %></span>
+			</td>
+		</tr>
+	</table>
+
+
+<h3 class="bump-left">Flip-Flops</h3>
+	<table class="zebra-striped">
+		<tr>
+			<th>Year</th>
+			<th>Issue</th>
+			<th>Flip-flop</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :flip_flops do |flip_flop| %>
+			<%= render 'flip_flop_fields', :f => flip_flop %>
+		<% end %>
+		<tr>
+			<th>
+				<span class="label success"><%= link_to_add_fields "Add Flip Flop", f, :flip_flops %></span>
+			</th>
+		</tr>
+	</table>
+
+<h3 class="bump-left">Campaign Platforms</h3>
+	<table class="zebra-striped">
+		<tr>
+			<th>Year</th>
+			<th>Topic</th>
+			<th>Position</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :campaign_platforms do |campaign_platform| %>
+			<%= render 'campaign_platform_fields', :f => campaign_platform %>
+		<% end %>
+		<tr>
+			<th>
+				<span class="label success"><%= link_to_add_fields "Add Campaign Platform", f, :campaign_platforms %></span>
+			</th>
+		</tr>
+	</table>

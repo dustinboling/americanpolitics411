@@ -1,0 +1,36 @@
+<h3 class="bump-left">Articles</h3>
+	<table class="zebra-striped">
+		<tr>
+			<th>Title</th>
+			<th>Excerpt</th>
+			<th>Article URL</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :articles do |article| %>
+			<%= render 'article_fields', :f => article %>
+		<% end %>
+		<tr>
+			<td>
+				<span class="label success"><%= link_to_add_fields "Add Article", f, :articles %></span>
+			</td>
+		</tr>
+	</table>
+	
+<h3 class="bump-left">Videos</h3>
+	<table class="zebra-striped">
+		<tr>
+			<th>Title</th>
+			<th>Description</th>
+			<th>Video URL</th>
+			<th>Thumb URL</th>
+			<th></th>
+		</tr>
+		<%= f.fields_for :videos do |video| %>
+			<%= render 'video_fields', :f => video %>
+		<% end %>
+		<tr>
+			<td>
+				<span class="label success"><%= link_to_add_fields "Add Video", f, :videos %></span>
+			</td>
+		</tr>
+	</table>
