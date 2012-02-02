@@ -21,7 +21,7 @@
 <h3 class="bump-left">Earmarks</h3>
 	<table class="zebra-striped">
 		<tr>
-			<th>Organization</th>
+			<th>Organization <%= link_to '(Add New)', {:controller => 'organizations', :action => 'new'}  %></th>
 			<th>Fiscal Year</th>
 			<th>Description</th>
 			<th>Sector</th>
@@ -58,7 +58,7 @@
 <h3 class="bump-left">Contributors</h3>
 	<table class="zebra-striped">
 		<tr>
-			<th>Organization</th>
+			<th>Organization <%= link_to '(Add New)', {:controller => 'organizations', :action => 'new'}  %></th>
 			<th>Amount</th>
 			<th></th>
 		</tr>

@@ -1,384 +1,381 @@
 <% @page_title = "#{@person.full_name}" %>
-
-	<%= render :partial => 'layouts/supporters_pie' %>
-
-<div id="public-navigation-side">
-	<%= render 'public-navigation-side' %>
-</div>
-
-<div id="profile">
-<p id="notice"><%= notice %></p>
-
-<h1><%= @person.first_name %> <%= @person.last_name %></h1>
-<img src="<%= @person.photo_url %>"></img>
-
-<h3>Basic Info</h3>
-<p>
-	<b>Name:</b>
-	<%= @person.full_name %>
-</p>
-<p>
-  <b>Date of birth:</b>
-  <%= @person.date_of_birth %>
-</p>
-<p>
-  <b>Date of death:</b>
-	<% unless @person.date_of_death.nil? %>
-  	<%= @person.date_of_death %>
-	<% end %>
-</p>
-<p>
-  <b>Bio:</b>
-  <%= @person.bio %>
-</p>
-<p>
-	<b>Religion:</b>
-		<a href="/religions/<%= @person.religion_id %>"><%= @person.religion.name %></a>
-</p>
-<p>
-	<b>Education:</b><br />
-  <%= @person.degrees.collect { |degree| 
-			"#{degree.degree_earned}, <a href='/universities/#{degree.university_id}'>#{degree.find_university_name} - #{degree.year_earned.year}</a><br />" 
-			}.to_sentence(@person.no_separator).html_safe %>
-</p>
-<p>
-	<b>Professional Experience:</b>
-	<%= @person.professional_experience %>
-</p>
-<p>
-	<b>Literary Work:</b>
-	<%= @person.literary_work %>
-</p>
-
-<h3>Contact Info</h3>
-<p>
-	<b>Street Address:</b>
-	<%= @person.contact_street_address %>		
-</p>
-<p>
-	<b>City:</b>
-	<%= @person.contact_city %>		
-</p>	
-<p>
-	<b>State:</b>
-	<%= @person.contact_state %>
-</p>
-<p>
-	<b>Zip:</b>
-	<%= @person.contact_zip %>		
-</p>
-<p>
-	<b>Phone:</b>
-	<%= @person.contact_phone %>
-</p>
-<p>
-	<b>Fax:</b>
-	<%= @person.contact_fax %>	
-</p>
-<p>
-	<b>Email:</b>
-	<%= @person.contact_email %>	
-</p>
-<p>
-	<b>Web Page:</b>
-	<%= @person.contact_web_page_name %>
-	(<a href="<%= @person.contact_web_page_url %>">Link</a>)	
-</p>
-
-
-<h3>Relationships</h3>
-<p>
-	<b>Business Associates:</b>
-	<% if @person.business_associates.size > 0 %>
-		<%= @person.business_associates.collect { |business_associate| 
-					"#{business_associate.full_name} @ <a href='/organizations/#{business_associate.organization_id}'>#{business_associate.find_organization_name}</a>" 
-					}.to_sentence.html_safe %>
-	<% else %>
-		<%= "Information Not Yet Available. Research in progress." %>
-	<% end %>
-</p>
-<p>
-	<b>Related To:</b>
-	<%= @person.family_members.collect { |family_member| 
-				"<a href='#{family_member.family_member}'>#{family_member.find_person_name} (#{family_member.relationship})</a> - #{family_member.notes}" 
-				}.to_sentence.html_safe %>
-</p>
-
-<h3>Financial</h3>
-<p>
-	<b>Net Worth</b><br />
-	Minimum:
-	<%= number_to_currency(@person.net_worth_minimum, :precision => 0) %><br />
-	Average:
-	<%= number_to_currency(@person.net_worth_average, :precision => 0) %><br />
-	Maximum:
-	<%= number_to_currency(@person.net_worth_maximum, :precision => 0) %><br />
-</p>
-
-<h3>Transactions</h3>
-<p>
-	<b>Assets:</b>
-	<table class="zebra-striped bordered-table span8">
-		<tr>
-			<th>Organization</th>
-			<th>Value (exact)</th>
-			<th>Value (min)</th>
-			<th>Value (max)</th>
-		</tr>
-			<%= @person.personal_assets.collect { |asset|
-						"<tr>
-							<td>#{asset.find_organization_name}</td>
-							<td>#{number_to_currency(asset.value, :precision => 0)}</td>
-							<td>#{number_to_currency(asset.value_min, :precision => 0)}</td>
-							<td>#{number_to_currency(asset.value_max, :precision => 0)}</td>
-						</tr>" 
+<div class="container-fluid">
+	<div class="span3">
+		<div class="well sidebar pub-nav" id="pub-nav">
+			<%= render 'public-navigation-side' %>
+		</div>
+ 	</div>
+	
+	<div class="span13" id="profile">
+			<%= render 'messages' %>
+		<div class="hero-unit">
+			<h1><%= @person.first_name %> <%= @person.last_name %></h1>
+			<img src="<%= @person.photo_url %>"></img>
+			<h3>Basic Info</h3>
+			<p>
+			  <b>Date of birth:</b>
+			  <%= @person.date_of_birth %>
+			</p>
+			<p>
+			  <b>Date of death:</b>
+				<% unless @person.date_of_death.nil? %>
+			  	<%= @person.date_of_death %>
+				<% end %>
+			</p>
+			<p>
+			  <b>Bio:</b>
+			  <%= @person.bio %>
+			</p>
+			<p>
+				<b>Religion:</b>
+					<a href="/religions/<%= @person.religion_id %>"><%= @person.religion.name %></a>
+			</p>
+			<p>
+				<b>Education:</b><br />
+			  <%= @person.degrees.collect { |degree| 
+						"#{degree.degree_earned}, <a href='/universities/#{degree.university_id}'>#{degree.find_university_name} - #{degree.year_earned.year}</a><br />" 
 						}.to_sentence(@person.no_separator).html_safe %>
-	</table>
-</p>
-<p>
-	<b>Transactions:</b>
-	<table class="zebra-striped bordered-table span8">
-		<tr>
-			<th></th>
-			<th>Date</th>
-			<th>Organization</th>
-			<th>Value</th>
-		</tr>
-			<%= @person.transactions.collect { |transaction| 
+			</p>
+			<p>
+				<b>Professional Experience:</b>
+				<%= @person.professional_experience %>
+			</p>
+			<p>
+				<b>Literary Work:</b>
+				<%= @person.literary_work %>
+			</p>
+		</div>
+
+		<h3>Contact Info</h3>
+		<p>
+			<b>Street Address:</b>
+			<%= @person.contact_street_address %>		
+		</p>
+		<p>
+			<b>City:</b>
+			<%= @person.contact_city %>		
+		</p>	
+		<p>
+			<b>State:</b>
+			<%= @person.contact_state %>
+		</p>
+		<p>
+			<b>Zip:</b>
+			<%= @person.contact_zip %>		
+		</p>
+		<p>
+			<b>Phone:</b>
+			<%= @person.contact_phone %>
+		</p>
+		<p>
+			<b>Fax:</b>
+			<%= @person.contact_fax %>	
+		</p>
+		<p>
+			<b>Email:</b>
+			<%= @person.contact_email %>	
+		</p>
+		<p>
+			<b>Web Page:</b>
+			<%= @person.contact_web_page_name %>
+			(<a href="<%= @person.contact_web_page_url %>">Link</a>)	
+		</p>
+
+
+		<h3>Relationships</h3>
+		<p>
+			<b>Business Associates:</b>
+			<% if @person.business_associates.size > 0 %>
+				<%= @person.business_associates.collect { |business_associate| 
+							"#{business_associate.full_name} @ <a href='/organizations/#{business_associate.organization_id}'>#{business_associate.find_organization_name}</a>" 
+							}.to_sentence.html_safe %>
+			<% else %>
+				<%= "Information Not Yet Available. Research in progress." %>
+			<% end %>
+		</p>
+		<p>
+			<b>Related To:</b>
+			<%= @person.family_members.collect { |family_member| 
+						"<a href='#{family_member.family_member}'>#{family_member.find_person_name} (#{family_member.relationship})</a> - #{family_member.notes}" 
+						}.to_sentence.html_safe %>
+		</p>
+
+		<h3>Financial</h3>
+		<p>
+			<b>Net Worth</b><br />
+			Minimum:
+			<%= number_to_currency(@person.net_worth_minimum, :precision => 0) %><br />
+			Average:
+			<%= number_to_currency(@person.net_worth_average, :precision => 0) %><br />
+			Maximum:
+			<%= number_to_currency(@person.net_worth_maximum, :precision => 0) %><br />
+		</p>
+
+		<h3>Transactions</h3>
+		<p>
+			<b>Assets:</b>
+			<table class="zebra-striped bordered-table span8">
+				<tr>
+					<th>Organization</th>
+					<th>Value (exact)</th>
+					<th>Value (min)</th>
+					<th>Value (max)</th>
+				</tr>
+					<%= @person.personal_assets.collect { |asset|
+								"<tr>
+									<td>#{asset.find_organization_name}</td>
+									<td>#{number_to_currency(asset.value, :precision => 0)}</td>
+									<td>#{number_to_currency(asset.value_min, :precision => 0)}</td>
+									<td>#{number_to_currency(asset.value_max, :precision => 0)}</td>
+								</tr>" 
+								}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
+		<p>
+			<b>Transactions:</b>
+			<table class="zebra-striped bordered-table span8">
+				<tr>
+					<th></th>
+					<th>Date</th>
+					<th>Organization</th>
+					<th>Value</th>
+				</tr>
+					<%= @person.transactions.collect { |transaction| 
+								"<tr>
+									<td>#{transaction.action? ? 'Purchased' : 'Sold'}</td>
+									<td>#{transaction.date.year}</td>
+									<td>#{transaction.find_organization_name}</td>
+									<td>#{number_to_currency(transaction.value, :precision => 0)}</td>
+									</tr>"}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
+
+		<h3>Political</h3>
+		<p>
+			<b>Endorsements:</b>
+			<table class="zebra-striped bordered-table span8">
+				<tr>
+					<th>Year</th>
+					<th>Organization</th>
+				</tr>
+				<%= @person.endorsements.collect { |endorsement| 
+							"<tr>
+								<td>#{endorsement.year.year}</td>
+								<td>#{endorsement.find_organization_name}</td>
+							</tr>" }.to_sentence(@person.no_separator).html_safe %>
+				</table>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Topic</th>
+					<th>Question</th>
+					<th>Position</th>
+				</tr>
+			<b>Issue Positions:</b>
+			<%= @person.issue_positions.collect { |issue_position| 
 						"<tr>
-							<td>#{transaction.action? ? 'Purchased' : 'Sold'}</td>
-							<td>#{transaction.date.year}</td>
-							<td>#{transaction.find_organization_name}</td>
-							<td>#{number_to_currency(transaction.value, :precision => 0)}</td>
-							</tr>"}.to_sentence(@person.no_separator).html_safe %>
-	</table>
-</p>
+							<td><b>#{issue_position.issue_topic}</b></td>
+							<td>#{issue_position.question}</td>
+							<td>#{issue_position.position}</td>
+						</tr>" }.to_sentence(@person.no_separator).html_safe %>
+				</table>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Year</th>
+					<th>Issue</th>
+					<th>Flip-flop</th>
+				</tr>
+				<b>Flip Flops:</b>
+				<%= @person.flip_flops.collect { |flip_flop|
+					 		"<tr>
+								 <td>#{flip_flop.year.year}</td>
+								 <td>#{flip_flop.issue}</td>
+								 <td>#{flip_flop.flipflop}</td>
+							</tr>" }.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Year</th>
+					<th>Issue</th>
+					<th>Flip-flop</th>
+				</tr>
+			<b>Campaign Platforms:</b>
+			<%= @person.campaign_platforms.collect { |campaign_platform| 
+						"<tr>
+						   <td>#{campaign_platform.campaign_year.year}</td>
+						 	 <td>#{campaign_platform.topic}</td>
+						 	 <td>#{campaign_platform.position_on_issue}</td>
+						</tr>"
+						}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
 
-<h3>Political</h3>
-<p>
-	<b>Endorsements:</b>
-	<table class="zebra-striped bordered-table span8">
-		<tr>
-			<th>Year</th>
-			<th>Organization</th>
-		</tr>
-		<%= @person.endorsements.collect { |endorsement| 
-					"<tr>
-						<td>#{endorsement.year.year}</td>
-						<td>#{endorsement.find_organization_name}</td>
-					</tr>" }.to_sentence(@person.no_separator).html_safe %>
-		</table>
-</p>
-<p>
-	<table class="zebra-striped bordered-table span12">
-		<tr>
-			<th>Topic</th>
-			<th>Question</th>
-			<th>Position</th>
-		</tr>
-	<b>Issue Positions:</b>
-	<%= @person.issue_positions.collect { |issue_position| 
-				"<tr>
-					<td><b>#{issue_position.issue_topic}</b></td>
-					<td>#{issue_position.question}</td>
-					<td>#{issue_position.position}</td>
-				</tr>" }.to_sentence(@person.no_separator).html_safe %>
-		</table>
-</p>
-<p>
-	<table class="zebra-striped bordered-table span12">
-		<tr>
-			<th>Year</th>
-			<th>Issue</th>
-			<th>Flip-flop</th>
-		</tr>
-		<b>Flip Flops:</b>
-		<%= @person.flip_flops.collect { |flip_flop|
-			 		"<tr>
-						 <td>#{flip_flop.year.year}</td>
-						 <td>#{flip_flop.issue}</td>
-						 <td>#{flip_flop.flipflop}</td>
-					</tr>" }.to_sentence(@person.no_separator).html_safe %>
-	</table>
-</p>
-<p>
-	<table class="zebra-striped bordered-table span12">
-		<tr>
-			<th>Year</th>
-			<th>Issue</th>
-			<th>Flip-flop</th>
-		</tr>
-	<b>Campaign Platforms:</b>
-	<%= @person.campaign_platforms.collect { |campaign_platform| 
-				"<tr>
-				   <td>#{campaign_platform.campaign_year.year}</td>
-				 	 <td>#{campaign_platform.topic}</td>
-				 	 <td>#{campaign_platform.position_on_issue}</td>
-				</tr>"
-				}.to_sentence(@person.no_separator).html_safe %>
-	</table>
-</p>
+		<h3>Controversy</h3>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Year</th>
+					<th>Accusation</th>
+					<th>Outcome</th>
+				</tr>	
+			<b>Accusations:</b>
+			<%= @person.accusations.collect { |accusation| 
+						"<tr>
+							 <td>#{accusation.date.year}</td>
+							 <td>#{accusation.accusation}</td>
+							 <td>#{accusation.outcome}</td>
+						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Year</th>
+					<th>Litigation</th>
+					<th>Outcome</th>
+				</tr>
+			<b>Litigation:</b>
+			<%= @person.litigations.collect { |litigation| 
+						"<tr>
+							 <td>#{litigation.date.year}</td>
+							 <td>#{litigation.litigation}</td>
+							 <td>#{litigation.outcome}</td>
+						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
 
-<h3>Controversy</h3>
-<p>
-	<table class="zebra-striped bordered-table span12">
-		<tr>
-			<th>Year</th>
-			<th>Accusation</th>
-			<th>Outcome</th>
-		</tr>	
-	<b>Accusations:</b>
-	<%= @person.accusations.collect { |accusation| 
-				"<tr>
-					 <td>#{accusation.date.year}</td>
-					 <td>#{accusation.accusation}</td>
-					 <td>#{accusation.outcome}</td>
-				</tr>"}.to_sentence(@person.no_separator).html_safe %>
-	</table>
-</p>
-<p>
-	<table class="zebra-striped bordered-table span12">
-		<tr>
-			<th>Year</th>
-			<th>Litigation</th>
-			<th>Outcome</th>
-		</tr>
-	<b>Litigation:</b>
-	<%= @person.litigations.collect { |litigation| 
-				"<tr>
-					 <td>#{litigation.date.year}</td>
-					 <td>#{litigation.litigation}</td>
-					 <td>#{litigation.outcome}</td>
-				</tr>"}.to_sentence(@person.no_separator).html_safe %>
-	</table>
-</p>
+		<h3>Establishment</h3>
+		<p>
+			<b>Political Offices Held:</b>
+			<%= @person.political_offices.collect { |political_office| 
+						"<br />Position: #{political_office.position}<br />
+						District: #{political_office.district}<br />
+						Office: #{political_office.office}<br />
+						Dates In Office: #{political_office.date_started.year} -
+							#{if political_office.date_finished.nil? 
+									'present'
+								else
+									political_office.date_finished.year
+								end}<br />"}.to_sentence(@person.no_separator).html_safe %>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Year</th>
+					<th>Organization</th>
+					<th>Description</th>
+					<th>Sector</th>
+					<th>Amount</th>
+				</tr>
+			<b>Earmarks:</b>
+			<%= @person.earmarks.collect { |earmark| 
+						"<tr>
+						   <td>#{earmark.year.year}</td>
+							 <td>#{earmark.find_organization_name}</td>
+							 <td>#{earmark.description}</td>
+							 <td>#{earmark.sector}</td>
+							 <td>#{number_to_currency(earmark.amount, :precision => 0)}</td>
+						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
+		<p>
+			<b>Supporters:</b>
+			<% unless @person.supporters.empty? %>
+				<div id="holder"></div>	
+			<% else %>
+				Information is not currently available, research is in progress.
+			<% end %>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Organization</th>
+					<th>Amount</th>
+				</tr>
+			<b>Contributors:</b>
+			<%= @person.contributors.collect { |contributor| 
+						"<tr>
+							<td>#{contributor.find_organization_name}</td>
+							<td>#{number_to_currency(contributor.amount, :precision => 0)}</td>
+						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Year</th>
+					<th>Interest Group</th>
+					<th>Amount</th>
+				</tr>
+			<b>Contributors (Interest Groups):</b>
+			<%= @person.contributors_interest_groups.collect { |contributor_ig|
+				 		"<tr>
+							<td>#{contributor_ig.year.year}</td>
+							<td>#{contributor_ig.name}</td>
+							<td>#{contributor_ig.amount}</td>
+						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Year</th>
+					<th>Sector</th>
+					<th>Amount</th>
+				</tr>
+			<b>Contributors (Interest Group Sectors):</b>
+			<%= @person.contributors_interest_group_sectors.collect { |contributor_igs|
+						"<tr>
+							<td>#{contributor_igs.year.year}</td>
+							<td>#{contributor_igs.name}</td>
+							<td>#{contributor_igs.amount}</td>
+						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Year</th>
+					<th>PAC</th>
+					<th>Amount</th>
+				</tr>
+			<b>Contributors (PAC):</b>
+			<%= @person.contributors_pacs.collect { |contributor_pac| 
+						"<tr>
+							<td>#{contributor_pac.year.year}</td>
+							<td>#{contributor_pac.name}</td>
+							<td>#{contributor_pac.amount}</td>
+						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
 
-<h3>Establishment</h3>
-<p>
-	<b>Political Offices Held:</b>
-	<%= @person.political_offices.collect { |political_office| 
-				"<br />Position: #{political_office.position}<br />
-				District: #{political_office.district}<br />
-				Office: #{political_office.office}<br />
-				Dates In Office: #{political_office.date_started.year} -
-					#{if political_office.date_finished.nil? 
-							'present'
-						else
-							political_office.date_finished.year
-						end}<br />"}.to_sentence(@person.no_separator).html_safe %>
-</p>
-<p>
-	<table class="zebra-striped bordered-table span12">
-		<tr>
-			<th>Year</th>
-			<th>Organization</th>
-			<th>Description</th>
-			<th>Sector</th>
-			<th>Amount</th>
-		</tr>
-	<b>Earmarks:</b>
-	<%= @person.earmarks.collect { |earmark| 
-				"<tr>
-				   <td>#{earmark.year.year}</td>
-					 <td>#{earmark.find_organization_name}</td>
-					 <td>#{earmark.description}</td>
-					 <td>#{earmark.sector}</td>
-					 <td>#{number_to_currency(earmark.amount, :precision => 0)}</td>
-				</tr>"}.to_sentence(@person.no_separator).html_safe %>
-	</table>
-</p>
-<p>
-	<b>Supporters:</b>
-	<% unless @person.supporters.empty? %>
-		<div id="holder"></div>	
-	<% else %>
-		Information is not currently available, research is in progress.
-	<% end %>
-</p>
-<p>
-	<table class="zebra-striped bordered-table span12">
-		<tr>
-			<th>Organization</th>
-			<th>Amount</th>
-		</tr>
-	<b>Contributors:</b>
-	<%= @person.contributors.collect { |contributor| 
-				"<tr>
-					<td>#{contributor.find_organization_name}</td>
-					<td>#{number_to_currency(contributor.amount, :precision => 0)}</td>
-				</tr>"}.to_sentence(@person.no_separator).html_safe %>
-	</table>
-</p>
-<p>
-	<table class="zebra-striped bordered-table span12">
-		<tr>
-			<th>Year</th>
-			<th>Interest Group</th>
-			<th>Amount</th>
-		</tr>
-	<b>Contributors (Interest Groups):</b>
-	<%= @person.contributors_interest_groups.collect { |contributor_ig|
-		 		"<tr>
-					<td>#{contributor_ig.year.year}</td>
-					<td>#{contributor_ig.name}</td>
-					<td>#{contributor_ig.amount}</td>
-				</tr>"}.to_sentence(@person.no_separator).html_safe %>
-	</table>
-</p>
-<p>
-	<table class="zebra-striped bordered-table span12">
-		<tr>
-			<th>Year</th>
-			<th>Sector</th>
-			<th>Amount</th>
-		</tr>
-	<b>Contributors (Interest Group Sectors):</b>
-	<%= @person.contributors_interest_group_sectors.collect { |contributor_igs|
-				"<tr>
-					<td>#{contributor_igs.year.year}</td>
-					<td>#{contributor_igs.name}</td>
-					<td>#{contributor_igs.amount}</td>
-				</tr>"}.to_sentence(@person.no_separator).html_safe %>
-	</table>
-</p>
-<p>
-	<table class="zebra-striped bordered-table span12">
-		<tr>
-			<th>Year</th>
-			<th>PAC</th>
-			<th>Amount</th>
-		</tr>
-	<b>Contributors (PAC):</b>
-	<%= @person.contributors_pacs.collect { |contributor_pac| 
-				"<tr>
-					<td>#{contributor_pac.year.year}</td>
-					<td>#{contributor_pac.name}</td>
-					<td>#{contributor_pac.amount}</td>
-				</tr>"}.to_sentence(@person.no_separator).html_safe %>
-	</table>
-</p>
-
-<h3>Attachments</h3>
-<p>
-	<b>Articles:</b>
-	<%= @person.articles.collect { |article| 
-				"<br />Date: #{article.date}<br />
-				Title: #{article.title}<br />
-				Excerpt: #{article.excerpt}<br />
-				Link: <a href='#{article.article_url}'>#{article.article_url}</a><br />"}.to_sentence(@person.no_separator).html_safe %>
-</p>
-<p>
-	<b>Videos:</b>
-	<%= @person.videos.collect { |video| 
-				"<br />Date: #{video.date}<br />
-				Title: #{video.title}<br />
-				Description: #{video.description}<br />
-				Thumb URL: #{video.thumbnail_url}<br />
-				Video URL: <a href='#{video.video_url}'>#{video.video_url}</a><br />"}.to_sentence(@person.no_separator).html_safe %>
-</p>
-<% if can? :edit, Person %>
-	<%= link_to 'Edit', edit_person_path(@person) %> |
-<% end %>
-	<%= link_to 'Back to List', :controller => 'people', :action => 'all' %>
-
-</div>
+		<h3>Attachments</h3>
+		<p>
+			<b>Articles:</b>
+			<%= @person.articles.collect { |article| 
+						"<br />Date: #{article.date}<br />
+						Title: #{article.title}<br />
+						Excerpt: #{article.excerpt}<br />
+						Link: <a href='#{article.article_url}'>#{article.article_url}</a><br />"}.to_sentence(@person.no_separator).html_safe %>
+		</p>
+		<p>
+			<b>Videos:</b>
+			<%= @person.videos.collect { |video| 
+						"<br />Date: #{video.date}<br />
+						Title: #{video.title}<br />
+						Description: #{video.description}<br />
+						Thumb URL: #{video.thumbnail_url}<br />
+						Video URL: <a href='#{video.video_url}'>#{video.video_url}</a><br />"}.to_sentence(@person.no_separator).html_safe %>
+		</p>
+		<% if can? :edit, Person %>
+			<%= link_to 'Edit', edit_person_path(@person) %> |
+		<% end %>
+			<%= link_to 'Back to List', :controller => 'people', :action => 'all' %>
+		</div>
+	</div>
+<%= render :partial => 'layouts/supporters_pie' %>

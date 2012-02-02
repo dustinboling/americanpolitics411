@@ -46,6 +46,10 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find_by_id(params[:id])
     @user.destroy
+    
+    respond_to do |format|
+      format.html { redirect_to users_url }
+    end
   end
   
 end

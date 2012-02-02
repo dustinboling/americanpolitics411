@@ -20,7 +20,7 @@
 			<% end %>
 			<td><%= link_to 'Show', user, :class => 'button show' %></td>
 			<% if can? :destroy, User %>	
-				<td><%= link_to 'Destroy', user, confirm: "Do you really want to delete this user?", :method => :delete, :class => 'button delete' %></td>
+			<td><%= link_to 'Destroy', user, confirm: "Do you really want to delete this user?", :method => :delete, :class => 'button delete' %></td>
 			<% end %>
 		</tr>
 	<% end %>

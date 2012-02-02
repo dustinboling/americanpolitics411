@@ -1,4 +1,6 @@
 Politics411::Application.routes.draw do  
+
+  resources :password_resets
   
   get "legislation/grab_xml"
 

@@ -67,14 +67,12 @@ ul.ui-autocomplete {
 }
 
 /* Show */
-
-#public-navigation-side {
+#pub-nav {
 	float: left;
-	margin: auto;
-	width: 200px;
-	min-height: 6200px;
-	ul {
-		padding-top: 10px;
-		padding-left: 10px;
-	}
+}
+
+#profile {
+	float: left;
+	padding-left: 20px;
+	margin-top: -60px;
 }

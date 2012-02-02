@@ -19,7 +19,7 @@
 <h3 class="bump-left">Business Associates</h3>
 	<table class="zebra-striped">
 		<tr>
-			<th>Organization</th>
+			<th>Organization <%= link_to '(Add New)', {:controller => 'organizations', :action => 'new'}  %></th>
 			<th>Business Associate</th>
 			<th>Relationship</th>
 			<th>Position</th>
@@ -34,4 +34,3 @@
 			</td>
 		</tr>
 	</table>
-
