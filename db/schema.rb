@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120202183229) do
+ActiveRecord::Schema.define(:version => 20120203222639) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -166,7 +166,6 @@ ActiveRecord::Schema.define(:version => 20120202183229) do
   add_index "endorsements", ["person_id"], :name => "index_endorsements_on_person_id"
 
   create_table "family_members", :force => true do |t|
-    t.string   "name"
     t.string   "relationship"
     t.text     "notes"
     t.datetime "created_at"
@@ -267,6 +266,7 @@ ActiveRecord::Schema.define(:version => 20120202183229) do
     t.integer  "net_worth_average"
     t.integer  "net_worth_maximum"
     t.integer  "family_members_id"
+    t.string   "name"
   end
 
   create_table "person_videos", :force => true do |t|
@@ -281,9 +281,6 @@ ActiveRecord::Schema.define(:version => 20120202183229) do
 
   create_table "personal_assets", :force => true do |t|
     t.integer  "person_id"
-    t.string   "organization_name"
-    t.boolean  "action"
-    t.date     "date"
     t.integer  "value_min"
     t.integer  "value_max"
     t.integer  "value"
@@ -367,7 +364,6 @@ ActiveRecord::Schema.define(:version => 20120202183229) do
 
   create_table "transactions", :force => true do |t|
     t.integer  "person_id"
-    t.string   "organization_name"
     t.boolean  "action"
     t.date     "date"
     t.integer  "value"

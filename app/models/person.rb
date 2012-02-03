@@ -7,6 +7,7 @@ class Person < ActiveRecord::Base
   # maps to edit -> relationships tab
   has_many :family_members
   accepts_nested_attributes_for :family_members, :reject_if => lambda { |a| a[:person_id].blank? }, :allow_destroy => true
+  has_many :people, :through => :family_members
   
   has_many :business_associates
   accepts_nested_attributes_for :business_associates, :reject_if => lambda { |b| b[:full_name].blank? }, :allow_destroy => true

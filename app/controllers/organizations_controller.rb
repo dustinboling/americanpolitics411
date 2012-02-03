@@ -25,6 +25,11 @@ class OrganizationsController < ApplicationController
       format.json { render json: @organization }
     end
   end
+  
+  def autocomplete_organization_name
+    @organizations = Organization.order(:name).where("name like ?", "%#{params[:term]}%")
+    render json: @organizations.map(&:name)
+  end
 
   # GET /organizations/new
   # GET /organizations/new.json
