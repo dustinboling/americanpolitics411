@@ -5,9 +5,5 @@
     <td><%= f.text_area :description, :rows => 3 %></td>
     <td><%= f.text_field :video_url %></td>
     <td><%= f.text_field :thumbnail_url %></td>
-		<td>
-			<span class="label important">
-				<%= link_to_remove_fields "remove", f %>
-			</span>
-		</td>
+		<td><%= link_to_remove_fields "remove", f %></td>
 </tr>

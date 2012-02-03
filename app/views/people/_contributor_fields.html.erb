@@ -3,9 +3,5 @@
 
 	  <td><%= f.text_field :organization_name, :class => 'organization-list', data: {organizations_source: organizations_autocomplete_organization_name_path} %></td>	
 		<td><%= f.text_field :amount %></td>
-		<td>
-			<span class="label important">
-				<%= link_to_remove_fields "remove", f %>
-			</span>
-		</td>
+		<td><%= link_to_remove_fields "remove", f %></td>
 </tr>

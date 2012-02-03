@@ -6,9 +6,5 @@
 		<td><%= f.text_area :description, :rows => 3 %></td>
     <td><%= f.text_field :sector, :class => 'span4' %></td>
     <td><%= f.text_field :amount, :class => 'span4' %></td>
-		<td>
-			<span class="label important">
-				<%= link_to_remove_fields "remove", f %>
-			</span>
-		</td>
+		<td><%= link_to_remove_fields "remove", f %></td>
 </tr>

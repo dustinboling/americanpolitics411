@@ -4,9 +4,5 @@
 		<td><%= f.select(:family_member, options_for_select(@people.collect {|fm| [fm.name, fm.id]}, f.object.family_member.to_s)) %></td>
     <td><%= f.text_field :relationship, :class => 'span2' %></td>
     <td><%= f.text_field :notes %></td>
-		<td>
-			<span class="label important">
-				<%= link_to_remove_fields "remove", f %>
-			</span>
-		</td>
+		<td><%= link_to_remove_fields "remove", f %></td>
 </tr>

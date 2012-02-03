@@ -6,9 +6,5 @@
     <td><%= f.text_field :value, :class => 'span2' %></td>
     <td><%= f.radio_button :action, false %>Sold</td>
 		<td><%= f.radio_button :action, true %>Bought</td>
-		<td>
-			<span class="label important">
-				<%= link_to_remove_fields "remove", f %>
-			</span>
-		</td>
+		<td><%= link_to_remove_fields "remove", f %></td>
 </tr>

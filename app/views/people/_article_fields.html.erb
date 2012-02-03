@@ -4,9 +4,5 @@
 		<td><%= f.text_field :title %></td>
     <td><%= f.text_area :excerpt, :rows => 3 %></td>
     <td><%= f.text_field :article_url %></td>
-		<td>
-			<span class="label important">
-				<%= link_to_remove_fields "remove", f %>
-			</span>
-		</td>
+		<td><%= link_to_remove_fields "remove", f %></td>
 </tr>

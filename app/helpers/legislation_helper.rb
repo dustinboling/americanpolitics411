@@ -1,5 +1,0 @@
-module LegislationHelper
-  
-
-  
-end
