@@ -1,17 +1,23 @@
 <% @page_title = "#{@person.full_name}" %>
 <div id="tabs">
 	
+	<%= render :partial => 'layouts/supporters_pie' %>	
+	
 <div class="container-fluid">
 	<div class="span3">
 		<div class="well sidebar pub-nav" id="pub-nav">
 			<%= render 'public-navigation-side' %>
+			<% if can? :edit, Person %>
+				<%= link_to 'Edit', edit_person_path(@person) %> |
+			<% end %>
+				<%= link_to 'Back to List', :controller => 'people', :action => 'all' %>
 		</div>
  	</div>
 	
-	<div id="profile">
-	<div id="tabs-1">	
-		<%= render 'messages' %>
+<div id="profile">
+	<div id="tabs-1">
 		<div class="hero-unit span13">
+			<%= notice %>	
 			<h1><%= @person.first_name %> <%= @person.last_name %></h1>
 			<img src="<%= @person.photo_url %>"></img>
 			<h3>Basic Info</h3>
@@ -403,11 +409,4 @@
 			</p>
 		</div>
 	</div>
-		<% if can? :edit, Person %>
-			<%= link_to 'Edit', edit_person_path(@person) %> |
-		<% end %>
-			<%= link_to 'Back to List', :controller => 'people', :action => 'all' %>
-		</div>
-	</div>
-<%= render :partial => 'layouts/supporters_pie' %>
 </div>
