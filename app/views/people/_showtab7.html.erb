@@ -1,106 +1,107 @@
 <div class="hero-unit span13">
-			<h3>Establishment</h3>
-			<p>
-				<b>Political Offices Held:</b>
-				<%= @person.political_offices.collect { |political_office| 
-							"<br />Position: #{political_office.position}<br />
-							District: #{political_office.district}<br />
-							Office: #{political_office.office}<br />
-							Dates In Office: #{political_office.date_started.year} -
-								#{if political_office.date_finished.nil? 
-										'present'
-									else
-										political_office.date_finished.year
-									end}<br />"}.to_sentence(@person.no_separator).html_safe %>
-			</p>
-			<p>
-				<table class="zebra-striped bordered-table span9">
-					<tr>
-						<th>Year</th>
-						<th>Organization</th>
-						<th>Description</th>
-						<th>Sector</th>
-						<th>Amount</th>
-					</tr>
-				<b>Earmarks:</b>
-				<%= @person.earmarks.collect { |earmark| 
-							"<tr>
-							   <td>#{earmark.year.year}</td>
-								 <td>#{earmark.find_organization_name}</td>
-								 <td>#{earmark.description}</td>
-								 <td>#{earmark.sector}</td>
-								 <td>#{number_to_currency(earmark.amount, :precision => 0)}</td>
-							</tr>"}.to_sentence(@person.no_separator).html_safe %>
-				</table>
-			</p>
-			<p>
-				<b>Supporters:</b>
-				<% unless @person.supporters.empty? %>
+	<h3>Establishment</h3>
+		<p>
+			<b>Political Offices Held:</b>
+			<%= @person.political_offices.collect { |political_office| 
+						"<br />Position: #{political_office.position}<br />
+						District: #{political_office.district}<br />
+						Office: #{political_office.office}<br />
+						Dates In Office: #{political_office.date_started.year} -
+							#{if political_office.date_finished.nil? 
+									'present'
+								else
+									political_office.date_finished.year
+								end}<br />"}.to_sentence(@person.no_separator).html_safe %>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Year</th>
+					<th>Organization</th>
+					<th>Description</th>
+					<th>Sector</th>
+					<th>Amount</th>
+				</tr>
+			<b>Earmarks:</b>
+			<%= @person.earmarks.collect { |earmark| 
+						"<tr>
+						   <td>#{earmark.year.year}</td>
+							 <td>#{earmark.find_organization_name}</td>
+							 <td>#{earmark.description}</td>
+							 <td>#{earmark.sector}</td>
+							 <td>#{number_to_currency(earmark.amount, :precision => 0)}</td>
+						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
+		<p>
+			<b>Supporters:</b>
+			<% unless @person.supporters.empty? %>
+				<%= render :partial => 'layouts/supporters_pie' %>
 					<div id="holder"></div>	
-				<% else %>
-					Information is not currently available, research is in progress.
-				<% end %>
-			</p>
-			<p>
-				<table class="zebra-striped bordered-table span9">
-					<tr>
-						<th>Organization</th>
-						<th>Amount</th>
-					</tr>
-				<b>Contributors:</b>
-				<%= @person.contributors.collect { |contributor| 
-							"<tr>
-								<td>#{contributor.find_organization_name}</td>
-								<td>#{number_to_currency(contributor.amount, :precision => 0)}</td>
-							</tr>"}.to_sentence(@person.no_separator).html_safe %>
-				</table>
-			</p>
-			<p>
-				<table class="zebra-striped bordered-table span9">
-					<tr>
-						<th>Year</th>
-						<th>Interest Group</th>
-						<th>Amount</th>
-					</tr>
-				<b>Contributors (Interest Groups):</b>
-				<%= @person.contributors_interest_groups.collect { |contributor_ig|
-					 		"<tr>
-								<td>#{contributor_ig.year.year}</td>
-								<td>#{contributor_ig.name}</td>
-								<td>#{contributor_ig.amount}</td>
-							</tr>"}.to_sentence(@person.no_separator).html_safe %>
-				</table>
-			</p>
-			<p>
-				<table class="zebra-striped bordered-table span9">
-					<tr>
-						<th>Year</th>
-						<th>Sector</th>
-						<th>Amount</th>
-					</tr>
-				<b>Contributors (Interest Group Sectors):</b>
-				<%= @person.contributors_interest_group_sectors.collect { |contributor_igs|
-							"<tr>
-								<td>#{contributor_igs.year.year}</td>
-								<td>#{contributor_igs.name}</td>
-								<td>#{contributor_igs.amount}</td>
-							</tr>"}.to_sentence(@person.no_separator).html_safe %>
-				</table>
-			</p>
-			<p>
-				<table class="zebra-striped bordered-table span9">
-					<tr>
-						<th>Year</th>
-						<th>PAC</th>
-						<th>Amount</th>
-					</tr>
-				<b>Contributors (PAC):</b>
-				<%= @person.contributors_pacs.collect { |contributor_pac| 
-							"<tr>
-								<td>#{contributor_pac.year.year}</td>
-								<td>#{contributor_pac.name}</td>
-								<td>#{contributor_pac.amount}</td>
-							</tr>"}.to_sentence(@person.no_separator).html_safe %>
-				</table>
-			</p>
-		</div>
+			<% else %>
+				Information is not currently available, research is in progress.
+			<% end %>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Organization</th>
+					<th>Amount</th>
+				</tr>
+			<b>Contributors:</b>
+			<%= @person.contributors.collect { |contributor| 
+						"<tr>
+							<td>#{contributor.find_organization_name}</td>
+							<td>#{number_to_currency(contributor.amount, :precision => 0)}</td>
+						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Year</th>
+					<th>Interest Group</th>
+					<th>Amount</th>
+				</tr>
+			<b>Contributors (Interest Groups):</b>
+			<%= @person.contributors_interest_groups.collect { |contributor_ig|
+				 		"<tr>
+							<td>#{contributor_ig.year.year}</td>
+							<td>#{contributor_ig.name}</td>
+							<td>#{contributor_ig.amount}</td>
+						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Year</th>
+					<th>Sector</th>
+					<th>Amount</th>
+				</tr>
+			<b>Contributors (Interest Group Sectors):</b>
+			<%= @person.contributors_interest_group_sectors.collect { |contributor_igs|
+						"<tr>
+							<td>#{contributor_igs.year.year}</td>
+							<td>#{contributor_igs.name}</td>
+							<td>#{contributor_igs.amount}</td>
+						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Year</th>
+					<th>PAC</th>
+					<th>Amount</th>
+				</tr>
+			<b>Contributors (PAC):</b>
+			<%= @person.contributors_pacs.collect { |contributor_pac| 
+						"<tr>
+							<td>#{contributor_pac.year.year}</td>
+							<td>#{contributor_pac.name}</td>
+							<td>#{contributor_pac.amount}</td>
+						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+			</table>
+		</p>
+	</div>

@@ -1,7 +1,7 @@
 <script type="text/javascript">
 window.onload = function () {
     var r = Raphael("holder", 320, 240),
-        pie = r.piechart(100, 140, 75, <%= @person.supporter_numbers %>, { legend: ['%%'], legendpos: "east"});
+        pie = r.piechart(100, 140, 75, <%= @person.supporter_numbers %>, { legend: ['%%.%%'], legendpos: "east"});
 
     r.text(100, 40, "Supporters (By Race)").attr({ font: "20px sans-serif" });
     pie.hover(function () {
