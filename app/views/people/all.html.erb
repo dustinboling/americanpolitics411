@@ -6,16 +6,18 @@
 			<table class="zebra-striped span6">
 				<tr>
 					<th>Person</th>
-					<th>Actions<th>
+					<% if can? :edit, Person %>
+						<th>Actions<th>
+					<% end %>			
 				</tr>
 				<% @people.each do |person| %>
 				<tr>
 					<td><a href="<%= person_path(person) %>"><%= person.first_name + " " + person.last_name %></a></td>
-					<td>
-						<% if can? :edit, Person %>
+					<% if can? :edit, Person %>
+						<td>
 							<span class="label warning"><a href ="<%= edit_person_path(person) %>">edit</a></span>
-						<% end %>
-					<td><br />
+						<td><br />
+					<% end %>
 				</tr>
 			<% end %>
 		</table>
