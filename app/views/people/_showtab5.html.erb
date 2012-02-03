@@ -1,0 +1,66 @@
+<div class="hero-unit span13">
+			<h3>Political</h3>
+			<p>
+				<b>Endorsements:</b>
+				<table class="zebra-striped bordered-table span8">
+					<tr>
+						<th>Year</th>
+						<th>Organization</th>
+					</tr>
+					<%= @person.endorsements.collect { |endorsement| 
+								"<tr>
+									<td>#{endorsement.year.year}</td>
+									<td>#{endorsement.find_organization_name}</td>
+								</tr>" }.to_sentence(@person.no_separator).html_safe %>
+					</table>
+			</p>
+			<p>
+				<table class="zebra-striped bordered-table span9">
+					<tr>
+						<th>Topic</th>
+						<th>Question</th>
+						<th>Position</th>
+					</tr>
+				<b>Issue Positions:</b>
+				<%= @person.issue_positions.collect { |issue_position| 
+							"<tr>
+								<td><b>#{issue_position.issue_topic}</b></td>
+								<td>#{issue_position.question}</td>
+								<td>#{issue_position.position}</td>
+							</tr>" }.to_sentence(@person.no_separator).html_safe %>
+					</table>
+			</p>
+			<p>
+				<table class="zebra-striped bordered-table span9">
+					<tr>
+						<th>Year</th>
+						<th>Issue</th>
+						<th>Flip-flop</th>
+					</tr>
+					<b>Flip Flops:</b>
+					<%= @person.flip_flops.collect { |flip_flop|
+						 		"<tr>
+									 <td>#{flip_flop.year.year}</td>
+									 <td>#{flip_flop.issue}</td>
+									 <td>#{flip_flop.flipflop}</td>
+								</tr>" }.to_sentence(@person.no_separator).html_safe %>
+				</table>
+			</p>
+			<p>
+				<table class="zebra-striped bordered-table span9">
+					<tr>
+						<th>Year</th>
+						<th>Issue</th>
+						<th>Flip-flop</th>
+					</tr>
+				<b>Campaign Platforms:</b>
+				<%= @person.campaign_platforms.collect { |campaign_platform| 
+							"<tr>
+							   <td>#{campaign_platform.campaign_year.year}</td>
+							 	 <td>#{campaign_platform.topic}</td>
+							 	 <td>#{campaign_platform.position_on_issue}</td>
+							</tr>"
+							}.to_sentence(@person.no_separator).html_safe %>
+				</table>
+			</p>
+		</div>

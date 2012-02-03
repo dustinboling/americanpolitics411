@@ -1,0 +1,36 @@
+<div class="hero-unit span13">
+	<h3>Contact Info</h3>
+	<p>
+		<b>Street Address:</b>
+		<%= @person.contact_street_address %>		
+	</p>
+	<p>
+		<b>City:</b>
+		<%= @person.contact_city %>		
+	</p>	
+	<p>
+		<b>State:</b>
+		<%= @person.contact_state %>
+	</p>
+	<p>
+		<b>Zip:</b>
+		<%= @person.contact_zip %>		
+	</p>
+	<p>
+		<b>Phone:</b>
+		<%= @person.contact_phone %>
+	</p>
+	<p>
+		<b>Fax:</b>
+		<%= @person.contact_fax %>	
+	</p>
+	<p>
+		<b>Email:</b>
+		<%= @person.contact_email %>	
+	</p>
+	<p>
+		<b>Web Page:</b>
+		<%= @person.contact_web_page_name %>
+		(<a href="<%= @person.contact_web_page_url %>">Link</a>)	
+	</p>
+</div>

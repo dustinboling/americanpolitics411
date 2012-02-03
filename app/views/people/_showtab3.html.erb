@@ -1,0 +1,19 @@
+<div class="hero-unit span13">
+			<h3>Relationships</h3>
+			<p>
+				<b>Business Associates:</b>
+				<% if @person.business_associates.size > 0 %>
+					<%= @person.business_associates.collect { |business_associate| 
+								"#{business_associate.full_name} @ <a href='/organizations/#{business_associate.organization_id}'>#{business_associate.find_organization_name}</a>" 
+								}.to_sentence.html_safe %>
+				<% else %>
+					<%= "Information Not Yet Available. Research in progress." %>
+				<% end %>
+			</p>
+			<p>
+				<b>Related To:</b>
+				<%= @person.family_members.collect { |family_member| 
+							"<a href='#{family_member.family_member}'>#{family_member.find_person_name} (#{family_member.relationship})</a> - #{family_member.notes}" 
+							}.to_sentence.html_safe %>
+			</p>
+		</div>

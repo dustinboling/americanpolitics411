@@ -1,0 +1,35 @@
+<div class="hero-unit span13">
+	<h3>Controversy</h3>
+	<p>
+		<table class="zebra-striped bordered-table span9">
+			<tr>
+				<th>Year</th>
+				<th>Accusation</th>
+				<th>Outcome</th>
+			</tr>	
+		<b>Accusations:</b>
+		<%= @person.accusations.collect { |accusation| 
+					"<tr>
+						 <td>#{accusation.date.year}</td>
+						 <td>#{accusation.accusation}</td>
+						 <td>#{accusation.outcome}</td>
+					</tr>"}.to_sentence(@person.no_separator).html_safe %>
+		</table>
+	</p>
+	<p>
+		<table class="zebra-striped bordered-table span9">
+			<tr>
+				<th>Year</th>
+				<th>Litigation</th>
+				<th>Outcome</th>
+			</tr>
+		<b>Litigation:</b>
+		<%= @person.litigations.collect { |litigation| 
+					"<tr>
+						 <td>#{litigation.date.year}</td>
+						 <td>#{litigation.litigation}</td>
+						 <td>#{litigation.outcome}</td>
+					</tr>"}.to_sentence(@person.no_separator).html_safe %>
+		</table>
+	</p>
+</div>
