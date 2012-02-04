@@ -1,0 +1,90 @@
+20:45:41.338756 == Info: About to connect() to localhost port 3000 (#0)
+20:45:41.339003 == Info:   Trying ::1... 20:45:41.339115 == Info: Connection refused
+20:45:41.339135 == Info:   Trying 127.0.0.1... 20:45:41.339217 == Info: connected
+20:45:41.339236 == Info: Connected to localhost (127.0.0.1) port 3000 (#0)
+20:45:41.339294 => Send header, 148 bytes (0x94)
+0000: GET / HTTP/1.1
+0010: User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.2
+0050: 1.4 OpenSSL/0.9.8r zlib/1.2.5
+006f: Host: localhost:3000
+0085: Accept: */*
+0092: 
+20:45:41.637876 <= Recv header, 18 bytes (0x12)
+0000: HTTP/1.1 200 OK 
+20:45:41.637917 <= Recv header, 40 bytes (0x28)
+0000: Content-Type: text/html; charset=utf-8
+20:45:41.637945 <= Recv header, 26 bytes (0x1a)
+0000: X-Ua-Compatible: IE=Edge
+20:45:41.637968 <= Recv header, 42 bytes (0x2a)
+0000: Etag: "e35e2d703115976be5da6cba6d585d8b"
+20:45:41.637994 <= Recv header, 52 bytes (0x34)
+0000: Cache-Control: max-age=0, private, must-revalidate
+20:45:41.638030 <= Recv header, 21 bytes (0x15)
+0000: X-Runtime: 0.281479
+20:45:41.638055 <= Recv header, 22 bytes (0x16)
+0000: Content-Length: 3021
+20:45:41.638078 <= Recv header, 47 bytes (0x2f)
+0000: Server: WEBrick/1.3.1 (Ruby/1.9.3/2011-10-30)
+20:45:41.638107 <= Recv header, 37 bytes (0x25)
+0000: Date: Thu, 02 Feb 2012 04:45:41 GMT
+20:45:41.638136 <= Recv header, 24 bytes (0x18)
+0000: Connection: Keep-Alive
+20:45:41.638163 <= Recv header, 275 bytes (0x113)
+0000: Set-Cookie: _politics411_session=BAh7B0kiD3Nlc3Npb25faWQGOgZFRkk
+0040: iJTc5MDUzOTBiNjY2NTMxNDNlYTkxNzY0YjgzMGY0MWQ5BjsAVEkiEF9jc3JmX3R
+0080: va2VuBjsARkkiMW8zNTNoVXUycjdQcVBHRUQyNDVyMWNnMWtSb2N6UElta3pCM1o
+00c0: ySE13MzA9BjsARg%3D%3D--ce3a3fce34efce13fa01cabf91846c343237230b;
+0100:  path=/; HttpOnly
+20:45:41.638256 <= Recv header, 2 bytes (0x2)
+0000: 
+20:45:41.638275 <= Recv data, 3021 bytes (0xbcd)
+0000: <!DOCTYPE html>.<html lang="en">.<head>.  <title>American Politi
+0040: cs 411 | </title>.  <link href="/assets/application.css?body=1" 
+0080: media="screen" rel="stylesheet" type="text/css" />.<link href="/
+00c0: assets/twitter/bootstrap.css?body=1" media="screen" rel="stylesh
+0100: eet" type="text/css" />.<link href="/assets/admin.css?body=1" me
+0140: dia="screen" rel="stylesheet" type="text/css" />.<link href="/as
+0180: sets/jquery-ui-1.8.17.custom.css?body=1" media="screen" rel="sty
+01c0: lesheet" type="text/css" />..<link href="/assets/public.css?body
+0200: =1" media="screen" rel="stylesheet" type="text/css" />.  <script
+0240:  src="/assets/jquery.js?body=1" type="text/javascript"></script>
+0280: .<script src="/assets/jquery-ui.js?body=1" type="text/javascript
+02c0: "></script>.<script src="/assets/jquery_ujs.js?body=1" type="tex
+0300: t/javascript"></script>.<script src="/assets/bootstrap-dropdown.
+0340: js?body=1" type="text/javascript"></script>.<script src="/assets
+0380: /graphael/f.raphael-min.js?body=1" type="text/javascript"></scri
+03c0: pt>.<script src="/assets/graphael/fg.raphael-min.js?body=1" type
+0400: ="text/javascript"></script>.<script src="/assets/graphael/g.pie
+0440: -min.js?body=1" type="text/javascript"></script>.<script src="/a
+0480: ssets/jquery-tabs.js?body=1" type="text/javascript"></script>.<s
+04c0: cript src="/assets/legislation.js?body=1" type="text/javascript"
+0500: ></script>.<script src="/assets/person.js?body=1" type="text/jav
+0540: ascript"></script>.<script src="/assets/application.js?body=1" t
+0580: ype="text/javascript"></script>..<script src="/assets/person.js?
+05c0: body=1" type="text/javascript"></script>.  <meta content="authen
+0600: ticity_token" name="csrf-param" />.<meta content="o353hUu2r7PqPG
+0640: ED245r1cg1kRoczPImkzB3Z2HMw30=" name="csrf-token" />..</head>.<b
+0680: ody>..<!-- TOPBAR  -->..<div class="topbar">.  <div class="topba
+06c0: r-inner">.    <div class="container-fluid">.      <a class="bran
+0700: d" href="/">American Politics 411</a>.      <ul class="nav" data
+0740: -dropdown="dropdown">.        <li class="active">.          <a h
+0780: ref="http://localhost:3000/">Home</a>.        </li>.      </ul>.
+07c0:       <p class="user-nav pull-right">.         <a href="/login">
+0800: log in</a> .      </p>.    </div>.  </div>.</div>......<!-- BODY
+0840:  -->..<div class="container">..<div class="page-header">...<div 
+0880: id="notice">.......</div>....<h3>All People</h3>....<table class
+08c0: ="zebra-striped span6">.....<tr>......<th>Person</th>......<th>A
+0900: ctions<th>.....</tr>.....<tr>......<td><a href="/people/1-darrel
+0940: l-edward-issa">Darrell Issa</a></td>......<td>......<td><br />..
+0980: ...</tr>.....<tr>......<td><a href="/people/3-test-person">Test 
+09c0: Person</a></td>......<td>......<td><br />.....</tr>.....<tr>....
+0a00: ..<td><a href="/people/4-third-person">Third Person</a></td>....
+0a40: ..<td>......<td><br />.....</tr>.....<tr>......<td><a href="/peo
+0a80: ple/5-fourth-person">Fourth Person</a></td>......<td>......<td><
+0ac0: br />.....</tr>.....<tr>......<td><a href="/people/6-fifth-perso
+0b00: n">Fifth Person</a></td>......<td>......<td><br />.....</tr>....
+0b40: .<tr>......<td><a href="/people/8-sixth-person">Sixth Person</a>
+0b80: </td>......<td>......<td><br />.....</tr>...</table>..</div>..</
+0bc0: body>.</html>
+20:45:41.639482 == Info: Connection #0 to host localhost left intact
+20:45:41.639524 == Info: Closing connection #0
