@@ -1,11 +1,7 @@
 <tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
 
-	  <td><%= f.select(:organization_id, options_for_select(@organizations.collect {|c| [c.name, c.id]}, f.object.organization_id.to_s), :include_blank => true) %></td>
+	  <td><%= f.text_field :organization_name, :class => 'organization-list', data: {organizations_source: organizations_autocomplete_organization_name_path} %></td>	
 		<td><%= f.text_field :amount %></td>
-		<td>
-			<span class="label important">
-				<%= link_to_remove_fields "remove", f %>
-			</span>
-		</td>
+		<td><%= link_to_remove_fields "remove", f %></td>
 </tr>

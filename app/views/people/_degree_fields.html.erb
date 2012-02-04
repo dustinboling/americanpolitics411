@@ -1,14 +1,9 @@
 <tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
-	<td>
-		<!-- <%= f.select(:university_id, options_for_select(@universities.collect {|t| [t.name, t.id]}, params[:university_id])) %> -->
-		<%= f.text_field :university_name, data: {universities_source: University.order(:name).map(&:name)} %>
-	</td>
+		<td>
+			<%= f.text_field :university_name, :class => 'university-list', data: {universities_source: universities_autocomplete_university_name_path} %>
+		</td>
     <td><%= f.date_select :year_earned, {:start_year => 1951, :discard_day => true, :discard_month => true}, {:class => 'span2'} %></td>
     <td><%= f.text_field :degree_earned, :class => 'span2' %></td>
-		<td>
-			<span class="label important">
-				<%= link_to_remove_fields "remove", f %>
-			</span>
-		</td>
+		<td><%= link_to_remove_fields "remove", f %></td>
 </tr>

@@ -4,25 +4,17 @@
     <%= f.text_field :photo_url %>
   </div>
 	<div class="field">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :middle_name %>
-    <%= f.text_field :middle_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
   </div>
   <div class="field">
     <%= f.label :suffix %>
     <%= f.text_field :suffix %>
   </div>
-<div class="field">
-	<%= f.label :religion, 'Religion' %>
-	<%= collection_select(:person, :religion_id, Religion.all, :id, :name, {:include_blank => true}) %>
-</div>
+	<div class="field">
+		<%= f.label :religion, 'Religion' %>
+		<%= collection_select(:person, :religion_id, Religion.all, :id, :name, {:include_blank => true}) %>
+	</div>
   <div class="field">
     <%= f.label :date_of_birth %>
     <%= f.date_select :date_of_birth, {:order => [:month, :day, :year], :start_year => 1901}, {:class => 'span2'} %>

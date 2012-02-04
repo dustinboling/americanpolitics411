@@ -29,6 +29,11 @@ class PeopleController < ApplicationController
     end
   end
   
+  def autocomplete_person_name
+    @people = Person.order(:name).where("name like ?", "%#{params[:term]}%")
+    render json: @people.map(&:name)
+  end
+  
   def list
     @people = People.order("people.id ASC")
     

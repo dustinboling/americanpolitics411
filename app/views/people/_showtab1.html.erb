@@ -1,8 +1,8 @@
 <div class="hero-unit span13">
-			<%= notice %>	
-			<h1><%= @person.first_name %> <%= @person.last_name %></h1>
+	<%= notice %>	
+		<h1><%= @person.name %></h1>
 			<img src="<%= @person.photo_url %>"></img>
-			<h3>Basic Info</h3>
+		<h3>Basic Info</h3>
 			<p>
 			  <b>Date of birth:</b>
 			  <%= @person.date_of_birth %>
@@ -35,4 +35,4 @@
 				<b>Literary Work:</b>
 				<%= @person.literary_work %>
 			</p>
-			</div>
+</div>

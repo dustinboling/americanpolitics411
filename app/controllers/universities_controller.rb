@@ -9,12 +9,12 @@ class UniversitiesController < ApplicationController
   # GET /universities
   # GET /universities.json
   def index
-    @universities = University.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @universities }
-    end
+    @universities = University.find(:all)
+  end
+  
+  def autocomplete_university_name
+    @universities = University.order(:name).where("name like ?", "%#{params[:term]}%")
+    render json: @universities.map(&:name)
   end
   
   def list
