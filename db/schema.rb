@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120203222639) do
+ActiveRecord::Schema.define(:version => 20120206185734) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -171,7 +171,7 @@ ActiveRecord::Schema.define(:version => 20120203222639) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "person_id"
-    t.integer  "family_member"
+    t.string   "family_member"
   end
 
   add_index "family_members", ["person_id"], :name => "index_family_members_on_person_id"
@@ -318,6 +318,14 @@ ActiveRecord::Schema.define(:version => 20120203222639) do
 
   add_index "professional_experiences", ["organization_id"], :name => "index_professional_experiences_on_organization_id"
   add_index "professional_experiences", ["person_id"], :name => "index_professional_experiences_on_person_id"
+
+  create_table "relationships", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "family_member_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "relationship"
+  end
 
   create_table "religions", :force => true do |t|
     t.string   "name"

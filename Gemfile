@@ -13,7 +13,7 @@ gem 'sorcery'
 gem 'cancan'
 
 # helpful helper gems
-gem 'railroady'
+# gem 'railroady'
 gem 'annotate', '~> 2.4.1.beta'
 
 # Gems for development mode only.

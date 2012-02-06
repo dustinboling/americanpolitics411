@@ -13,18 +13,16 @@
 
 class FamilyMember < ActiveRecord::Base
   belongs_to :person
-  belongs_to :family_member
   
   def find_person_name
-    Person.find(family_member).full_name
+    # Person.find(family_member).name
   end
   
   def person_name
-    family_member.try(:name)
+    family_member.try(:family_member)
   end
   
   def person_name=(name)
-    self.family_member = Family_member.find_or_create_by_person_id_and_family_member_id(name) if name.present?
+    self.person = Person.find_or_create_by_name(family_member) if family_member.present?
   end
-  
 end

@@ -1,13 +1,12 @@
 class Person < ActiveRecord::Base
   
-  validates_presence_of :first_name, :last_name, :date_of_birth
+  validates_presence_of :name, :date_of_birth
   
   belongs_to :religion
   
   # maps to edit -> relationships tab
   has_many :family_members
   accepts_nested_attributes_for :family_members, :reject_if => lambda { |a| a[:person_id].blank? }, :allow_destroy => true
-  has_many :people, :through => :family_members
   
   has_many :business_associates
   accepts_nested_attributes_for :business_associates, :reject_if => lambda { |b| b[:full_name].blank? }, :allow_destroy => true

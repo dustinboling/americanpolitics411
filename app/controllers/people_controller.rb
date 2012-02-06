@@ -122,7 +122,7 @@ class PeopleController < ApplicationController
     @person.destroy
 
     respond_to do |format|
-      format.html { redirect_to people_url }
+      format.html { redirect_to root_url }
       format.json { head :ok }
     end
   end

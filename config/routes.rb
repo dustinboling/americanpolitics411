@@ -1,9 +1,12 @@
 Politics411::Application.routes.draw do  
 
+  resources :relationships
+
   resources :password_resets
   
   get "legislation/grab_xml"
   
+  # Routes for autocomplete
   get "universities/autocomplete_university_name"
   get "people/autocomplete_person_name"
   get "organizations/autocomplete_organization_name"
