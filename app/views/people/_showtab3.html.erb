@@ -17,15 +17,32 @@
 					<% else %>
 						<%= "Information Not Yet Available. Research in progress." %>
 					<% end %>
+				</table>
 				</p>
-			</table>
+
 		<p>
 			<b>Related To:</b>
+			<table class="zebra-striped bordered-table span8">
+				<tr>
+					<th>Name</th>
+					<th>Relationship</th>
+					<th>Notes</th>
+				</tr>
 			<%= @person.family_members.collect { |family_member|
 				unless Person.find_by_name(family_member.family_member).nil? 
-						"<a href='/people/#{Person.find_by_name(family_member.family_member).id}'>#{family_member.family_member} (#{family_member.relationship})</a> - #{family_member.notes}"
+						"
+						<tr>
+							<td><a href='/people/#{Person.find_by_name(family_member.family_member).id}'>#{family_member.family_member}</a></td> 
+							<td>#{family_member.relationship}</td>
+							<td>#{family_member.notes}</td>
+						</tr>"
 				else
-					"#{family_member.family_member} (#{family_member.relationship}) - #{family_member.notes}"		
-				end }.to_sentence.html_safe %>
+					"<tr>
+						<td>#{family_member.family_member}</td> 
+						<td>#{family_member.relationship}</td>
+						<td>#{family_member.notes}</td>
+					</tr>"		
+				end }.to_sentence(@person.no_separator).html_safe %>
+			</table>
 		</p>
 </div>
