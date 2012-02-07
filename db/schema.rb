@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120206185734) do
+ActiveRecord::Schema.define(:version => 20120206235537) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -202,6 +202,8 @@ ActiveRecord::Schema.define(:version => 20120206185734) do
     t.string   "bill_uri"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "bill_number"
+    t.text     "bill_title"
   end
 
   add_index "legislations", ["bill_uri"], :name => "index_legislations_on_bill_uri"
@@ -385,14 +387,9 @@ ActiveRecord::Schema.define(:version => 20120206185734) do
 
   create_table "universities", :force => true do |t|
     t.string   "name"
-    t.integer  "person_id"
-    t.integer  "degree_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "universities", ["degree_id"], :name => "index_universities_on_degree_id"
-  add_index "universities", ["person_id"], :name => "index_universities_on_person_id"
 
   create_table "users", :force => true do |t|
     t.string   "username",                        :null => false
