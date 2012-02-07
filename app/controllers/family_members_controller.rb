@@ -7,7 +7,7 @@ class FamilyMembersController < ApplicationController
   # GET /family_members
   # GET /family_members.json
   def index
-    @family_members = FamilyMember.all
+    @family_members = FamilyMember.order('id ASC')
 
     respond_to do |format|
       format.html # index.html.erb
