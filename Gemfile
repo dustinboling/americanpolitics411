@@ -18,10 +18,15 @@ gem 'annotate', '~> 2.4.1.beta'
 
 # Gems for development mode only.
 gem 'rspec-rails', :group => [:test, :development]
+
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
 end
+
+# group :production do
+#   gem 'thin'
+# end
 
 
 # Gems used only for assets and not required
