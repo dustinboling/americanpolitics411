@@ -16,11 +16,11 @@
 			<td><%= user.email %></td>
 			<td><%= user.roles_mask %></td>
 			<% if can? :edit, User %>
-				<td><%= link_to 'Edit', edit_user_path(user), :class => 'button edit' %></td>
+				<td><%= link_to 'Edit', edit_user_path(user), :class => 'btn small primary' %></td>
 			<% end %>
-			<td><%= link_to 'Show', user, :class => 'button show' %></td>
+			<td><%= link_to 'Show', user, :class => 'btn small success' %></td>
 			<% if can? :destroy, User %>	
-			<td><%= link_to 'Destroy', user, confirm: "Do you really want to delete this user?", :method => :delete, :class => 'button delete' %></td>
+			<td><%= link_to 'Destroy', user, confirm: "Do you really want to delete this user?", :method => :delete, :class => 'btn small danger' %></td>
 			<% end %>
 		</tr>
 	<% end %>
