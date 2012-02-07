@@ -16,7 +16,10 @@
 					<% if can? :edit, Person %>
 						<td>
 							<a href ="<%= edit_person_path(person) %>" class="btn small primary">Edit</a>
-						<td><%= link_to 'Destroy', person, confirm: 'Are you sure?', :method => :delete, :class => 'btn small danger' %></td>
+						</td>
+						<td>
+							<%= link_to 'Destroy', person, confirm: 'Are you sure?', :method => :delete, :class => 'btn small danger' %>
+						</td>
 					<% end %>
 				</tr>
 			<% end %>

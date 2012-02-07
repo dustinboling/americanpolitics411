@@ -12,6 +12,8 @@ gem 'nokogiri'
 gem 'sorcery'
 gem 'cancan'
 
+gem 'newrelic_rpm'
+
 # helpful helper gems
 # gem 'railroady'
 gem 'annotate', '~> 2.4.1.beta'
