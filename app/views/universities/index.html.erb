@@ -1,4 +1,7 @@
 <div class="container">
+	
+	<%= render 'layouts/messages' %>
+	
 	<h1>Listing universities</h1>
 
 	<table>
@@ -18,8 +21,6 @@
 	  </tr>
 	<% end %>
 	</table>
-
-	<br />
-
+	
 	<%= link_to 'New University', new_university_path, :class => 'btn success' %>
 </div>

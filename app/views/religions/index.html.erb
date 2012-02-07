@@ -14,12 +14,10 @@
 	    <td><%= religion.name %></td>
 	    <td><%= link_to 'Show', religion, :class => 'btn small success' %></td>
 	    <td><%= link_to 'Edit', edit_religion_path(religion), :class => 'btn small primary' %></td>
-	    <td><%= link_to 'Destroy', religion, confirm: 'Are you sure?', method: :delete, :class => 'btn small danger' %></td>
+	    <td></td>
 	  </tr>
 	<% end %>
 	</table>
-
-	<br />
 
 	<%= link_to 'New Religion', {:controller => 'religions', :action => 'new'}, :class => 'btn success' %>
 </div>

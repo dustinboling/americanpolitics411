@@ -88,7 +88,11 @@ class UniversitiesController < ApplicationController
   # DELETE /universities/1.json
   def destroy
     @university = University.find(params[:id])
-    @university.destroy
+    if Degree.where("university_id = #{params[:id]}").empty?
+      @university.destroy
+    else
+      flash[:error] = "Cannot delete a university while it is attached to a person"
+    end
 
     respond_to do |format|
       format.html { redirect_to universities_url }
