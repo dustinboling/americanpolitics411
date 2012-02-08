@@ -6,7 +6,7 @@
 							"<br />Date: #{article.date}<br />
 							Title: #{article.title}<br />
 							Excerpt: #{article.excerpt}<br />
-							Link: <a href='#{article.article_url}'>#{article.article_url}</a><br />"}.to_sentence(@person.no_separator).html_safe %>
+							Link: <a href='#{article.article_url}'>#{article.article_url}</a><br />"}.to_sentence(no_separator).html_safe %>
 			</p>
 			<p>
 				<b>Videos:</b>
@@ -15,6 +15,6 @@
 							Title: #{video.title}<br />
 							Description: #{video.description}<br />
 							Thumb URL: #{video.thumbnail_url}<br />
-							Video URL: <a href='#{video.video_url}'>#{video.video_url}</a><br />"}.to_sentence(@person.no_separator).html_safe %>
+							Video URL: <a href='#{video.video_url}'>#{video.video_url}</a><br />"}.to_sentence(no_separator).html_safe %>
 			</p>
 		</div>

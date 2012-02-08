@@ -11,7 +11,7 @@
 								"<tr>
 									<td>#{endorsement.year.year}</td>
 									<td>#{endorsement.find_organization_name}</td>
-								</tr>" }.to_sentence(@person.no_separator).html_safe %>
+								</tr>" }.to_sentence(no_separator).html_safe %>
 					</table>
 			</p>
 			<p>
@@ -27,7 +27,7 @@
 								<td><b>#{issue_position.issue_topic}</b></td>
 								<td>#{issue_position.question}</td>
 								<td>#{issue_position.position}</td>
-							</tr>" }.to_sentence(@person.no_separator).html_safe %>
+							</tr>" }.to_sentence(no_separator).html_safe %>
 					</table>
 			</p>
 			<p>
@@ -43,7 +43,7 @@
 									 <td>#{flip_flop.year.year}</td>
 									 <td>#{flip_flop.issue}</td>
 									 <td>#{flip_flop.flipflop}</td>
-								</tr>" }.to_sentence(@person.no_separator).html_safe %>
+								</tr>" }.to_sentence(no_separator).html_safe %>
 				</table>
 			</p>
 			<p>
@@ -60,7 +60,7 @@
 							 	 <td>#{campaign_platform.topic}</td>
 							 	 <td>#{campaign_platform.position_on_issue}</td>
 							</tr>"
-							}.to_sentence(@person.no_separator).html_safe %>
+							}.to_sentence(no_separator).html_safe %>
 				</table>
 			</p>
 		</div>

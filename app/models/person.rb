@@ -1,6 +1,13 @@
 class Person < ActiveRecord::Base
   
-  validates_presence_of :name
+  validates_presence_of :first_name, :last_name
+  
+  before_create :set_name
+  before_update :set_name
+  
+  def set_name
+    self.name = self.first_name + " " + self.last_name
+  end
   
   belongs_to :religion
   
@@ -100,10 +107,6 @@ class Person < ActiveRecord::Base
   
   def find_person_name
     self.Person.find(y.person_id).name
-  end
-  
-  def no_separator
-    options={:words_connector => '', :two_words_connector => '', :last_word_connector => ''}
   end
   
   def supporter_numbers

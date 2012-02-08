@@ -2,8 +2,16 @@
 <%= error_messages_for(@person) %>
 
 	<div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+	<div class="field">
+    <%= f.label :middle_name %>
+    <%= f.text_field :middle_name %>
+  </div>
+	<div class="field">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
   </div>
   <div class="field">
     <%= f.label :suffix %>

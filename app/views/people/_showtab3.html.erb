@@ -13,7 +13,7 @@
 										<td>#{business_associate.full_name}</td>
 										<td><a href='/organizations/#{business_associate.organization_id}'>#{business_associate.find_organization_name}</a></td>
 									</tr>"
-									}.to_sentence(@person.no_separator).html_safe %>
+									}.to_sentence(no_separator).html_safe %>
 					<% else %>
 						<%= "Information Not Yet Available. Research in progress." %>
 					<% end %>
@@ -41,7 +41,7 @@
 						<td>#{family_member.relationship}</td>
 						<td>#{family_member.notes}</td>
 					</tr>"		
-				end }.to_sentence(@person.no_separator).html_safe %>
+				end }.to_sentence(no_separator).html_safe %>
 			</table>
 		</p>
 </div>

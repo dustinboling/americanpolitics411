@@ -25,7 +25,7 @@
 				<b>Education:</b><br />
 			  <%= @person.degrees.collect { |degree| 
 						"#{degree.degree_earned}, <a href='/universities/#{degree.university_id}'>#{degree.find_university_name} - #{degree.year_earned.year}</a><br />" 
-						}.to_sentence(@person.no_separator).html_safe %>
+						}.to_sentence(no_separator).html_safe %>
 			</p>
 			<p>
 				<b>Professional Experience:</b>
