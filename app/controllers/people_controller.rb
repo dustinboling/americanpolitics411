@@ -117,7 +117,7 @@ class PeopleController < ApplicationController
     respond_to do |format|
       format.html { 
         flash[:notice] = "Person removed."
-        redirect_to root_url 
+        redirect_to root_url
         }
       format.json { head :ok }
     end
