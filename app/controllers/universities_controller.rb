@@ -7,15 +7,15 @@ class UniversitiesController < ApplicationController
   
   before_filter :find_person
   
+  def autocomplete_university_name
+    @universities = University.order(:name).where("name like ?", "%#{params[:term]}%")
+    render json: @universities.map(&:name)
+  end
+  
   # GET /universities
   # GET /universities.json
   def index
     @universities = University.find(:all)
-  end
-  
-  def autocomplete_university_name
-    @universities = University.order(:name).where("name like ?", "%#{params[:term]}%")
-    render json: @universities.map(&:name)
   end
   
   def list

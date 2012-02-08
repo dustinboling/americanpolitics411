@@ -5,6 +5,11 @@ class PeopleController < ApplicationController
   
   layout 'admin'
   
+  def autocomplete_person_name
+    @people = Person.order(:name).where("name like ?", "%#{params[:term]}%")
+    render json: @people.map(&:name)
+  end
+  
   # GET /all
   # GET /all.json
   def all
@@ -21,11 +26,6 @@ class PeopleController < ApplicationController
   # GET /people.json
   def index
     render 'all'
-  end
-  
-  def autocomplete_person_name
-    @people = Person.order(:name).where("name like ?", "%#{params[:term]}%")
-    render json: @people.map(&:name)
   end
   
   def list

@@ -8,9 +8,10 @@ gem 'rails', '3.1.3'
 # basic gems needed for infrastructure
 gem 'pg'
 gem 'json'
-gem 'nokogiri'
-gem 'sorcery'
 gem 'cancan'
+gem 'sorcery'
+gem 'nokogiri'
+gem 'jquery-rails'
 
 gem 'newrelic_rpm'
 
@@ -21,9 +22,10 @@ gem 'annotate', '~> 2.4.1.beta'
 # Gems for development mode only.
 gem 'rspec-rails', :group => [:test, :development]
 
-group :test do
+group :test, :development do
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'launchy'
 end
 
 group :production do
@@ -38,8 +40,6 @@ group :assets do
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
 end
-
-gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
