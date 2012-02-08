@@ -77,7 +77,7 @@ class PeopleController < ApplicationController
     respond_to do |format|
       if @person.save
         format.html { 
-          flash[:notice] = 'Person added successfully'
+          flash[:notice] = 'Person added successfully.'
           redirect_to(:action => 'edit', :id => @person.id)
           }
         format.json { render json: @person, status: :created, location: @person }
@@ -115,7 +115,10 @@ class PeopleController < ApplicationController
     @person.destroy
 
     respond_to do |format|
-      format.html { redirect_to root_url }
+      format.html { 
+        flash[:notice] = "Person removed."
+        redirect_to root_url 
+        }
       format.json { head :ok }
     end
   end
