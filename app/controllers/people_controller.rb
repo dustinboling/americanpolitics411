@@ -76,7 +76,10 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to :action => 'edit', :id => @person.id, :notice => 'Person added successfully' }
+        format.html { 
+          flash[:notice] = 'Person added successfully'
+          redirect_to(:action => 'edit', :id => @person.id)
+          }
         format.json { render json: @person, status: :created, location: @person }
       else
         format.html { render action: "new" }
