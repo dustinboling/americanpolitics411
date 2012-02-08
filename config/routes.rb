@@ -1,6 +1,4 @@
 Politics411::Application.routes.draw do  
-
-  resources :password_resets
   
   get "legislation/grab_xml"
   
@@ -13,68 +11,35 @@ Politics411::Application.routes.draw do
   get "logout" => "sessions#destroy", :as => "logout"
   get "signup" => "users#new", :as => "signup"
   
+  # Resourceful routes
   resources :users
-  match "/people" => "people#all"
+  resources :password_resets
   resources :sessions
-  
   resources :contributors_interest_group_sectors
-
   resources :contributors_interest_groups
-
   resources :contributors_pacs
-
   resources :political_offices
-
   resources :earmarks
-
-  resources :sponsored_legislations
-
-  match "/people/all" => "people#all"
-  
+  resources :sponsored_legislations  
   resources :campaign_platforms
-
   resources :supporters
-
   resources :contributors
-
-  resources :people 
-  
-  resources :articles
-  
+  resources :people  
+  resources :articles 
   resources :attachments
-
   resources :personal_assets
-
   resources :transactions
-
   resources :litigations
-
   resources :accusations
-
   resources :endorsements
-
   resources :professional_experiences
-
   resources :business_associates
-
   resources :organizations
-
   resources :flip_flops
-
   resources :videos
-
   resources :family_members
-
-  get "industry_contributors/new"
-
-  get "industry_contributors/show"
-
-  get "industry_contributors/_form"
-
   resources :religions
-
-  resources :universities
-  
+  resources :universities 
   resources :degrees
     
   root :to => "people#all"

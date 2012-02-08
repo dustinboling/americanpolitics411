@@ -20,13 +20,7 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
-    @people = Person.order("people.id ASC")
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @people }
-      format.xml {render xml: @people }
-    end
+    render 'all'
   end
   
   def autocomplete_person_name
@@ -72,17 +66,13 @@ class PeopleController < ApplicationController
     @people = Person.order('id ASC')
     @religions = Religion.order('name ASC')
     @organizations = Organization.order('name ASC')
-    @universities = University.order('name ASC')
-
-    
+    @universities = University.order('name ASC')    
   end
 
   # POST /people
   # POST /people.json
   def create
     @person = Person.new(params[:person])
-    @religions = Religion.find :all
-
 
     respond_to do |format|
       if @person.save
