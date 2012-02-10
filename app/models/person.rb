@@ -1,13 +1,19 @@
 class Person < ActiveRecord::Base
   
-  validates_presence_of :first_name, :last_name, :date_of_birth
+  validates_presence_of :first_name, :last_name
+  
+  before_create :set_name
+  before_update :set_name
+  
+  def set_name
+    self.name = self.first_name + " " + self.last_name
+  end
   
   belongs_to :religion
   
   # maps to edit -> relationships tab
   has_many :family_members
   accepts_nested_attributes_for :family_members, :reject_if => lambda { |a| a[:person_id].blank? }, :allow_destroy => true
-  has_many :people, :through => :family_members
   
   has_many :business_associates
   accepts_nested_attributes_for :business_associates, :reject_if => lambda { |b| b[:full_name].blank? }, :allow_destroy => true
@@ -101,10 +107,6 @@ class Person < ActiveRecord::Base
   
   def find_person_name
     self.Person.find(y.person_id).name
-  end
-  
-  def no_separator
-    options={:words_connector => '', :two_words_connector => '', :last_word_connector => ''}
   end
   
   def supporter_numbers

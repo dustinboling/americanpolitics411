@@ -5,6 +5,11 @@ class PeopleController < ApplicationController
   
   layout 'admin'
   
+  def autocomplete_person_name
+    @people = Person.order(:name).where("name like ?", "%#{params[:term]}%")
+    render json: @people.map(&:name)
+  end
+  
   # GET /all
   # GET /all.json
   def all
@@ -20,18 +25,7 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
-    @people = Person.order("people.id ASC")
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @people }
-      format.xml {render xml: @people }
-    end
-  end
-  
-  def autocomplete_person_name
-    @people = Person.order(:name).where("name like ?", "%#{params[:term]}%")
-    render json: @people.map(&:name)
+    render 'all'
   end
   
   def list
@@ -72,21 +66,20 @@ class PeopleController < ApplicationController
     @people = Person.order('id ASC')
     @religions = Religion.order('name ASC')
     @organizations = Organization.order('name ASC')
-    @universities = University.order('name ASC')
-
-    
+    @universities = University.order('name ASC')    
   end
 
   # POST /people
   # POST /people.json
   def create
     @person = Person.new(params[:person])
-    @religions = Religion.find :all
-
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to :action => 'edit', :id => @person.id, :notice => 'Person added successfully' }
+        format.html { 
+          flash[:notice] = 'Person added successfully.'
+          redirect_to(:action => 'edit', :id => @person.id)
+          }
         format.json { render json: @person, status: :created, location: @person }
       else
         format.html { render action: "new" }
@@ -122,7 +115,10 @@ class PeopleController < ApplicationController
     @person.destroy
 
     respond_to do |format|
-      format.html { redirect_to people_url }
+      format.html { 
+        flash[:notice] = "Person removed."
+        redirect_to root_url
+        }
       format.json { head :ok }
     end
   end

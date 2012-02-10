@@ -1,8 +1,14 @@
 class OrganizationsController < ApplicationController
   
   load_and_authorize_resource
+  skip_authorize_resource :only => :show
   
   layout 'admin'
+  
+  def autocomplete_organization_name
+    @organizations = Organization.order(:name).where("name like ?", "%#{params[:term]}%")
+    render json: @organizations.map(&:name)
+  end
   
   # GET /organizations
   # GET /organizations.json
@@ -24,11 +30,6 @@ class OrganizationsController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @organization }
     end
-  end
-  
-  def autocomplete_organization_name
-    @organizations = Organization.order(:name).where("name like ?", "%#{params[:term]}%")
-    render json: @organizations.map(&:name)
   end
 
   # GET /organizations/new

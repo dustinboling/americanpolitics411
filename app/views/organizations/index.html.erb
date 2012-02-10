@@ -1,4 +1,7 @@
 <div class="container">	
+	
+	<%= render 'layouts/messages' %>
+	
 	<h1>Listing organizations</h1>
 
 	<table>
@@ -12,9 +15,9 @@
 	<% @organizations.each do |organization| %>
 	  <tr>
 	    <td><%= organization.name %></td>
-	    <td><%= link_to 'Show', organization %></td>
-	    <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
-	    <td><%= link_to 'Destroy', organization, confirm: 'Are you sure?', method: :delete, :class => 'btn small danger' %></td>
+	    <td><%= link_to 'Show', organization, :class => 'btn small success' %></td>
+	    <td><%= link_to 'Edit', edit_organization_path(organization), :class => 'btn small primary' %></td>
+	    <td></td>
 	  </tr>
 	<% end %>
 	</table>

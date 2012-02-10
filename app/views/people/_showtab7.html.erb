@@ -11,7 +11,7 @@
 									'present'
 								else
 									political_office.date_finished.year
-								end}<br />"}.to_sentence(@person.no_separator).html_safe %>
+								end}<br />"}.to_sentence(no_separator).html_safe %>
 		</p>
 		<p>
 			<table class="zebra-striped bordered-table span9">
@@ -30,7 +30,7 @@
 							 <td>#{earmark.description}</td>
 							 <td>#{earmark.sector}</td>
 							 <td>#{number_to_currency(earmark.amount, :precision => 0)}</td>
-						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+						</tr>"}.to_sentence(no_separator).html_safe %>
 			</table>
 		</p>
 		<p>
@@ -53,7 +53,7 @@
 						"<tr>
 							<td>#{contributor.find_organization_name}</td>
 							<td>#{number_to_currency(contributor.amount, :precision => 0)}</td>
-						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+						</tr>"}.to_sentence(no_separator).html_safe %>
 			</table>
 		</p>
 		<p>
@@ -69,7 +69,7 @@
 							<td>#{contributor_ig.year.year}</td>
 							<td>#{contributor_ig.name}</td>
 							<td>#{contributor_ig.amount}</td>
-						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+						</tr>"}.to_sentence(no_separator).html_safe %>
 			</table>
 		</p>
 		<p>
@@ -85,7 +85,7 @@
 							<td>#{contributor_igs.year.year}</td>
 							<td>#{contributor_igs.name}</td>
 							<td>#{contributor_igs.amount}</td>
-						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+						</tr>"}.to_sentence(no_separator).html_safe %>
 			</table>
 		</p>
 		<p>
@@ -101,7 +101,7 @@
 							<td>#{contributor_pac.year.year}</td>
 							<td>#{contributor_pac.name}</td>
 							<td>#{contributor_pac.amount}</td>
-						</tr>"}.to_sentence(@person.no_separator).html_safe %>
+						</tr>"}.to_sentence(no_separator).html_safe %>
 			</table>
 		</p>
 	</div>

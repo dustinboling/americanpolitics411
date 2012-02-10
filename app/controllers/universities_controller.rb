@@ -1,20 +1,21 @@
 class UniversitiesController < ApplicationController
   
-  load_and_authorize_resource  
+  load_and_authorize_resource
+  skip_authorize_resource :only => :show
   
   layout 'admin'
   
   before_filter :find_person
   
+  def autocomplete_university_name
+    @universities = University.order(:name).where("name like ?", "%#{params[:term]}%")
+    render json: @universities.map(&:name)
+  end
+  
   # GET /universities
   # GET /universities.json
   def index
     @universities = University.find(:all)
-  end
-  
-  def autocomplete_university_name
-    @universities = University.order(:name).where("name like ?", "%#{params[:term]}%")
-    render json: @universities.map(&:name)
   end
   
   def list
@@ -87,7 +88,11 @@ class UniversitiesController < ApplicationController
   # DELETE /universities/1.json
   def destroy
     @university = University.find(params[:id])
-    @university.destroy
+    if Degree.where("university_id = #{params[:id]}").empty?
+      @university.destroy
+    else
+      flash[:error] = "Cannot delete a university while it is attached to a person"
+    end
 
     respond_to do |format|
       format.html { redirect_to universities_url }

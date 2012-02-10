@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="page-header">
-		<%= render 'messages' %>
+		<%= render 'layouts/messages' %>
 
 		<h3>All People</h3>
 			<table class="zebra-striped span6">
@@ -12,13 +12,16 @@
 				</tr>
 				<% @people.each do |person| %>
 				<tr>
-					<td><a href="<%= person_path(person) %>"><%= person.first_name + " " + person.last_name %></a></td>
+					<td><a href="<%= person_path(person) %>"><%= person.name %></a></td>
 					<% if can? :edit, Person %>
 						<td>
-							<span class="label warning"><a href ="<%= edit_person_path(person) %>">edit</a></span>
-						<td><br />
+							<a href ="<%= edit_person_path(person) %>" class="btn small primary">Edit</a>
+						</td>
+						<td>
+							<%= link_to 'Destroy', person, confirm: 'Are you sure?', :method => :delete, :class => 'btn small danger' %>
+						</td>
 					<% end %>
 				</tr>
 			<% end %>
 		</table>
-	</div>
+</div>

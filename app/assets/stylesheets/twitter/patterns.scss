@@ -614,6 +614,8 @@ footer {
     font-size: $basefont - 2px;
   }
 }
+
+
 // Super jank hack for removing border-radius from IE9 so we can keep filter gradients on alerts and buttons
 :root .alert-message,
 :root .btn {

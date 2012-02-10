@@ -1,7 +1,7 @@
 <tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
 	
-	 <td><%= f.text_field :organization_name, :class => 'organization-list', data: {organizations_source: organizations_autocomplete_organization_name_path} %></td>
+	  <td><%= f.text_field :organization_name, :class => 'organization-list', data: {organizations_source: organizations_autocomplete_organization_name_path} %></td>
     <td><%= f.date_select :date, {:start_year => 1951, :discard_day => true, :discard_month => true}, {:class => 'span2'} %></td>
     <td><%= f.text_field :value, :class => 'span2' %></td>
     <td><%= f.radio_button :action, false %>Sold</td>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120203222639) do
+ActiveRecord::Schema.define(:version => 20120206235537) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(:version => 20120203222639) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "person_id"
-    t.integer  "family_member"
+    t.string   "family_member"
   end
 
   add_index "family_members", ["person_id"], :name => "index_family_members_on_person_id"
@@ -222,6 +222,8 @@ ActiveRecord::Schema.define(:version => 20120203222639) do
     t.string   "bill_uri"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "bill_number"
+    t.text     "bill_title"
   end
 
   add_index "legislations", ["bill_uri"], :name => "index_legislations_on_bill_uri"
@@ -352,6 +354,14 @@ ActiveRecord::Schema.define(:version => 20120203222639) do
   add_index "professional_experiences", ["organization_id"], :name => "index_professional_experiences_on_organization_id"
   add_index "professional_experiences", ["person_id"], :name => "index_professional_experiences_on_person_id"
 
+  create_table "relationships", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "family_member_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "relationship"
+  end
+
   create_table "religions", :force => true do |t|
     t.string   "name"
     t.integer  "person_id"
@@ -441,14 +451,9 @@ ActiveRecord::Schema.define(:version => 20120203222639) do
 
   create_table "universities", :force => true do |t|
     t.string   "name"
-    t.integer  "person_id"
-    t.integer  "degree_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "universities", ["degree_id"], :name => "index_universities_on_degree_id"
-  add_index "universities", ["person_id"], :name => "index_universities_on_person_id"
 
   create_table "users", :force => true do |t|
     t.string   "username",                        :null => false
