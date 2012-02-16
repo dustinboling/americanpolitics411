@@ -5,7 +5,9 @@
       <ul class="nav" data-dropdown="dropdown">
         <li class="active">
           <%= link_to 'Home', root_url %>
-        </li><% if can? :edit, Person %>
+        </li>
+				<li><%= link_to('Legislation', {:controller => 'legislation', :action => 'index' }) %></li>
+				<% if can? :edit, Person %>
         <li class="dropdown">
           <a href="/" class="dropdown-toggle">Add</a>
           <ul class="dropdown-menu">
