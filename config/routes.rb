@@ -1,5 +1,7 @@
 Politics411::Application.routes.draw do  
   
+  match "committees/:id" => "committees#show" 
+
   get "legislation/grab_xml"
   
   # Routes for autocomplete
