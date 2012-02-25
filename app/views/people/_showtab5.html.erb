@@ -1,6 +1,17 @@
 <div class="hero-unit span13">
 			<h3>Political</h3>
 			<p>
+				<b>Committees:</b>
+				<table class="zebra-striped bordered-table span8">
+					<tr>
+						<th>Name</th>
+					</tr>
+					<%= @person.committees.collect { |committee|
+				 				"<tr>
+										<td><a href='/committees/#{committee.id}'>#{committee.name}</a></td>
+								</tr>" }.to_sentence(no_separator).html_safe %>
+				</table>
+			<p>
 				<b>Endorsements:</b>
 				<table class="zebra-striped bordered-table span8">
 					<tr>

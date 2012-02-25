@@ -11,6 +11,9 @@ class Person < ActiveRecord::Base
   
   belongs_to :religion
   
+  has_many :committee_assignments
+  has_many :committees, :through => :committee_assignments
+  
   # maps to edit -> relationships tab
   has_many :family_members
   accepts_nested_attributes_for :family_members, :reject_if => lambda { |a| a[:person_id].blank? }, :allow_destroy => true

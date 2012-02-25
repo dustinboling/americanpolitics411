@@ -1,0 +1,11 @@
+<div class="container">
+	<p id="notice"><%= notice %></p>
+
+	<h1><%= @committee.name %></h1>
+
+	<p>
+		<b>People who belong to this committee:</b>
+		<%= @committee.people.collect { |person| 
+					"<a href='/people/#{person.id}'>#{person.first_name} #{person.last_name}</a>," }.to_sentence(no_separator).html_safe %>
+	</p>
+</div>

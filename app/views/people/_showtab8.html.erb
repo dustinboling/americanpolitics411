@@ -1,20 +1,20 @@
 <div class="hero-unit span13">
-			<h3>Attachments</h3>
-			<p>
-				<b>Articles:</b>
-				<%= @person.articles.collect { |article| 
-							"<br />Date: #{article.date}<br />
-							Title: #{article.title}<br />
-							Excerpt: #{article.excerpt}<br />
-							Link: <a href='#{article.article_url}'>#{article.article_url}</a><br />"}.to_sentence(no_separator).html_safe %>
-			</p>
-			<p>
-				<b>Videos:</b>
-				<%= @person.videos.collect { |video| 
-							"<br />Date: #{video.date}<br />
-							Title: #{video.title}<br />
-							Description: #{video.description}<br />
-							Thumb URL: #{video.thumbnail_url}<br />
-							Video URL: <a href='#{video.video_url}'>#{video.video_url}</a><br />"}.to_sentence(no_separator).html_safe %>
-			</p>
-		</div>
+	<h3>Attachments</h3>
+	<p>
+		<b>Articles:</b>
+		<%= @person.articles.collect { |article| 
+					"<br />Date: #{article.date}<br />
+					Title: #{article.title}<br />
+					Excerpt: #{article.excerpt}<br />
+					Link: <a href='#{article.article_url}'>#{article.article_url}</a><br />"}.to_sentence(no_separator).html_safe %>
+	</p>
+	<p>
+		<b>Videos:</b>
+		<%= @person.videos.collect { |video| 
+					"<br />Date: #{video.date}<br />
+					Title: #{video.title}<br />
+					Description: #{video.description}<br />
+					Thumb URL: #{video.thumbnail_url}<br />
+					Video URL: <a href='#{video.video_url}'>#{video.video_url}</a><br />"}.to_sentence(no_separator).html_safe %>
+	</p>
+</div>

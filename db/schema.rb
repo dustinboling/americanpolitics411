@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120206235537) do
+ActiveRecord::Schema.define(:version => 20120224222718) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -97,6 +97,36 @@ ActiveRecord::Schema.define(:version => 20120206235537) do
   end
 
   add_index "campaign_platforms", ["person_id"], :name => "index_campaign_platforms_on_person_id"
+
+  create_table "committee_assignments", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "committee_id"
+    t.string   "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "committee_assignments", ["committee_id"], :name => "index_committee_assignments_on_committee_id"
+  add_index "committee_assignments", ["person_id"], :name => "index_committee_assignments_on_person_id"
+
+  create_table "committee_legislations", :force => true do |t|
+    t.integer  "committee_id"
+    t.integer  "legislation_id"
+    t.string   "congress_year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "committee_legislations", ["committee_id"], :name => "index_committee_legislations_on_committee_id"
+  add_index "committee_legislations", ["legislation_id"], :name => "index_committee_legislations_on_legislation_id"
+
+  create_table "committees", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.string   "nyt_uri"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "contributors", :force => true do |t|
     t.integer  "person_id"
@@ -218,12 +248,36 @@ ActiveRecord::Schema.define(:version => 20120206235537) do
 
   add_index "issue_positions", ["person_id"], :name => "index_issue_positions_on_person_id"
 
+  create_table "issues", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "legislation_issues", :force => true do |t|
+    t.integer  "legislation_id"
+    t.integer  "issue_id"
+    t.string   "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "legislation_issues", ["issue_id"], :name => "index_legislation_issues_on_issue_id"
+  add_index "legislation_issues", ["legislation_id"], :name => "index_legislation_issues_on_legislation_id"
+
   create_table "legislations", :force => true do |t|
     t.string   "bill_uri"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "bill_number"
     t.text     "bill_title"
+    t.string   "introduced_date"
+    t.string   "latest_major_action_date"
+    t.string   "latest_major_action"
+    t.string   "bill_sponsor"
+    t.string   "bill_sponsor_id"
+    t.text     "bill_pdf"
+    t.string   "congress_year"
   end
 
   add_index "legislations", ["bill_uri"], :name => "index_legislations_on_bill_uri"
@@ -302,6 +356,16 @@ ActiveRecord::Schema.define(:version => 20120206235537) do
     t.integer  "net_worth_maximum"
     t.integer  "family_members_id"
     t.string   "name"
+    t.string   "gender"
+    t.string   "times_topics_url"
+    t.string   "govtrack_id"
+    t.string   "cspan_id"
+    t.string   "icpsr_id"
+    t.string   "twitter_id"
+    t.string   "youtube_id"
+    t.string   "current_party"
+    t.string   "chamber"
+    t.string   "nyt_id"
   end
 
   create_table "person_videos", :force => true do |t|

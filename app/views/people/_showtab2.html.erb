@@ -30,7 +30,15 @@
 	</p>
 	<p>
 		<b>Web Page:</b>
-		<%= @person.contact_web_page_name %>
+		<%= @person.contact_web_page_url %>
 		(<a href="<%= @person.contact_web_page_url %>">Link</a>)	
+	</p>
+	<p>
+		<b>Twitter</b>
+		<a href="http://www.twitter.com/<%= @person.twitter_id  %>">@<%= @person.twitter_id %></a>
+	</p>
+	<p>
+		<b>Youtube</b>
+		<a href="http://www.youtube.com/<%= @person.youtube_id %>">Link</a>
 	</p>
 </div>

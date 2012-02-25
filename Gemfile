@@ -12,6 +12,7 @@ gem 'cancan'
 gem 'sorcery'
 gem 'nokogiri'
 gem 'jquery-rails'
+gem 'redis'
 
 gem 'newrelic_rpm'
 
