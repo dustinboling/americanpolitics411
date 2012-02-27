@@ -173,7 +173,7 @@ namespace :seed do
       puts "No bill cosponsors listed for #{@bill_number.inner_text}, skipping!"
     end
   end
-  
+
   def save_legislation_issues
     if @bill_subjects.count > 0
       @bill_subjects.map do |subject|
