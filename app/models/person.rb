@@ -11,6 +11,9 @@ class Person < ActiveRecord::Base
   
   belongs_to :religion
   
+  has_many :legislation_cosponsors
+  has_many :legislations, :through => :legislation_cosponsors
+  
   has_many :committee_assignments
   has_many :committees, :through => :committee_assignments
   

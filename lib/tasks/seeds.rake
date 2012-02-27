@@ -111,6 +111,7 @@ namespace :seed do
       @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}/bills/introduced.xml?api-key=#{@@api_key}")) rescue redo
       @bills = @member_doc.xpath('//results/bills/bill/number')
       number_bills = @bills.count
+      @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/A000022/bills/introduced.xml?api-key=#{@@api_key}")) 
       
       i = 1
       while i <= number_bills
@@ -123,14 +124,16 @@ namespace :seed do
         @bill_subjects_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/subjects.xml?api-key=#{@@api_key}")) rescue redo
         sleep 1
         @bill_related_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/related.xml?api-key=#{@@api_key}")) rescue redo
-        sleep 1
-        
+        sleep 1        
+                
+        @bill_subjects_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/hr4/subjects.xml?api-key=#{@@api_key}"))
         @congress_year = "112"
+        @bill_sponsor_id = @member_doc.xpath("//results/id").inner_text
         @bill_title = @member_doc.xpath("//results/bills/bill[#{i}]/title").inner_text
         @bill_introduced_date = @member_doc.xpath("//results/bills/bill[#{i}]/introduced_date").inner_text
         @bill_committees = @member_doc.xpath("//results/bills/bill[#{i}]/committees").inner_text
         @committees = @bill_committees.split("; ")
-        @bill_sponsor_id = @member_doc.xpath("//results/id").inner_text
+        
         
         @bill_sponsor = @bill_doc.xpath("//results/sponsor").inner_text
         @bill_pdf_url = @bill_doc.xpath("//results/gpo_pdf_uri").inner_text
@@ -139,9 +142,12 @@ namespace :seed do
         
         @bill_subjects = @bill_subjects_doc.xpath("//results/subjects/subject/name")
         
+        @bill_cosponsors = @bill_cosponsors_doc.xpath('//results/cosponsors[2]/cosponsor/cosponsor_id')
+        @bill_democratic_cosponsors = @bill_cosponsors_doc.xpath('/result_set/results/cosponsors_by_party/party[@id = "D"]').inner_text
+        @bill_republican_cosponsors = @bill_cosponsors_doc.xpath('/result_set/results/cosponsors_by_party/party[@id = "R"]').inner_text
                 
         if bill_exists
-          puts "Skipping bill number #{@bill_number.innertext}, already exists!"
+          puts "Skipping bill number #{@bill_number.inner_text}, already exists!"
         else
           make_bill
           # save_bill_committees : need to figure out how to separate out senate/house committees
@@ -155,36 +161,44 @@ namespace :seed do
   end
   
   def save_bill_cosponsors
-    
+    if @bill_cosponsors.count > 0
+      @bill_cosponsors.each do |cosponsor_id|
+        @legislation_cosponsor = LegislationCosponsor.new(
+            :person_id => Person.find_by_nyt_id(cosponsor_id).id,
+            :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id
+            )
+        @legislation_cosponsor.save
+      end
+    else
+      puts "No bill cosponsors listed for #{@bill_number.inner_text}, skipping!"
+    end
   end
   
   def save_legislation_issues
-    @bill_subjects.map { |issue|
-      puts "Checking if issue exists..."
-      if issue_exists(issue)
-        puts "Issue with the name #{issue.inner_text} already exists, skipping!"
-      else
-        puts "Making new issue with the name #{issue.inner_text}..."
-        @issue = Issue.new(
-            :name => issue.inner_text)
-        # @issue.save
+    if @bill_subjects.count > 0
+      @bill_subjects.map do |subject|
+        puts "Checking if issue exists, creating a new one if it doesn't..."
+        @issue = Issue.find_or_create_by_name(subject.inner_text)
+        puts "Mapping issue #{subject.inner_text} to legislation: #{@bill_number.inner_text}..."
+        @issue_legislation = LegislationIssue.new(
+           :legislation_id => Legislation.find_by_bill_number(@bill_number).id,
+           :issue_id => Issue.find_by_name(subject.inner_text).id,
+           :year => @congress_year
+         )
+        if @issue_legislation.save
+          puts "Issue with the name #{subject.inner_text} has been mapped to #{@bill_number.inner_text}"
+        end
       end
-      
-      puts "Mapping issue #{issue.inner_text} to legislation: #{@bill_number.inner_text}..."
-      @issue_legislation = LegislationIssue.new(
-          :legislation_id => Legislation.find_by_bill_number(@bill_number).id,
-          :issue_id => Issue.find_by_name(issue.inner_text).id,
-          :year => @congress_year
-          )
-      # @issue_legislation.save
-      }
+    else
+      puts "No subjects attached to bill, skipping!"
+    end
   end
   
   def save_bill_comittees
     @committees.map { |committee| 
       @committee_legislation = CommitteeLegislation.new(
           :legislation_id => Legislation.find_by_bill_number(@bill_number).id,
-          :committee_id => Committee.find_by_name(find_or_create_committee).id, 
+          :committee_id => Committee.find_or_create_by_name(find_or_create_committee).id, 
           :year => @congress_year
           )
         }
@@ -248,7 +262,7 @@ namespace :seed do
     @congress_members = @house_members + @senate_members
   end
   
-  def issue_exists(issue)
+  def issue_exists
     if Issue.find_by_name("#{issue}").nil?
       false
     else
