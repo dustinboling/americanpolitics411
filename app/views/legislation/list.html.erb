@@ -8,7 +8,7 @@
 			</tr>
 			<% @legislations.each do |legislation| %>
 			<tr>
-				<td><%= link_to legislation.bill_number, {:controller => 'legislation', :action => 'show', :bill_uri => legislation.bill_uri } %></td>
+				<td><%= link_to legislation.bill_number, {:controller => 'legislation', :action => 'show', :bill_number => legislation.bill_number } %></td>
 				<td><%= truncate(legislation.bill_title, :length => 150) %></td>
 			</tr>
 		<% end %>

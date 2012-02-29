@@ -116,21 +116,65 @@ namespace :seed do
         @bill_number = @member_doc.xpath("//results/bills/bill[#{i}]/number")
         @bill_number_stripped = @bill_number.inner_text.gsub(/[.]/, "").downcase
         
-        begin 
-          @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}.xml?api-key=#{@@api_key}"))
-        rescue
+        begin
           sleep 1
-          redo
+          @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}.xml?api-key=#{@@api_key}"))
+        rescue Exception => e
+          case e.message
+            when /404 Not Found/
+              sleep 1
+              puts "Can't find this bill for the current year of congress, going back in time!"
+              begin                
+                @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/#{@bill_number_stripped}.xml?api-key=#{@@api_key}"))
+              rescue Exception => e
+                case e.message
+                  when /504 Gateway Timeout/
+                    sleep 1
+                    redo
+                end
+              end                
+            when /504 Gateway Timeout/
+              sleep 1
+              redo
+          end
         end
-        sleep 2
         
-        @bill_cosponsors_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/cosponsors.xml?api-key=#{@@api_key}").read) rescue redo
-        sleep 2
-        @bill_subjects_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/subjects.xml?api-key=#{@@api_key}").read) rescue redo
-        sleep 2
-        @bill_related_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/related.xml?api-key=#{@@api_key}").read) rescue redo
-        sleep 2
-                
+        begin
+          sleep 1
+          @bill_cosponsors_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/cosponsors.xml?api-key=#{@@api_key}").read)
+        rescue Exception => e
+          case e.message
+            when /504 Gateway Timeout/
+              sleep 1
+              redo
+          end
+        end
+        
+        begin
+          sleep 1
+          @bill_subjects_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/subjects.xml?api-key=#{@@api_key}").read)
+        rescue Exception => e
+          case e.message
+            when /504 Gateway Timeout/
+              sleep 1
+              redo
+          end
+        end
+        
+        # this is for related bills, which we should probably just handle through the subjects. 
+        # also, there are no bills I could find which even had related's attached to them
+        # 
+        # begin          
+        #   sleep 1        
+        #   @bill_related_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/related.xml?api-key=#{@@api_key}").read)
+        # rescue Exception => e
+        #   case e.message
+        #     when /504 Gateway Timeout/
+        #       sleep 1
+        #       redo
+        #   end
+        # end
+                      
         @congress_year = "112"
         @bill_sponsor_id = @member_doc.xpath("//results/id").inner_text
         @bill_title = @member_doc.xpath("//results/bills/bill[#{i}]/title").inner_text
@@ -157,6 +201,7 @@ namespace :seed do
           # update_bill_committees
           # update_legislation_issues
           # update_bill_cosponsors
+          # update_related_bills
           
           sleep 2
           i += 1
@@ -168,8 +213,10 @@ namespace :seed do
           save_bill_committees
           puts "Saving legislation issues for #{@bill_number.inner_text}..."
           save_legislation_issues
-          puts "Saving cosponsors for #{@bill_number.inner_text}"
+          puts "Saving cosponsors for #{@bill_number.inner_text}..."
           save_bill_cosponsors
+          puts "Saving related bills for #{@bill_number.inner_text}..."
+          save_related_bills
           
           sleep 2
           i += 1
@@ -199,13 +246,24 @@ namespace :seed do
   
   def save_bill_committees
     @committees.map do |committee| 
-      @committee_legislation = CommitteeLegislation.new(
-          :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
-          :committee_id => Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").first.id,
-          :year => "112"
-          )
+      if Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").nil?
+        @committee_legislation = CommitteeLegislation.new(
+            :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
+            :committee_id => Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").first.id,
+            :year => "112"
+            )
+      else
+        puts "#{committee} not on file, adding it to the database!"
+        @committee = Committee.new(:name => committee)
+        @committee.save
+        @committee_legislation = CommitteeLegislation.new(
+            :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
+            :committee_id => Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").first.id,
+            :year => "112"
+            )
+      end
       if @committee_legislation.save
-        puts "#{committee} saved to #{@bill_number.inner_text}"
+        puts "#{committee} mapped to #{@bill_number.inner_text}"
       end
     end
   end
@@ -230,13 +288,12 @@ namespace :seed do
   def save_bill_cosponsors
     if @bill_cosponsors.count > 0
       @bill_cosponsors.each do |cosponsor_id|
-        puts "creating #{cosponsor_id}"
         @legislation_cosponsor = LegislationCosponsor.new(
             :person_id => Person.find_by_nyt_id(cosponsor_id.inner_text).id,
             :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id
             )
         if @legislation_cosponsor.save
-          puts "#{cosponsor_id.inner_text} saved to #{Legislation.find_by_bill_number(@bill_number.inner_text).bill_number}"
+          puts "#{cosponsor_id.inner_text} mapped to #{Legislation.find_by_bill_number(@bill_number.inner_text).bill_number}"
         end
       end
     else
@@ -252,6 +309,10 @@ namespace :seed do
         :year => "112" 
         )
     @committee_assignment.save
+  end
+  
+  def save_related_bills
+    @bill
   end
   
   def make_person(chamber)

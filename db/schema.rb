@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120228191041) do
+ActiveRecord::Schema.define(:version => 20120229191042) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -264,7 +264,7 @@ ActiveRecord::Schema.define(:version => 20120228191041) do
     t.text     "bill_title"
     t.string   "introduced_date"
     t.string   "latest_major_action_date"
-    t.string   "latest_major_action"
+    t.text     "latest_major_action"
     t.string   "bill_sponsor"
     t.string   "bill_sponsor_id"
     t.text     "bill_pdf"
