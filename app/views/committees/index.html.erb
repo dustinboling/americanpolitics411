@@ -1,0 +1,15 @@
+<div class="container">
+	<h1>Committees</h1>
+	
+	<table class="zebra-striped">
+		<tr>
+			<th>Committee</th>
+		</tr>
+		<% @committees.each do |committee| %>
+		<tr>
+			<td><%= committee.name %></td>
+		</tr>
+		<% end %>
+	</table>
+	
+</div>

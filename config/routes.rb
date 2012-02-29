@@ -1,5 +1,9 @@
 Politics411::Application.routes.draw do  
   
+  get "issues/index"
+
+  match "issues/:id" => "issues#show"
+
   # get "legislation/grab_xml"
   
   match "committees/:id" => "committees#show", :as => :committee
