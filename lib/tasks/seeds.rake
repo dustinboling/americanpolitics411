@@ -115,7 +115,12 @@ namespace :seed do
       while i <= number_bills
         @bill_number = @member_doc.xpath("//results/bills/bill[#{i}]/number")
         @bill_number_stripped = @bill_number.inner_text.gsub(/[.]/, "").downcase
-        @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}.xml?api-key=#{@@api_key}")) rescue redo
+        begin 
+          @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}.xml?api-key=#{@@api_key}"))
+        rescue
+          sleep 1
+          redo
+        end
         sleep 2
         @bill_cosponsors_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/cosponsors.xml?api-key=#{@@api_key}").read) rescue redo
         sleep 2

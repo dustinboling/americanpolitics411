@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<result_set>
+  <status>OK</status>
+  <copyright>Copyright (c) 2012 The New York Times Company. All Rights Reserved.</copyright>
+  <results>
+    <id>A000022</id>
+    <member_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/A000022.xml</member_uri>
+    <name>Gary L. Ackerman</name>
+    <num_results>20</num_results>
+    <offset>0</offset>
+    <bills>
+      <bill>
+        <congress>112</congress>
+        <number>H.R.4080</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/hr4080.xml</bill_uri>
+        <title>To direct the Architect of the Capitol to acquire a statue of &quot;The Unknown Slave&quot; for permanent display in Emancipation Hall in the Capitol Visitor Center, and for other purposes.</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2012-02-17</introduced_date>
+        <cosponsors>1</cosponsors>
+        <committees>House Ways and Means</committees>
+        <latest_major_action_date>2012-02-17</latest_major_action_date>
+        <latest_major_action>Referred to House committee. Status: Referred to the House Committee on House Administration.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>112</congress>
+        <number>H.R.4038</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/hr4038.xml</bill_uri>
+        <title>American College Tuition Tax Relief Act of 2012</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2012-02-15</introduced_date>
+        <cosponsors>7</cosponsors>
+        <committees>House Ways and Means</committees>
+        <latest_major_action_date>2012-02-15</latest_major_action_date>
+        <latest_major_action>Referred to House committee. Status: Referred to the House Committee on Ways and Means.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>112</congress>
+        <number>H.R.3704</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/hr3704.xml</bill_uri>
+        <title>Downed Animal and Food Safety Protection Act</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2011-12-16</introduced_date>
+        <cosponsors>22</cosponsors>
+        <committees>House Ways and Means</committees>
+        <latest_major_action_date>2012-01-17</latest_major_action_date>
+        <latest_major_action>Referred to House subcommittee. Status: Referred to the Subcommittee on Livestock, Dairy, and Poultry.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>112</congress>
+        <number>H.R.2728</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/hr2728.xml</bill_uri>
+        <title>Corporate Politics Transparency Act</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2011-08-01</introduced_date>
+        <cosponsors>9</cosponsors>
+        <committees>House Judiciary</committees>
+        <latest_major_action_date>2011-08-22</latest_major_action_date>
+        <latest_major_action>Referred to House subcommittee. Status: Referred to the Subcommittee on Capital Markets and Government Sponsored Enterprises.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>112</congress>
+        <number>H.RES.317</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/hres317.xml</bill_uri>
+        <title>Demanding that Hamas immediately and unconditionally release Israeli soldier Gilad Shalit.</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2011-06-21</introduced_date>
+        <cosponsors>26</cosponsors>
+        <committees>House Financial Services</committees>
+        <latest_major_action_date>2011-08-02</latest_major_action_date>
+        <latest_major_action>Referred to House subcommittee. Status: Referred to the Subcommittee on Middle East and South Asia .</latest_major_action>
+      </bill>
+      <bill>
+        <congress>112</congress>
+        <number>H.R.1987</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/hr1987.xml</bill_uri>
+        <title>Ponzi Scheme Investor Protection Act of 2011</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2011-05-25</introduced_date>
+        <cosponsors>8</cosponsors>
+        <committees>House Education and the Workforce; House Ways and Means; House Natural Resources; House Oversight and Government Reform</committees>
+        <latest_major_action_date>2011-05-25</latest_major_action_date>
+        <latest_major_action>Referred to House committee. Status: Referred to the House Committee on Financial Services.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>112</congress>
+        <number>H.R.1669</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/hr1669.xml</bill_uri>
+        <title>License Plate Political Slush Fund Prevention Act of 2011</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2011-05-02</introduced_date>
+        <cosponsors>0</cosponsors>
+        <committees>House Ways and Means</committees>
+        <latest_major_action_date>2011-05-03</latest_major_action_date>
+        <latest_major_action>Referred to House subcommittee. Status: Referred to the Subcommittee on Highways and Transit.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>112</congress>
+        <number>H.R.263</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/hr263.xml</bill_uri>
+        <title>Fire Sale Loophole Closing Act</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2011-01-12</introduced_date>
+        <cosponsors>31</cosponsors>
+        <committees>House Financial Services</committees>
+        <latest_major_action_date>2011-02-07</latest_major_action_date>
+        <latest_major_action>Referred to House subcommittee. Status: Referred to the Subcommittee on Crime, Terrorism, and Homeland Security.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>111</congress>
+        <number>H.RES.1762</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/hres1762.xml</bill_uri>
+        <title>Condemning the anti-Christian violence that has occurred in Iraq and has forced Iraqi Christians to flee their homes and communities.</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2010-12-14</introduced_date>
+        <cosponsors>4</cosponsors>
+        <committees>House Foreign Affairs</committees>
+        <latest_major_action_date>2010-12-14</latest_major_action_date>
+        <latest_major_action>Referred to House committee. Status: Referred to the House Committee on Foreign Affairs.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>111</congress>
+        <number>H.R.6454</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/hr6454.xml</bill_uri>
+        <title>First Health Insurance Protects America--Can't Repeal IT (HIPA-CRIT) Act</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2010-11-29</introduced_date>
+        <cosponsors>1</cosponsors>
+        <committees>House Budget; House Rules; House Oversight and Government Reform</committees>
+        <latest_major_action_date>2010-11-29</latest_major_action_date>
+        <latest_major_action>Referred to House committee. Status: Referred to the House Committee on Energy and Commerce.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>111</congress>
+        <number>H.R.6453</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/hr6453.xml</bill_uri>
+        <title>Third Health Insurance Protects America--Can't Repeal IT (HIPA-CRIT) Act</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2010-11-29</introduced_date>
+        <cosponsors>1</cosponsors>
+        <committees>House Budget; House Rules; House Oversight and Government Reform</committees>
+        <latest_major_action_date>2010-11-29</latest_major_action_date>
+        <latest_major_action>Referred to House committee. Status: Referred to the House Committee on Energy and Commerce.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>111</congress>
+        <number>H.R.6452</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/hr6452.xml</bill_uri>
+        <title>Second Health Insurance Protects America--Can't Repeal IT (HIPA-CRIT) Act</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2010-11-29</introduced_date>
+        <cosponsors>1</cosponsors>
+        <committees>House Budget; House Rules; House Oversight and Government Reform</committees>
+        <latest_major_action_date>2010-11-29</latest_major_action_date>
+        <latest_major_action>Referred to House committee. Status: Referred to the House Committee on Energy and Commerce.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>111</congress>
+        <number>H.R.6450</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/hr6450.xml</bill_uri>
+        <title>Sixth Health Insurance Protects America--Can't Repeal IT (HIPA-CRIT) Act</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2010-11-29</introduced_date>
+        <cosponsors>1</cosponsors>
+        <committees>House Budget; House Rules; House Oversight and Government Reform</committees>
+        <latest_major_action_date>2010-11-29</latest_major_action_date>
+        <latest_major_action>Referred to House committee. Status: Referred to the House Committee on Energy and Commerce.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>111</congress>
+        <number>H.R.6451</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/hr6451.xml</bill_uri>
+        <title>Fifth Health Insurance Protects America--Can't Repeal IT (HIPA-CRIT) Act</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2010-11-29</introduced_date>
+        <cosponsors>1</cosponsors>
+        <committees>House Budget; House Rules; House Oversight and Government Reform</committees>
+        <latest_major_action_date>2010-11-29</latest_major_action_date>
+        <latest_major_action>Referred to House committee. Status: Referred to the House Committee on Energy and Commerce.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>111</congress>
+        <number>H.R.6449</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/hr6449.xml</bill_uri>
+        <title>Fourth Health Insurance Protects America--Can't Repeal IT (HIPA-CRIT) Act</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2010-11-29</introduced_date>
+        <cosponsors>1</cosponsors>
+        <committees>House Budget; House Rules; House Oversight and Government Reform</committees>
+        <latest_major_action_date>2010-11-29</latest_major_action_date>
+        <latest_major_action>Referred to House committee. Status: Referred to the House Committee on Energy and Commerce.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>111</congress>
+        <number>H.R.5718</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/hr5718.xml</bill_uri>
+        <title>Fire Sale Loophole Closing Act</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2010-07-13</introduced_date>
+        <cosponsors>0</cosponsors>
+        <committees>House Judiciary</committees>
+        <latest_major_action_date>2010-07-13</latest_major_action_date>
+        <latest_major_action>Referred to House committee. Status: Referred to the House Committee on the Judiciary.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>111</congress>
+        <number>H.RES.1398</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/hres1398.xml</bill_uri>
+        <title>Recognizing the contributions of university and college immigrant assistance programs.</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2010-05-26</introduced_date>
+        <cosponsors>8</cosponsors>
+        <committees>House Education and Labor</committees>
+        <latest_major_action_date>2010-06-29</latest_major_action_date>
+        <latest_major_action>Referred to House subcommittee. Status: Referred to the Subcommittee on Higher Education, Lifelong Learning, and Competitiveness.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>111</congress>
+        <number>H.RES.1359</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/hres1359.xml</bill_uri>
+        <title>Calling for the immediate and unconditional release of Israeli soldier Gilad Shalit, who is held captive by Hamas, and for other purposes.</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2010-05-13</introduced_date>
+        <cosponsors>72</cosponsors>
+        <committees>House Foreign Affairs</committees>
+        <latest_major_action_date>2010-06-24</latest_major_action_date>
+        <latest_major_action>Passed/agreed to in House. Status: On motion to suspend the rules and agree to the resolution, as amended Agreed to by voice vote.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>111</congress>
+        <number>H.R.5032</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/hr5032.xml</bill_uri>
+        <title>To amend the Securities Investor Protection Act of 1970 to provide insurance coverage for certain indirect investors caught in Ponzi schemes, and for other purposes.</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2010-04-15</introduced_date>
+        <cosponsors>5</cosponsors>
+        <committees>House Financial Services</committees>
+        <latest_major_action_date>2010-04-15</latest_major_action_date>
+        <latest_major_action>Referred to House committee. Status: Referred to the House Committee on Financial Services.</latest_major_action>
+      </bill>
+      <bill>
+        <congress>111</congress>
+        <number>H.R.4630</number>
+        <bill_uri>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/hr4630.xml</bill_uri>
+        <title>To amend the securities laws to require that registration statements, quarterly and annual reports, and proxy solicitations of public companies include a disclosure to shareholders of any expenditure made by that company in support of or in opposition to any candidate for Federal, State, or local public office.</title>
+        
+        
+        <sponsor_id>A000022</sponsor_id>
+        <introduced_date>2010-02-22</introduced_date>
+        <cosponsors>4</cosponsors>
+        <committees>House Financial Services</committees>
+        <latest_major_action_date>2010-02-22</latest_major_action_date>
+        <latest_major_action>Referred to House committee. Status: Referred to the House Committee on Financial Services.</latest_major_action>
+      </bill>
+    </bills>
+  </results>
+</result_set>
