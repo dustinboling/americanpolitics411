@@ -149,6 +149,9 @@ namespace :seed do
             when /504 Gateway Timeout/
               sleep 1
               redo
+            when /403 Developer Over Rate/
+              puts "over rate for the day!"
+              exit
           end
         end
         
@@ -160,6 +163,9 @@ namespace :seed do
             when /504 Gateway Timeout/
               sleep 1
               redo
+            when /403 Developer Over Rate/
+              puts "over rate for the day!"
+              exit
           end
         end
         
@@ -171,6 +177,9 @@ namespace :seed do
             when /504 Gateway Timeout/
               sleep 1
               redo
+            when /403 Developer Over Rate/
+              puts "over rate for the day!"
+              exit
           end
         end
         
@@ -185,6 +194,9 @@ namespace :seed do
         #     when /504 Gateway Timeout/
         #       sleep 1
         #       redo
+        #     when /403 Developer Over Rate/
+        #       puts "over rate for the day!"
+        #       exit
         #   end
         # end
                       
