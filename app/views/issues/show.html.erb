@@ -1,4 +1,7 @@
 <div class="container">
 	<h1><%= @issue.name %></h1>
-	<b>List of bills which are about this issue</b>
+	<b>List of bills which are about this issue:</b>
+	<% @bills.each do |bill| %>
+		<a href="/legislation/show?bill_number=<%= Legislation.find_by_id(bill.legislation.id).bill_number %>"><%= Legislation.find_by_id(bill.legislation.id).bill_number %></a>
+	<% end %>
 </div>

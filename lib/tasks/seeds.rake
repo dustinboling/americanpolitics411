@@ -80,6 +80,7 @@ namespace :seed do
           
           if committee_exists
             puts "Committee with the name #{@name} already exists, skipping!"
+            save_committee_assignment
           else
             @committee = Committee.new(:name => @name, :code => @code, :nyt_uri => @nyt_uri)
             @committee.save

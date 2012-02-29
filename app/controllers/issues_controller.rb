@@ -8,6 +8,8 @@ class IssuesController < ApplicationController
 
   def show
     @issue = Issue.find_by_id(params[:id])
+    @legislative_issue = Issue.where("name like ?", "#{@issue.name}").first.id
+    @bills = LegislationIssue.where("issue_id = #{@legislative_issue}")
   end
 
 end

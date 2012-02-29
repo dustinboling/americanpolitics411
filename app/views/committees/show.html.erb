@@ -5,13 +5,13 @@
 
 	<p>
 		<b>People who belong to this committee:</b>
-		<%= @committee.people.collect { |person| 
+		<%= @committee.people.collect { |person|
 					"<a href='/people/#{person.id}'>#{person.first_name} #{person.last_name}</a>," }.to_sentence.html_safe %>
 	</p>
 	
 	<p>
 		<b>Bills overseen by this committee</b>
 		<%= @committee.legislations.collect { |legislation| 
-					"<a href='/legislation/#{Legislation.find_by_bill_number(legislation.bill_number).id}'>#{legislation.bill_number}</a>" }.to_sentence.html_safe %>
+					"<a href='/legislation/show?bill_number=#{Legislation.find_by_bill_number(legislation.bill_number).bill_number}'>#{legislation.bill_number}</a>" }.to_sentence.html_safe %>
 	</p>
 </div>

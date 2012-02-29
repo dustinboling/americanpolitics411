@@ -40,7 +40,13 @@
 		<% else %>
 			<%= @legislation.republican_cosponsors %>
 		<% end %>
-		Democratic: <%= @legislation.democratic_cosponsors %>
+		
+		Democratic: 
+		<% if @legislation.democratic_cosponsors.blank? %>
+			0
+		<% else %>
+			<%= @legislation.democratic_cosponsors %>
+		<% end %>
 	</p>
 	
 	<p>

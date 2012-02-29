@@ -8,5 +8,4 @@ class Legislation < ActiveRecord::Base
   has_many :legislation_issues
   has_many :issues, :through => :legislation_issues
   
-  
 end
