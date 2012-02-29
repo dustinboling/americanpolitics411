@@ -22,12 +22,10 @@ gem 'annotate', '~> 2.4.1.beta'
 
 # Gems for development mode only.
 gem 'rspec-rails', :group => [:test, :development]
-
 group :test, :development do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'guard-rspec'
-  gem 'wirble'
 end
 
 group :production do

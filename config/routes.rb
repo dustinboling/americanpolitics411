@@ -1,8 +1,13 @@
 Politics411::Application.routes.draw do  
   
+  # get "legislation/grab_xml"
+  
   match "committees/:id" => "committees#show" 
-
-  get "legislation/grab_xml"
+  match "senators" => "people#senators"
+  match "representatives" => "people#representatives"
+ 
+  get "people/senators"
+  get "people/representatives"
   
   # Routes for autocomplete
   get "universities/autocomplete_university_name"

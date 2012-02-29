@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120226000108) do
+ActiveRecord::Schema.define(:version => 20120228191041) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -23,26 +23,6 @@ ActiveRecord::Schema.define(:version => 20120226000108) do
   end
 
   add_index "accusations", ["person_id"], :name => "index_accusations_on_person_id"
-
-  create_table "admin_users", :force => true do |t|
-    t.string   "first_name",      :limit => 25
-    t.string   "last_name",       :limit => 50
-    t.string   "email",           :limit => 100, :default => "", :null => false
-    t.string   "hashed_password", :limit => 40
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "username",        :limit => 25
-    t.string   "salt",            :limit => 40
-  end
-
-  add_index "admin_users", ["username"], :name => "index_admin_users_on_username"
-
-  create_table "admin_users_pages", :id => false, :force => true do |t|
-    t.integer "admin_user_id"
-    t.integer "page_id"
-  end
-
-  add_index "admin_users_pages", ["admin_user_id", "page_id"], :name => "index_admin_users_pages_on_admin_user_id_and_page_id"
 
   create_table "articles", :force => true do |t|
     t.integer  "person_id"
@@ -115,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20120226000108) do
     t.string   "congress_year"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "year"
   end
 
   add_index "committee_legislations", ["committee_id"], :name => "index_committee_legislations_on_committee_id"
@@ -288,6 +269,8 @@ ActiveRecord::Schema.define(:version => 20120226000108) do
     t.string   "bill_sponsor_id"
     t.text     "bill_pdf"
     t.string   "congress_year"
+    t.string   "republican_cosponsors"
+    t.string   "democratic_cosponsors"
   end
 
   add_index "legislations", ["bill_uri"], :name => "index_legislations_on_bill_uri"
@@ -320,19 +303,6 @@ ActiveRecord::Schema.define(:version => 20120226000108) do
 
   add_index "organizations_people", ["organization_id"], :name => "index_organizations_people_on_organization_id"
   add_index "organizations_people", ["person_id"], :name => "index_organizations_people_on_person_id"
-
-  create_table "pages", :force => true do |t|
-    t.integer  "subject_id"
-    t.string   "name"
-    t.string   "permalink"
-    t.integer  "position"
-    t.boolean  "visible",    :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
-  add_index "pages", ["subject_id"], :name => "index_pages_on_subject_id"
 
   create_table "people", :force => true do |t|
     t.string   "first_name"
@@ -451,29 +421,6 @@ ActiveRecord::Schema.define(:version => 20120226000108) do
     t.datetime "updated_at"
   end
 
-  create_table "section_edits", :force => true do |t|
-    t.integer  "admin_user_id"
-    t.integer  "section_id"
-    t.string   "summary"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "section_edits", ["admin_user_id", "section_id"], :name => "index_section_edits_on_admin_user_id_and_section_id"
-
-  create_table "sections", :force => true do |t|
-    t.integer  "page_id"
-    t.string   "name"
-    t.integer  "position"
-    t.boolean  "visible",      :default => false
-    t.string   "content_type"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sections", ["page_id"], :name => "index_sections_on_page_id"
-
   create_table "sponsored_legislations", :force => true do |t|
     t.integer  "person_id"
     t.boolean  "sponsor"
@@ -485,14 +432,6 @@ ActiveRecord::Schema.define(:version => 20120226000108) do
   end
 
   add_index "sponsored_legislations", ["person_id"], :name => "index_sponsored_legislations_on_person_id"
-
-  create_table "subjects", :force => true do |t|
-    t.string   "name"
-    t.integer  "position"
-    t.boolean  "visible",    :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "supporters", :force => true do |t|
     t.string   "group_name"

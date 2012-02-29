@@ -10,6 +10,14 @@ class PeopleController < ApplicationController
     render json: @people.map(&:name)
   end
   
+  def senators
+    @people = Person.where("chamber = 'S'").order("people.last_name ASC")
+  end
+  
+  def representatives
+    @people = Person.where("chamber = 'H'").order("people.last_name ASC")
+  end
+  
   # GET /all
   # GET /all.json
   def all
