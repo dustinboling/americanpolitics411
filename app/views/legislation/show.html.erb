@@ -1,40 +1,56 @@
 <div class="container">	
-	<h1><%= @legis_num %></h1>
-	<h4><%= @short_title %></h4>
-
+	<h1><%= @legislation.bill_number %></h1>
 	<p>
-		<b>Date:</b>
-		<%= @date %>
+		<b>Title:</b>
+		<%= @legislation.bill_title %>
 	</p>
+	
 	<p>
-		<b>Congress:</b>
-		<%= @congress %>
+		<b>Bill PDF:</b>
+		<a href="<%= @legislation.bill_pdf %>">link</a>
 	</p>
-	<p>
-		<b>Session:</b>
-		<%= @session %>
-	</p>
+	
 	<p>
 		<b>Sponsor:</b>
-			<%= @sponsor %>
+			<a href="<%= person_path(Person.find_by_nyt_id(@legislation.bill_sponsor_id)) %>"><%= @legislation.bill_sponsor %></a>
 	</p>
+	
+	<p>
+		<b>Introduced:</b>
+		<%= @legislation.introduced_date %> (Congress Year: <%= @legislation.congress_year %>)
+	</p>
+	
+	<p>
+		<b>Last Major Action:</b>
+		<%= @legislation.latest_major_action_date %> - <%= @legislation.latest_major_action %>
+	</p>
+	
 	<p>
 		<b>Cosponsors:</b>
-			<%= @cosponsors %>
-	</p>
-	<p>
-		<b>Committee Name:</b>
-			<% @committee_names.each do |committee| %>
-				<%= committee['committee-name'] %>
+			<% @legislation.legislation_cosponsors.collect do |c| %> 
+				<%= link_to "#{Person.find_by_id(c.person_id).first_name} #{Person.find_by_id(c.person_id).last_name}", person_path(Person.find_by_id(c.person_id)) %>
 			<% end %>
 	</p>
 
 	<p>
-		<b>Body:</b>
-		<%= @body %>
+		<b>Cosponsors by party</b>
+		Republican: 
+		<% if @legislation.republican_cosponsors.blank? %>
+			0
+		<% else %>
+			<%= @legislation.republican_cosponsors %>
+		<% end %>
+		Democratic: <%= @legislation.democratic_cosponsors %>
 	</p>
-	<p>
-		<b></b>
 	
-	</p>
+	<p>
+		<b>Legislation Issues:</b>
+		<%= @legislation.issues.collect { |i| "<a href='/issues/#{Issue.where("name like ?", "%#{i.name}").first.id}'>#{i.name}</a>" }.to_sentence.html_safe %>
+	</p>		
+
+	<p>
+		<b>Committees</b>
+		<%= @legislation.committees.collect { |c| "<a href='/committees/#{Committee.where("name like ?", "%#{c.name}").first.id }'>#{c.name}</a>" }.to_sentence.html_safe %>
+	</p>	
+		
 </div>

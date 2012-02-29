@@ -106,7 +106,20 @@ namespace :seed do
       puts "==||===================================================="
       puts "Updating legislation for legislator with the id #{@id}..."
       
-      @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}/bills/introduced.xml?api-key=#{@@api_key}")) rescue redo
+      begin
+        sleep 1
+        @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}/bills/introduced.xml?api-key=#{@@api_key}"))
+      rescue Exception => e
+        case e.message
+          when /403 Developer Over Rate/
+            puts "over rate for the day!"
+            exit
+          when /504 Gateway Timeout/
+            sleep 1
+            redo
+        end
+      end
+        
       sleep 2
       @bills = @member_doc.xpath('//results/bills/bill/number')
       number_bills = @bills.count 
@@ -215,8 +228,6 @@ namespace :seed do
           save_legislation_issues
           puts "Saving cosponsors for #{@bill_number.inner_text}..."
           save_bill_cosponsors
-          puts "Saving related bills for #{@bill_number.inner_text}..."
-          save_related_bills
           
           sleep 2
           i += 1
@@ -309,10 +320,6 @@ namespace :seed do
         :year => "112" 
         )
     @committee_assignment.save
-  end
-  
-  def save_related_bills
-    @bill
   end
   
   def make_person(chamber)

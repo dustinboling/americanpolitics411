@@ -14,7 +14,7 @@ class LegislationController < ApplicationController
   end
   
   def show
-    @legislation = Legislation.find_by_bill_number(:bill_number)
+    @legislation = Legislation.find_by_bill_number(params[:bill_number])
   end
   
   def make_list

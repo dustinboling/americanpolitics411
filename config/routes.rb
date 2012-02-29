@@ -2,7 +2,7 @@ Politics411::Application.routes.draw do
   
   # get "legislation/grab_xml"
   
-  match "committees/:id" => "committees#show" 
+  match "committees/:id" => "committees#show", :as => :committee
   match "senators" => "people#senators"
   match "representatives" => "people#representatives"
  
