@@ -13,6 +13,7 @@ gem 'sorcery'
 gem 'nokogiri'
 gem 'jquery-rails'
 gem 'redis'
+gem 'sunlight'
 
 gem 'newrelic_rpm'
 

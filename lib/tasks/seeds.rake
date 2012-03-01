@@ -2,7 +2,10 @@ namespace :seed do
   
   require 'open-uri'
   
-  @@api_key = 'b16efb69e13af05498fe536551a7bc67:15:65673083'
+  @@api_key = '4e8aa4d7b091d796aca565dbebf31404:9:65704848' # alan's
+  @@api_key_2 = 'b16efb69e13af05498fe536551a7bc67:15:65673083' # dustin's
+  @@sunlight_api_key = '5cdbb43c42d84ef3b4bde09efa074648'
+  
   @@house_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/house/members.xml?api-key=#{@@api_key}"
   @@senate_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/senate/members?api-key=#{@@api_key}"
   
@@ -58,43 +61,75 @@ namespace :seed do
 
    end
   
-  desc "Add all recent committees"
+  desc "Add all committees from the sunlightlabs API"
   task :committees => :environment do
-    make_join
+   
+    puts "Populating committee arrays..."
+    @senate_committees = Sunlight::Committee.all_for_chamber("Senate")
+    sleep 1
+    @house_committees = Sunlight::Committee.all_for_chamber("House")
+    sleep 1
+    @joint_committees = Sunlight::Committee.all_for_chamber("Joint")
+    sleep 1
     
-    puts "Beginning datastore..."
-    @congress_members.map { |member|
-      @id = member.inner_text
+    puts "Saving senate committees..."
+    @senate_committees.map do |sc|
+      sleep 1
+      puts "Saving #{sc.name}..."
+      @committee = Committee.new(:name => sc.name, :code => sc.id, :chamber => sc.chamber)
+      @committee.save
       
-      if person_exists
-        puts "Saving committees for #{Person.find_by_nyt_id(@id).name}..."
-        @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@api_key}")) rescue redo
-        @committees =  @member_doc.xpath('//results/member/roles/role[1]/committees/committee/name')
-        number_committees = @committees.count
+      sc.load_members
+      sc.members.each do |member|
+        puts "Mapping #{member.bioguide_id} to #{Committee.find_by_code(sc.id).name}!"
         
-        i = 1
-        while i <= number_committees do
-          @name = @member_doc.xpath("//results/member/roles/role[1]/committees/committee[#{i}]/name").inner_text
-          @code = @member_doc.xpath("//results/member/roles/role[1]/committees/committee[#{i}]/code").inner_text
-          @nyt_uri = @member_doc.xpath("//results/member/roles/role[1]/committees/committee[#{i}]/api_uri").inner_text
-          
-          if committee_exists
-            puts "Committee with the name #{@name} already exists, skipping!"
-            save_committee_assignment
-          else
-            @committee = Committee.new(:name => @name, :code => @code, :nyt_uri => @nyt_uri)
-            @committee.save
-            save_committee_assignment
-          end
-                 
-          sleep 2
-          i += 1 
-        end
-      else 
-        puts "This person does not exist, skipping!"
-      end
-    }
-    puts "Successfully updated the list of committees!"
+        if Person.find_by_nyt_id(member.bioguide_id).id.nil?          
+          puts "Member with the id #{member.bioguide_id} does not exist, skipping!"
+      	else
+      	  @assignment = CommitteeAssignment.new(
+      	      :person_id => Person.find_by_nyt_id(member.bioguide_id).id,
+      	      :committee_id => Committee.find_by_code(sc.id).id
+      	      )
+      	  @assignment.save
+      	end
+    	end                                                                                 
+    end
+    
+    puts "Saving house committees..."
+    @house_committees.map do |hc|
+      puts "Saving #{hc.name}..."
+      @committee = Committee.new(:name => hc.name, :code => hc.id, :chamber => hc.chamber)
+      @committee.save
+      
+      
+      hc.load_members
+      hc.members.each do |member|
+        puts "Mapping #{member.bioguide_id} to #{Committee.find_by_code(hc.id).name}!"
+        @assignment = CommitteeAssignment.new(
+    	      :person_id => Person.find_by_nyt_id(member.bioguide_id).id,
+    	      :committee_id => Committee.find_by_code(hc.id).id
+    	      )
+    	  @assignment.save
+    	end
+    end
+    
+    puts "Saving joint committees..."
+    @joint_committees.map do |jc|
+      puts "Saving #{jc.name}..."
+      @committee = Committee.new(:name => jc.name, :code => jc.id, :chamber => jc.chamber)
+      @committee.save      
+      
+      jc.load_members
+      jc.members.each do |member|
+        puts "Mapping #{member.bioguide_id} to #{Committee.find_by_code(jc.id).name}!"
+        @assignment = CommitteeAssignment.new(
+    	      :person_id => Person.find_by_nyt_id(member.bioguide_id).id,
+    	      :committee_id => Committee.find_by_code(jc.id).id
+    	      )
+    	  @assignment.save
+    	end
+    end
+    puts "All done!"
   end
   
   desc "Add all legislation attached to current members"
@@ -273,7 +308,7 @@ namespace :seed do
       if Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").nil?
         @committee_legislation = CommitteeLegislation.new(
             :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
-            :committee_id => Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").first.id,
+            :committee_id => Committee.where("name like ?", "%#{committee}").first.id,
             :year => "112"
             )
       else
