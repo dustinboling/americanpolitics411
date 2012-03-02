@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120301193122) do
+ActiveRecord::Schema.define(:version => 20120302003728) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -433,6 +433,27 @@ ActiveRecord::Schema.define(:version => 20120301193122) do
   end
 
   add_index "sponsored_legislations", ["person_id"], :name => "index_sponsored_legislations_on_person_id"
+
+  create_table "subcommittee_assignments", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "subcommittee_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subcommittee_assignments", ["person_id"], :name => "index_subcommittee_assignments_on_person_id"
+  add_index "subcommittee_assignments", ["subcommittee_id"], :name => "index_subcommittee_assignments_on_subcommittee_id"
+
+  create_table "subcommittees", :force => true do |t|
+    t.integer  "committee_id"
+    t.string   "name"
+    t.string   "code"
+    t.string   "chamber"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subcommittees", ["committee_id"], :name => "index_subcommittees_on_committee_id"
 
   create_table "supporters", :force => true do |t|
     t.string   "group_name"

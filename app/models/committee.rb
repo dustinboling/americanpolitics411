@@ -1,4 +1,7 @@
 class Committee < ActiveRecord::Base
+  
+  has_many :subcommittees
+  
   has_many :committee_assignments
   has_many :people, :through => :committee_assignments
   

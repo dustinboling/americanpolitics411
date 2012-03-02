@@ -2,12 +2,12 @@ namespace :seed do
   
   require 'open-uri'
   
-  @@api_key = '4e8aa4d7b091d796aca565dbebf31404:9:65704848' # alan's
-  @@api_key_2 = 'b16efb69e13af05498fe536551a7bc67:15:65673083' # dustin's
+  @@nyt_api_key = '4e8aa4d7b091d796aca565dbebf31404:9:65704848' # alan's
+  @@nyt_api_key_2 = 'b16efb69e13af05498fe536551a7bc67:15:65673083' # dustin's
   @@sunlight_api_key = '5cdbb43c42d84ef3b4bde09efa074648'
   
-  @@house_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/house/members.xml?api-key=#{@@api_key}"
-  @@senate_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/senate/members?api-key=#{@@api_key}"
+  @@house_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/house/members.xml?api-key=#{@@nyt_api_key}"
+  @@senate_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/senate/members?api-key=#{@@nyt_api_key}"
   
   desc "Grab top level list"
   task :house => :environment do
@@ -22,7 +22,7 @@ namespace :seed do
       if person_exists
         puts "skipping #{@id}"
       else
-        @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@api_key}").read)
+        @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@nyt_api_key}"))
         house = "h"
         make_person(house)
         
@@ -48,7 +48,7 @@ namespace :seed do
   		if person_exists
         puts "skipping #{@id}"
       else
-    		@member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@api_key}"))
+    		@member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@nyt_api_key}"))
     		senate = "s"
     		make_person(senate)
         
@@ -132,6 +132,87 @@ namespace :seed do
     puts "All done!"
   end
   
+  desc "Add subcommittees to committees"
+  task :subcommittees => :environment do
+    puts "Populating committee arrays..."
+    @senate_committees = Sunlight::Committee.all_for_chamber("Senate")
+    sleep 1
+    @house_committees = Sunlight::Committee.all_for_chamber("House")
+    sleep 1
+    @joint_committees = Sunlight::Committee.all_for_chamber("Joint")
+    sleep 1
+    
+    puts "Saving senate subcommittees..."
+    @senate_committees.each do |committee|
+      if committee.subcommittees.nil?
+        next
+      else
+        committee.subcommittees.each do |sub|
+          puts "Saving #{sub.name}..."
+          @subcommittee = Subcommittee.new(:name => sub.name, :code => sub.id, :chamber => sub.chamber, :committee_id => Committee.find_by_code(committee.id).id)
+          @subcommittee.save
+          
+          sub.load_members
+          sub.members.each do |sm|
+            puts "Mapping #{sm.bioguide_id} to #{sub.name}..."
+            @subcommittee_assignment = SubcommitteeAssignment.new(
+                :person_id => Person.find_by_nyt_id(sm.bioguide_id).id,
+                :subcommittee_id => Subcommittee.find_by_code(sub.id).id
+                )
+            @subcommittee_assignment.save
+          end
+        end
+      end
+    end
+    
+    puts "Saving house subcommittees..."
+    @house_committees.each do |committee|
+      if committee.subcommittees.nil?
+        next
+      else
+        committee.subcommittees.each do |sub|
+          puts "Saving #{sub.name}..."
+          @subcommittee = Subcommittee.new(:name => sub.name, :code => sub.id, :chamber => sub.chamber, :committee_id => Committee.find_by_code(committee.id).id)
+          @subcommittee.save
+
+          sub.load_members
+          sub.members.each do |sm|
+            puts "Mapping #{sm.bioguide_id} to #{sub.name}..."
+            @subcommittee_assignment = SubcommitteeAssignment.new(
+                :person_id => Person.find_by_nyt_id(sm.bioguide_id).id,
+                :subcommittee_id => Subcommittee.find_by_code(sub.id).id
+                )
+            @subcommittee_assignment.save
+          end
+        end
+      end
+    end
+      
+    puts "Saving joint subcommittees..."
+    @joint_committees.each do |committee|
+      if committee.subcommittees.nil?
+        next
+      else
+        committee.subcommittees.each do |sub|
+          puts "Saving #{sub.name}..."
+          @subcommittee = Subcommittee.new(:name => sub.name, :code => sub.id, :chamber => sub.chamber, :committee_id => Committee.find_by_code(committee.id).id)
+          @subcommittee.save
+
+          sub.load_members
+          sub.members.each do |sm|
+            puts "Mapping #{sm.bioguide_id} to #{sub.name}..."
+            @subcommittee_assignment = SubcommitteeAssignment.new(
+                :person_id => Person.find_by_nyt_id(sm.bioguide_id).id,
+                :subcommittee_id => Subcommittee.find_by_code(sub.id).id
+                )
+            @subcommittee_assignment.save
+          end
+        end
+      end
+    end
+    puts "Success!"
+  end
+  
   desc "Add all legislation attached to current members"
   task :legislation => :environment do
     make_join
@@ -144,7 +225,7 @@ namespace :seed do
       
       begin
         sleep 1
-        @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}/bills/introduced.xml?api-key=#{@@api_key}"))
+        @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}/bills/introduced.xml?api-key=#{@@nyt_api_key}"))
       rescue Exception => e
         case e.message
           when /403 Developer Over Rate/
@@ -167,14 +248,14 @@ namespace :seed do
         
         begin
           sleep 1
-          @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}.xml?api-key=#{@@api_key}"))
+          @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}.xml?api-key=#{@@nyt_api_key}"))
         rescue Exception => e
           case e.message
             when /404 Not Found/
               sleep 1
               puts "Can't find this bill for the current year of congress, going back in time!"
               begin                
-                @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/#{@bill_number_stripped}.xml?api-key=#{@@api_key}"))
+                @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/#{@bill_number_stripped}.xml?api-key=#{@@nyt_api_key}"))
               rescue Exception => e
                 case e.message
                   when /504 Gateway Timeout/
@@ -193,7 +274,7 @@ namespace :seed do
         
         begin
           sleep 1
-          @bill_cosponsors_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/cosponsors.xml?api-key=#{@@api_key}").read)
+          @bill_cosponsors_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/cosponsors.xml?api-key=#{@@nyt_api_key}"))
         rescue Exception => e
           case e.message
             when /504 Gateway Timeout/
@@ -207,7 +288,7 @@ namespace :seed do
         
         begin
           sleep 1
-          @bill_subjects_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/subjects.xml?api-key=#{@@api_key}").read)
+          @bill_subjects_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/subjects.xml?api-key=#{@@nyt_api_key}"))
         rescue Exception => e
           case e.message
             when /504 Gateway Timeout/
@@ -224,7 +305,7 @@ namespace :seed do
         # 
         # begin          
         #   sleep 1        
-        #   @bill_related_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/related.xml?api-key=#{@@api_key}").read)
+        #   @bill_related_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/related.xml?api-key=#{@@nyt_api_key}").read)
         # rescue Exception => e
         #   case e.message
         #     when /504 Gateway Timeout/
@@ -242,7 +323,6 @@ namespace :seed do
         @bill_introduced_date = @member_doc.xpath("//results/bills/bill[#{i}]/introduced_date").inner_text
         @bill_committees = @member_doc.xpath("//results/bills/bill[#{i}]/committees").inner_text
         @committees = @bill_committees.split("; ")
-        
         
         @bill_sponsor = @bill_doc.xpath("//results/sponsor").inner_text
         @bill_pdf_url = @bill_doc.xpath("//results/gpo_pdf_uri").inner_text
@@ -305,16 +385,16 @@ namespace :seed do
   
   def save_bill_committees
     @committees.map do |committee| 
-      if Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").nil?
-        @committee_legislation = CommitteeLegislation.new(
-            :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
-            :committee_id => Committee.where("name like ?", "%#{committee}").first.id,
-            :year => "112"
-            )
-      else
+      if Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").empty?
         puts "#{committee} not on file, adding it to the database!"
         @committee = Committee.new(:name => committee)
         @committee.save
+        @committee_legislation = CommitteeLegislation.new(
+            :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
+            :committee_id => Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").first.id,
+            :year => "112"
+            )
+      else
         @committee_legislation = CommitteeLegislation.new(
             :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
             :committee_id => Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").first.id,

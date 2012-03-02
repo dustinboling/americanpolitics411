@@ -7,7 +7,7 @@
 		</tr>
 		<% @committees.each do |committee| %>
 		<tr>
-			<td><%= committee.name %></td>
+			<td><a href="/committees/<%= Committee.find_by_name(committee.name).id %>"><%= committee.name %></a></td>
 		</tr>
 		<% end %>
 	</table>

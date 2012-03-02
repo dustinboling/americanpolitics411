@@ -2,7 +2,7 @@
 	<h1>Issues</h1>
 
 	<% @issues.each do |issue| %>
-		<%= issue.name %>
+		<a href="/issues/<%= Issue.find_by_name(issue.name).id %>"><%= issue.name %></a>
 	<% end %>
 
 </div>

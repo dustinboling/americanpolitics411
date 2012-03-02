@@ -14,6 +14,9 @@ class Person < ActiveRecord::Base
   has_many :legislation_cosponsors
   has_many :legislations, :through => :legislation_cosponsors
   
+  has_many :subcommittee_assignments
+  has_many :subcommittees, :through => :subcommittee_assignments
+  
   has_many :committee_assignments
   has_many :committees, :through => :committee_assignments
   

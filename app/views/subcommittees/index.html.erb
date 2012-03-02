@@ -1,0 +1,17 @@
+<div class="container">
+	<h3>All Subcommittees</h3>
+	<table class="zebra-striped">
+		<tr>
+			<th>Name</th>
+			<th>Chamber</th>
+		</tr>
+		<% @subcommittees.each do |sub| %>
+		<tr>
+			<td><a href="/subcommittees/<%= sub.id %>"><%= sub.name.gsub(/Subcommittee/, "") %></a></td>
+			<td><%= sub.chamber %></td>
+		</tr>
+	 	<% end %>
+	</table>
+	
+	
+</div>
