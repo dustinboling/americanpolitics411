@@ -2,8 +2,8 @@ namespace :seed do
   
   require 'open-uri'
   
-  @@nyt_api_key = '4e8aa4d7b091d796aca565dbebf31404:9:65704848' # alan's
-  @@nyt_api_key_2 = 'b16efb69e13af05498fe536551a7bc67:15:65673083' # dustin's
+  @@nyt_api_key_2 = '4e8aa4d7b091d796aca565dbebf31404:9:65704848' # alan's
+  @@nyt_api_key = 'b16efb69e13af05498fe536551a7bc67:15:65673083' # dustin's
   @@sunlight_api_key = '5cdbb43c42d84ef3b4bde09efa074648'
   
   @@house_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/house/members.xml?api-key=#{@@nyt_api_key}"
@@ -22,8 +22,17 @@ namespace :seed do
       if person_exists
         puts "skipping #{@id}"
       else
-        @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@nyt_api_key}"))
-        house = "h"
+        begin
+          @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@nyt_api_key}"))
+        rescue Exception => e
+          case e.message
+            when /504 Gateway Timeout/
+              puts "504 Gateway Timeout, retrying in 1..."
+              sleep 1
+              redo
+          end
+        end 
+        house = "House"
         make_person(house)
         
         puts "Added congressman #{@member_doc.xpath('//last_name').inner_text}" 
@@ -48,8 +57,18 @@ namespace :seed do
   		if person_exists
         puts "skipping #{@id}"
       else
-    		@member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@nyt_api_key}"))
-    		senate = "s"
+        begin
+    		  @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@nyt_api_key}"))
+    		rescue Exception => e
+    		  case e.message
+  		      when /504 Gateway Timeout/
+  		        puts "504 Gateway Timeout, retrying in 1..."
+  		        sleep 1
+  		        redo
+  		    end
+  		  end
+    		  
+    		senate = "Senate"
     		make_person(senate)
         
         puts "Added senator #{@member_doc.xpath('//last_name').inner_text}"
@@ -220,6 +239,8 @@ namespace :seed do
     
     @congress_members.each do |member| 
       @id = member.inner_text
+      @member = Person.find_by_nyt_id(@id)
+      @member_chamber = @member.chamber
       puts "==||===================================================="
       puts "Updating legislation for legislator with the id #{@id}..."
       
@@ -232,6 +253,7 @@ namespace :seed do
             puts "over rate for the day!"
             exit
           when /504 Gateway Timeout/
+            puts "504 Gateway Timeout, retrying in 1..."
             sleep 1
             redo
         end
@@ -259,11 +281,13 @@ namespace :seed do
               rescue Exception => e
                 case e.message
                   when /504 Gateway Timeout/
+                    puts "504 Gateway Timeout, retrying in 1..."
                     sleep 1
                     redo
                 end
               end                
             when /504 Gateway Timeout/
+              puts "504 Gateway Timeout, Retrying in 1..."
               sleep 1
               redo
             when /403 Developer Over Rate/
@@ -278,6 +302,7 @@ namespace :seed do
         rescue Exception => e
           case e.message
             when /504 Gateway Timeout/
+              puts "504 Gateway Timeout, Retrying in 1..."
               sleep 1
               redo
             when /403 Developer Over Rate/
@@ -292,6 +317,7 @@ namespace :seed do
         rescue Exception => e
           case e.message
             when /504 Gateway Timeout/
+              puts "504 Gateway Timeout, retrying in 1..."
               sleep 1
               redo
             when /403 Developer Over Rate/
@@ -387,17 +413,18 @@ namespace :seed do
     @committees.map do |committee| 
       if Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").empty?
         puts "#{committee} not on file, adding it to the database!"
-        @committee = Committee.new(:name => committee)
+        @committee = Committee.new(:name => committee, :chamber => "")
         @committee.save
         @committee_legislation = CommitteeLegislation.new(
             :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
-            :committee_id => Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").first.id,
+            :committee_id => Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "").gsub(/\bJoint\b/, "")}").first.id,
             :year => "112"
             )
       else
+        @committee = Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").first
         @committee_legislation = CommitteeLegislation.new(
             :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
-            :committee_id => Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").first.id,
+            :committee_id => Committee.where("name like ? AND chamber like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "").gsub(/\bJoint\b/, "")}", "#{@committee.chamber}").first.id,
             :year => "112"
             )
       end
@@ -465,7 +492,7 @@ namespace :seed do
         :twitter_id => @member_doc.xpath('//twitter_id').inner_text,
         :youtube_id => @member_doc.xpath('//youtube_id').inner_text,
         :current_party => @member_doc.xpath('//current_party').inner_text,
-        :chamber => chamber.upcase, 
+        :chamber => chamber, 
         :nyt_id => @id
         )
     @person.save
