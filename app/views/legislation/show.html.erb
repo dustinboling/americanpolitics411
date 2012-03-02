@@ -22,9 +22,9 @@
 	
 	<p>
 		<b>Cosponsors:</b>
-			<% @legislation.legislation_cosponsors.collect do |c| %> 
-				<%= link_to "#{Person.find_by_id(c.person_id).first_name} #{Person.find_by_id(c.person_id).last_name}", person_path(Person.find_by_id(c.person_id)) %>
-			<% end %>
+			<%= @legislation.legislation_cosponsors.collect { |c| 
+				"<a href='#{person_path(Person.find_by_id(c.person_id))}'>#{Person.find_by_id(c.person_id).first_name} #{Person.find_by_id(c.person_id).last_name}</a>"
+				}.to_sentence.html_safe %>
 	</p>
 
 	<p>
