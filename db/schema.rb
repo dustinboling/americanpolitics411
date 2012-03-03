@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120302003728) do
+ActiveRecord::Schema.define(:version => 20120302232537) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -295,6 +295,26 @@ ActiveRecord::Schema.define(:version => 20120302003728) do
   end
 
   add_index "legislations", ["bill_uri"], :name => "index_legislations_on_bill_uri"
+
+  create_table "legislative_offices", :force => true do |t|
+    t.integer  "person_id"
+    t.string   "congress_year"
+    t.string   "chamber"
+    t.string   "state"
+    t.string   "district"
+    t.string   "party"
+    t.string   "seniority"
+    t.string   "start_date"
+    t.string   "end_date"
+    t.integer  "bills_sponsored"
+    t.integer  "bills_cosponsored"
+    t.string   "missed_votes_pct"
+    t.string   "votes_with_party_pct"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "legislative_offices", ["person_id"], :name => "index_legislative_offices_on_person_id"
 
   create_table "litigations", :force => true do |t|
     t.integer  "person_id"

@@ -2,14 +2,14 @@ namespace :seed do
   
   require 'open-uri'
   
-  @@nyt_api_key_2 = '4e8aa4d7b091d796aca565dbebf31404:9:65704848' # alan's
-  @@nyt_api_key = 'b16efb69e13af05498fe536551a7bc67:15:65673083' # dustin's
+  @@nyt_api_key = '4e8aa4d7b091d796aca565dbebf31404:9:65704848' # alan's
+  @@nyt_api_key_2 = 'b16efb69e13af05498fe536551a7bc67:15:65673083' # dustin's
   @@sunlight_api_key = '5cdbb43c42d84ef3b4bde09efa074648'
   
   @@house_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/house/members.xml?api-key=#{@@nyt_api_key}"
   @@senate_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/senate/members?api-key=#{@@nyt_api_key}"
   
-  desc "Grab top level list"
+  desc "Populate database with House members"
   task :house => :environment do
     puts "Getting list of house members for 112th year of congress..."
     @doc = Nokogiri::XML(open(@@house_members))
@@ -34,6 +34,7 @@ namespace :seed do
         end 
         house = "House"
         make_person(house)
+        save_legislative_office
         
         puts "Added congressman #{@member_doc.xpath('//last_name').inner_text}" 
         sleep 1
@@ -41,7 +42,7 @@ namespace :seed do
       }
       
       puts "All done!"
-      
+
     end
     
   desc "Get list of current members of senate"
@@ -70,6 +71,7 @@ namespace :seed do
     		  
     		senate = "Senate"
     		make_person(senate)
+    		save_legislative_office
         
         puts "Added senator #{@member_doc.xpath('//last_name').inner_text}"
         sleep 1
@@ -496,6 +498,69 @@ namespace :seed do
         :nyt_id => @id
         )
     @person.save
+  end
+  
+  def save_legislative_office
+    roles_count = @member_doc.xpath('//result_set/results/member/roles/role').count
+    
+    i = 1
+    while i <= roles_count
+      @congress_year = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/congress").inner_text
+      @chamber = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/chamber").inner_text
+      @state = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/state").inner_text
+      @district = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/district").inner_text
+      @party = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/party").inner_text
+      @seniority = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/seniority").inner_text
+      @start_date = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/start_date").inner_text
+      @end_date = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/end_date").inner_text
+      @bills_sponsored = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/bills_sponsored").inner_text
+      @bills_cosponsored = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/bills_cosponsored").inner_text
+      @missed_votes_pct = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/missed_votes_pct").inner_text
+      @votes_with_party_pct = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/votes_with_party_pct").inner_text
+      
+      @office = LegislativeOffice.new(
+        :congress_year => @congress_year,
+        :chamber => @chamber,
+        :state => @state,
+        :district => @district,
+        :party => @party, 
+        :seniority => @seniority,
+        :start_date => @start_date,
+        :end_date => @end_date,
+        :bills_sponsored => @bills_sponsored,
+        :bills_cosponsored => @bills_cosponsored,
+        :missed_votes_pct => @missed_votes_pct,
+        :votes_with_party_pct => @votes_with_party_pct 
+        )
+      if @office.save
+        puts "Role ##{i} saved for #{@id}!"
+        i += 1
+      end
+      
+      # committee_count = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/committees/committee").count
+      # 
+      # if committee_count == 0
+      #   puts "No committees for this year, skipping!"
+      #   i += 1
+      # else
+      #   n = 1
+      #   while n <= committee_count
+      #     @committee_name = @member_doc.xpath("/result_set/results/member/roles/role[#{i}]/committees/committee[#{n}]/name").inner_text
+      #     @committee_code = @member_doc.xpath("/result_set/results/member/roles/role[#{i}]/committees/committee[#{n}]/code").inner_text
+      #     
+      #     @committee_assignment = CommitteeAssignment.new(
+      #         :person_id => Person.find_by_nyt_id(@id).id,
+      #         :committee_id => Committee.find_by_code(@committee_code).id,
+      #         :year => @congress_year
+      #         )
+      #     @committee_assignment.save
+      #     puts "#{@committee_name} mapped to #{@id} for the year #{@congress_year}..."
+      #     n += 1
+      #   end
+      #   puts "Role ##{i} saved for #{@id}!"
+      #   i += 1
+      # end
+    end  
   end
   
   def make_join
