@@ -43,24 +43,57 @@
 			<% end %>
 		</p>
 		<p>
+			<b>Top Contributors (By Sector)</b>
 			<table class="zebra-striped bordered-table span9">
 				<tr>
-					<th>Amount</th>
+					<th>Name</th>
+					<th>Total Amount</th>
+				</tr>
+				<% @sectors.collect do |s| %>
+					<tr>
+						<td><%= s.name %></td>
+						<td><%= number_to_currency(s.amount) %></td>
+					</tr>
+				<% end %>
+			</table>
+		</p>
+		<p>
+			<b>Top Contributors (Individual):</b>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
 					<th>Contributor</th>
 					<th>Contributor State</th>					
 					<th>Contribution Date</th>
+					<th>Amount</th>
 				</tr>
-			<b>Top Contributors (Individual):</b>
 			<% @individual_contributors.take(10).collect do |c| %>
 				<tr>
-					<td><%= c.amount %></td>
 					<td><%= link_to "#{c.contributor_name}", :controller => 'contributor', :action => 'show', :contributor_name => c.contributor_name %></td>
 					<td><%= c.contributor_state %>
 					<td><%= c.date %></td>
+					<td><%= c.amount %></td>
 				</tr>
 			<% end %>
 			</table>
 			<%= link_to "More", :action => 'indiv_contributors', :id => @person.id %>
+		</p>
+		<p>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Contributor</th>					
+					<th>Contribution Date</th>
+					<th>Amount</th>
+				</tr>
+			<b>Top Contributors (PAC):</b>
+			<% @pac_contributors.take(10).collect do |c| %>
+				<tr>
+					<td><%= c.amount %></td>		
+					<td><%= link_to "#{c.contributor_name}", :controller => 'contributor', :action => 'show', :contributor_name => c.contributor_name %></td>
+					<td><%= c.date %></td>
+				</tr>
+			<% end %>
+			</table>
+			<%= link_to "More", :action => 'pac_contributors', :id => @person.id %>
 		</p>
 		<p>
 			<table class="zebra-striped bordered-table span9">
@@ -95,23 +128,5 @@
 				</tr>
 			<% end %>
 			</table>
-		</p>
-		<p>
-			<table class="zebra-striped bordered-table span9">
-				<tr>
-					<th>Amount</th>
-					<th>Contributor</th>					
-					<th>Contribution Date</th>
-				</tr>
-			<b>Top Contributors (PAC):</b>
-			<% @pac_contributors.take(10).collect do |c| %>
-				<tr>
-					<td><%= c.amount %></td>		
-					<td><%= link_to "#{c.contributor_name}", :controller => 'contributor', :action => 'show', :contributor_name => c.contributor_name %></td>
-					<td><%= c.date %></td>
-				</tr>
-			<% end %>
-			</table>
-			<%= link_to "More", :action => 'pac_contributors', :id => @person.id %>
 		</p>
 	</div>

@@ -45,7 +45,7 @@ class LegislationController < ApplicationController
   end
   
   def list
-    @legislations = Legislation.order('id ASC')
+    @legislations = Legislation.order('bill_number ASC')
   end
 
 end
