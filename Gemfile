@@ -14,6 +14,7 @@ gem 'nokogiri'
 gem 'jquery-rails'
 gem 'redis'
 gem 'sunlight'
+gem 'transparency_data'
 
 gem 'newrelic_rpm'
 
