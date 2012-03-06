@@ -1,3 +1,4 @@
+
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.3'
@@ -16,6 +17,7 @@ gem 'redis'
 gem 'sunlight'
 gem 'transparency_data'
 
+# probably move this into development
 gem 'newrelic_rpm'
 
 # helpful helper gems

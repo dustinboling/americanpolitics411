@@ -1,5 +1,7 @@
 Politics411::Application.routes.draw do  
   
+  get "contributor/show"
+
   get "subcommittees/index"
 
   get "subcommittees/show"

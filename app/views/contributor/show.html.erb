@@ -1,0 +1,25 @@
+<div class="container">
+	<h1>Contributions made by <%= params[:contributor_name] %>
+	<p id="notice"><%= notice %></p>
+
+	<table >
+		<tr>
+			<th>Cycle</th>
+			<th>Amount</th>
+			<th>Recipient Name</th>
+			<th>Recipient Party</th>
+			<th>Recipient State</th>
+			<th>Committee Name</th>
+		</tr>
+		<% @contributions.each do |c| %>
+		<tr>
+			<td><%= c.date %> </td>
+			<td><%= c.amount %></td>
+			<td><%= c.recipient_name %></td>
+			<td><%= c.recipient_party %></td>
+			<td><%= c.recipient_state %></td>
+			<td><%= c.committee_name %></td>
+		</tr>
+		<% end %>
+	</table>
+</div>

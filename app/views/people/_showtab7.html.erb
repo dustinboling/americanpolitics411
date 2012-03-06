@@ -45,16 +45,22 @@
 		<p>
 			<table class="zebra-striped bordered-table span9">
 				<tr>
-					<th>Organization</th>
 					<th>Amount</th>
+					<th>Contributor</th>
+					<th>Contributor State</th>					
+					<th>Contribution Date</th>
 				</tr>
-			<b>Contributors:</b>
-			<%= @person.contributors.collect { |contributor| 
-						"<tr>
-							<td>#{contributor.find_organization_name}</td>
-							<td>#{number_to_currency(contributor.amount, :precision => 0)}</td>
-						</tr>"}.to_sentence(no_separator).html_safe %>
+			<b>Top Contributors (Individual):</b>
+			<% @individual_contributors.take(10).collect do |c| %>
+				<tr>
+					<td><%= c.amount %></td>
+					<td><%= link_to "#{c.contributor_name}", :controller => 'contributor', :action => 'show', :contributor_name => c.contributor_name %></td>
+					<td><%= c.contributor_state %>
+					<td><%= c.date %></td>
+				</tr>
+			<% end %>
 			</table>
+			<%= link_to "More", :action => 'indiv_contributors', :id => @person.id %>
 		</p>
 		<p>
 			<table class="zebra-striped bordered-table span9">
@@ -64,12 +70,13 @@
 					<th>Amount</th>
 				</tr>
 			<b>Contributors (Interest Groups):</b>
-			<%= @person.contributors_interest_groups.collect { |contributor_ig|
-				 		"<tr>
-							<td>#{contributor_ig.year.year}</td>
-							<td>#{contributor_ig.name}</td>
-							<td>#{contributor_ig.amount}</td>
-						</tr>"}.to_sentence(no_separator).html_safe %>
+			<% @person.contributors_interest_groups.collect do |contributor_ig| %>
+				 <tr>
+				 	<td><%= contributor_ig.year.year %></td>
+					<td><%= contributor_ig.name %></td>
+					<td><%= contributor_ig.amount %></td>
+				</tr>
+			<% end %>	
 			</table>
 		</p>
 		<p>
@@ -80,28 +87,31 @@
 					<th>Amount</th>
 				</tr>
 			<b>Contributors (Interest Group Sectors):</b>
-			<%= @person.contributors_interest_group_sectors.collect { |contributor_igs|
-						"<tr>
-							<td>#{contributor_igs.year.year}</td>
-							<td>#{contributor_igs.name}</td>
-							<td>#{contributor_igs.amount}</td>
-						</tr>"}.to_sentence(no_separator).html_safe %>
+			<% @person.contributors_interest_group_sectors.collect do |contributor_igs| %>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			<% end %>
 			</table>
 		</p>
 		<p>
 			<table class="zebra-striped bordered-table span9">
 				<tr>
-					<th>Year</th>
-					<th>PAC</th>
 					<th>Amount</th>
+					<th>Contributor</th>					
+					<th>Contribution Date</th>
 				</tr>
-			<b>Contributors (PAC):</b>
-			<%= @person.contributors_pacs.collect { |contributor_pac| 
-						"<tr>
-							<td>#{contributor_pac.year.year}</td>
-							<td>#{contributor_pac.name}</td>
-							<td>#{contributor_pac.amount}</td>
-						</tr>"}.to_sentence(no_separator).html_safe %>
+			<b>Top Contributors (PAC):</b>
+			<% @pac_contributors.take(10).collect do |c| %>
+				<tr>
+					<td><%= c.amount %></td>		
+					<td><%= link_to "#{c.contributor_name}", :controller => 'contributor', :action => 'show', :contributor_name => c.contributor_name %></td>
+					<td><%= c.date %></td>
+				</tr>
+			<% end %>
 			</table>
+			<%= link_to "More", :action => 'pac_contributors', :id => @person.id %>
 		</p>
 	</div>

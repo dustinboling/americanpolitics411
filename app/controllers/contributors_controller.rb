@@ -14,11 +14,18 @@ class ContributorsController < ApplicationController
       format.json { render json: @contributors }
     end
   end
+  
+  def show
+    
+  end
 
   # GET /contributors/1
   # GET /contributors/1.json
-  def show
-    @contributor = Contributor.find(params[:id])
+  def search_contributor
+    @contributions = TransparencyData::Client.contributions(
+      :contributor_ft => params[:contributor_name],
+      :cycle => 2011
+      )
 
     respond_to do |format|
       format.html # show.html.erb

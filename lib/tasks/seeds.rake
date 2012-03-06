@@ -6,12 +6,20 @@ namespace :seed do
   @@nyt_api_key_2 = 'b16efb69e13af05498fe536551a7bc67:15:65673083' # dustin's
   @@sunlight_api_key = '5cdbb43c42d84ef3b4bde09efa074648'
   
-  @person_last_name = Person.find_by_nyt_id(@id).last_name
-  @transparency_uri = 'http://transparencydata.com/api/1.0/contributions.json'
-  @transparency_query = "?apikey=#{@@sunlight_api_key}&contributor_state=md|va&recipient_ft=#{@person_last_name}&cycle=2010"
+  #  @person_first_name = Person.find_by_nyt_id(@id).first_name
+  #  @person_last_name = Person.find_by_nyt_id(@id).last_name
+  #  @transparency_uri = 'http://transparencydata.com/api/1.0/contributions.json'
+  #  @transparency_query = "?apikey=#{@@sunlight_api_key}&contributor_state=md|va&recipient_ft=#{@person_last_name}&cycle=2010"
   
   @@house_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/house/members.xml?api-key=#{@@nyt_api_key}"
   @@senate_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/senate/members?api-key=#{@@nyt_api_key}"
+  
+  desc "Populate database with campaign contributions"
+  task :contributions => :environment do
+    make_join
+    
+    
+  end
   
   desc "Populate database with House members"
   task :house => :environment do
@@ -276,7 +284,7 @@ namespace :seed do
         
         begin
           sleep 1
-          @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}.xml?api-key=#{@@nyt_api_key}"))
+          @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}.xml?api-key=#{@@nyt_api_key_2}"))
         rescue Exception => e
           case e.message
             when /404 Not Found/
@@ -319,7 +327,7 @@ namespace :seed do
         
         begin
           sleep 1
-          @bill_subjects_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/subjects.xml?api-key=#{@@nyt_api_key}"))
+          @bill_subjects_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/subjects.xml?api-key=#{@@nyt_api_key_2}"))
         rescue Exception => e
           case e.message
             when /504 Gateway Timeout/

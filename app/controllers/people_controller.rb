@@ -48,12 +48,40 @@ class PeopleController < ApplicationController
     @degrees = Degree.find :all
     @organizations = Organization.find(:all)
     @universities = University.find(:all)
+    @pac_contributors = TransparencyData::Client.contributions(
+      :recipient_ft => "#{Person.find_by_id(params[:id]).first_name} #{Person.find_by_id(params[:id]).last_name}", 
+      :cycle => 2011, 
+      :amount => {:gte => 2300},
+      :contributor_type => "C")
+    @individual_contributors = TransparencyData::Client.contributions(
+        :recipient_ft => "#{Person.find_by_id(params[:id]).first_name} #{Person.find_by_id(params[:id]).last_name}", 
+        :cycle => 2011, 
+        :amount => {:gte => 2300},
+        :contributor_type => "I")
   
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @person }
     end
+  end
+  
+  def pac_contributors
+    @person = Person.find_by_id(params[:id])
+    @pac_contributors = TransparencyData::Client.contributions(
+      :recipient_ft => "#{Person.find_by_id(params[:id]).first_name} #{Person.find_by_id(params[:id]).last_name}", 
+      :cycle => 2011, 
+      :amount => {:gte => 2300},
+      :contributor_type => "C")
+  end
+  
+  def indiv_contributors
+    @person = Person.find_by_id(params[:id])
+    @individual_contributors = TransparencyData::Client.contributions(
+        :recipient_ft => "#{Person.find_by_id(params[:id]).first_name} #{Person.find_by_id(params[:id]).last_name}", 
+        :cycle => 2011, 
+        :amount => {:gte => 1000},
+        :contributor_type => "I")
   end
 
   # GET /people/new
