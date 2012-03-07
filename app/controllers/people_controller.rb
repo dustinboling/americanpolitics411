@@ -38,7 +38,6 @@ class PeopleController < ApplicationController
   
   def list
     @people = People.order("people.id ASC")
-    
   end
 
   # GET /people/1

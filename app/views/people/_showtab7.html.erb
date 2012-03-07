@@ -1,17 +1,39 @@
 <div class="hero-unit span13">
 	<h3>Establishment</h3>
 		<p>
-			<b>Political Offices Held:</b>
-			<%= @person.political_offices.collect { |political_office| 
-						"<br />Position: #{political_office.position}<br />
-						District: #{political_office.district}<br />
-						Office: #{political_office.office}<br />
-						Dates In Office: #{political_office.date_started.year} -
-							#{if political_office.date_finished.nil? 
-									'present'
-								else
-									political_office.date_finished.year
-								end}<br />"}.to_sentence(no_separator).html_safe %>
+			<b>Legislative Offices Held:</b>
+			<table class="zebra-striped bordered-table span9">
+				<tr>
+					<th>Congress Year</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Chamber</th>
+					<th>State</th>
+					<th>District</th>
+					<th>Party</th>
+					<th>Seniority</th>
+					<th>Bills Sponsored</th>
+					<th>Bills Cosponsored</th>
+					<th>Missed Votes (Percent)</th>
+					<th>Votes With Party (Percent)</th>
+				</tr>						
+				<% @person.legislative_offices.reverse.collect do |po| %>
+				<tr>
+					<th><%= po.congress_year %></th>
+					<th><%= po.start_date %></th>
+					<th><%= po.end_date %></th>					
+					<th><%= po.chamber %></th>
+					<th><%= po.state %></th>
+					<th><%= po.district %></th>
+					<th><%= po.party %></th>
+					<th><%= po.seniority %></th>
+					<th><%= po.bills_sponsored %></th>
+					<th><%= po.bills_cosponsored %></th>
+					<th><%= po.missed_votes_pct %></th>
+					<th><%= po.votes_with_party_pct %></th>
+				</tr>
+				<% end %>
+			</table>
 		</p>
 		<p>
 			<table class="zebra-striped bordered-table span9">

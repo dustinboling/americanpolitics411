@@ -529,8 +529,10 @@ namespace :seed do
       @bills_cosponsored = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/bills_cosponsored").inner_text
       @missed_votes_pct = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/missed_votes_pct").inner_text
       @votes_with_party_pct = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/votes_with_party_pct").inner_text
+      @id = @member_doc.xpath("/result_set/results/member/id").inner_text
       
       @office = LegislativeOffice.new(
+        :person_id => Person.find_by_nyt_id(@id).id,
         :congress_year => @congress_year,
         :chamber => @chamber,
         :state => @state,

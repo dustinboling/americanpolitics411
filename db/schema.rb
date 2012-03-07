@@ -24,26 +24,6 @@ ActiveRecord::Schema.define(:version => 20120302232537) do
 
   add_index "accusations", ["person_id"], :name => "index_accusations_on_person_id"
 
-  create_table "admin_users", :force => true do |t|
-    t.string   "first_name",      :limit => 25
-    t.string   "last_name",       :limit => 50
-    t.string   "email",           :limit => 100, :default => "", :null => false
-    t.string   "hashed_password", :limit => 40
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "username",        :limit => 25
-    t.string   "salt",            :limit => 40
-  end
-
-  add_index "admin_users", ["username"], :name => "index_admin_users_on_username"
-
-  create_table "admin_users_pages", :id => false, :force => true do |t|
-    t.integer "admin_user_id"
-    t.integer "page_id"
-  end
-
-  add_index "admin_users_pages", ["admin_user_id", "page_id"], :name => "index_admin_users_pages_on_admin_user_id_and_page_id"
-
   create_table "articles", :force => true do |t|
     t.integer  "person_id"
     t.string   "title"
@@ -345,19 +325,6 @@ ActiveRecord::Schema.define(:version => 20120302232537) do
   add_index "organizations_people", ["organization_id"], :name => "index_organizations_people_on_organization_id"
   add_index "organizations_people", ["person_id"], :name => "index_organizations_people_on_person_id"
 
-  create_table "pages", :force => true do |t|
-    t.integer  "subject_id"
-    t.string   "name"
-    t.string   "permalink"
-    t.integer  "position"
-    t.boolean  "visible",    :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
-  add_index "pages", ["subject_id"], :name => "index_pages_on_subject_id"
-
   create_table "people", :force => true do |t|
     t.string   "first_name"
     t.string   "middle_name"
@@ -475,29 +442,6 @@ ActiveRecord::Schema.define(:version => 20120302232537) do
     t.datetime "updated_at"
   end
 
-  create_table "section_edits", :force => true do |t|
-    t.integer  "admin_user_id"
-    t.integer  "section_id"
-    t.string   "summary"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "section_edits", ["admin_user_id", "section_id"], :name => "index_section_edits_on_admin_user_id_and_section_id"
-
-  create_table "sections", :force => true do |t|
-    t.integer  "page_id"
-    t.string   "name"
-    t.integer  "position"
-    t.boolean  "visible",      :default => false
-    t.string   "content_type"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sections", ["page_id"], :name => "index_sections_on_page_id"
-
   create_table "sponsored_legislations", :force => true do |t|
     t.integer  "person_id"
     t.boolean  "sponsor"
@@ -530,14 +474,6 @@ ActiveRecord::Schema.define(:version => 20120302232537) do
   end
 
   add_index "subcommittees", ["committee_id"], :name => "index_subcommittees_on_committee_id"
-
-  create_table "subjects", :force => true do |t|
-    t.string   "name"
-    t.integer  "position"
-    t.boolean  "visible",    :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "supporters", :force => true do |t|
     t.string   "group_name"
