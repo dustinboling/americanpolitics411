@@ -94,9 +94,14 @@ namespace :seed do
       puts "All done!"
 
    end
+   
+  desc "Do all of the committees & subcommittees (at once)"
+  task :committees => [:main_committees, :subcommittees] do
+    puts "All committees completed!"
+  end
   
   desc "Add all committees from the sunlightlabs API"
-  task :committees => :environment do
+  task :main_committees => :environment do
    
     puts "Populating committee arrays..."
     @senate_committees = Sunlight::Committee.all_for_chamber("Senate")
