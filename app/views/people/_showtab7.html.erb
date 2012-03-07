@@ -68,15 +68,22 @@
 			<b>Top Contributors (By Sector)</b>
 			<table class="zebra-striped bordered-table span9">
 				<tr>
-					<th>Name</th>
+					<th>Name</th>				
 					<th>Total Amount</th>
+					<th>Percent</th>
 				</tr>
+				<% contributions_by_sector_math %>
 				<% @sectors.collect do |s| %>
 					<tr>
 						<td><%= s.name %></td>
 						<td><%= number_to_currency(s.amount) %></td>
+						<td><%= sprintf("%0.02f", ((s.amount.to_f / @i.to_f)) * 100) %></td>
 					</tr>
 				<% end %>
+					<tr>
+						<td><b>Total:</b></b></td>
+						<td><b><%= number_to_currency(@i) %></b></td>
+						<td></td>
 			</table>
 		</p>
 		<p>

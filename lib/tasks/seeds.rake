@@ -3,15 +3,13 @@ namespace :seed do
   require 'open-uri'
   require 'highline/import'
   
-  @@nyt_api_key = '4e8aa4d7b091d796aca565dbebf31404:9:65704848' # alan's
-  @@nyt_api_key_2 = 'b16efb69e13af05498fe536551a7bc67:15:65673083' # dustin's
+  # all the keys
+  @@nyt_api_key_2 = '4e8aa4d7b091d796aca565dbebf31404:9:65704848' # alan's
+  @@nyt_api_key = 'b16efb69e13af05498fe536551a7bc67:15:65673083' # dustin's
   @@sunlight_api_key = '5cdbb43c42d84ef3b4bde09efa074648'
+  @@open_secrets_api_key = '3c994a55a6b79f30f22b6b3942941f62'
   
-  #  @person_first_name = Person.find_by_nyt_id(@id).first_name
-  #  @person_last_name = Person.find_by_nyt_id(@id).last_name
-  #  @transparency_uri = 'http://transparencydata.com/api/1.0/contributions.json'
-  #  @transparency_query = "?apikey=#{@@sunlight_api_key}&contributor_state=md|va&recipient_ft=#{@person_last_name}&cycle=2010"
-  
+  # top level lists 
   @@house_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/house/members.xml?api-key=#{@@nyt_api_key}"
   @@senate_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/senate/members?api-key=#{@@nyt_api_key}"
   
@@ -45,6 +43,22 @@ namespace :seed do
               redo
           end
         end 
+        if @person = Sunlight::Legislator.all_where(:bioguide_id => @id).first.blank?
+          # load empty parameters because we cant find them using the bioguide_id
+          @phone = ""
+          @email = ""
+          @crp_id = ""
+          @fec_id = ""
+          @votesmart_id = ""
+        else
+          @person = Sunlight::Legislator.all_where(:bioguide_id => @id).first
+          @phone = @person.phone
+          @email = @person.email
+          @crp_id = @person.crp_id
+          @fec_id = @person.fec_id
+          @votesmart_id = @person.votesmart_id
+        end
+        
         ch = "H"
         make_person(ch)
         save_legislative_office
@@ -81,7 +95,22 @@ namespace :seed do
   		        redo
   		    end
   		  end
-    		  
+        if @person = Sunlight::Legislator.all_where(:bioguide_id => @id).first.blank?
+          # load empty parameters because we cant find them using the bioguide_id
+          @phone = ""
+          @email = ""
+          @crp_id = ""
+          @fec_id = ""
+          @votesmart_id = ""
+        else
+          @person = Sunlight::Legislator.all_where(:bioguide_id => @id).first
+          @phone = @person.phone
+          @email = @person.email
+          @crp_id = @person.crp_id
+          @fec_id = @person.fec_id
+          @votesmart_id = @person.votesmart_id
+        end
+          
     		ch = "S"
     		make_person(ch)
     		save_legislative_office
@@ -97,7 +126,7 @@ namespace :seed do
    
   desc "Do all of the committees & subcommittees (at once)"
   task :committees => [:main_committees, :subcommittees] do
-    puts "All committees completed!"
+    puts "All committees have been added to the database!"
   end
   
   desc "Add all committees from the sunlightlabs API"
@@ -345,31 +374,14 @@ namespace :seed do
               exit
           end
         end
-        
-        # this is for related bills, which we should probably just handle through the subjects. 
-        # also, there are no bills I could find which even had related's attached to them
-        # 
-        # begin          
-        #   sleep 1        
-        #   @bill_related_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/related.xml?api-key=#{@@nyt_api_key}").read)
-        # rescue Exception => e
-        #   case e.message
-        #     when /504 Gateway Timeout/
-        #       sleep 1
-        #       redo
-        #     when /403 Developer Over Rate/
-        #       puts "over rate for the day!"
-        #       exit
-        #   end
-        # end
                       
-        @congress_year = "112"
         @bill_sponsor_id = @member_doc.xpath("//results/id").inner_text
         @bill_title = @member_doc.xpath("//results/bills/bill[#{i}]/title").inner_text
         @bill_introduced_date = @member_doc.xpath("//results/bills/bill[#{i}]/introduced_date").inner_text
         @bill_committees = @member_doc.xpath("//results/bills/bill[#{i}]/committees").inner_text
         @committees = @bill_committees.split("; ")
         
+        @congress_year = @bill_doc.xpathj("/result_set/results/congress").inner_text
         @bill_sponsor = @bill_doc.xpath("//results/sponsor").inner_text
         @bill_pdf_url = @bill_doc.xpath("//results/gpo_pdf_uri").inner_text
         @bill_latest_action = @bill_doc.xpath("//results/latest_major_action").inner_text
@@ -514,7 +526,12 @@ namespace :seed do
         :youtube_id => @member_doc.xpath('//youtube_id').inner_text,
         :current_party => @member_doc.xpath('//current_party').inner_text,
         :chamber => @chamber, 
-        :nyt_id => @id
+        :contact_phone => @phone,
+        :contact_email => @email,
+        :nyt_id => @id,
+        :fec_id => @fec_id,
+        :crp_id => @crp_id,
+        :votesmart_id => @votesmart_id    
         )
     @person.save
   end

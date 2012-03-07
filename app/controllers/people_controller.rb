@@ -66,7 +66,7 @@ class PeopleController < ApplicationController
       format.json { render json: @person }
     end
   end
-  
+
   def pac_contributors
     @person = Person.find_by_id(params[:id])
     @pac_contributors = TransparencyData::Client.contributions(

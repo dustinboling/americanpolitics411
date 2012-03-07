@@ -8,6 +8,8 @@ Politics411::Application.routes.draw do
 
   get "issues/index"
   
+  match "legislation/:id" => "legislation#show"
+  
   match "subcommittees/:id" => "subcommittees#show"
   
   match "issues/:id" => "issues#show"

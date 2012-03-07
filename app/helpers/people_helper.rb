@@ -41,4 +41,15 @@ module PeopleHelper
     end
   end
   
+  def contributions_by_sector_math
+    @i = 0
+    @sectors.each do |s|
+      @i = @i + s.amount.to_i
+    end    
+  end
+  
+  def self.to_percent(n)
+    n * 100
+  end
+  
 end
