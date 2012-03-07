@@ -16,6 +16,7 @@ gem 'jquery-rails'
 gem 'redis'
 gem 'sunlight'
 gem 'transparency_data'
+gem 'highline'
 
 # probably move this into development
 gem 'newrelic_rpm'

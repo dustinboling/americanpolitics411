@@ -1,6 +1,7 @@
 namespace :seed do  
   
   require 'open-uri'
+  require 'highline/import'
   
   @@nyt_api_key = '4e8aa4d7b091d796aca565dbebf31404:9:65704848' # alan's
   @@nyt_api_key_2 = 'b16efb69e13af05498fe536551a7bc67:15:65673083' # dustin's
@@ -44,8 +45,8 @@ namespace :seed do
               redo
           end
         end 
-        house = "House"
-        make_person(house)
+        ch = "H"
+        make_person(ch)
         save_legislative_office
         
         puts "Added congressman #{@member_doc.xpath('//last_name').inner_text}" 
@@ -81,8 +82,8 @@ namespace :seed do
   		    end
   		  end
     		  
-    		senate = "Senate"
-    		make_person(senate)
+    		ch = "S"
+    		make_person(ch)
     		save_legislative_office
         
         puts "Added senator #{@member_doc.xpath('//last_name').inner_text}"
@@ -248,7 +249,7 @@ namespace :seed do
   
   desc "Add all legislation attached to current members"
   task :legislation => :environment do
-    make_join
+    make_join_with_prompt
     puts "Traversing legislation tree by congress member..."
     
     @congress_members.each do |member| 
@@ -491,7 +492,8 @@ namespace :seed do
     @committee_assignment.save
   end
   
-  def make_person(chamber)
+  def make_person(ch)
+    @chamber = ch
     @person = Person.new(
         :first_name => @member_doc.xpath('//first_name').inner_text, 
         :middle_name => @member_doc.xpath('//middle_name').inner_text,
@@ -506,7 +508,7 @@ namespace :seed do
         :twitter_id => @member_doc.xpath('//twitter_id').inner_text,
         :youtube_id => @member_doc.xpath('//youtube_id').inner_text,
         :current_party => @member_doc.xpath('//current_party').inner_text,
-        :chamber => chamber, 
+        :chamber => @chamber, 
         :nyt_id => @id
         )
     @person.save
@@ -550,31 +552,31 @@ namespace :seed do
         puts "Role ##{i} saved for #{@id}!"
         i += 1
       end
-      
-      # committee_count = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/committees/committee").count
-      # 
-      # if committee_count == 0
-      #   puts "No committees for this year, skipping!"
-      #   i += 1
-      # else
-      #   n = 1
-      #   while n <= committee_count
-      #     @committee_name = @member_doc.xpath("/result_set/results/member/roles/role[#{i}]/committees/committee[#{n}]/name").inner_text
-      #     @committee_code = @member_doc.xpath("/result_set/results/member/roles/role[#{i}]/committees/committee[#{n}]/code").inner_text
-      #     
-      #     @committee_assignment = CommitteeAssignment.new(
-      #         :person_id => Person.find_by_nyt_id(@id).id,
-      #         :committee_id => Committee.find_by_code(@committee_code).id,
-      #         :year => @congress_year
-      #         )
-      #     @committee_assignment.save
-      #     puts "#{@committee_name} mapped to #{@id} for the year #{@congress_year}..."
-      #     n += 1
-      #   end
-      #   puts "Role ##{i} saved for #{@id}!"
-      #   i += 1
-      # end
     end  
+  end
+  
+  def make_join_with_prompt
+    make_join
+
+    puts "Splitting up congress members into three parts..."
+    @congress_part_1 = @congress_members[1..184]
+    @congress_part_2 = @congress_members[185..369]
+    @congress_part_3 = @congress_members[369..600]
+
+    choose do |menu|
+      menu.prompt = "Please choose from one of the following, you 
+      can only run one per day or it will fail part of the way 
+      through. DO NOT RUN MORE THAN ONE ITEM PER DAY!"
+      menu.choice(:congress_part_one) do
+        @congress_members = @congress_part_1
+      end
+      menu.choice(:congress_part_two) do
+        @congress_members = @congress_part_2
+      end
+      menu.choice(:congress_part_three) do
+        @congress_members = @congress_part_3
+      end
+    end
   end
   
   def make_join

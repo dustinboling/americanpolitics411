@@ -14,6 +14,7 @@ Politics411::Application.routes.draw do
 
   # get "legislation/grab_xml"
   
+  get "committees/index"
   match "committees/:id" => "committees#show"
   match "senators" => "people#senators"
   match "representatives" => "people#representatives"
