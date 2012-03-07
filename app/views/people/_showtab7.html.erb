@@ -68,7 +68,7 @@
 				</tr>
 			<% @individual_contributors.take(10).collect do |c| %>
 				<tr>
-					<td><%= link_to "#{c.contributor_name}", :controller => 'contributor', :action => 'show', :contributor_name => c.contributor_name %></td>
+					<td><%= link_to "#{c.contributor_name.titleize}", :controller => 'contributor', :action => 'show', :contributor_name => c.contributor_name, :entity_type => "I" %></td>
 					<td><%= c.contributor_state %>
 					<td><%= c.date %></td>
 					<td><%= number_to_currency(c.amount) %></td>

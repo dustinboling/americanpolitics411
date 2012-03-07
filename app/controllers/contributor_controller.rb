@@ -3,8 +3,8 @@ class ContributorController < ApplicationController
   layout 'admin'
   
   def show
-    if TransparencyData::Client.entities(:search => params[:contributor_name]).empty?      
-      # do nothing until @contributions
+    if TransparencyData::Client.entities(:search => params[:contributor_name]).empty? || params[:entity_type] == "I"
+      # do nothing
     else
       @entity = TransparencyData::Client.entities(:search => params[:contributor_name])
       @id = @entity.first.id

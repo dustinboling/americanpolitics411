@@ -13,14 +13,14 @@ module PeopleHelper
       @dem_percent = (@dem_count / (@dem_count + @rep_count)) * 100
       @rep_percent = (@rep_count / (@dem_count + @rep_count)) * 100
       if @dem_percent > @rep_percent
-        "<p>#{@dem_percent}% Democratic (#{@dem_count.to_i})</p>
-         <p>#{@rep_percent}% Republican (#{@rep_count.to_i})</p>".html_safe
+        "<p>#{sprintf("%0.02f", @dem_percent)}% Democratic (#{@dem_count.to_i})</p>
+         <p>#{sprintf("%0.02f", @rep_percent)}% Republican (#{@rep_count.to_i})</p>".html_safe
       elsif @dem_percent == @rep_percent
-        "<p>#{@dem_percent}% Democratic (#{@dem_count.to_i})</p>
-         <p>#{@rep_percent}% Republican (#{@rep_count.to_i})</p>".html_safe
+        "<p>#{sprintf("%0.02f", @dem_percent)}% Democratic (#{@dem_count.to_i})</p>
+         <p>#{sprintf("%0.02f", @rep_percent)}% Republican (#{@rep_count.to_i})</p>".html_safe
       else
-        "<p>#{@rep_percent}% Republican (#{@rep_count.to_i})</p>
-         <p>#{@dem_percent}% Democratic (#{@dem_count.to_i})</p>".html_safe
+        "<p>#{sprintf("%0.02f", @rep_percent)}% Republican (#{@rep_count.to_i})</p>
+         <p>#{sprintf("%0.02f", @dem_percent)}% Democratic (#{@dem_count.to_i})</p>".html_safe
       end
     end
   end
