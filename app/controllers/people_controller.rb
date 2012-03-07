@@ -61,7 +61,6 @@ class PeopleController < ApplicationController
     @entity = TransparencyData::Client.entities(:search => "#{@person.first_name} #{@person.last_name}")
     @id = @entity.first.id
     @sectors = TransparencyData::Client.top_sectors(@id)
-    
 
     respond_to do |format|
       format.html # show.html.erb

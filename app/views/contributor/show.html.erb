@@ -1,7 +1,18 @@
 <div class="container">
 	<h1>Contributions made by <%= params[:contributor_name].titleize %> (2006 - 2012)
 	<p id="notice"><%= notice %></p>
-
+ 	<div class="well">
+		<div class="row">
+			<div class="span4 well">
+				<p>Party Breakdown</p>
+				<p class="bignum"><%= party_breakdown %></p>
+			</div>
+			<div class="span4 well">
+			</div>
+			<div class="span4 well">
+			</div>
+		</div>
+	</div>
 	<table >
 		<tr>
 			<th>Cycle</th>
