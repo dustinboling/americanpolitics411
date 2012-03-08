@@ -17,3 +17,6 @@
 /tmp
 config/database.yml
 *.dat
+
+# Ignore CSV directories
+/PFD

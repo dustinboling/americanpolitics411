@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307220818) do
+ActiveRecord::Schema.define(:version => 20120308192750) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -352,9 +352,9 @@ ActiveRecord::Schema.define(:version => 20120307220818) do
     t.string   "contact_web_page_name"
     t.string   "contact_web_page_url"
     t.integer  "net_worth_ranking"
-    t.integer  "net_worth_minimum"
-    t.integer  "net_worth_average"
-    t.integer  "net_worth_maximum"
+    t.string   "net_worth_minimum"
+    t.string   "net_worth_average"
+    t.string   "net_worth_maximum"
     t.integer  "family_members_id"
     t.string   "name"
     t.string   "gender"

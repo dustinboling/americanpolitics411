@@ -1,5 +1,6 @@
 namespace :seed do  
   
+  require 'csv'
   require 'open-uri'
   require 'highline/import'
   
@@ -18,6 +19,52 @@ namespace :seed do
     make_join
     
     
+  end
+  
+  desc "Add net worth to members of congress"
+  task :net_worth => :environment do
+    puts "Loading csv of net worths..."
+    csv = "/Users/alan/sites/politics411/PFD/crp_data.csv"
+    CSV.foreach(csv) do |row|
+      if Person.find_by_crp_id(row[0]).nil?
+        puts "skipping #{row[1]}, not in database!"
+      else
+        @person = Person.find_by_crp_id(row[0])
+        @person.net_worth_minimum = row[2]
+        @person.net_worth_maximum = row[3]
+        @person.net_worth_average = row[4]
+        if @person.save
+          puts "Net worth saved for #{@person.first_name} #{@person.last_name}"
+        else 
+          puts "Something went wrong!!!"
+        end
+      end
+    end
+  end
+  
+  desc "Add assets to members of congress"
+  task :assets => :environment do
+    puts "Making a list of everyone in the database..."
+    @people = Person.all
+    @crp_ids = []
+    @people.each do |p|
+      @crp_ids << p.crp_id
+    end
+    
+    csv = "/Users/alan/sites/politics411/PFD/PFDasset.txt"
+    CSV.foreach(csv) do |row|
+      @crp = row[2].gsub("|", "")
+      
+    end
+    
+    @crp_ids.each do |crp|
+      if crp.blank?
+        puts "Entry blank, skipping!"
+      else
+        @person = Person.find_by_crp_id(@crp)
+        
+      end
+    end
   end
   
   desc "Populate database with House members"
@@ -381,7 +428,7 @@ namespace :seed do
         @bill_committees = @member_doc.xpath("//results/bills/bill[#{i}]/committees").inner_text
         @committees = @bill_committees.split("; ")
         
-        @congress_year = @bill_doc.xpathj("/result_set/results/congress").inner_text
+        @congress_year = @bill_doc.xpath("/result_set/results/congress").inner_text
         @bill_sponsor = @bill_doc.xpath("//results/sponsor").inner_text
         @bill_pdf_url = @bill_doc.xpath("//results/gpo_pdf_uri").inner_text
         @bill_latest_action = @bill_doc.xpath("//results/latest_major_action").inner_text
