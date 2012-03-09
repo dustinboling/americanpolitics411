@@ -44,9 +44,12 @@ class PeopleController < ApplicationController
   # GET /people/1.json
   def show
     @person = Person.find(params[:id])
-    @degrees = Degree.find :all
-    @organizations = Organization.find(:all)
-    @universities = University.find(:all)
+    # Almost definitely do not need these...
+    # @degrees = Degree.find :all
+    # @organizations = Organization.find(:all)
+    # @universities = University.find(:all)
+    
+    # Load necessary information from the various APIs
     @pac_contributors = TransparencyData::Client.contributions(
       :recipient_ft => "#{Person.find_by_id(params[:id]).first_name} #{Person.find_by_id(params[:id]).last_name}", 
       :cycle => 2011, 
@@ -62,9 +65,7 @@ class PeopleController < ApplicationController
     @sectors = TransparencyData::Client.top_sectors(@id)
     
     # Get most recent tweets
-    if @person.twitter_id.blank?
-      # Do nothing
-    else
+    unless @person.twitter_id.blank?
       begin
         @recent_tweets = Twitter.user_timeline("#{@person.twitter_id}").take(10)
       rescue Exception => e

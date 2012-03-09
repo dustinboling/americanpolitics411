@@ -14,13 +14,6 @@ namespace :seed do
   @@house_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/house/members.xml?api-key=#{@@nyt_api_key}"
   @@senate_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/senate/members?api-key=#{@@nyt_api_key}"
   
-  desc "Populate database with campaign contributions"
-  task :contributions => :environment do
-    make_join
-    
-    
-  end
-  
   desc "Add net worth to members of congress"
   task :net_worth => :environment do
     csv = "/Users/alan/sites/politics411/PFD/crp_data.csv"
