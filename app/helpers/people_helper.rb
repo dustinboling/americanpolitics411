@@ -48,8 +48,12 @@ module PeopleHelper
     end    
   end
   
-  def self.to_percent(n)
-    n * 100
+  def get_tweet_ids
+    @tweet_ids = []
+    @tweet_text = []
+    @tweets = @recent_tweets.each do |t|
+      @tweet_ids << t.id
+    end
   end
   
 end

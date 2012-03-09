@@ -34,8 +34,19 @@
 		(<a href="<%= @person.contact_web_page_url %>">Link</a>)	
 	</p>
 	<p>
-		<b>Twitter</b>
-		<a href="http://www.twitter.com/<%= @person.twitter_id  %>">@<%= @person.twitter_id %></a>
+		<% if @person.twitter_id.blank? %>
+		<% else %>
+			<b>Twitter</b>
+			<a href="http://www.twitter.com/<%= @person.twitter_id  %>">@<%= @person.twitter_id %></a>
+			<% if @person.twitter_id.blank? %>
+			<% elsif @recent_tweets.count < 1 %>
+			<% else %><br />
+			<b>Recent Tweets</b>
+				<% @recent_tweets.each do |t| %>
+					<blockquote class="twitter-tweet"> <a href="https://twitter.com/twitterapi/status/<%= t.id %>" data-datetime="<%= t.created_at %>"><p><%= t.text %></p>&mdash; <%= @person.first_name %> <%= @person.last_name %> (<%= @person.twitter_id %>) <%= t.created_at.to_date %></a></blockquote>
+				<% end %>
+			<% end %>
+		<% end %>
 	</p>
 	<p>
 		<b>Youtube</b>

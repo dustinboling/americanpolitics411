@@ -23,8 +23,9 @@ namespace :seed do
   
   desc "Add net worth to members of congress"
   task :net_worth => :environment do
-    puts "Loading csv of net worths..."
     csv = "/Users/alan/sites/politics411/PFD/crp_data.csv"
+    puts "Loading csv of net worths from #{csv}..."
+    
     CSV.foreach(csv) do |row|
       if Person.find_by_crp_id(row[0]).nil?
         puts "skipping #{row[1]}, not in database!"

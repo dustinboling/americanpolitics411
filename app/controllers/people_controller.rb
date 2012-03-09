@@ -60,7 +60,21 @@ class PeopleController < ApplicationController
     @entity = TransparencyData::Client.entities(:search => "#{@person.first_name} #{@person.last_name}")
     @id = @entity.first.id
     @sectors = TransparencyData::Client.top_sectors(@id)
-
+    
+    # Get most recent tweets
+    if @person.twitter_id.blank?
+      # Do nothing
+    else
+      begin
+        @recent_tweets = Twitter.user_timeline("#{@person.twitter_id}").take(10)
+      rescue Exception => e
+        case e.message
+          when /Twitter is over capacity/
+            @recent_tweets = Twitter.user_timeline("#{@person.twitter_id}").take(10)
+        end
+      end
+    end
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @person }

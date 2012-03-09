@@ -17,6 +17,8 @@ gem 'redis'
 gem 'sunlight'
 gem 'transparency_data'
 gem 'highline'
+gem 'youtube_it'
+gem 'twitter'
 
 # probably move this into development
 gem 'newrelic_rpm'
