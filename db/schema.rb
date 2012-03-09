@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308192750) do
+ActiveRecord::Schema.define(:version => 20120309232923) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -175,12 +175,31 @@ ActiveRecord::Schema.define(:version => 20120308192750) do
   create_table "earmarks", :force => true do |t|
     t.integer  "person_id"
     t.integer  "organization_id"
-    t.text     "description"
-    t.string   "sector"
-    t.integer  "amount"
-    t.date     "year"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "csv_earmark_id"
+    t.integer  "import_reference_id"
+    t.string   "fiscal_year"
+    t.string   "budget_amount"
+    t.string   "house_amount"
+    t.string   "senate_amount"
+    t.string   "omni_amount"
+    t.string   "final_amount"
+    t.text     "bill"
+    t.text     "bill_section"
+    t.text     "bill_subsection"
+    t.text     "description"
+    t.text     "notes"
+    t.string   "presidential"
+    t.string   "undisclosed"
+    t.text     "house_members"
+    t.text     "house_parties"
+    t.text     "house_states"
+    t.text     "house_districts"
+    t.text     "senate_members"
+    t.text     "senate_parties"
+    t.text     "senate_states"
+    t.text     "recipient"
   end
 
   add_index "earmarks", ["organization_id"], :name => "index_earmarks_on_organization_id"

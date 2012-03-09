@@ -36,6 +36,79 @@ namespace :seed do
     end
   end
   
+  desc "Add earmarks to members of congress"
+  task :earmarks => :environment do
+    earmark_csv = "/Users/alan/sites/politics411/earmarks/earmark.csv"
+    member_csv = "/Users/alan/sites/politics411/earmarks/member.csv"
+    recipient_csv = "/Users/alan/sites/politics411/earmarks/recipient.csv"
+    
+    puts "Loading earmarks from csv..."
+    CSV.foreach(earmark_csv) do |row|
+      @earmark = Earmark.new(
+        :csv_earmark_id => row[0],
+        :import_reference_id => row[1],
+        :fiscal_year => row[2],
+        :budget_amount => row[3],
+        :house_amount => row[4],
+        :senate_amount => row[5],
+        :omni_amount => row[6],
+        :final_amount => row[7],
+        :bill => row[8],
+        :bill_section => row[9],
+        :bill_subsection => row[10],
+        :description => row[11],
+        :notes => row[12],
+        :presidential => row[13],
+        :undisclosed => row[14],
+        :house_members => row[15],
+        :house_parties => row[16],
+        :house_states => row[17],
+        :house_districts => row[18],
+        :senate_members => row[19],
+        :senate_parties => row[20],
+        :senate_states => row[21]
+        )
+      
+      if @earmark.save
+        puts "Earmark #{row[0]} saved!"
+      else
+        puts "Earmark #{row[0]} failed to save!"
+      end
+    end
+    
+    puts "Mapping members from csv to earmarks..."
+    CSV.foreach(member_csv) do |row|
+      if Person.find_by_crp_id(row[3]).blank?
+        puts "No record found for #{row[2]}, skipping!"
+        @person_id = Person.find_by_crp_id(row[3]).id
+        @earmark = Earmark.find_by_csv_earmark_id(row[1])
+        @earmark.person_id = @person_id
+        
+        if @earmark.save
+          puts "#{@person_id} mapped to earmark ##{row[1]}!"
+        else
+          puts "Something went wrong with earmark ##{row[1]}!"
+        end
+      end
+    end
+    
+    puts "Mapping recipients from csv to earmarks..."
+    CSV.foreach(recipient_csv) do |row|
+      if Earmark.find_by_csv_earmark_id(row[1]).blank?
+        puts "couldn't find earmark with the id of #{row[1]}"
+      else
+        @earmark = Earmark.find_by_csv_earmark_id(row[1])
+        @earmark.recipient = row[2]
+        if @earmark.save
+          puts "Recipient #{row[2]} mapped to earmark #{row[1]}!"
+        else
+          puts "There was a problem saving earmark #{row[1]}!"
+        end
+      end
+    end  
+    puts "All done, success."    
+  end
+  
   desc "Add assets to members of congress"
   task :assets => :environment do
     puts "Making a list of everyone in the database..."

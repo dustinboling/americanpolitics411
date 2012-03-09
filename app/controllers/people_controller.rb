@@ -45,7 +45,7 @@ class PeopleController < ApplicationController
   def show
     @person = Person.find(params[:id])
     # Almost definitely do not need these...
-    # @degrees = Degree.find :all
+    # @degrees = Degree.find(:all)
     # @organizations = Organization.find(:all)
     # @universities = University.find(:all)
     
