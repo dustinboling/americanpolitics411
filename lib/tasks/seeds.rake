@@ -534,6 +534,7 @@ namespace :seed do
         end
       end
     end
+    puts "Successfully added legislation for #{@congress_members.inner_text}!!!"
   end
   
   def make_bill
@@ -695,9 +696,12 @@ namespace :seed do
     make_join
 
     puts "Splitting up congress members into three parts..."
-    @congress_part_1 = @congress_members[1..184]
-    @congress_part_2 = @congress_members[185..369]
-    @congress_part_3 = @congress_members[369..600]
+    @congress_part_1 = @congress_members[1..100]
+    @congress_part_2 = @congress_members[101..200]
+    @congress_part_3 = @congress_members[201..300]
+    @congress_part_4 = @congress_members[301..400]
+    @congress_part_5 = @congress_members[401..500]
+    @congress_part_6 = @congress_members[501..600]
 
     choose do |menu|
       menu.prompt = "Please choose from one of the following, you 
@@ -711,6 +715,15 @@ namespace :seed do
       end
       menu.choice(:congress_part_three) do
         @congress_members = @congress_part_3
+      end
+      menu.choice(:congress_part_four) do
+        @congress_members = @congress_part_4
+      end
+      menu.choice(:congress_part_five) do
+        @congress_members = @congress_part_5
+      end
+      menu.choice(:congress_part_six) do
+        @congress_members = @congress_part_6
       end
     end
   end
