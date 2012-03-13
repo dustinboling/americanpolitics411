@@ -1,7 +1,7 @@
 class PeopleController < ApplicationController
   
   load_and_authorize_resource
-  skip_authorize_resource :only => [:all, :representatives, :senators]
+  skip_authorize_resource :only => [:all, :representatives, :senators, :indiv_contributors, :pac_contributors]
   
   layout 'admin'
   
