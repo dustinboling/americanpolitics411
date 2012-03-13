@@ -39,20 +39,24 @@
 			<table class="zebra-striped bordered-table span9">
 				<tr>
 					<th>Year</th>
-					<th>Organization</th>
+					<th>Recipient</th>
+					<th>Organization ID</th>
 					<th>Description</th>
-					<th>Sector</th>
+					<th>Bill</th>
 					<th>Amount</th>
 				</tr>
 			<b>Earmarks:</b>
-			<%= @person.earmarks.collect { |earmark| 
-						"<tr>
-						   <td>#{earmark.year.year}</td>
-							 <td>#{earmark.find_organization_name}</td>
-							 <td>#{earmark.description}</td>
-							 <td>#{earmark.sector}</td>
-							 <td>#{number_to_currency(earmark.amount, :precision => 0)}</td>
-						</tr>"}.to_sentence(no_separator).html_safe %>
+			<% @earmarks_sorted = @person.earmarks.sort { |x, y| x.fiscal_year <=> y.fiscal_year }.reverse %>
+			<% @earmarks_sorted.collect do |earmark| %>
+				<tr>
+				   <td><%= earmark.fiscal_year %></td>
+					 <td><%= earmark.recipient %></td>
+					 <td><%= earmark.organization_id %></td>
+					 <td><%= earmark.description %></td>
+					 <td><%= earmark.bill %></td>
+					 <td><%= number_to_currency(earmark.final_amount, :precision => 0) %></td>
+				</tr>
+			<% end %>
 			</table>
 		</p>
 		<p>

@@ -80,6 +80,7 @@ namespace :seed do
     CSV.foreach(member_csv) do |row|
       if Person.find_by_crp_id(row[3]).blank?
         puts "No record found for #{row[2]}, skipping!"
+      else
         @person_id = Person.find_by_crp_id(row[3]).id
         @earmark = Earmark.find_by_csv_earmark_id(row[1])
         @earmark.person_id = @person_id
