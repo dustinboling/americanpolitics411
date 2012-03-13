@@ -19,18 +19,18 @@
 				</tr>						
 				<% @person.legislative_offices.reverse.collect do |po| %>
 				<tr>
-					<th><%= po.congress_year %></th>
-					<th><%= po.start_date %></th>
-					<th><%= po.end_date %></th>
-					<th><%= po.chamber %></th>
-					<th><%= po.state %></th>
-					<th><%= po.district %></th>
-					<th><%= po.party %></th>
-					<th><%= po.seniority %></th>
-					<th><%= po.bills_sponsored %></th>
-					<th><%= po.bills_cosponsored %></th>
-					<th><%= po.missed_votes_pct %></th>
-					<th><%= po.votes_with_party_pct %></th>
+					<td><%= po.congress_year %></td>
+					<td><%= po.start_date %></td>
+					<td><%= po.end_date %></td>
+					<td><%= po.chamber %></td>
+					<td><%= po.state %></td>
+					<td><%= po.district %></td>
+					<td><%= po.party %></td>
+					<td><%= po.seniority %></td>
+					<td><%= po.bills_sponsored %></td>
+					<td><%= po.bills_cosponsored %></td>
+					<td><%= po.missed_votes_pct %></td>
+					<td><%= po.votes_with_party_pct %></td>
 				</tr>
 				<% end %>
 			</table>
