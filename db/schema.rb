@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120309232923) do
+ActiveRecord::Schema.define(:version => 20120322223604) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -422,6 +422,7 @@ ActiveRecord::Schema.define(:version => 20120309232923) do
     t.string   "fec_id"
     t.string   "crp_id"
     t.string   "votesmart_id"
+    t.text     "slug"
   end
 
   create_table "person_videos", :force => true do |t|

@@ -26,6 +26,7 @@ Politics411::Application.routes.draw do
   # Routes for autocomplete
   get "universities/autocomplete_university_name"
   get "people/autocomplete_person_name"
+  get "people/autocomplete_person_url"
   get "organizations/autocomplete_organization_name"
   
   get "login" => "sessions#new", :as => "login"

@@ -1,6 +1,6 @@
 <tr class="fields">
 	<%= f.hidden_field :person_id, :value => @person.id %>
-
+	
 		<td><%= f.text_field :family_member, :class => 'person-list', data: {people_source: people_autocomplete_person_name_path} %> </td>
     <td><%= f.text_field :relationship, :class => 'span2' %></td>
     <td><%= f.text_field :notes %></td>

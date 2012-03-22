@@ -18,7 +18,6 @@ gem 'transparency_data'
 gem 'highline'
 gem 'youtube_it'
 gem 'twitter'
-gem 'friendly_id'
 
 # probably move this into development
 gem 'newrelic_rpm'
@@ -33,6 +32,7 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'guard-rspec'
+  gem 'faker'
 end
 
 group :production do

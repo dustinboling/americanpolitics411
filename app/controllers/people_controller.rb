@@ -10,6 +10,11 @@ class PeopleController < ApplicationController
     render json: @people.map(&:name)
   end
   
+  def autocomplete_person_url
+    @people = Person.order(:slug).where("slug like ?", "%#{params[:term]}%")
+    render json: @people.collect { |p| { :label => "#{p.first_name} #{p.last_name}", :value => p.slug } }
+  end
+  
   def senators
     @people = Person.where("chamber = 'S'").order("people.last_name ASC")
   end

@@ -12,7 +12,7 @@
 				</tr>
 				<% @people.each do |person| %>
 				<tr>
-					<td><a href="<%= person_path(person) %>"><%= person.name %></a></td>
+					<td><%= link_to "#{person.first_name} #{person.last_name}", person_path(person) %></td>
 					<% if can? :edit, Person %>
 						<td>
 							<a href ="<%= edit_person_path(person) %>" class="btn small primary">Edit</a>

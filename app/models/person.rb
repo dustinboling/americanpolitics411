@@ -4,10 +4,7 @@ class Person < ActiveRecord::Base
   
   before_create :set_name
   before_update :set_name
-  
-  def set_name
-    self.name = self.first_name + " " + self.last_name
-  end
+  before_save :set_slug
   
   belongs_to :religion
   
@@ -98,6 +95,14 @@ class Person < ActiveRecord::Base
   has_many :professional_experiences
   
   scope :sorted, order('people.person_id ASC')
+  
+  def set_name
+    self.name = self.first_name + " " + self.last_name
+  end
+  
+  def set_slug
+    self.slug = "#{self.id}" + "-" + self.first_name + "-" + self.last_name
+  end
   
   # use slugs for urls
   def to_param

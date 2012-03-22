@@ -11,5 +11,10 @@ jQuery ->
 		$(this).autocomplete
 	  	source: $('.organization-list').data('organizations-source')
 	)
+	$('.slug-list').live('focus', (event) ->
+		$(this).autocomplete
+	  	source: $('.slug-list').data('slug-source')
+	)
+	
 	$("#tabs").tabs().addClass('ui-tabs-vertical ui-helper-clearfix')
 	$('#topbar').dropdown()
