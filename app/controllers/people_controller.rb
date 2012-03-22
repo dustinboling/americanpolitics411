@@ -25,7 +25,7 @@ class PeopleController < ApplicationController
     
     respond_to do |format|
       format.html # all.html.erb
-      format.json { render json: @people}
+      format.json { render :json => @people}
       format.xml { render xml: @people }
     end
   end
@@ -44,10 +44,6 @@ class PeopleController < ApplicationController
   # GET /people/1.json
   def show
     @person = Person.find(params[:id])
-    # Almost definitely do not need these...
-    # @degrees = Degree.find(:all)
-    # @organizations = Organization.find(:all)
-    # @universities = University.find(:all)
     
     # Load necessary information from the various APIs
     @pac_contributors = TransparencyData::Client.contributions(

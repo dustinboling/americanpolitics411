@@ -18,26 +18,6 @@
 		</tr>
 	</table>
 	
-<h3>Earmarks</h3>
-	<table class="zebra-striped">
-		<tr>
-			<th>Organization</th>
-			<th>Fiscal Year</th>
-			<th>Description</th>
-			<th>Sector</th>
-			<th>Amount</th>
-			<th></th>
-		</tr>
-		<%= f.fields_for :earmarks do |earmark| %>
-			<%= render 'earmark_fields', :f => earmark %>
-		<% end %>
-		<tr>
-			<td>
-				<%= link_to_add_fields "Add Earmark", f, :earmarks %>
-			</td>
-		</tr>
-	</table>
-	
 <h3>Supporters</h3>
 	<table class="zebra-striped">
 		<tr>
@@ -51,77 +31,6 @@
 		<tr>
 			<td>
 				<%= link_to_add_fields "Add Support Demographic", f, :supporters %>
-			</td>
-		</tr>
-	</table>
-	
-<h3>Contributors</h3>
-	<table class="zebra-striped">
-		<tr>
-			<th>Organization</th>
-			<th>Amount</th>
-			<th></th>
-		</tr>
-		<%= f.fields_for :contributors do |contributor| %>
-			<%= render 'contributor_fields', :f => contributor %>
-		<% end %>
-		<tr>
-			<td>
-				<%= link_to_add_fields "Add Contributor", f, :contributors %>
-			</td>
-		</tr>
-	</table>	
-	
-<h3>Contributors (Interest Groups)</h3>
-	<table class="zebra-striped">
-		<tr>
-			<th>Interest Group</th>
-			<th>Year</th>
-			<th>Amount</th>
-			<th></th>
-		</tr>
-		<%= f.fields_for :contributors_interest_groups do |contributor_ig| %>
-			<%= render 'contributors_interest_group_fields', :f => contributor_ig %>
-		<% end %>
-		<tr>
-			<td>
-				<%= link_to_add_fields "Add Contributor (Interest Group)", f, :contributors_interest_groups %>
-			</td>
-		</tr>
-	</table>
-	
-<h3>Contributors (Interest Group Sectors)</h3>
-	<table class="zebra-striped">
-		<tr>
-			<th>Sector</th>
-			<th>Year</th>
-			<th>Amount</th>
-			<th></th>
-		</tr>
-		<%= f.fields_for :contributors_interest_group_sectors do |contributor_igs| %>
-			<%= render 'contributors_interest_group_sector_fields', :f => contributor_igs %>
-		<% end %>
-		<tr>
-			<td>
-				<%= link_to_add_fields "Add Contributor (Interest Group Sector)", f, :contributors_interest_group_sectors %>
-			</td>
-		</tr>
-	</table>
-	
-<h3>Contributors (PAC)</h3>
-	<table class="zebra-striped">
-		<tr>
-			<th>PAC</th>
-			<th>Year</th>
-			<th>Amount</th>
-			<th></th>
-		</tr>
-		<%= f.fields_for :contributors_pacs do |contributor_pac| %>
-			<%= render 'contributors_pac_fields', :f => contributor_pac %>
-		<% end %>
-		<tr>
-			<td>
-				<%= link_to_add_fields "Add Contributor (PAC)", f, :contributors_pacs %>
 			</td>
 		</tr>
 	</table>

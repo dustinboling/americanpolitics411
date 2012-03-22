@@ -692,7 +692,7 @@ namespace :seed do
       end
     end  
   end
-  
+
   def make_join_with_prompt
     make_join
 
@@ -703,30 +703,42 @@ namespace :seed do
     @congress_part_4 = @congress_members[301..400]
     @congress_part_5 = @congress_members[401..500]
     @congress_part_6 = @congress_members[501..600]
-
+    last_line = `tail -n 1 /users/alan/sites/politics411/last_part.txt`
+    
     choose do |menu|
-      menu.prompt = "Please choose from one of the following, you 
-      can only run one per day or it will fail part of the way 
-      through. DO NOT RUN MORE THAN ONE ITEM PER DAY!"
+      menu.prompt = "Please choose from one of the following, you\n 
+      can only run one per day or it will fail part of the way\n 
+      through. DO NOT RUN MORE THAN ONE ITEM PER DAY!\n
+      The last batch you ran was: #{last_line}"
       menu.choice(:congress_part_one) do
         @congress_members = @congress_part_1
+        write_last_run(congress_part_1)
       end
       menu.choice(:congress_part_two) do
         @congress_members = @congress_part_2
+        write_last_run(congress_part_2)
       end
       menu.choice(:congress_part_three) do
         @congress_members = @congress_part_3
+        write_last_run(congress_part_3)
       end
       menu.choice(:congress_part_four) do
         @congress_members = @congress_part_4
+        write_last_run(congress_part_4)
       end
       menu.choice(:congress_part_five) do
         @congress_members = @congress_part_5
+        write_last_run(congress_part_5)
       end
       menu.choice(:congress_part_six) do
         @congress_members = @congress_part_6
+        write_last_run(congress_part_6)
       end
     end
+  end
+  
+  def write_last_run(part)
+    File.open('/users/alan/sites/politics411/last_part.txt', 'a') { |f| f.write("#{part}\n") }
   end
   
   def make_join

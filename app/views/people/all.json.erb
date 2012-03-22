@@ -1,0 +1,21 @@
+{ "People": {
+<% @people.each do |person| %>
+		"<%= person.id %>": {
+			"first_name": "<%= person.first_name %>",
+			"last_name": "<%= person.last_name %>",
+			"date_of_birth": "<%= person.date_of_birth %>",
+			"gender": "<%= person.gender %>",
+			"SocialMedia": {
+				"twitter_id": "<%= person.twitter_id %>",
+				"youtube_id": "<%= person.youtube_id %>"
+			},
+			"ApiKeys": {
+				"nyt_id": "<%= person.nyt_id %>",
+				"crp_id": "<%= person.crp_id %>",
+			 	"votesmart_id": "<%= person.votesmart_id %>",
+				"crp_id": "<%= person.crp_id %>"
+			}
+		}
+	}
+<% end %>
+}
