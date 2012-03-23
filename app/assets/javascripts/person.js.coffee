@@ -6,7 +6,7 @@ jQuery ->
 	$('.person-list').live('focus', (event) ->
 		$(this).autocomplete
 	  	source: $('.person-list').data('people-source')
-	)
+
 	$('.organization-list').live('focus', (event) ->
 		$(this).autocomplete
 	  	source: $('.organization-list').data('organizations-source')
