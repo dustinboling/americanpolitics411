@@ -9,7 +9,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   
   scope :with_role, lambda { |role| {:conditions => "roles_mask & #{2**ROLES.index(role.to_s)} > 0 "} }
-
+  
+  # admin = 1
+  # superadmin = 2
+  # reader = 4?
   ROLES = %w[admin superadmin reader]
 
   def roles=(roles)

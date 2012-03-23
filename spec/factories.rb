@@ -8,6 +8,9 @@ Factory.define :person do |f|
 end
 
 Factory.define :user do |f|
-  
+  f.username 'test_account'
+  f.email 'testn@dustinboling.com'
+  f.password '123'
+  f.password_confirmation '123'
 end
 

@@ -1,1 +1,7 @@
-CURRENT_YEAR_CONGRESS = "112th"
+congress_year = 112
+
+t = Time.now
+current_year = t.strftime("%G")
+
+# "#{congress_year.ordinalize}"
+CURRENT_YEAR_CONGRESS = "#{112.ordinalize}"
