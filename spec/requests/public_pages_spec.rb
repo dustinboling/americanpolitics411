@@ -3,7 +3,6 @@ require 'spec_helper'
 describe "People" do
   describe "GET /senators" do
     it "displays a list of senators" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
       visit senators_path
       page.should have_content("Senators")
     end
@@ -27,6 +26,15 @@ describe "People" do
     it "displays a list of all committees" do
       visit committees_index_path
       page.should have_content("Committees")
+    end
+  end
+end
+
+describe "Legislation" do
+  describe "GET /legislation" do
+    it "displays a list of legislation" do
+      visit legislation_index_path
+      page.should have_content("Legislation")
     end
   end
   

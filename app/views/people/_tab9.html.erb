@@ -1,21 +1,3 @@
-<h3>Articles</h3>
-	<table class="zebra-striped">
-		<tr>
-			<th>Title</th>
-			<th>Excerpt</th>
-			<th>Article URL</th>
-			<th></th>
-		</tr>
-		<%= f.fields_for :articles do |article| %>
-			<%= render 'article_fields', :f => article %>
-		<% end %>
-		<tr>
-			<td>
-				<%= link_to_add_fields "Add Article", f, :articles %>
-			</td>
-		</tr>
-	</table>
-	
 <h3>Videos</h3>
 	<table class="zebra-striped">
 		<tr>
@@ -25,12 +7,6 @@
 			<th>Thumb URL</th>
 			<th></th>
 		</tr>
-		<%= f.fields_for :videos do |video| %>
-			<%= render 'video_fields', :f => video %>
-		<% end %>
 		<tr>
-			<td>
-				<%= link_to_add_fields "Add Video", f, :videos %>
-			</td>
 		</tr>
 	</table>

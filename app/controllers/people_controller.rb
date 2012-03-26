@@ -61,6 +61,7 @@ class PeopleController < ApplicationController
         :cycle => 2011, 
         :amount => {:gte => 2300},
         :contributor_type => "I")
+    # sectors
     @entity = TransparencyData::Client.entities(:search => "#{@person.first_name} #{@person.last_name}")
     @id = @entity.first.id
     @sectors = TransparencyData::Client.top_sectors(@id)
