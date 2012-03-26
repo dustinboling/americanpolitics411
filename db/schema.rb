@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120322223604) do
+ActiveRecord::Schema.define(:version => 20120326224319) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -311,6 +311,7 @@ ActiveRecord::Schema.define(:version => 20120322223604) do
     t.string   "congress_year"
     t.string   "republican_cosponsors"
     t.string   "democratic_cosponsors"
+    t.text     "summary"
   end
 
   add_index "legislations", ["bill_uri"], :name => "index_legislations_on_bill_uri"

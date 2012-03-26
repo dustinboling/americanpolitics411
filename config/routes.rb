@@ -34,6 +34,7 @@ Politics411::Application.routes.draw do
   get "signup" => "users#new", :as => "signup"
   
   # Resourceful routes
+  resources :legislation
   resources :users
   resources :password_resets
   resources :sessions

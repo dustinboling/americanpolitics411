@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "NewPeople" do
   describe "POST people/new" do
-    it "Creates a new person" do
+    it "should create a new person" do
       @user = Factory(:user, :roles_mask => 1)
       @person = Factory(:person)
       

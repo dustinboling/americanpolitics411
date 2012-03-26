@@ -14,6 +14,7 @@ class Ability
         can :manage, Organization
         can :manage, University
         can :manage, Religion
+        can :manage, Legislation
       end
     end
   end

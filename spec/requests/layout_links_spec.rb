@@ -167,6 +167,14 @@ describe "topbar" do
       page.should have_content("Listing religions")
     end
     
+    it "should show a list of users when superadmin clicks manage legislation" do
+      @legislation = Legislation.new
+      @legislation.save
+      
+      click_link "Legislation"
+      page.should have_link("Edit")
+    end
+    
     it "should show a list of users when superadmin clicks manage users" do
       click_link "Manage Users"
       page.should have_content("Manage Users")

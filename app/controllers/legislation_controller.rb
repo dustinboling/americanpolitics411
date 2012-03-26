@@ -17,6 +17,10 @@ class LegislationController < ApplicationController
     @legislation = Legislation.find_by_bill_number(params[:bill_number])
   end
   
+  def edit
+    @legislation = Legislation.find(params[:id])
+  end
+  
   def make_list
         
     url = "http://thomas.loc.gov/home/gpoxmlc112/"
