@@ -70,16 +70,9 @@ class Person < ActiveRecord::Base
   
   has_many :contributors
   accepts_nested_attributes_for :contributors, :allow_destroy => true
-  
-  has_many :contributors_pacs
-  accepts_nested_attributes_for :contributors_pacs, :allow_destroy => true
-  
-  has_many :contributors_interest_groups
-  accepts_nested_attributes_for :contributors_interest_groups, :allow_destroy => true
-  
-  has_many :contributors_interest_group_sectors
-  accepts_nested_attributes_for :contributors_interest_group_sectors, :allow_destroy => true
-   
+
+  # stuff from here down can probably be deleted 
+  # ALSO delete from DB
   # maps to edit -> attachments
   has_many :person_videos
   # has_many :videos, :through => :person_videos
@@ -88,11 +81,6 @@ class Person < ActiveRecord::Base
   
   has_many :articles
   accepts_nested_attributes_for :articles, :allow_destroy => true
-  
-  # ! not part of nested form (yet) !
-  has_and_belongs_to_many :organizations
-  has_many :sponsored_legislations
-  has_many :professional_experiences
   
   scope :sorted, order('people.person_id ASC')
   
