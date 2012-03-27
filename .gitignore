@@ -21,3 +21,7 @@ config/database.yml
 # Ignore CSV directories
 /PFD
 /earmarks
+
+# Ignore Benchmarks
+bm-gsub.rb
+bm-udp.rb
