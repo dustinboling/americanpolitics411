@@ -5,22 +5,16 @@ class PeopleController < ApplicationController
   
   layout 'admin'
   
+  # populate list of names for autocomplete
   def autocomplete_person_name
     @people = Person.order(:name).where("name like ?", "%#{params[:term]}%")
     render json: @people.map(&:name)
   end
   
+  # populate list of urls for autocomplete  
   def autocomplete_person_url
     @people = Person.order(:slug).where("slug like ?", "%#{params[:term]}%")
     render json: @people.collect { |p| { :label => "#{p.first_name} #{p.last_name}", :value => p.slug } }
-  end
-  
-  def senators
-    @people = Person.where("chamber = 'S'").order("people.last_name ASC")
-  end
-  
-  def representatives
-    @people = Person.where("chamber = 'H'").order("people.last_name ASC")
   end
   
   # GET /all
@@ -33,6 +27,16 @@ class PeopleController < ApplicationController
       format.json { render :json => @people}
       format.xml { render xml: @people }
     end
+  end
+  
+  # GET /senators
+  def senators
+    @people = Person.where("chamber = 'S'").order("people.last_name ASC")
+  end
+  
+  # GET /representatives
+  def representatives
+    @people = Person.where("chamber = 'H'").order("people.last_name ASC")
   end
   
   # GET /people

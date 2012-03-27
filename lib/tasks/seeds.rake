@@ -712,27 +712,27 @@ namespace :seed do
       The last batch you ran was: #{last_line}"
       menu.choice(:congress_part_one) do
         @congress_members = @congress_part_1
-        write_last_run(congress_part_1)
+        write_last_run("congress_part_one")
       end
       menu.choice(:congress_part_two) do
         @congress_members = @congress_part_2
-        write_last_run(congress_part_2)
+        write_last_run("congress_part_two")
       end
       menu.choice(:congress_part_three) do
         @congress_members = @congress_part_3
-        write_last_run(congress_part_3)
+        write_last_run("congress_part_three")
       end
       menu.choice(:congress_part_four) do
         @congress_members = @congress_part_4
-        write_last_run(congress_part_4)
+        write_last_run("congress_part_four")
       end
       menu.choice(:congress_part_five) do
         @congress_members = @congress_part_5
-        write_last_run(congress_part_5)
+        write_last_run("congress_part_five")
       end
       menu.choice(:congress_part_six) do
         @congress_members = @congress_part_6
-        write_last_run(congress_part_6)
+        write_last_run("congress_part_six")
       end
     end
   end

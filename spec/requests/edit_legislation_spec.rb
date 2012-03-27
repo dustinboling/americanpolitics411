@@ -17,4 +17,5 @@ describe "EditLegislation" do
     click_link "Edit"
     page.should have_content("TEST BILL NUMBER")
   end
+  
 end
