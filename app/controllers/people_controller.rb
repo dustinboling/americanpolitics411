@@ -52,15 +52,16 @@ class PeopleController < ApplicationController
     
     # Load necessary information from the various APIs
     @pac_contributors = TransparencyData::Client.contributions(
-      :recipient_ft => "#{Person.find_by_id(params[:id]).first_name} #{Person.find_by_id(params[:id]).last_name}", 
-      :cycle => 2011, 
+      :recipient_ft => "#{@person.remove_name_numericality}", 
+      :cycle => 2011,
       :amount => {:gte => 2300},
       :contributor_type => "C")
     @individual_contributors = TransparencyData::Client.contributions(
-        :recipient_ft => "#{Person.find_by_id(params[:id]).first_name} #{Person.find_by_id(params[:id]).last_name}", 
+        :recipient_ft => "#{@person.remove_name_numericality}", 
         :cycle => 2011, 
         :amount => {:gte => 2300},
         :contributor_type => "I")
+    
     # sectors
     @entity = TransparencyData::Client.entities(:search => "#{@person.remove_name_numericality}")
     if @entity.first
