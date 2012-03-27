@@ -128,38 +128,4 @@
 			</table>
 			<%= link_to "More", :action => 'pac_contributors', :id => @person.id %>
 		</p>
-		<p>
-			<table class="zebra-striped bordered-table span9">
-				<tr>
-					<th>Year</th>
-					<th>Interest Group</th>
-					<th>Amount</th>
-				</tr>
-			<b>Contributors (Interest Groups):</b>
-			<% @person.contributors_interest_groups.collect do |contributor_ig| %>
-				 <tr>
-				 	<td><%= contributor_ig.year.year %></td>
-					<td><%= contributor_ig.name %></td>
-					<td><%= contributor_ig.amount %></td>
-				</tr>
-			<% end %>	
-			</table>
-		</p>
-		<p>
-			<table class="zebra-striped bordered-table span9">
-				<tr>
-					<th>Year</th>
-					<th>Sector</th>
-					<th>Amount</th>
-				</tr>
-			<b>Contributors (Interest Group Sectors):</b>
-			<% @person.contributors_interest_group_sectors.collect do |contributor_igs| %>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-			<% end %>
-			</table>
-		</p>
 	</div>
