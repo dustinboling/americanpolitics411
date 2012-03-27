@@ -7,13 +7,11 @@ Politics411::Application.routes.draw do
   match "issues/:id" => "issues#show"
     
   get "legislation/index"
-  match "legislation/:id" => "legislation#show"
+  # match "legislation/:id" => "legislation#show"
   
   match "subcommittees/:id" => "subcommittees#show"
   
   get "contributor/show"
-
-  # get "legislation/grab_xml"
   
   get "committees/index"
   match "committees/:id" => "committees#show"

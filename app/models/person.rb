@@ -117,6 +117,14 @@ class Person < ActiveRecord::Base
     end
   end
   
+  def first_last_name
+    "#{first_name} #{last_name}"
+  end
+  
+  def remove_name_numericality
+    self.first_last_name.gsub(/\b III/, '').gsub(/\b II/, '')
+  end
+  
   def find_university_name
     self.University.find(x.university_id).name
   end
