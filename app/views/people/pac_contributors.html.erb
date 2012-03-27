@@ -1,12 +1,12 @@
 <div class="container">
-	<h1>PAC Contributions for <%= @person.first_name %> <%= @person.last_name %></h1>
+	<h1>PAC Contributions for <%= @person.first_name %> <%= @person.last_name %></h1>	
 	<table class="zebra-striped bordered-table span9">
 		<tr>
 			<th>Amount</th>
 			<th>Contributor</th>				
 			<th>Contribution Date</th>
 		</tr>
-	<b>Top Contributors (Individual):</b>
+	<b>Top Contributors (PAC):</b>
 	<% @pac_contributors.collect do |c| %>
 		<tr>
 			<td><%= c.amount %></td>
