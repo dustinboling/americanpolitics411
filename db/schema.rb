@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120328172430) do
+ActiveRecord::Schema.define(:version => 20120328175300) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -43,36 +43,6 @@ ActiveRecord::Schema.define(:version => 20120328172430) do
   end
 
   add_index "admin_users_pages", ["admin_user_id", "page_id"], :name => "index_admin_users_pages_on_admin_user_id_and_page_id"
-
-  create_table "articles", :force => true do |t|
-    t.integer  "person_id"
-    t.string   "title"
-    t.text     "excerpt"
-    t.string   "article_url"
-    t.date     "date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "articles", ["person_id"], :name => "index_articles_on_person_id"
-
-  create_table "assignments", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "assignments", ["role_id"], :name => "index_assignments_on_role_id"
-  add_index "assignments", ["user_id"], :name => "index_assignments_on_user_id"
-
-  create_table "attachments", :force => true do |t|
-    t.integer  "article_id"
-    t.string   "title"
-    t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "business_associates", :force => true do |t|
     t.integer  "organization_id"
@@ -376,16 +346,6 @@ ActiveRecord::Schema.define(:version => 20120328172430) do
     t.text     "slug"
   end
 
-  create_table "person_videos", :force => true do |t|
-    t.integer  "person_id"
-    t.integer  "video_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "person_videos", ["person_id"], :name => "index_person_videos_on_person_id"
-  add_index "person_videos", ["video_id"], :name => "index_person_videos_on_video_id"
-
   create_table "personal_assets", :force => true do |t|
     t.integer  "person_id"
     t.integer  "value_min"
@@ -411,20 +371,6 @@ ActiveRecord::Schema.define(:version => 20120328172430) do
   end
 
   add_index "political_offices", ["person_id"], :name => "index_political_offices_on_person_id"
-
-  create_table "professional_experiences", :force => true do |t|
-    t.integer  "person_id"
-    t.integer  "organization_id"
-    t.string   "position"
-    t.date     "date_started"
-    t.date     "date_ended"
-    t.text     "accomplishments"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "professional_experiences", ["organization_id"], :name => "index_professional_experiences_on_organization_id"
-  add_index "professional_experiences", ["person_id"], :name => "index_professional_experiences_on_person_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "person_id"
@@ -471,18 +417,6 @@ ActiveRecord::Schema.define(:version => 20120328172430) do
   end
 
   add_index "sections", ["page_id"], :name => "index_sections_on_page_id"
-
-  create_table "sponsored_legislations", :force => true do |t|
-    t.integer  "person_id"
-    t.boolean  "sponsor"
-    t.string   "bill_number"
-    t.date     "year_of_congress"
-    t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sponsored_legislations", ["person_id"], :name => "index_sponsored_legislations_on_person_id"
 
   create_table "subcommittee_assignments", :force => true do |t|
     t.integer  "person_id"
@@ -565,18 +499,5 @@ ActiveRecord::Schema.define(:version => 20120328172430) do
 
   add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token"
-
-  create_table "videos", :force => true do |t|
-    t.integer  "person_id"
-    t.date     "date"
-    t.string   "title"
-    t.text     "description"
-    t.string   "video_url"
-    t.string   "thumbnail_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "videos", ["person_id"], :name => "index_videos_on_person_id"
 
 end
