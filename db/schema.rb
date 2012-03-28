@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120326224319) do
+ActiveRecord::Schema.define(:version => 20120328172430) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -129,56 +129,6 @@ ActiveRecord::Schema.define(:version => 20120326224319) do
     t.datetime "updated_at"
     t.string   "chamber"
   end
-
-  create_table "contributors", :force => true do |t|
-    t.integer  "person_id"
-    t.integer  "organization_id"
-    t.integer  "amount"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "contributors", ["organization_id"], :name => "index_contributors_on_organization_id"
-  add_index "contributors", ["person_id"], :name => "index_contributors_on_person_id"
-
-  create_table "contributors_interest_group_sectors", :force => true do |t|
-    t.integer  "person_id"
-    t.string   "name"
-    t.integer  "amount"
-    t.date     "year"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "organization_id"
-  end
-
-  add_index "contributors_interest_group_sectors", ["organization_id"], :name => "index_contributors_interest_group_sectors_on_organization_id"
-  add_index "contributors_interest_group_sectors", ["person_id"], :name => "index_contributors_interest_group_sectors_on_person_id"
-
-  create_table "contributors_interest_groups", :force => true do |t|
-    t.integer  "person_id"
-    t.string   "name"
-    t.integer  "amount"
-    t.date     "year"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "organization_id"
-  end
-
-  add_index "contributors_interest_groups", ["organization_id"], :name => "index_contributors_interest_groups_on_organization_id"
-  add_index "contributors_interest_groups", ["person_id"], :name => "index_contributors_interest_groups_on_person_id"
-
-  create_table "contributors_pacs", :force => true do |t|
-    t.integer  "person_id"
-    t.string   "name"
-    t.integer  "amount"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.date     "year"
-    t.integer  "organization_id"
-  end
-
-  add_index "contributors_pacs", ["organization_id"], :name => "index_contributors_pacs_on_organization_id"
-  add_index "contributors_pacs", ["person_id"], :name => "index_contributors_pacs_on_person_id"
 
   create_table "degrees", :force => true do |t|
     t.integer  "university_id"

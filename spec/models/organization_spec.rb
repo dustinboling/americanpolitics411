@@ -12,5 +12,10 @@ describe Organization do
     
     @o2.should_not be_valid
   end
+  
+  it "should have many people" do
+    o = Organization.reflect_on_association(:people)
+    o.macro.should eq(:has_many)
+  end
     
 end
