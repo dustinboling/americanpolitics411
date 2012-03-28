@@ -94,7 +94,7 @@ class PeopleController < ApplicationController
   end
 
   def pac_contributors
-    @person = Person.find_by_id(params[:id])
+    @person = Person.find(params[:id])
     @pac_contributors = TransparencyData::Client.contributions(
       :recipient_ft => "#{@person.remove_name_numericality}", 
       :cycle => 2011, 
@@ -103,7 +103,7 @@ class PeopleController < ApplicationController
   end
   
   def indiv_contributors
-    @person = Person.find_by_id(params[:id])
+    @person = Person.find(params[:id])
     @individual_contributors = TransparencyData::Client.contributions(
         :recipient_ft => "#{@person.remove_name_numericality}", 
         :cycle => 2011, 

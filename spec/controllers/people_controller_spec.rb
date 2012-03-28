@@ -54,18 +54,34 @@ describe PeopleController do
   end
   
   describe "GET /pac_contributors" do
+    before :each do   
+      @p = Factory(:person, :first_name => "Ron", :last_name => "Paul")
+    end
+    
     it "returns http success" do
-      p = Factory(:person)
-      get :pac_contributors, :id => p.id
+      get :pac_contributors, :id => @p.id
       response.should be_success
+    end
+    
+    it "assigns a list of pac contributors when given a recipient" do
+      get :pac_contributors, :id => @p.id
+      assigns(:pac_contributors).should_not be_empty
     end
   end
   
   describe "GET /indiv_contributors" do
+    before :each do
+      @p = Factory(:person, :first_name => "Ron", :last_name => "Paul")
+    end
+    
     it "returns http success" do
-      p = Factory(:person)
-      get :indiv_contributors, :id => p.id
+      get :indiv_contributors, :id => @p.id
       response.should be_success
+    end
+    
+    it "assigns a list of individual contributors when given a valid recipient" do
+      get :indiv_contributors, :id => @p.id
+      assigns(:individual_contributors).should_not be_empty
     end
   end
   
@@ -115,15 +131,22 @@ describe PeopleController do
     
     it "should return a list of pac contributors" do
       get :show, :id => @p.id
-      
-      @pac_contributors.should_not be_empty
-      @individual_contributors.should_not be_empty
-      @entity.should_not be_empty
+      assigns(:pac_contributors).should_not be_empty
+      assigns(:individual_contributors).should_not be_empty
+      assigns(:entity).should_not be_empty
     end
   end
   
   describe "GET /show, with person NOT in TransparencyData database" do
+    before :each do
+      @p = Factory(:person, :first_name => "NOT", :last_name => "IN DATABASE", :name => "adobdoibdaoibadio")
+    end
     
-  end
+    it "should not return a list of pac contributors" do
+      get :show, :id => @p.id
+      assigns(:pac_contributors).should be_empty
+      assigns(:individual_contributors).should be_empty
+    end
+   end
   
 end
