@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Ability do
-  it "does nothing (but actually does, need to test later, then again maybe the requests are enough)" do
+  it "does nothing (but actually does, need to test later, then again maybe the request specs are enough)" do
   end
 end
 
