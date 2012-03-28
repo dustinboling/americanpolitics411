@@ -28,6 +28,13 @@ describe "People" do
       page.should have_content("Committees")
     end
   end
+  
+  describe "GET /subcommittees" do
+    it "displays a list of all subcommittees" do
+      visit subcommittees_index_path
+      page.should have_content("Subcommittees")
+    end
+  end
 end
 
 describe "Legislation" do
@@ -35,6 +42,21 @@ describe "Legislation" do
     it "displays a list of legislation" do
       visit legislation_index_path
       page.should have_content("Legislation")
+    end
+  end
+  
+  describe "GET /issues" do
+    it "displays a list of legislative issues" do
+      visit issues_index_path
+      page.should have_content("Issues")
+    end
+    
+    it "should show a single legislative issue" do
+      @issue = Issue.create(:name => "TEST Issue")
+      visit issues_index_path
+      click_link("TEST Issue")
+      page.should have_content("TEST Issue")
+      page.should have_content("List of bills which are about this issue")
     end
   end
   

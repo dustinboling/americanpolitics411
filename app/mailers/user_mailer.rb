@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "admin@americanpolitics411.com"
+  default from: "mailer@americanpolitics411.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -11,6 +11,6 @@ class UserMailer < ActionMailer::Base
     @url = "http://0.0.0.0:3000/password_resets/#{user.reset_password_token}/edit"
 
     mail(:to => user.email,
-         :subject => "Your password has been reset")
+         :subject => "Reset your password")
   end
 end
