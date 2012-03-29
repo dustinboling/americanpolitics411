@@ -27,3 +27,4 @@ bm-gsub.rb
 bm-udp.rb
 
 # ignore bundler_stubs
+/bundler_stubs
