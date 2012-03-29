@@ -31,6 +31,7 @@ gem 'rspec-rails', :group => [:test, :development]
 group :test, :development do
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'guard-rspec'
   gem 'faker'
 end
