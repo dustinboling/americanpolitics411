@@ -28,3 +28,7 @@ bm-udp.rb
 
 # ignore bundler_stubs
 /bundler_stubs
+
+# ignore swap files (vim)
+*.swo
+*.swp

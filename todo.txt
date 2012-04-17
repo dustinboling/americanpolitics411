@@ -1,0 +1,61 @@
+AP411 - ROADMAP
+
+#3 - Security analysis: [1. make sure .slugignore is working properly 2. testing for authentication 3. testing for authorization]
+#48 - remove unused json in controllers
+#49 - Remove unnecessary controllers
+#50 - Issue where flash messages pop up inappropriately: to reproduce: 1) edit a person's field, 2) update person 3) show person in another window 4) remove updated field 5) refresh show tab 6) flash message shows up in the show tab as well
+#51 - Split up legislation into types (H.R., H.CON.RES, etc)
+#52 - Grab CRS legislative summary from LOC thomas
+
+
+COMPLETED
+==============||==
+#2 - Implement CanCan authorization 
+#12 - verify remember_me tokens for sorcery
+#8 - make sure view is outputting the correct information
+#7 - make sure all names are person_id/organization_id, etc.
+#11 - password reset for sorcery - see sorcery-example-app
+#10 - flash message errors for cancan
+#31 - What happens when we destroy a university that is attached to a person? May need some validation on this. 
+#9 - Demographics charts-> see #30
+#6 - Implement autocomplete in person->edit
+#16 - better validations for editing person/user. (number fields, email.uniq, username.uniq)
+#24 - add conditional sql in view for person->business_associates->organization
+#17 - no_separator method::to_sentence(options={}) needs to go into a global helper class (no @person)
+#23 - when adding a new person, the flash message goes to the url. stop it.
+#32 - Break up name back into first, middle, last. Keep full_name, populate using a before_filter
+#43 - remove add articles from backend 
+#44 - remove videos
+#42 - Why does Emanuel Cleaver II's profile not load?
+#46 - write a regexp to strip congresspeople of I, II, III, IV, etc so we can match an entity in people controller#show
+#34 - legislation - fix parentheses problem on cosponsors, etc.
+#38 - FIX METHOD committee_exists/save_committee_assignment so that it always saves an assignment (might work now, so retry rake seed:committees)
+#33 - Request specs
+#1 - Add cron job for grabbing legislation URIs: make sure this works with heroku
+#40 - Mailer specs
+#41 - Helper specs
+#39 - Model specs
+#5 - Massive cleanup [1. remove json from controllers, 2. remove unnecessary views, 3. remove unnecessary gems]
+
+ON HOLD
+==============||==
+#18 - decide FOR SURE which columns must be unique, this MUST be set up before we allow final datas to be added.
+#21 - add autocomplete form to topnav which shows which person admin is currently on (if they are), which allows them to also jump to another person. then check for performance with a large dataset
+#19 - do we need a contact info model/database, for multiple sets of contact info per person (if, for example they have a washington address and a home-state address)
+*#25 - heroku->memcache + figure out Rack::cache (this will eventually cost $, but may be necessary)
+*#22 - set up gzip for assets (no longer automatically gzipped by heroku since celadon cedar)
+#14 - implement friendlyID (remove params_to implementation)
+#30 - Debug or implement new charts
+#37 - pie chart for legislation#show: cosponsors by party
+#35 - make sql queries faster. is it wise to store a ton of stuff on the person model? this will reduce most queries on person#show to one, but will make the queries on university slower. another option is to duplicate data so that a person has the names of the universities on their model, but a person_id is also stored in the university model. not DRY but perhaps the best way to get the sql queries under control.
+#36 - validations: (255) length on string fields - don't know what this means
+#47 - add organizations with earmarks rake task
+#15 - separate admin/public layouts (including css) *on hold until bootstrap 2.0 SASS is ready - ON HOLD UNTIL DESIGN IS DONE
+
+CANCELED
+==============||==
+#20 - add counts/title to each field builder in person->edit - (not needed)
+#27 - remove duplicates from legislation. there are modifiers at the end of the bills (ih, eh, etc.) need to find out which one we want then update REGEXP to remove the ones we don't want. 
+#26 - while legislation->make_list is running, server is basically useless (at least in dev mode). need to make decision on how heroku is going to handle this (worker dyno, background process, one-off admin process, etc.)
+#28 - Tests for CanCan authorization
+#45 - need a full history of actions for each bill (can't find this, although I thought it was somewhere) 

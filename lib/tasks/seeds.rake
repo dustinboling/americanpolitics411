@@ -1,24 +1,24 @@
 namespace :seed do  
-  
+
   require 'csv'
   require 'open-uri'
   require 'highline/import'
-  
+
   # all the keys
   @@nyt_api_key_2 = '4e8aa4d7b091d796aca565dbebf31404:9:65704848' # alan's
   @@nyt_api_key = 'b16efb69e13af05498fe536551a7bc67:15:65673083' # dustin's
   @@sunlight_api_key = '5cdbb43c42d84ef3b4bde09efa074648'
   @@open_secrets_api_key = '3c994a55a6b79f30f22b6b3942941f62'
-  
+
   # top level lists 
   @@house_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/house/members.xml?api-key=#{@@nyt_api_key}"
   @@senate_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/senate/members?api-key=#{@@nyt_api_key}"
-  
+
   desc "Add net worth to members of congress"
   task :net_worth => :environment do
     csv = "/Users/alan/sites/politics411/PFD/crp_data.csv"
     puts "Loading csv of net worths from #{csv}..."
-    
+
     CSV.foreach(csv) do |row|
       if Person.find_by_crp_id(row[0]).nil?
         puts "skipping #{row[1]}, not in database!"
@@ -35,13 +35,13 @@ namespace :seed do
       end
     end
   end
-  
+
   desc "Add earmarks to members of congress"
   task :earmarks => :environment do
     earmark_csv = "/Users/alan/sites/politics411/earmarks/earmark.csv"
     member_csv = "/Users/alan/sites/politics411/earmarks/member.csv"
     recipient_csv = "/Users/alan/sites/politics411/earmarks/recipient.csv"
-    
+
     puts "Loading earmarks from csv..."
     CSV.foreach(earmark_csv) do |row|
       @earmark = Earmark.new(
@@ -67,15 +67,15 @@ namespace :seed do
         :senate_members => row[19],
         :senate_parties => row[20],
         :senate_states => row[21]
-        )
-      
+      )
+
       if @earmark.save
         puts "Earmark #{row[0]} saved!"
       else
         puts "Earmark #{row[0]} failed to save!"
       end
     end
-    
+
     puts "Mapping members from csv to earmarks..."
     CSV.foreach(member_csv) do |row|
       if Person.find_by_crp_id(row[3]).blank?
@@ -84,7 +84,7 @@ namespace :seed do
         @person_id = Person.find_by_crp_id(row[3]).id
         @earmark = Earmark.find_by_csv_earmark_id(row[1])
         @earmark.person_id = @person_id
-        
+
         if @earmark.save
           puts "#{@person_id} mapped to earmark ##{row[1]}!"
         else
@@ -92,7 +92,7 @@ namespace :seed do
         end
       end
     end
-    
+
     puts "Mapping recipients from csv to earmarks..."
     CSV.foreach(recipient_csv) do |row|
       if Earmark.find_by_csv_earmark_id(row[1]).blank?
@@ -109,7 +109,7 @@ namespace :seed do
     end  
     puts "All done, success."    
   end
-  
+
   desc "Add assets to members of congress"
   task :assets => :environment do
     puts "Making a list of everyone in the database..."
@@ -118,33 +118,33 @@ namespace :seed do
     @people.each do |p|
       @crp_ids << p.crp_id
     end
-    
+
     csv = "/Users/alan/sites/politics411/PFD/PFDasset.txt"
     CSV.foreach(csv) do |row|
       @crp = row[2].gsub("|", "")
-      
+
     end
-    
+
     @crp_ids.each do |crp|
       if crp.blank?
         puts "Entry blank, skipping!"
       else
         @person = Person.find_by_crp_id(@crp)
-        
+
       end
     end
   end
-  
+
   desc "Populate database with House members"
   task :house => :environment do
     puts "Getting list of house members for 112th year of congress..."
     @doc = Nokogiri::XML(open(@@house_members))
     @house_members = @doc.xpath('//id')
-    
+
     puts "Creating profiles..."
     @house_members.map { |member| 
       @id = member.inner_text
-      
+
       if person_exists
         puts "skipping #{@id}"
       else
@@ -152,10 +152,10 @@ namespace :seed do
           @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@nyt_api_key}"))
         rescue Exception => e
           case e.message
-            when /504 Gateway Timeout/
-              puts "504 Gateway Timeout, retrying in 1..."
-              sleep 1
-              redo
+          when /504 Gateway Timeout/
+            puts "504 Gateway Timeout, retrying in 1..."
+            sleep 1
+            redo
           end
         end 
         if @person = Sunlight::Legislator.all_where(:bioguide_id => @id).first.blank?
@@ -173,43 +173,43 @@ namespace :seed do
           @fec_id = @person.fec_id
           @votesmart_id = @person.votesmart_id
         end
-        
+
         ch = "H"
         make_person(ch)
         save_legislative_office
-        
+
         puts "Added congressman #{@member_doc.xpath('//last_name').inner_text}" 
         sleep 1
       end
-      }
-      
-      puts "All done!"
+    }
 
-    end
-    
+    puts "All done!"
+
+  end
+
   desc "Get list of current members of senate"
   task :senate => :environment do
-  	puts "Getting list of current members of senate..."
-  	@doc = Nokogiri::XML(open(@@senate_members))
-  	@senate_members = @doc.xpath('//id')
+    puts "Getting list of current members of senate..."
+    @doc = Nokogiri::XML(open(@@senate_members))
+    @senate_members = @doc.xpath('//id')
 
-  	puts "Creating new senator profiles..."
-  	@senate_members.map { |member| 
-  		@id = member.inner_text
+    puts "Creating new senator profiles..."
+    @senate_members.map { |member| 
+      @id = member.inner_text
 
-  		if person_exists
+      if person_exists
         puts "skipping #{@id}"
       else
         begin
-    		  @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@nyt_api_key}"))
-    		rescue Exception => e
-    		  case e.message
-  		      when /504 Gateway Timeout/
-  		        puts "504 Gateway Timeout, retrying in 1..."
-  		        sleep 1
-  		        redo
-  		    end
-  		  end
+          @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@nyt_api_key}"))
+        rescue Exception => e
+          case e.message
+          when /504 Gateway Timeout/
+            puts "504 Gateway Timeout, retrying in 1..."
+            sleep 1
+            redo
+          end
+        end
         if @person = Sunlight::Legislator.all_where(:bioguide_id => @id).first.blank?
           # load empty parameters because we cant find them using the bioguide_id
           @phone = ""
@@ -225,28 +225,28 @@ namespace :seed do
           @fec_id = @person.fec_id
           @votesmart_id = @person.votesmart_id
         end
-          
-    		ch = "S"
-    		make_person(ch)
-    		save_legislative_office
-        
+
+        ch = "S"
+        make_person(ch)
+        save_legislative_office
+
         puts "Added senator #{@member_doc.xpath('//last_name').inner_text}"
         sleep 1
       end
-      }
+    }
 
-      puts "All done!"
+    puts "All done!"
 
-   end
-   
+  end
+
   desc "Do all of the committees & subcommittees (at once)"
   task :committees => [:main_committees, :subcommittees] do
     puts "All committees have been added to the database!"
   end
-  
+
   desc "Add all committees from the sunlightlabs API"
   task :main_committees => :environment do
-   
+
     puts "Populating committee arrays..."
     @senate_committees = Sunlight::Committee.all_for_chamber("Senate")
     sleep 1
@@ -254,67 +254,67 @@ namespace :seed do
     sleep 1
     @joint_committees = Sunlight::Committee.all_for_chamber("Joint")
     sleep 1
-    
+
     puts "Saving senate committees..."
     @senate_committees.map do |sc|
       sleep 1
       puts "Saving #{sc.name}..."
       @committee = Committee.new(:name => sc.name, :code => sc.id, :chamber => sc.chamber)
       @committee.save
-      
+
       sc.load_members
       sc.members.each do |member|
         puts "Mapping #{member.bioguide_id} to #{Committee.find_by_code(sc.id).name}!"
-        
+
         if Person.find_by_nyt_id(member.bioguide_id).id.nil?          
           puts "Member with the id #{member.bioguide_id} does not exist, skipping!"
-      	else
-      	  @assignment = CommitteeAssignment.new(
-      	      :person_id => Person.find_by_nyt_id(member.bioguide_id).id,
-      	      :committee_id => Committee.find_by_code(sc.id).id
-      	      )
-      	  @assignment.save
-      	end
-    	end                                                                                 
+        else
+          @assignment = CommitteeAssignment.new(
+            :person_id => Person.find_by_nyt_id(member.bioguide_id).id,
+            :committee_id => Committee.find_by_code(sc.id).id
+          )
+          @assignment.save
+        end
+      end                                                                                 
     end
-    
+
     puts "Saving house committees..."
     @house_committees.map do |hc|
       puts "Saving #{hc.name}..."
       @committee = Committee.new(:name => hc.name, :code => hc.id, :chamber => hc.chamber)
       @committee.save
-      
-      
+
+
       hc.load_members
       hc.members.each do |member|
         puts "Mapping #{member.bioguide_id} to #{Committee.find_by_code(hc.id).name}!"
         @assignment = CommitteeAssignment.new(
-    	      :person_id => Person.find_by_nyt_id(member.bioguide_id).id,
-    	      :committee_id => Committee.find_by_code(hc.id).id
-    	      )
-    	  @assignment.save
-    	end
+          :person_id => Person.find_by_nyt_id(member.bioguide_id).id,
+          :committee_id => Committee.find_by_code(hc.id).id
+        )
+        @assignment.save
+      end
     end
-    
+
     puts "Saving joint committees..."
     @joint_committees.map do |jc|
       puts "Saving #{jc.name}..."
       @committee = Committee.new(:name => jc.name, :code => jc.id, :chamber => jc.chamber)
       @committee.save      
-      
+
       jc.load_members
       jc.members.each do |member|
         puts "Mapping #{member.bioguide_id} to #{Committee.find_by_code(jc.id).name}!"
         @assignment = CommitteeAssignment.new(
-    	      :person_id => Person.find_by_nyt_id(member.bioguide_id).id,
-    	      :committee_id => Committee.find_by_code(jc.id).id
-    	      )
-    	  @assignment.save
-    	end
+          :person_id => Person.find_by_nyt_id(member.bioguide_id).id,
+          :committee_id => Committee.find_by_code(jc.id).id
+        )
+        @assignment.save
+      end
     end
     puts "All done!"
   end
-  
+
   desc "Add subcommittees to committees"
   task :subcommittees => :environment do
     puts "Populating committee arrays..."
@@ -324,7 +324,7 @@ namespace :seed do
     sleep 1
     @joint_committees = Sunlight::Committee.all_for_chamber("Joint")
     sleep 1
-    
+
     puts "Saving senate subcommittees..."
     @senate_committees.each do |committee|
       if committee.subcommittees.nil?
@@ -334,20 +334,20 @@ namespace :seed do
           puts "Saving #{sub.name}..."
           @subcommittee = Subcommittee.new(:name => sub.name, :code => sub.id, :chamber => sub.chamber, :committee_id => Committee.find_by_code(committee.id).id)
           @subcommittee.save
-          
+
           sub.load_members
           sub.members.each do |sm|
             puts "Mapping #{sm.bioguide_id} to #{sub.name}..."
             @subcommittee_assignment = SubcommitteeAssignment.new(
-                :person_id => Person.find_by_nyt_id(sm.bioguide_id).id,
-                :subcommittee_id => Subcommittee.find_by_code(sub.id).id
-                )
+              :person_id => Person.find_by_nyt_id(sm.bioguide_id).id,
+              :subcommittee_id => Subcommittee.find_by_code(sub.id).id
+            )
             @subcommittee_assignment.save
           end
         end
       end
     end
-    
+
     puts "Saving house subcommittees..."
     @house_committees.each do |committee|
       if committee.subcommittees.nil?
@@ -362,15 +362,15 @@ namespace :seed do
           sub.members.each do |sm|
             puts "Mapping #{sm.bioguide_id} to #{sub.name}..."
             @subcommittee_assignment = SubcommitteeAssignment.new(
-                :person_id => Person.find_by_nyt_id(sm.bioguide_id).id,
-                :subcommittee_id => Subcommittee.find_by_code(sub.id).id
-                )
+              :person_id => Person.find_by_nyt_id(sm.bioguide_id).id,
+              :subcommittee_id => Subcommittee.find_by_code(sub.id).id
+            )
             @subcommittee_assignment.save
           end
         end
       end
     end
-      
+
     puts "Saving joint subcommittees..."
     @joint_committees.each do |committee|
       if committee.subcommittees.nil?
@@ -385,9 +385,9 @@ namespace :seed do
           sub.members.each do |sm|
             puts "Mapping #{sm.bioguide_id} to #{sub.name}..."
             @subcommittee_assignment = SubcommitteeAssignment.new(
-                :person_id => Person.find_by_nyt_id(sm.bioguide_id).id,
-                :subcommittee_id => Subcommittee.find_by_code(sub.id).id
-                )
+              :person_id => Person.find_by_nyt_id(sm.bioguide_id).id,
+              :subcommittee_id => Subcommittee.find_by_code(sub.id).id
+            )
             @subcommittee_assignment.save
           end
         end
@@ -395,119 +395,158 @@ namespace :seed do
     end
     puts "Success!"
   end
-  
+
+  desc "Add CRS legislative summaries * Must be loaded AFTER seed:legislation is run all the way through"
+  task :legislative_summaries => :environment do
+    @legislation = Legislation.all
+
+    @legislation.each do |l|
+      year = l.congress_year
+      full_bill_number = l.bill_number
+
+      type = full_bill_number.gsub(/[0-9.]+/, '')
+      number = full_bill_number.gsub(/\D+/, '')
+      loc_number = to_loc(number)
+      loc_query_number = type + loc_number
+
+      # construct the url
+      base_url = "http://thomas.loc.gov/cgi-bin/bdquery/z?d"
+      query = base_url + year + ":" + loc_query_number + ":@@@D&summ2=m&"
+
+      @doc = Nokogiri::HTML(open(query))
+      summary_paragraphs = @doc.xpath('//html/body/div/div[3]/p')
+      paragraph_count = summary_paragraphs.count
+
+      if @doc.xpath('//html/body/div/div[3]/p[2]').inner_text.blank? 
+        i = 3
+        pary = []
+        while i <= paragraph_count do
+          p = @doc.xpath("//html/body/div/div[3]/p[#{i}]")
+          pary << p
+          i = i + 1
+        end
+        # this is where we do the db: commit pary -> Legislation.summary
+        # then we need to log it so we can grep to match against the database
+      else
+        # write a default summary message
+        summary = "No summary available for this legislation"
+        # log it
+      end
+    end
+  end
+
   desc "Add all legislation attached to current members"
   task :legislation => :environment do
     make_join_with_prompt
     puts "Traversing legislation tree by congress member..."
-    
+
     @congress_members.each do |member| 
       @id = member.inner_text
       @member = Person.find_by_nyt_id(@id)
       @member_chamber = @member.chamber
       puts "==||===================================================="
       puts "Updating legislation for legislator with the id #{@id}..."
-      
+
       begin
         sleep 1
         @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}/bills/introduced.xml?api-key=#{@@nyt_api_key}"))
       rescue Exception => e
         case e.message
-          when /403 Developer Over Rate/
-            puts "over rate for the day!"
-            exit
-          when /504 Gateway Timeout/
-            puts "504 Gateway Timeout, retrying in 1..."
-            sleep 1
-            redo
+        when /403 Developer Over Rate/
+          puts "over rate for the day!"
+          exit
+        when /504 Gateway Timeout/
+          puts "504 Gateway Timeout, retrying in 1..."
+          sleep 1
+          redo
         end
       end
-        
+
       sleep 2
       @bills = @member_doc.xpath('//results/bills/bill/number')
       number_bills = @bills.count 
-      
+
       i = 1
       while i <= number_bills
         @bill_number = @member_doc.xpath("//results/bills/bill[#{i}]/number")
         @bill_number_stripped = @bill_number.inner_text.gsub(/[.]/, "").downcase
-        
+
         begin
           sleep 1
           @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}.xml?api-key=#{@@nyt_api_key_2}"))
         rescue Exception => e
           case e.message
-            when /404 Not Found/
-              sleep 1
-              puts "Can't find this bill for the current year of congress, going back in time!"
-              begin                
-                @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/#{@bill_number_stripped}.xml?api-key=#{@@nyt_api_key}"))
-              rescue Exception => e
-                case e.message
-                  when /504 Gateway Timeout/
-                    puts "504 Gateway Timeout, retrying in 1..."
-                    sleep 1
-                    redo
-                end
-              end                
-            when /504 Gateway Timeout/
-              puts "504 Gateway Timeout, Retrying in 1..."
-              sleep 1
-              redo
-            when /403 Developer Over Rate/
-              puts "over rate for the day!"
-              exit
+          when /404 Not Found/
+            sleep 1
+            puts "Can't find this bill for the current year of congress, going back in time!"
+            begin                
+              @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/#{@bill_number_stripped}.xml?api-key=#{@@nyt_api_key}"))
+            rescue Exception => e
+              case e.message
+              when /504 Gateway Timeout/
+                puts "504 Gateway Timeout, retrying in 1..."
+                sleep 1
+                redo
+              end
+            end                
+          when /504 Gateway Timeout/
+            puts "504 Gateway Timeout, Retrying in 1..."
+            sleep 1
+            redo
+          when /403 Developer Over Rate/
+            puts "over rate for the day!"
+            exit
           end
         end
-        
+
         begin
           sleep 1
           @bill_cosponsors_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/cosponsors.xml?api-key=#{@@nyt_api_key}"))
         rescue Exception => e
           case e.message
-            when /504 Gateway Timeout/
-              puts "504 Gateway Timeout, Retrying in 1..."
-              sleep 1
-              redo
-            when /403 Developer Over Rate/
-              puts "over rate for the day!"
-              exit
+          when /504 Gateway Timeout/
+            puts "504 Gateway Timeout, Retrying in 1..."
+            sleep 1
+            redo
+          when /403 Developer Over Rate/
+            puts "over rate for the day!"
+            exit
           end
         end
-        
+
         begin
           sleep 1
           @bill_subjects_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/subjects.xml?api-key=#{@@nyt_api_key_2}"))
         rescue Exception => e
           case e.message
-            when /504 Gateway Timeout/
-              puts "504 Gateway Timeout, retrying in 1..."
-              sleep 1
-              redo
-            when /403 Developer Over Rate/
-              puts "over rate for the day!"
-              exit
+          when /504 Gateway Timeout/
+            puts "504 Gateway Timeout, retrying in 1..."
+            sleep 1
+            redo
+          when /403 Developer Over Rate/
+            puts "over rate for the day!"
+            exit
           end
         end
-                      
+
         @bill_sponsor_id = @member_doc.xpath("//results/id").inner_text
         @bill_title = @member_doc.xpath("//results/bills/bill[#{i}]/title").inner_text
         @bill_introduced_date = @member_doc.xpath("//results/bills/bill[#{i}]/introduced_date").inner_text
         @bill_committees = @member_doc.xpath("//results/bills/bill[#{i}]/committees").inner_text
         @committees = @bill_committees.split("; ")
-        
+
         @congress_year = @bill_doc.xpath("/result_set/results/congress").inner_text
         @bill_sponsor = @bill_doc.xpath("//results/sponsor").inner_text
         @bill_pdf_url = @bill_doc.xpath("//results/gpo_pdf_uri").inner_text
         @bill_latest_action = @bill_doc.xpath("//results/latest_major_action").inner_text
         @bill_latest_action_date = @bill_doc.xpath("//results/latest_major_action_date").inner_text
-        
+
         @bill_subjects = @bill_subjects_doc.xpath("//results/subjects/subject/name")
-        
+
         @bill_cosponsors = @bill_cosponsors_doc.xpath('//results/cosponsors[2]/cosponsor/cosponsor_id')
         @bill_democratic_cosponsors = @bill_cosponsors_doc.xpath('/result_set/results/cosponsors_by_party/party[@id = "D"]').inner_text
         @bill_republican_cosponsors = @bill_cosponsors_doc.xpath('/result_set/results/cosponsors_by_party/party[@id = "R"]').inner_text
-        
+
         puts "Checking if #{@bill_number.inner_text} exists"        
         if bill_exists
           puts "Skipping bill number #{@bill_number.inner_text}, already exists!"
@@ -516,7 +555,7 @@ namespace :seed do
           # update_legislation_issues
           # update_bill_cosponsors
           # update_related_bills
-          
+
           sleep 2
           i += 1
         else
@@ -529,7 +568,7 @@ namespace :seed do
           save_legislation_issues
           puts "Saving cosponsors for #{@bill_number.inner_text}..."
           save_bill_cosponsors
-          
+
           sleep 2
           i += 1
         end
@@ -537,26 +576,26 @@ namespace :seed do
     end
     puts "Successfully added legislation for #{@congress_members.inner_text}!!!"
   end
-  
+
   def make_bill
     @legislation = Legislation.new(
-        :bill_number => @bill_number.inner_text,
-        :bill_title => @bill_title,
-        :introduced_date => @bill_introduced_date,
-        :latest_major_action_date => @bill_latest_action_date,
-        :latest_major_action => @bill_latest_action, 
-        :bill_sponsor => @bill_sponsor,
-        :bill_sponsor_id => @bill_sponsor_id,
-        :bill_pdf => @bill_pdf_url,
-        :congress_year => @congress_year,
-        :democratic_cosponsors => @bill_democratic_cosponsors,
-        :republican_cosponsors => @bill_republican_cosponsors
-        )    
+      :bill_number => @bill_number.inner_text,
+      :bill_title => @bill_title,
+      :introduced_date => @bill_introduced_date,
+      :latest_major_action_date => @bill_latest_action_date,
+      :latest_major_action => @bill_latest_action, 
+      :bill_sponsor => @bill_sponsor,
+      :bill_sponsor_id => @bill_sponsor_id,
+      :bill_pdf => @bill_pdf_url,
+      :congress_year => @congress_year,
+      :democratic_cosponsors => @bill_democratic_cosponsors,
+      :republican_cosponsors => @bill_republican_cosponsors
+    )    
     if @legislation.save
       puts "#{@bill_number.inner_text} saved!"
     end
   end
-  
+
   def save_bill_committees
     @committees.map do |committee| 
       if Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").empty?
@@ -564,48 +603,48 @@ namespace :seed do
         @committee = Committee.new(:name => committee, :chamber => "")
         @committee.save
         @committee_legislation = CommitteeLegislation.new(
-            :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
-            :committee_id => Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "").gsub(/\bJoint\b/, "")}").first.id,
-            :year => "112"
-            )
+          :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
+          :committee_id => Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "").gsub(/\bJoint\b/, "")}").first.id,
+          :year => "112"
+        )
       else
         @committee = Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").first
         @committee_legislation = CommitteeLegislation.new(
-            :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
-            :committee_id => Committee.where("name like ? AND chamber like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "").gsub(/\bJoint\b/, "")}", "#{@committee.chamber}").first.id,
-            :year => "112"
-            )
+          :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
+          :committee_id => Committee.where("name like ? AND chamber like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "").gsub(/\bJoint\b/, "")}", "#{@committee.chamber}").first.id,
+          :year => "112"
+        )
       end
       if @committee_legislation.save
         puts "#{committee} mapped to #{@bill_number.inner_text}"
       end
     end
   end
-  
+
   def save_legislation_issues
     if @bill_subjects.count > 0
       @bill_subjects.map do |subject|
         puts "Mapping #{subject.inner_text} to #{@bill_number.inner_text}..."
         @issue = Issue.find_or_create_by_name(subject.inner_text)
         @issue_legislation = LegislationIssue.new(
-           :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
-           :issue_id => Issue.find_by_name(subject.inner_text).id,
-           :year => @congress_year
-         )
+          :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id,
+          :issue_id => Issue.find_by_name(subject.inner_text).id,
+          :year => @congress_year
+        )
         if @issue_legislation.save
           puts "#{subject.inner_text} mapped to legislation: #{@bill_number.inner_text}"
         end
       end
     end
   end
-  
+
   def save_bill_cosponsors
     if @bill_cosponsors.count > 0
       @bill_cosponsors.each do |cosponsor_id|
         @legislation_cosponsor = LegislationCosponsor.new(
-            :person_id => Person.find_by_nyt_id(cosponsor_id.inner_text).id,
-            :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id
-            )
+          :person_id => Person.find_by_nyt_id(cosponsor_id.inner_text).id,
+          :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id
+        )
         if @legislation_cosponsor.save
           puts "#{cosponsor_id.inner_text} mapped to #{Legislation.find_by_bill_number(@bill_number.inner_text).bill_number}"
         end
@@ -615,46 +654,46 @@ namespace :seed do
     end
     puts "#{Legislation.find_by_bill_number(@bill_number.inner_text).bill_number} saved!!!!!!!!!!!!!!!!"
   end
-  
+
   def save_committee_assignment
     @committee_assignment = CommitteeAssignment.new(
-        :person_id => Person.find_by_nyt_id(@id).id,
-        :committee_id => Committee.find_by_code(@code).id,
-        :year => "112" 
-        )
+      :person_id => Person.find_by_nyt_id(@id).id,
+      :committee_id => Committee.find_by_code(@code).id,
+      :year => "112" 
+    )
     @committee_assignment.save
   end
-  
+
   def make_person(ch)
     @chamber = ch
     @person = Person.new(
-        :first_name => @member_doc.xpath('//first_name').inner_text, 
-        :middle_name => @member_doc.xpath('//middle_name').inner_text,
-        :last_name => @member_doc.xpath('//last_name').inner_text,
-        :date_of_birth => @member_doc.xpath('//date_of_birth').inner_text,
-        :gender => @member_doc.xpath('//gender').inner_text,
-        :contact_web_page_url => @member_doc.xpath('//url').inner_text,
-        :times_topics_url => @member_doc.xpath('//times_topics_url').inner_text,
-        :govtrack_id => @member_doc.xpath('//govtrack_id').inner_text,
-        :cspan_id => @member_doc.xpath('//cspan_id').inner_text,
-        :icpsr_id => @member_doc.xpath('//icpsr_id').inner_text,
-        :twitter_id => @member_doc.xpath('//twitter_id').inner_text,
-        :youtube_id => @member_doc.xpath('//youtube_id').inner_text,
-        :current_party => @member_doc.xpath('//current_party').inner_text,
-        :chamber => @chamber, 
-        :contact_phone => @phone,
-        :contact_email => @email,
-        :nyt_id => @id,
-        :fec_id => @fec_id,
-        :crp_id => @crp_id,
-        :votesmart_id => @votesmart_id    
-        )
+      :first_name => @member_doc.xpath('//first_name').inner_text, 
+      :middle_name => @member_doc.xpath('//middle_name').inner_text,
+      :last_name => @member_doc.xpath('//last_name').inner_text,
+      :date_of_birth => @member_doc.xpath('//date_of_birth').inner_text,
+      :gender => @member_doc.xpath('//gender').inner_text,
+      :contact_web_page_url => @member_doc.xpath('//url').inner_text,
+      :times_topics_url => @member_doc.xpath('//times_topics_url').inner_text,
+      :govtrack_id => @member_doc.xpath('//govtrack_id').inner_text,
+      :cspan_id => @member_doc.xpath('//cspan_id').inner_text,
+      :icpsr_id => @member_doc.xpath('//icpsr_id').inner_text,
+      :twitter_id => @member_doc.xpath('//twitter_id').inner_text,
+      :youtube_id => @member_doc.xpath('//youtube_id').inner_text,
+      :current_party => @member_doc.xpath('//current_party').inner_text,
+      :chamber => @chamber, 
+      :contact_phone => @phone,
+      :contact_email => @email,
+      :nyt_id => @id,
+      :fec_id => @fec_id,
+      :crp_id => @crp_id,
+      :votesmart_id => @votesmart_id    
+    )
     @person.save
   end
-  
+
   def save_legislative_office
     roles_count = @member_doc.xpath('//result_set/results/member/roles/role').count
-    
+
     i = 1
     while i <= roles_count
       @congress_year = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/congress").inner_text
@@ -670,7 +709,7 @@ namespace :seed do
       @missed_votes_pct = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/missed_votes_pct").inner_text
       @votes_with_party_pct = @member_doc.xpath("//result_set/results/member/roles/role[#{i}]/votes_with_party_pct").inner_text
       @id = @member_doc.xpath("/result_set/results/member/id").inner_text
-      
+
       @office = LegislativeOffice.new(
         :person_id => Person.find_by_nyt_id(@id).id,
         :congress_year => @congress_year,
@@ -685,7 +724,7 @@ namespace :seed do
         :bills_cosponsored => @bills_cosponsored,
         :missed_votes_pct => @missed_votes_pct,
         :votes_with_party_pct => @votes_with_party_pct 
-        )
+      )
       if @office.save
         puts "Role ##{i} saved for #{@id}!"
         i += 1
@@ -704,7 +743,7 @@ namespace :seed do
     @congress_part_5 = @congress_members[401..500]
     @congress_part_6 = @congress_members[501..600]
     last_line = `tail -n 1 /users/alan/sites/politics411/last_part.txt`
-    
+
     choose do |menu|
       menu.prompt = "Please choose from one of the following, you\n 
       can only run one per day or it will fail part of the way\n 
@@ -736,16 +775,16 @@ namespace :seed do
       end
     end
   end
-  
+
   def write_last_run(part)
     File.open('/users/alan/sites/politics411/last_part.txt', 'a') { |f| f.write("#{part}\n") }
   end
-  
+
   def make_join
     puts "Making list of senators..."
     @senate_doc = Nokogiri::XML(open(@@senate_members))
-  	@senate_members = @senate_doc.xpath('//id')
-  	sleep 1
+    @senate_members = @senate_doc.xpath('//id')
+    sleep 1
 
     puts "Making list of congresspeople..."
     @house_doc = Nokogiri::XML(open(@@house_members))
@@ -755,7 +794,7 @@ namespace :seed do
     puts "Joining list..."
     @congress_members = @house_members + @senate_members
   end
-  
+
   def issue_exists
     if Issue.find_by_name("#{issue}").nil?
       false
@@ -763,7 +802,7 @@ namespace :seed do
       true
     end
   end
-  
+
   def bill_exists
     if Legislation.find_by_bill_number("#{@bill_number.inner_text}").nil?
       false
@@ -771,7 +810,7 @@ namespace :seed do
       true
     end
   end
-  
+
   def committee_exists
     if Committee.find_by_name("#{@name}").nil?
       false
@@ -779,7 +818,7 @@ namespace :seed do
       true
     end
   end
-  
+
   def find_or_create_committee
     if Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}").nil?
       @committee = Committee.new(:name => committee)
@@ -788,7 +827,7 @@ namespace :seed do
       Committee.where("name like ?", "%#{committee.gsub(/\bHouse\b/, "").gsub(/\bSenate\b/, "")}")
     end
   end
-  
+
   def committee_assignment_exists
     if CommitteeAssignment.where
       false
@@ -804,5 +843,23 @@ namespace :seed do
       true
     end
   end
-  
+
+  def to_loc(number)
+    case number.length
+    when 1
+      pre = "0000"
+      number = pre + number
+    when 2
+      pre = "000"
+      number = pre + number
+    when 3
+      pre = "00"
+      number = pre + number
+    when 4
+      pre = "0"
+      number = pre + number
+    when 5
+      number
+    end
+  end
 end
