@@ -9,7 +9,7 @@
 			</tr>
 			<% @legislations.each do |legislation| %>
 			<tr>
-				<td class="span3"><%= link_to legislation.bill_number, {:controller => 'legislation', :action => 'show', :bill_number => legislation.bill_number } %></td>
+        <td class="span3"><%= link_to "#{legislation.bill_number}", legislation %></td>
 				<td><%= legislation.bill_title %></td>
 				<% if can? :edit, Legislation %>
 					<td><%= link_to "Edit", edit_legislation_path(legislation), :class => 'btn small success' %></td>

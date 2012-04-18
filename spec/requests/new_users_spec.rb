@@ -3,8 +3,8 @@ require 'spec_helper'
 describe "NewUsers" do
   describe "POST users/new" do
     before :each do
-      @superadmin = Factory(:user, :roles_mask => 2)
-      @user = Factory(:user)
+      @superadmin = FactoryGirl.create(:user, :roles_mask => 2)
+      @user = FactoryGirl.create(:user)
       
       visit login_path
       fill_in "Username", :with => @superadmin.username

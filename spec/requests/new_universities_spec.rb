@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "NewUniversities" do
   describe "POST universities/new" do
     before :each do
-      @user = Factory(:user, :roles_mask => 1)
+      @user = FactoryGirl.create(:user, :roles_mask => 1)
     end
     
     it "should make a new university :as => admin" do

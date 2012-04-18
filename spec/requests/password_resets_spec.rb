@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "PasswordResets" do
   it "should email a user when they request to have their password reset" do
-    user = Factory(:user)
+    user = FactoryGirl.create(:user)
     reset_email
     visit login_path
     fill_in "Email", :with => user.email

@@ -2,7 +2,7 @@
 	<h1><%= @legislation.bill_number %></h1>
 	<p>
 		<b>Summary:</b>
-		<%= @legislation.summary %>
+    <%= remove_hyphens(@legislation.summary).html_safe %>
 	</p>
 	
 	<p>

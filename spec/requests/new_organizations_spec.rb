@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "NewOrganization" do
   describe "POST organizations/new" do
     it "should create a new organization" do
-      @user = Factory(:user, :roles_mask => 1)
+      @user = FactoryGirl.create(:user, :roles_mask => 1)
       
       visit login_path
       fill_in "Username", :with => @user.username

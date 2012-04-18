@@ -399,38 +399,55 @@ namespace :seed do
   desc "Add CRS legislative summaries * Must be loaded AFTER seed:legislation is run all the way through"
   task :legislative_summaries => :environment do
     @legislation = Legislation.all
+    @ls_log_path = "#{Dir.pwd}/lib/tasks/logs/legislative_summaries.txt"
 
-    @legislation.each do |l|
-      year = l.congress_year
-      full_bill_number = l.bill_number
+    print "Adding legislative summaries:"
 
-      type = full_bill_number.gsub(/[0-9.]+/, '')
-      number = full_bill_number.gsub(/\D+/, '')
-      loc_number = to_loc(number)
-      loc_query_number = type + loc_number
+    @legislation.map do |l|
+      make_thomas_url(l)
 
-      # construct the url
-      base_url = "http://thomas.loc.gov/cgi-bin/bdquery/z?d"
-      query = base_url + year + ":" + loc_query_number + ":@@@D&summ2=m&"
-
-      @doc = Nokogiri::HTML(open(query))
-      summary_paragraphs = @doc.xpath('//html/body/div/div[3]/p')
+      doc = Nokogiri::HTML(open(@query))
+      summary_paragraphs = doc.xpath('//html/body/div/div[3]/p')
       paragraph_count = summary_paragraphs.count
 
-      if @doc.xpath('//html/body/div/div[3]/p[2]').inner_text.blank? 
+      if doc.xpath('//html/body/div/div[3]/p[2]').inner_text.blank? 
         i = 3
         pary = []
         while i <= paragraph_count do
-          p = @doc.xpath("//html/body/div/div[3]/p[#{i}]")
-          pary << p
-          i = i + 1
+          current_paragraph = doc.xpath("//html/body/div/div[3]/p[#{i}]").inner_text
+
+          # skip empty tags
+          if current_paragraph.blank?
+            i = i + 1
+          else
+            pp = "<p>" + current_paragraph + "</p>"
+            p = pp.gsub(/-/, "").gsub(/\n/, "")
+            pary << p
+            i = i + 1
+          end
         end
-        # this is where we do the db: commit pary -> Legislation.summary
-        # then we need to log it so we can grep to match against the database
+
+        # write to database
+        l.summary = pary
+        l.save
+
+        # log pass
+        log = File.open(@ls_log_path, 'a')
+        log.write("#{Time.now.strftime("%I:%M:%S")} #{Time.now.to_date}, #{l.bill_number}, #{paragraph_count}, pass\n")
+        log.close
+
+        print "."
       else
-        # write a default summary message
-        summary = "No summary available for this legislation"
-        # log it
+        # write default message to database
+        l.summary = "No summary available for this legislation"
+        l.save
+
+        # log fail
+        log = File.open(@ls_log_path, 'a')
+        log.write("#{Time.now.strftime("%I:%M:%S")} #{Time.now.to_date}, #{l.bill_number}, #{paragraph_count}, fail\n")
+        log.close 
+
+        print "x"
       end
     end
   end
@@ -774,6 +791,22 @@ namespace :seed do
         write_last_run("congress_part_six")
       end
     end
+  end
+
+  def make_thomas_url(legislation)
+    # input from collection
+    year = legislation.congress_year
+    full_bill_number = legislation.bill_number
+
+    # perform text manipulation
+    type = full_bill_number.gsub(/[0-9.]+/, '')
+    number = full_bill_number.gsub(/\D+/, '')
+    loc_number = to_loc(number)
+    loc_query_number = type + loc_number
+
+    # construct the url
+    base_url = "http://thomas.loc.gov/cgi-bin/bdquery/z?d"
+    @query = base_url + year + ":" + loc_query_number + ":@@@D&summ2=m&"
   end
 
   def write_last_run(part)

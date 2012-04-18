@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "EditLegislation" do
   before :each do
-    @user = Factory(:user, :roles_mask => 1)
+    @user = FactoryGirl.create(:user, :roles_mask => 1)
     @legislation = Legislation.new(:bill_number => "TEST BILL NUMBER")
     @legislation.save
     

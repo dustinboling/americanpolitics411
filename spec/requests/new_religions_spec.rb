@@ -4,7 +4,7 @@ describe "NewReligion" do
   describe "POST religion/new" do
     
     before :each do 
-      @user = Factory(:user, :roles_mask => 1)
+      @user = FactoryGirl.create(:user, :roles_mask => 1)
       
       visit login_path
       fill_in "Username", :with => @user.username

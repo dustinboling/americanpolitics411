@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Login" do
   
   before :each do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
   end
   
   describe "User LOGIN" do

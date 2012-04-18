@@ -52,7 +52,7 @@ describe "topbar" do
   
   describe "GET topbar as admin" do
     before :each do 
-      @user = Factory(:user, :roles_mask => 1)
+      @user = FactoryGirl.create(:user, :roles_mask => 1)
       
       visit login_path
       fill_in "Username", :with => @user.username
@@ -103,7 +103,7 @@ describe "topbar" do
   
   describe "GET topbar as superadmin" do
     before :each do 
-      @user = Factory(:user, :roles_mask => 2)
+      @user = FactoryGirl.create(:user, :roles_mask => 2)
       
       visit login_path
       fill_in "Username", :with => @user.username
