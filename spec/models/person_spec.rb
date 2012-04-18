@@ -3,16 +3,16 @@ require 'spec_helper'
 describe Person do
   
   it "should have a valid factory" do
-    Factory(:person).should be_valid
+    FactoryGirl.create(:person).should be_valid
   end
   
   # validations
   it "should require a first name" do
-    Factory.build(:person, :first_name => "").should_not be_valid
+    FactoryGirl.build(:person, :first_name => "").should_not be_valid
   end
   
   it "should require a last name" do
-    Factory.build(:person, :last_name => "").should_not be_valid
+    FactoryGirl.build(:person, :last_name => "").should_not be_valid
   end
   
   # associations
@@ -119,8 +119,8 @@ describe Person do
   # methods
   describe "remove_name_numericality" do
     it "should remove the numbers people have to indicate what generation they are" do
-      @p1 = Factory(:person, :first_name => "Emanuel", :last_name => "Cleaver II")
-      @p2 = Factory(:person, :first_name => "Emanuel", :last_name => "Cleaver III")
+      @p1 = FactoryGirl.create(:person, :first_name => "Emanuel", :last_name => "Cleaver II")
+      @p2 = FactoryGirl.create(:person, :first_name => "Emanuel", :last_name => "Cleaver III")
       
       @p1.remove_name_numericality.should eq("Emanuel Cleaver")
       @p2.remove_name_numericality.should eq("Emanuel Cleaver")
@@ -129,7 +129,7 @@ describe Person do
   
   describe "set_name" do
     it "should set a persons name field on save" do
-      @p = Factory(:person)
+      @p = FactoryGirl.create(:person)
       @p.save
       
       @p.name.should eq("#{@p.first_name} #{@p.last_name}")
@@ -138,7 +138,7 @@ describe Person do
   
   describe "set_slug" do
     it "should set a person's slug on save" do
-      @p = Factory(:person)
+      @p = FactoryGirl.create(:person)
       @p.save
       
       @p.slug.should eq("#{@p.id}-#{@p.first_name}-#{@p.last_name}")

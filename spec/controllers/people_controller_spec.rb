@@ -47,7 +47,7 @@ describe PeopleController do
   
   describe "GET /show" do
     it "returns http success" do
-      p = Factory(:person)
+      p = FactoryGirl.create(:person)
       get :show, :id => p.id
       response.should be_success
     end
@@ -55,7 +55,7 @@ describe PeopleController do
   
   describe "GET /pac_contributors" do
     before :each do   
-      @p = Factory(:person, :first_name => "Ron", :last_name => "Paul")
+      @p = FactoryGirl.create(:person, :first_name => "Ron", :last_name => "Paul")
     end
     
     it "returns http success" do
@@ -71,7 +71,7 @@ describe PeopleController do
   
   describe "GET /indiv_contributors" do
     before :each do
-      @p = Factory(:person, :first_name => "Ron", :last_name => "Paul")
+      @p = FactoryGirl.create(:person, :first_name => "Ron", :last_name => "Paul")
     end
     
     it "returns http success" do
@@ -109,7 +109,7 @@ describe PeopleController do
   
   describe "GET /edit" do
     it "should redirect to root_url" do
-      p  = Factory(:person)
+      p  = FactoryGirl.create(:person)
       get :edit, :id => p.id
       response.should redirect_to(root_url)
     end
@@ -117,7 +117,7 @@ describe PeopleController do
   
   describe "GET /new" do
     it "should redirect to root_url" do
-      p = Factory(:person)
+      p = FactoryGirl.create(:person)
       get :new, :id => p.id
       response.should redirect_to(root_url)
     end
@@ -126,7 +126,7 @@ describe PeopleController do
   # testing show controller for api functionality
   describe "GET /show, with person in TransparencyData database" do
     before :each do
-      @p = Factory(:person, :first_name => "Ron", :last_name => "Paul", :name => "Ron Paul")
+      @p = FactoryGirl.create(:person, :first_name => "Ron", :last_name => "Paul", :name => "Ron Paul")
     end
     
     it "should return a list of pac contributors" do
@@ -139,7 +139,7 @@ describe PeopleController do
   
   describe "GET /show, with person NOT in TransparencyData database" do
     before :each do
-      @p = Factory(:person, :first_name => "NOT", :last_name => "IN DATABASE", :name => "adobdoibdaoibadio")
+      @p = FactoryGirl.create(:person, :first_name => "NOT", :last_name => "IN DATABASE", :name => "adobdoibdaoibadio")
     end
     
     it "should not return a list of pac contributors" do
