@@ -6,52 +6,52 @@
         <li class="active">
           <%= link_to 'Home', root_url %>
         </li>
-				<li><%= link_to('Legislation', {:controller => 'legislation', :action => 'index' }) %></li>
-				<li class="dropdown">
-					<a href="/" class="dropdown-toggle">Congress</a>
-					<ul class="dropdown-menu">
-						<li><%= link_to "Senators", people_senators_path %></li>
-						<li><%= link_to "Representatives", people_representatives_path %></li>
-						<li class="divider"></li>
-						<li><%= link_to "Committees", committees_index_path %></li>
-						<li><%= link_to "Subcommittees", subcommittees_index_path %></li>
-					</ul>
-				</li>
-				<% if can? :edit, Person %>
+        <li><%= link_to('Legislation', {:controller => 'legislation', :action => 'index' }) %></li>
         <li class="dropdown">
-          <a href="/" class="dropdown-toggle">Add</a>
+          <a href="/" class="dropdown-toggle">Congress</a>
           <ul class="dropdown-menu">
-            <li><%= link_to('Add Organization', { :controller => 'organizations', :action => 'new' }) %></li>
-            <li><%= link_to('Add University', { :controller => 'universities', :action => 'new' }) %></li>
-            <li><%= link_to('Add Religion', { :controller => 'religions', :action => 'new' }) %></li>
-						<li class="divider"></li>
-						<li><%= link_to 'Create New Person', new_person_path %></li>
+            <li><%= link_to "Senators", people_senators_path %></li>
+            <li><%= link_to "Representatives", people_representatives_path %></li>
+            <li class="divider"></li>
+            <li><%= link_to "Committees", committees_index_path %></li>
+            <li><%= link_to "Subcommittees", subcommittees_index_path %></li>
           </ul>
-        </li><% end %><% if can? :edit, Person %>
-				<li class="dropdown">
-          <a href="/" class="dropdown-toggle">Manage</a>
-          <ul class="dropdown-menu">
-						<li><%= link_to('Legislation', { :controller => 'legislation', :action => 'index' }) %>
-            <li><%= link_to('Organizations', { :controller => 'organizations', :action => 'index' }) %></li>
-            <li><%= link_to('Universities', { :controller => 'universities', :action => 'index' }) %></li>
-            <li><%= link_to('Religions', { :controller => 'religions', :action => 'index' }) %></li>
-          </ul>
-				</li><% end %><% if can? :manage, :all %>
-        <li class="dropdown">
-          <a href="/" class="dropdown-toggle">Users</a>
-          <ul class="dropdown-menu">
-            <li>
-							<%= link_to "Manage Users", users_path %>
-            </li>
-            <li>
-              <%= link_to "Create New User", signup_path %>
-            </li>
-          </ul>
-        </li><% end %>
-      </ul>
-      <p class="user-nav pull-right">
-        <% if current_user %> Logged in as <%= current_user.username %> <%= link_to "log out", logout_path %> <% else %> <%= link_to "log in", login_path %> <% end %>
-      </p>
+        </li>
+        <% if can? :edit, Person %>
+          <li class="dropdown">
+            <a href="/" class="dropdown-toggle">Add</a>
+            <ul class="dropdown-menu">
+              <li><%= link_to('Add Organization', { :controller => 'organizations', :action => 'new' }) %></li>
+              <li><%= link_to('Add University', { :controller => 'universities', :action => 'new' }) %></li>
+              <li><%= link_to('Add Religion', { :controller => 'religions', :action => 'new' }) %></li>
+              <li class="divider"></li>
+              <li><%= link_to 'Create New Person', new_person_path %></li>
+            </ul>
+          </li><% end %><% if can? :edit, Person %>
+          <li class="dropdown">
+            <a href="/" class="dropdown-toggle">Manage</a>
+            <ul class="dropdown-menu">
+              <li><%= link_to('Legislation', { :controller => 'legislation', :action => 'index' }) %>
+                <li><%= link_to('Organizations', { :controller => 'organizations', :action => 'index' }) %></li>
+                <li><%= link_to('Universities', { :controller => 'universities', :action => 'index' }) %></li>
+                <li><%= link_to('Religions', { :controller => 'religions', :action => 'index' }) %></li>
+              </ul>
+            </li><% end %><% if can? :manage, :all %>
+            <li class="dropdown">
+              <a href="/" class="dropdown-toggle">Users</a>
+              <ul class="dropdown-menu">
+                <li>
+                  <%= link_to "Manage Users", users_path %>
+                </li>
+                <li>
+                  <%= link_to "Create New User", signup_path %>
+                </li>
+              </ul>
+            </li><% end %>
+        </ul>
+        <p class="user-nav pull-right">
+          <% if current_user %> Logged in as <%= current_user.username %> <%= link_to "log out", logout_path %> <% else %> <%= link_to "log in", login_path %> <% end %>
+        </p>
+      </div>
     </div>
   </div>
-</div>
