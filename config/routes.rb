@@ -23,6 +23,7 @@ Politics411::Application.routes.draw do
   get "people/autocomplete_person_name"
   get "people/autocomplete_person_url"
   get "organizations/autocomplete_organization_name"
+  get "main_issues/autocomplete_main_issues_name"
   
   get "login" => "sessions#new", :as => "login"
   get "logout" => "sessions#destroy", :as => "logout"

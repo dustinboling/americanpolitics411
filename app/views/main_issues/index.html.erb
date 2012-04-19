@@ -8,13 +8,11 @@
       <th>Name</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
     <% @main_issues.each do |main_issue| %>
       <tr>
-        <td><%= main_issue.name %></td>
+        <td><%= link_to "#{main_issue.name}", main_issue %></td>
         <td><%= link_to "Edit", edit_main_issue_path(main_issue), :class => 'btn small success' %></td>
-        <td><%= link_to "Show", main_issue_path(main_issue), :class => 'btn small' %></td>
         <td><%= link_to "Destroy", main_issue, confirm: "Are you sure you want to remove #{main_issue.name}?", method: :delete, :class => 'btn small danger' %></td>
       </tr>
     <% end %>

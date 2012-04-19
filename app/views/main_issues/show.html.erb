@@ -1,5 +1,7 @@
 <div class="container">
   <h1>Showing Main Issue: <%= @main_issue.name %></h1>
-    <b>Issues which belong to <%= @main_issue.name %></b>
-
+  <b>Issues which belong to <%= @main_issue.name %></b>
+  <% @main_issue.issues.each do |issue| %>
+    <p><%= issue.name %></p>
+  <% end %>
 </div>

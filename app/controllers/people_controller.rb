@@ -125,10 +125,6 @@ class PeopleController < ApplicationController
   # GET /people/1/edit
   def edit
     @person = Person.find(params[:id])
-    @people = Person.order('id ASC')
-    @religions = Religion.order('name ASC')
-    @organizations = Organization.order('name ASC')
-    @universities = University.order('name ASC')    
   end
 
   # POST /people
@@ -154,10 +150,6 @@ class PeopleController < ApplicationController
   # PUT /people/1.json
   def update
     @person = Person.find(params[:id])
-    @people = Person.all
-    @religions = Religion.order('name ASC')
-    @organizations = Organization.find (:all)
-    @universities = University.find(:all)
 
     respond_to do |format|
       if @person.update_attributes(params[:person])

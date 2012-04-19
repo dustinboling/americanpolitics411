@@ -2,17 +2,20 @@ AP411 - ROADMAP
 
 #3 - Security analysis: [1. make sure .slugignore is working properly 2. testing for authentication 3. testing for authorization]
 #48 - remove unused json in controllers
-#49 - Remove unnecessary controllers
-#50 - Issue where flash messages pop up inappropriately: to reproduce: 1) edit a person's field, 2) update person 3) show person in another window 4) remove updated field 5) refresh show tab 6) flash message shows up in the show tab as well
 #51 - Split up legislation into types (H.R., H.CON.RES, etc)
 #52 - make legislation search lists
-#53 - Interface for admins to put legislation into super-issues
-#54 - Add 'issues which belong to this issue' on main_issue#show
-#55 - make sure when an admin changes an issue name, the change is reflected in sub-issues
 #56 - Make h1s dynamic: 'Editing organization' should be 'Editing #{name of org.}'
-#57 - 403 errors on person#show, most likely due to youtube. need to rescue from this. see: /people/2149-steve-king
-
-
+#57 - these need authorization loaded: 
+        application_controller.rb
+        committees_controller.rb
+        contributor_controller.rb
+        issues_controller.rb
+        legislation_controller.rb
+        main_issues_controller.rb
+        password_resets_controller.rb
+        sessions_controller.rb
+        subcommittees_controller.rb
+#58 - 
 
 COMPLETED
 ==============||==
@@ -43,6 +46,11 @@ COMPLETED
 #39 - Model specs
 #5 - Massive cleanup [1. remove json from controllers, 2. remove unnecessary views, 3. remove unnecessary gems]
 #52 - Grab CRS legislative summary from LOC thomas
+#53 - Interface for admins to put legislation into super-issues
+#57 - 403 errors on person#show, most likely due to youtube. need to rescue from this. see: /people/2149-steve-king
+#49 - Remove unnecessary controllers
+#54 - Add 'issues which belong to this issue' on main_issue#show
+#55 - make sure when an admin changes an issue name, the change is reflected in sub-issues
 
 ON HOLD
 ==============||==
@@ -66,3 +74,4 @@ CANCELED
 #26 - while legislation->make_list is running, server is basically useless (at least in dev mode). need to make decision on how heroku is going to handle this (worker dyno, background process, one-off admin process, etc.)
 #28 - Tests for CanCan authorization
 #45 - need a full history of actions for each bill (can't find this, although I thought it was somewhere) 
+#50 - Issue where flash messages pop up inappropriately: to reproduce: 1) edit a person's field, 2) update person 3) show person in another window 4) remove updated field 5) refresh show tab 6) flash message shows up in the show tab as well *should not happen in production*
