@@ -11,7 +11,11 @@
       <tr>
         <td><%= link_to "#{issue.name}", issue %></td>
         <td><%= issue.main_issues.collect { |mi| mi.name }.to_sentence %></td>
-        <td><%= link_to "Edit", edit_issue_path(issue), :class => "btn small success" %></td>
+        <% if can? :edit, Issue %>
+          <td><%= link_to "Edit", edit_issue_path(issue), :class => "btn small success" %></td>
+        <% else %>
+          <td></td>
+        <% end %>
       </tr>
     <% end %>
   </table>

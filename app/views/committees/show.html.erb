@@ -1,24 +1,41 @@
 <div class="container">
-	<p id="notice"><%= notice %></p>
+  <p id="notice"><%= notice %></p>
 
-	<h1><%= @committee.name %></h1>
+  <h1><%= @committee.name %></h1>
 
-	<p>
-		<b>People who belong to this committee:</b>
-		<%= @committee.people.collect { |person|
-					"<a href='/people/#{person.id}'>#{person.first_name} #{person.last_name}</a>" }.to_sentence.html_safe %>
-	</p>
-	
-	<p>
-		<b>Bills overseen by this committee</b>
-		<%= @committee.legislations.collect { |legislation| 
-					"<a href='/legislation/show?bill_number=#{Legislation.find_by_bill_number(legislation.bill_number).bill_number}'>#{legislation.bill_number}</a>" }.to_sentence.html_safe %>
-	</p>
-	
-	<p>
-		<b>Committees which are subordinate to this committee:</b>
-		<%= @committee.subcommittees.collect { |sub| 
-				"<a href='/subcommittees/#{Subcommittee.find_by_id(sub.id).id}'>#{sub.name}</a>"
-			}.to_sentence.html_safe %>
-	</p>
+  <div id="about">
+    <%= @committee.about %>
+  </div>
+
+  <div class="row">
+    <div id="members" class="span4 column">
+      <h2>Members</h2>
+      <ul>
+        <% @committee.people.collect do |person| %>
+          <li><%= link_to "#{person.name}", person %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="column">
+      <div id="jurisdiction">
+        <h2>Jurisdiction</h2>
+      </div>
+      <div id="subcommittees">
+        <h2>Subcommittees</h2>
+        <ul>
+          <% @committee.subcommittees.collect do |sc| %>
+            <li><%= link_to "#{sc.name}", sc %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div id="contact-info">
+        <h2>Contact Info</h2>
+      </div>
+    </div>
+  </div>
+
+  <div id="bills">
+    <h2>Bills Overseen</h2>
+    <%= @committee.legislations.collect { |l| l.bill_number }.to_sentence %>
+  </div>
 </div>

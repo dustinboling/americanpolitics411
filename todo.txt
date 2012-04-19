@@ -15,7 +15,8 @@ AP411 - ROADMAP
         password_resets_controller.rb
         sessions_controller.rb
         subcommittees_controller.rb
-#58 - 
+#58 - Add about & contact info & jurisdiction to committees/ make committees editable.
+#59 - 
 
 COMPLETED
 ==============||==
