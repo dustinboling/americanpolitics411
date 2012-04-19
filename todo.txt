@@ -4,7 +4,6 @@ AP411 - ROADMAP
 #48 - remove unused json in controllers
 #51 - Split up legislation into types (H.R., H.CON.RES, etc)
 #52 - make legislation search lists
-#56 - Make h1s dynamic: 'Editing organization' should be 'Editing #{name of org.}'
 #57 - these need authorization loaded: 
         application_controller.rb
         committees_controller.rb
@@ -15,7 +14,6 @@ AP411 - ROADMAP
         password_resets_controller.rb
         sessions_controller.rb
         subcommittees_controller.rb
-#58 - Add about & contact info & jurisdiction to committees/ make committees editable.
 #59 - 
 
 COMPLETED
@@ -52,6 +50,8 @@ COMPLETED
 #49 - Remove unnecessary controllers
 #54 - Add 'issues which belong to this issue' on main_issue#show
 #55 - make sure when an admin changes an issue name, the change is reflected in sub-issues
+#58 - Add about & contact info & jurisdiction to committees/ make committees editable.
+#56 - Make h1s dynamic: 'Editing organization' should be 'Editing #{name of org.}'
 
 ON HOLD
 ==============||==
