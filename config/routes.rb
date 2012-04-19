@@ -32,6 +32,8 @@ Politics411::Application.routes.draw do
   # Resourceful routes
   resources :main_issues
   resources :issues
+  resources :committees
+  resources :subcommittees
   resources :legislation
   resources :users
   resources :password_resets

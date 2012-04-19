@@ -7,5 +7,7 @@
  *= require legislation
  *= require admin
  *= require issues
+ *= require committees
+ *= require subcommittees
  *= require jquery-ui-1.8.17.custom
 */

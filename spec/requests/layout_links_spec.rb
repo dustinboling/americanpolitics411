@@ -99,6 +99,11 @@ describe "topbar" do
       click_link "Create New Person"
       page.should have_content("New person")
     end    
+
+    it "should show a list of Issues when admin clicks manage issues" do
+      click_link "Issues"
+      page.should have_content("Manage Issues")
+    end
   end
   
   describe "GET topbar as superadmin" do
@@ -178,6 +183,11 @@ describe "topbar" do
     it "should show a list of users when superadmin clicks manage users" do
       click_link "Manage Users"
       page.should have_content("Manage Users")
+    end
+
+    it "should show a list of Issues when superadmin clicks manage issues" do
+      click_link "Issues"
+      page.should have_content("Manage Issues")
     end
     
     it "should show users#new when superadmin clicks create new user" do

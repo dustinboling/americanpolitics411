@@ -1,15 +1,30 @@
 <div class="container">
-	<h1>Committees</h1>
-	
-	<table class="zebra-striped">
-		<tr>
-			<th>Committee</th>
-		</tr>
-		<% @committees.each do |committee| %>
-		<tr>
-			<td><a href="/committees/<%= Committee.find_by_name(committee.name).id %>"><%= committee.name %></a></td>
-		</tr>
-		<% end %>
-	</table>
-	
+  <h1>Congressional Committees</h1>
+
+  <div class="row">
+    <div class="column">
+      <h2>House Committees</h2>
+      <ul>
+        <% @house_committees.each do |hc| %> 
+          <li><%= link_to "#{hc.name}", hc %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="column">
+      <h2>Senate Committees</h2>
+      <ul>
+        <% @senate_committees.each do |sc| %>
+          <li><%= link_to "#{sc.name}", sc %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="column">
+      <h2>Joint Committees</h2>
+      <ul>
+        <% @joint_committees.each do |jc| %>
+          <li><%= link_to "#{jc.name}", jc %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>
