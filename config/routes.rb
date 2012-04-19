@@ -11,7 +11,8 @@ Politics411::Application.routes.draw do
   get "contributor/show"
   
   get "committees/index"
-  match "committees/:id" => "committees#show"
+  get "committees/manage"
+
   match "senators" => "people#senators"
   match "representatives" => "people#representatives"
  

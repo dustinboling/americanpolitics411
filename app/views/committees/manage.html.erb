@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Manage Committees</h1>
+
+  <table class="table-striped">
+    <tr>
+      <th>Name</th>
+      <th>About</th>
+      <th>Jurisdiction</th>
+      <th></th>
+    </tr>
+    <% @committees.each do |committee| %>
+      <tr>
+        <td><%= link_to "#{committee.name}", committee %></td>
+        <% if committee.about.nil? || committee.about.empty? %>
+          <td><%= image_tag('cancel.png') %></td>
+        <% else %>
+          <td><%= image_tag('check.png') %></td>
+        <% end %>
+        <% if committee.jurisdiction.nil? || committee.jurisdiction.empty? %>
+          <td><%= image_tag('cancel.png') %></td>
+        <% else %>
+          <td><%= image_tag('check.png') %></td>
+        <% end %>
+        <td><%= link_to "Edit", edit_committee_path(committee), :class => 'btn btn-mini success' %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
