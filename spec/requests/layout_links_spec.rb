@@ -34,13 +34,13 @@ describe "topbar" do
     
     it "should show a list of committees when anonymous clicks the committees link" do
       visit root_url
-      click_link("Committees")
+      click_link("View Committees")
       page.should have_content("Committees")
     end
     
     it "should show a list of subcommittees when anonymous clicks the subcommittes link" do
       visit root_url
-      click_link("Subcommittees")
+      click_link("View Subcommittees")
       page.should have_content("Subcommittees")
     end
     
@@ -103,6 +103,11 @@ describe "topbar" do
     it "should show a list of Issues when admin clicks manage issues" do
       click_link "Issues"
       page.should have_content("Manage Issues")
+    end
+
+    it "should show a list of Committees when admin clicks manage committees" do
+      click_link "Committees"
+      page.should have_content("Manage Committees")
     end
   end
   
@@ -188,6 +193,11 @@ describe "topbar" do
     it "should show a list of Issues when superadmin clicks manage issues" do
       click_link "Issues"
       page.should have_content("Manage Issues")
+    end
+
+    it "should show a list of Committees when superadmin clicks manage committees" do
+      click_link "Committees"
+      page.should have_content("Manage Committees")
     end
     
     it "should show users#new when superadmin clicks create new user" do
