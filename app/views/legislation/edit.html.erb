@@ -1,62 +1,70 @@
 <style type="text/css">
-input, textarea, select, .uneditable-input {
-			border: 1px solid #CCCCCC;
-	    border-radius: 3px 3px 3px 3px;
-	    color: gray;
-	    display: inline-block;
-	    font-size: 13px;
-	    line-height: 18px;
-	    padding: 4px;
-	    width: 500px;
-	}
+  input, textarea, select, .uneditable-input {
+    border: 1px solid #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    color: gray;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 18px;
+    padding: 4px;
+    width: 500px;
+  }
 </style>
 
 <div class="container">
-	<%= form_for(@legislation, :html => { :class => 'form-stacked' }) do |f| %>
-	<h1>Editing <%= @legislation.bill_number %></h1>
-	<%= error_messages_for(@legislation) %>
+  <%= form_for(@legislation, :html => { :class => 'form-stacked' }) do |f| %>
+    <h1>Editing <%= @legislation.bill_number %></h1>
+    <%= error_messages_for(@legislation) %>
 
-		<%= f.label :summary %>
-	  <%= f.text_area :summary, :rows => 10 %>
+    <%= f.label :summary %>
+    <%= f.text_area :summary, :rows => 10 %>
 
-	<p>
-		<b>Title:</b>
-		<%= @legislation.bill_title %>
-	</p>
+    <p>
+      <b>Title:</b>
+      <%= @legislation.bill_title %>
+    </p>
 
-	<p>
-		<b>Sponsor:</b>
-			<a href="<%= person_path(Person.find_by_nyt_id(@legislation.bill_sponsor_id)) %>"><%= @legislation.bill_sponsor %></a>
-	</p>
+    <p>
+      <b>Sponsor:</b>
+      <a href="<%= person_path(Person.find_by_nyt_id(@legislation.bill_sponsor_id)) %>"><%= @legislation.bill_sponsor %></a>
+    </p>
 
-	<p>
-		<b>Introduced:</b>
-		<%= @legislation.introduced_date %> (Congress Year: <%= @legislation.congress_year %>)
-	</p>
+    <p>
+      <b>Introduced:</b>
+      <%= @legislation.introduced_date %> (Congress Year: <%= @legislation.congress_year %>)
+    </p>
 
-	<p>
-		<b>Last Major Action:</b>
-		<%= @legislation.latest_major_action_date %> - <%= @legislation.latest_major_action %>
-	</p>
+    <p>
+      <b>Last Major Action:</b>
+      <%= @legislation.latest_major_action_date %> - <%= @legislation.latest_major_action %>
+    </p>
 
-	<p>
-		<b>Cosponsors:</b>
-			<%= @legislation.legislation_cosponsors.collect { |c| 
-				"<a href='#{person_path(Person.find_by_id(c.person_id))}'>#{Person.find_by_id(c.person_id).first_name} #{Person.find_by_id(c.person_id).last_name}</a>"
-				}.to_sentence.html_safe %>
-	</p>
+    <p>
+      <b>Cosponsors:</b>
+      <%= @legislation.legislation_cosponsors.collect { |c| 
+        "<a href='#{person_path(Person.find_by_id(c.person_id))}'>#{Person.find_by_id(c.person_id).first_name} #{Person.find_by_id(c.person_id).last_name}</a>"
+      }.to_sentence.html_safe %>
+    </p>
 
-	<p>
-		<b>Legislation Issues:</b>
-		<%= @legislation.issues.collect { |i| "<a href='/issues/#{Issue.where("name like ?", "%#{i.name}").first.id}'>#{i.name}</a>" }.to_sentence.html_safe %>
-	</p>		
+    <p>
+      <b>Legislation Issues:</b>
+      <%= @legislation.issues.collect { |i| "<a href='/issues/#{Issue.where("name like ?", "%#{i.name}").first.id}'>#{i.name}</a>" }.to_sentence.html_safe %>
+    </p>		
 
-	<p>
-		<b>Committees:</b>
-		<%= @legislation.committees.collect { |c| "<a href='/committees/#{Committee.where("name like ?", "%#{c.name}").first.id }'>#{c.name}</a>" }.to_sentence.html_safe %>
-	</p>
+    <p>
+      <b>Legislation Main Issues:</b>
+      <% MainIssue.all.each do |issue| %>
+        <%= check_box_tag "legislation" %>
+        <%= issue.name %>
+      <% end %>
+    </p>
 
-	<%= f.submit :class => 'btn success' %>
+    <p>
+      <b>Committees:</b>
+      <%= @legislation.committees.collect { |c| "<a href='/committees/#{Committee.where("name like ?", "%#{c.name}").first.id }'>#{c.name}</a>" }.to_sentence.html_safe %>
+    </p>
 
-	<% end %>
+    <%= f.submit :class => 'btn success' %>
+
+  <% end %>
 </div>

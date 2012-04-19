@@ -1,8 +1,8 @@
 class PeopleController < ApplicationController
-  
+
   load_and_authorize_resource
   skip_authorize_resource :only => [:all, :representatives, :senators, :indiv_contributors, :pac_contributors, :autocomplete_person_name, :autocomplete_person_url]
-  
+
   layout 'admin'
 
   # populate list of names for autocomplete
@@ -10,62 +10,61 @@ class PeopleController < ApplicationController
     @people = Person.order(:name).where("name like ?", "%#{params[:term]}%")
     render json: @people.map(&:name)
   end
-  
+
   # populate list of urls for autocomplete  
   def autocomplete_person_url
     @people = Person.order(:slug).where("slug like ?", "%#{params[:term]}%")
     render json: @people.collect { |p| { :label => "#{p.first_name} #{p.last_name}", :value => p.slug } }
   end
-  
+
   # GET /all
-  # GET /all.json
   def all
     @people = Person.order("people.id ASC")
-    
+
     respond_to do |format|
       format.html # all.html.erb
       format.json { render :json => @people}
       format.xml { render xml: @people }
     end
   end
-  
+
   # GET /senators
   def senators
     @people = Person.where("chamber = 'S'").order("people.last_name ASC")
   end
-  
+
   # GET /representatives
   def representatives
     @people = Person.where("chamber = 'H'").order("people.last_name ASC")
   end
-  
+
   # GET /people
-  # GET /people.json
   def index
     render 'all'
   end
-  
+
   def list
     @people = People.order("people.id ASC")
   end
 
   # GET /people/1
-  # GET /people/1.json
   def show
     @person = Person.find(params[:id])
-    
+
     # Load necessary information from the various APIs
     @pac_contributors = TransparencyData::Client.contributions(
       :recipient_ft => "#{@person.remove_name_numericality}", 
       :cycle => 2011,
       :amount => {:gte => 2300},
-      :contributor_type => "C")
+      :contributor_type => "C"
+    )
     @individual_contributors = TransparencyData::Client.contributions(
-        :recipient_ft => "#{@person.remove_name_numericality}", 
-        :cycle => 2011, 
-        :amount => {:gte => 2300},
-        :contributor_type => "I")
-    
+      :recipient_ft => "#{@person.remove_name_numericality}", 
+      :cycle => 2011, 
+      :amount => {:gte => 2300},
+      :contributor_type => "I"
+    )
+
     # sectors
     @entity = TransparencyData::Client.entities(:search => "#{@person.remove_name_numericality}")
     if @entity.first
@@ -74,19 +73,19 @@ class PeopleController < ApplicationController
     else
       @sectors = []
     end
-    
+
     # Get most recent tweets
     unless @person.twitter_id.blank?
       begin
         @recent_tweets = Twitter.user_timeline("#{@person.twitter_id}").take(10)
       rescue Exception => e
         case e.message
-          when /Twitter is over capacity/
-            @recent_tweets = Twitter.user_timeline("#{@person.twitter_id}").take(10)
+        when /Twitter is over capacity/
+          @recent_tweets = Twitter.user_timeline("#{@person.twitter_id}").take(10)
         end
       end
     end
-    
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @person }
@@ -101,14 +100,14 @@ class PeopleController < ApplicationController
       :amount => {:gte => 2300},
       :contributor_type => "C")
   end
-  
+
   def indiv_contributors
     @person = Person.find(params[:id])
     @individual_contributors = TransparencyData::Client.contributions(
-        :recipient_ft => "#{@person.remove_name_numericality}", 
-        :cycle => 2011, 
-        :amount => {:gte => 1000},
-        :contributor_type => "I")
+      :recipient_ft => "#{@person.remove_name_numericality}", 
+      :cycle => 2011, 
+      :amount => {:gte => 1000},
+      :contributor_type => "I")
   end
 
   # GET /people/new
@@ -116,7 +115,7 @@ class PeopleController < ApplicationController
   def new
     @person = Person.new
     @religions = Religion.order('id ASC')
-    
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @person }
@@ -142,7 +141,7 @@ class PeopleController < ApplicationController
         format.html { 
           flash[:notice] = 'Person added successfully.'
           redirect_to(:action => 'edit', :id => @person.id)
-          }
+        }
         format.json { render json: @person, status: :created, location: @person }
       else
         format.html { render action: "new" }
@@ -165,7 +164,7 @@ class PeopleController < ApplicationController
         format.html { 
           flash[:notice] = 'Person has been successfully updated.'
           render 'edit'  }
-        format.json { head :ok }
+          format.json { head :ok }
       else
         format.html { render action: "edit" }
         format.json { render json: @person.errors, status: :unprocessable_entity }
@@ -183,7 +182,7 @@ class PeopleController < ApplicationController
       format.html { 
         flash[:notice] = "Person removed."
         redirect_to root_url
-        }
+      }
       format.json { head :ok }
     end
   end

@@ -47,13 +47,13 @@ describe "Legislation" do
   
   describe "GET /issues" do
     it "displays a list of legislative issues" do
-      visit issues_index_path
+      visit issues_path
       page.should have_content("Issues")
     end
     
     it "should show a single legislative issue" do
       @issue = Issue.create(:name => "TEST Issue")
-      visit issues_index_path
+      visit issues_path
       click_link("TEST Issue")
       page.should have_content("TEST Issue")
       page.should have_content("List of bills which are about this issue")

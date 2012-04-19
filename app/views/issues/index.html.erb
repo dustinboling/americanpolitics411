@@ -1,8 +1,18 @@
 <div class="container">
-	<h1>Issues</h1>
+  <h1>Issues</h1>
 
-	<% @issues.each do |issue| %>
-		<a href="/issues/<%= Issue.find_by_name(issue.name).id %>"><%= issue.name %></a>
-	<% end %>
-
+  <table class="table-striped">
+    <tr>
+      <th class="span10">Name</th>
+      <th>Assigned To</th>
+      <th></th>
+    </tr>
+    <% @issues.each do |issue| %>
+      <tr>
+        <td><%= link_to "#{issue.name}", issue %></td>
+        <td><%= issue.main_issues.collect { |mi| mi.name }.to_sentence %></td>
+        <td><%= link_to "Edit", edit_issue_path(issue), :class => "btn small success" %></td>
+      </tr>
+    <% end %>
+  </table>
 </div>

@@ -1,0 +1,10 @@
+<%= form_for(@main_issue, :html => { :class => 'form-stacked' }) do |f| %>
+  <%= error_messages_for(@main_issue) %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.submit :class => 'btn success' %>
+
+<% end %>
+

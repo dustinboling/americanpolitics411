@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120328175300) do
+ActiveRecord::Schema.define(:version => 20120418230657) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -178,6 +178,13 @@ ActiveRecord::Schema.define(:version => 20120328175300) do
 
   add_index "flip_flops", ["person_id"], :name => "index_flip_flops_on_person_id"
 
+  create_table "issue_main_issues", :force => true do |t|
+    t.integer  "issue_id"
+    t.integer  "main_issue_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "issue_positions", :force => true do |t|
     t.integer  "person_id"
     t.string   "issue_topic"
@@ -266,6 +273,12 @@ ActiveRecord::Schema.define(:version => 20120328175300) do
   end
 
   add_index "litigations", ["person_id"], :name => "index_litigations_on_person_id"
+
+  create_table "main_issues", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "organizations", :force => true do |t|
     t.string   "name"

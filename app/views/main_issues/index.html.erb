@@ -1,0 +1,22 @@
+<div class="container">
+  <%= render 'layouts/messages' %>
+  <h1>Main Issues</h1>
+  <h4>This is a list of all of the issues that can be seen from the search bars.</h4>
+
+  <table class="zebra-striped">
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% @main_issues.each do |main_issue| %>
+      <tr>
+        <td><%= main_issue.name %></td>
+        <td><%= link_to "Edit", edit_main_issue_path(main_issue), :class => 'btn small success' %></td>
+        <td><%= link_to "Show", main_issue_path(main_issue), :class => 'btn small' %></td>
+        <td><%= link_to "Destroy", main_issue, confirm: "Are you sure you want to remove #{main_issue.name}?", method: :delete, :class => 'btn small danger' %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

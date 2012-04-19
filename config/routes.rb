@@ -3,9 +3,6 @@ Politics411::Application.routes.draw do
   get "subcommittees/index"
   get "subcommittees/show"
 
-  get "issues/index"
-  match "issues/:id" => "issues#show"
-    
   get "legislation/index"
   # match "legislation/:id" => "legislation#show"
   
@@ -32,6 +29,8 @@ Politics411::Application.routes.draw do
   get "signup" => "users#new", :as => "signup"
   
   # Resourceful routes
+  resources :main_issues
+  resources :issues
   resources :legislation
   resources :users
   resources :password_resets

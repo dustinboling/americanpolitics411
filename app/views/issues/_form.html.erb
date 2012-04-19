@@ -1,0 +1,30 @@
+<%= form_for(@issue, :html => { :class => "form-stacked" }) do |f| %>
+  <%= error_messages_for(@issue) %>
+
+  <%= f.label "Belongs to Main Issues:" %>
+
+  <div class="issues">
+    <% split_main_issues %>
+    <%= hidden_field_tag "issue[main_issue_ids][]", nil %>
+    <div class="issues_row">
+      <% @row1.each do |main_issue| %>
+        <%= check_box_tag "issue[main_issue_ids][]", main_issue.id, @issue.main_issue_ids.include?(main_issue.id)  %>
+        <%= main_issue.name %><br />
+      <% end %>
+    </div>
+    <div class="issues_row">
+      <% @row2.each do |main_issue| %>
+        <%= check_box_tag "issue[main_issue_ids][]", main_issue.id, @issue.main_issue_ids.include?(main_issue.id)  %>
+        <%= main_issue.name %><br />
+      <% end %>
+    </div>
+    <div class="issues_row">
+      <% @row3.each do |main_issue| %>
+        <%= check_box_tag "issue[main_issue_ids][]", main_issue.id, @issue.main_issue_ids.include?(main_issue.id)  %>
+        <%= main_issue.name %><br />
+      <% end %>
+    </div>
+  </div>
+
+  <%= f.submit :class => 'btn success' %>
+<% end %>

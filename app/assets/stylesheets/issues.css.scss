@@ -1,3 +1,12 @@
 // Place all the styles related to the issues controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.issues {
+  display: block;
+}
+
+.issues_row {
+  float: left;
+  width: 33%;
+}
