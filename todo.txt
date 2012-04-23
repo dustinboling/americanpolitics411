@@ -14,7 +14,7 @@ AP411 - ROADMAP
         password_resets_controller.rb
         sessions_controller.rb
         subcommittees_controller.rb
-#59 - 
+#59 - add date to beginning of summary
 
 COMPLETED
 ==============||==
