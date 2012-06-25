@@ -3,7 +3,7 @@ class PeopleController < ApplicationController
   load_and_authorize_resource
   skip_authorize_resource :only => [:all, :representatives, :senators, :indiv_contributors, :pac_contributors, :autocomplete_person_name, :autocomplete_person_url]
 
-  layout 'admin'
+  layout 'public'
 
   # populate list of names for autocomplete
   def autocomplete_person_name

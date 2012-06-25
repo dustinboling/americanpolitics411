@@ -1,0 +1,692 @@
+/*
+Theme Name: American Politics 411
+Theme URI: http://americanpolitics411.com
+Author: Dustin Boling Associates
+Author URI: http://dustinboling.com
+Description: 2012 American Politics 411 theme
+Version: 1
+ */
+
+/* Table of Contents
+==================================================
+#Site Styles
+#Box Styles
+#Header Styles
+#Header Navigaion Styles
+#Footer Styles
+#Page Styles
+- Homepage
+- News Page
+- Committee / Committees Pages
+- Legislation Page
+- News Section Page
+- Profile Page
+#Media Queries
+#Font-Face */
+
+
+/* #Site Styles
+================================================== */
+
+body {
+  background-color: #f2f2f2;
+}
+
+hr {
+  background-color: #000;
+  border: none;
+  color: #000;
+  height: 15px; 
+}
+
+#content-wrap {
+  background-color: #fff;
+}
+
+#popular-stories h2,
+.news-block h2,
+#trending-officials h2,
+#research h2,
+#pundit h2,
+#events h2 {
+  font-size: 14px;
+  font-weight: 700;
+  padding-left: 5px; 
+  text-transform: uppercase;
+}
+
+.page-title {
+  color: #24638c;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 20px auto;
+  text-align: center;
+}
+
+/*
+ * Box Styles
+ *************************************/
+
+/* Box Styles
+ *------------
+ *   box a: grey border, rounded corners, no background color - used on asides on news section page
+ *  box b: same as a - medium grey background color - used for main article on legislation page
+ *  Box c: dark grey background, corners more rounded - used for smaller boxes on legislation page, contact info on committee page
+ *  Box d: rounded corners - no background color, no border - used for colored boxes, colors assigned by page (legislation)
+ *  Box e: black border, no background, square corners
+ *  Box f: 2px light grey border, no background - used for news blocks on home and news pages
+ */
+
+.box_a, 
+.box_b {
+  border: 2px solid #ababab;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  padding: 15px;
+}
+
+.box_b {
+  background-color: #efefef;
+}
+
+.box_c {
+  background-color: #d3d3d3;
+  border: 2px solid #ababab;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
+}
+
+.box_d {
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.box_d h2 {
+  color: #fff;
+  padding: 5px 15px;
+}
+
+.box_e {
+  border: 1px solid #000;
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
+.box_f {
+  border: 4px solid #e5e5e5;
+  padding: 5px;
+}
+
+
+/*
+ * Header
+ *************************************/
+
+#header {
+  height: 130px;
+}
+
+#header .logo {
+  padding-top: 20px;
+}
+
+#header .logo a {
+  display: block;
+}
+
+
+/*
+ * Header Navigation
+ *************************************/
+
+#header-nav,
+.home #news,
+.page-template-news-php #news,
+#trending,
+#research-pundit {
+  border-bottom: 1px dotted #000;
+  margin-bottom: 5px; 
+}
+
+#header-nav ul {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#header-nav ul li {
+  display: inline-block;
+  line-height: 25px;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+#header-nav ul li a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+
+
+/*
+ * Footer
+ *************************************/
+
+#footer {
+  height: 100px;
+}
+
+#footer nav ul {
+  float: left;
+}
+
+#footer nav ul li {
+  float: left;
+  font-size: 12px;
+}
+
+#footer nav ul li a {
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+}
+
+p.copyright {
+  font-size: 9px;
+  margin-bottom: 0;
+  text-align: right; 
+}
+
+/* #Page Styles
+================================================== */
+
+/*
+ * Homepage -- News
+ *************************************/
+
+#popular-stories {
+  background-color: #e5e5e5;
+  margin-bottom: 10px;
+  padding: 10px 0;
+}
+
+#popular-stories ul {
+  margin-bottom: 0;
+}
+
+#popular-stories ul li {
+  margin: 0;
+}
+
+#popular-stories ul li p {
+  font-size: 11px;
+  margin: 0;
+} 
+
+
+#popular-stories img.popular-story-img {
+  background-color: #bbb;
+  float: left;
+  height: 38px;
+  width: 55px;
+  margin: 0 5px 5px 5px; 
+}
+
+.news-block h2 {
+  text-transform: none;
+}
+
+.news-block ul {
+  list-style-image: url('images/red-bullet.png');
+  margin: 0 0 0 15px;
+}
+
+.news-block ul li {
+  font-size: 10px;
+  margin-bottom: 3px;
+}
+
+/*
+ * Homepage -- Trending Officials
+ *************************************/
+#trending {
+  padding: 10px 0 10px 0;
+}
+
+#trending-officials {
+  background-color: #e5e5e5;
+  height: 312px;
+  padding: 10px 5px;
+}
+
+
+#trending-officials ul li {
+  color: #cd0000;
+  font-size: 10px;
+}
+
+#trending-images ul {
+  margin-bottom: 0;
+}
+
+#trending-images li img {
+  background-color: #ddd;
+  display: block;
+  height: 160px;
+  width: 160px;
+}
+
+/*
+ * Homepage -- Research-Pundit
+ *************************************/
+
+#research ul li h3,
+#pundit ul li p,
+#events article header h1 {
+  color: #3464ac;
+  line-height: 1.2;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+#research ul li h3 {
+  padding-top: 20px;
+}
+
+#research ul li a.url {
+  color: #878787;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+#pundit h2 {
+  margin-bottom: 0;
+}
+
+#pundit h3 {
+  font-size: 14px;
+  margin-bottom: 12px;
+  padding-left: 5px; 
+}
+
+#pundit ul li p.forum-name {
+  padding-top: 5px;
+}
+
+#pundit ul li img {
+  background-color: #ddd;
+  float: left;
+  margin-right: 10px;
+  height: 50px;
+  width: 75px;
+}
+
+#pundit ul li a.meta {
+  color: #878787;
+  font-size: 10px;
+  text-decoration: none;
+}
+
+
+/*
+ * Homepage -- Events
+ *************************************/ 
+
+
+#events ul {
+  margin-bottom: 0;
+}
+
+#events article header h1 {
+  padding-top: 3px;
+}
+
+
+#events article img,
+#research ul li img  {
+  background-color: #ddd;
+  float: left;
+  margin-right: 10px;
+  height: 105px;
+  width: 145px;
+}
+
+#events article p {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/*
+ * News Page | page-template-news-php
+ *************************************/
+.page-template-news-php #trending-images li img {
+  height: 100px;
+  width: 100px;
+}
+
+.page-template-news-php #popular-posts,
+.page-template-news-php #featured-posts {
+  border: 1px solid #000;
+  padding: 10px;
+}
+
+.page-template-news-php #popular-posts {
+  margin-bottom: 10px;
+}
+
+.page-template-news-php #popular-posts h2,
+.page-template-news-php #featured-posts h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.page-template-news-php #popular-posts ul {
+  margin-bottom: 0;
+}
+
+.page-template-news-php #popular-posts ul li img {
+  float: left;
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+}
+
+.page-template-news-php #popular-posts ul li p {
+  font-size: 10px;
+  margin-bottom: 2px;
+}
+
+.page-template-news-php #popular-posts ul li .post-title {
+  border-bottom: 1px solid #000;
+  margin: 5px 0 0 55px;
+
+}
+
+.page-template-news-php #featured-posts ul li img,
+.page-template-news_section-php #articles ul li img,
+.page-template-profile-php #articles ul li img {
+  float: left;
+  height: 30px;
+  width: 40px;
+  margin-right: 5px;
+}
+
+.page-template-news-php #featured-posts ul li article h1,
+.page-template-news_section-php #articles ul li article h1,
+.page-template-profile-php #articles ul li article h1 {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 0; 
+  padding: 5px 0;
+}
+
+.page-template-news-php #featured-posts ul li article p,
+.page-template-news_section-php #articles ul li article p,
+.page-template-profile-php #articles ul li article p {
+  font-size: 11px;
+}
+
+/*
+ * Committee Page | page-template-committee-php
+ * Committees Page | page-template-committees-php
+ *************************************/
+
+
+
+.page-template-committee-php .box_a h2,
+.page-template-committee-php .box_b h2,
+.page-template-committee-php .box_c h2,
+.page-template-committees-php .box_b h2 {
+  color: #24638c;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 15px
+}
+
+.page-template-committee-php .box_a p,
+.page-template-committee-php .box_b p,
+.page-template-committee-php .box_c p,
+.page-template-committees-php .box_b p {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+.page-template-committee-php .box_b ul li,
+.page-template-committees-php .box_b ul li {
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+.page-template-committee-php .box_c section {
+  margin-bottom: 12px;
+}
+.page-template-committee-php .box_c h3 {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 0; 
+}
+
+.page-template-committee-php .box_c p {
+  margin-bottom: 0;
+}
+
+/*
+ * Legislation Page | page-template-legislation-php
+ *************************************/
+
+article h1 {
+  color: #000;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+article h2 {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+article p {
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+aside.box_c h2,
+.box_d h2 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+#full_text {
+  background-color: #1F618D;
+}
+
+#votes {
+  background-color: #E42526;
+}
+
+#cosponsors {
+  background-color: #3F3F3F;
+}
+
+#status td {
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+#status td.pending {
+  color: #939393;
+}
+
+.box_c p {
+  font-size: 11px;
+  line-height: 1.3;
+  margin-bottom: 0;
+}
+
+.box_c p a {
+  text-decoration: none;
+}
+
+.box_d p {
+  font-size: 11px;
+  line-height: 1.3;
+  margin-bottom: 0;
+}
+
+#cosponsors-list p a {
+  color: #fff;
+  font-size: 11px;
+  padding: 0 0 0 15px;
+  text-decoration: none;
+}
+
+h4#legislation-title {
+  padding-left: 10px;
+  font-weight: 600;
+}
+
+/*
+ * News Section Page | page-template-news_section-php
+ *************************************/
+
+.page-template-news_section-php h1.page-title {
+  text-align: left;
+}
+
+.page-template-news_section-php #main-article img {
+  background-color: #ddd;
+  margin-bottom: 10px;
+  height: 200px;
+  width: 280px;
+}
+
+.page-template-news_section-php #main-article h1 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.page-template-news_section-php #main-article p {
+  font-size: 11px;
+}
+
+.page-template-news_section-php #main-article hr {
+  height: 1px;
+}
+
+.page-template-news_section-php #news-list ul {
+  padding: 10px 10px 0 15px;
+}
+
+.page-template-news_section-php #news-list ul li {
+  font-weight: 700;
+}
+
+.page-template-news_section-php .box_e h2 {
+  font-size: 13px;
+  padding: 10px 10px 10px 5px;
+  margin-bottom: 0;
+}
+
+.page-template-news_section-php #related-legislation ul {
+  margin-bottom: 10px;
+}
+
+.page-template-news_section-php #related-research ul li img {
+  float: left;
+  height: 40px;
+  width: 55px;
+  padding-right: 5px;
+}
+
+.page-template-news_section-php #related-research ul li h3 {
+  color: #3464ac;
+  line-height: 1.2;
+  font-size: 10px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.page-template-news_section-php #related-research ul li a {
+  color: #878787;
+  font-size: 11px;
+  text-decoration: none;  
+}
+
+/*
+ * Profile Page | page-template-profile-php
+ *************************************/
+.page-template-profile-php #media-center-title {
+  border-bottom: 2px solid #000;
+  border-top: 2px solid #000;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 5px 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.page-template-profile-php #videos ul {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.page-template-profile-php #videos ul li a {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.page-template-profile-php #videos ul li img {
+  width: 370px;
+  height: 200px;
+}
+
+
+
+/* #Media Queries
+================================================== */
+
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {}
+
+
+/* #Font-Face
+================================================== */
+/*  This is the proper syntax for an @font-face file
+Just create a "fonts" folder at the root,
+copy your FontName into code below and remove
+comment brackets */
+
+/*  @font-face {
+font-family: 'FontName';
+src: url('../fonts/FontName.eot');
+src: url('../fonts/FontName.eot?iefix') format('eot'),
+url('../fonts/FontName.woff') format('woff'),
+url('../fonts/FontName.ttf') format('truetype'),
+url('../fonts/FontName.svg#webfontZam02nTh') format('svg');
+font-weight: normal;
+font-style: normal; }
+ */

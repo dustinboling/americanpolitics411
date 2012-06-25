@@ -1,70 +1,74 @@
-<div class="container">	
-  <h1><%= @legislation.bill_number %></h1>
-  <p>
-    <b>Summary:</b>
-    <% unless @legislation.summary.nil? %>
-      <%= remove_hyphens(@legislation.summary).html_safe %>
-    <% end %>
-  </p>
+<div class="container">
+  <div class="sixteen columns">
+    <div class="four columns omega">
+      <h1 class="page-title">Legislation</h1>
+    </div>
+  </div>
 
-  <p>
-    <b>Title:</b>
-    <%= @legislation.bill_title %>
-  </p>
+  <article>
+    <div class="twelve columns">
+      <h4 id="legislation-title"><%= @legislation.bill_number %> <%= @legislation.bill_title.upcase %></h4>
+      <div class="bill_pdf">
+        <iframe src="http://docs.google.com/gview?url=<%= @legislation.bill_pdf %>&embedded=true" class="twelve columns" style="height:900px;" frameborder="0"></iframe>
+      </div>
+    </div>
 
-  <p>
-    <b>Sponsor:</b>
-    <a href="<%= person_path(Person.find_by_nyt_id(@legislation.bill_sponsor_id)) %>"><%= @legislation.bill_sponsor %></a>
-  </p>
+    <div class="four columns">
+      <div id="full_text" class="box_d">
+        <h2><a href="<%= @legislation.bill_pdf %>" style="color: #FFF; text-decoration: none;">Download PDF</a></h2>
+      </div>
 
-  <p>
-    <b>Introduced:</b>
-    <%= @legislation.introduced_date %> (Congress Year: <%= @legislation.congress_year %>)
-  </p>
+      <aside id="status" class="box_c">
+        <h2>Status</h2>
+        <table>
+          <tr>
+            <td>Introduced</td>
+            <td>Mar 21, 2012</td>
+          </tr>
+          <tr>
+            <td class="pending">Passed House</td>
+            <td></td>
+          </tr>
+        </table>
+      </aside>
 
-  <p>
-    <b>Last Major Action:</b>
-    <%= @legislation.latest_major_action_date %> - <%= @legislation.latest_major_action %>
-  </p>
+      <aside id="prognosis" class="box_c">
+        <h2>Prognosis</h2>
+        <p>Just 29% of all House bills reported favorably by committee in 2009-2010 were enactred.</p>
+      </aside>
 
-  <p>
-    <b>Cosponsors:</b>
-    <%= @legislation.legislation_cosponsors.collect { |c| 
-      "<a href='#{person_path(Person.find_by_id(c.person_id))}'>#{Person.find_by_id(c.person_id).first_name} #{Person.find_by_id(c.person_id).last_name}</a>"
-    }.to_sentence.html_safe %>
-  </p>
+      <aside id="votes" class="box_d">
+        <h2>Votes Yea (n) Nay (n2)</h2>
+      </aside>
 
-  <p>
-    <b>Cosponsors by party:</b>
-    Republican: 
-    <% if @legislation.republican_cosponsors.blank? %>
-      0
-    <% else %>
-      <%= @legislation.republican_cosponsors %>
-    <% end %>
+      <aside id="issues" class="box_c">
+        <h2>Issues (sectors)</h2>
+        <% @legislation.legislation_issues.each do |i|  %>
+          <% issue = i.issue %>
+          <p><a href="/issues/<%= issue.id %>"><%= issue.name %></a></p>
+        <% end %>
+      </aside>
 
-    Democratic: 
-    <% if @legislation.democratic_cosponsors.blank? %>
-      0
-    <% else %>
-      <%= @legislation.democratic_cosponsors %>
-    <% end %>
-  </p>
+      <aside id="sponsors" class="box_c">
+        <h2>Sponsor</h2>
+        <p><a href="<%= person_path(Person.find_by_nyt_id(@legislation.bill_sponsor_id)) %>"><%= @legislation.bill_sponsor %></a></p>
+      </aside>
 
-  <p>
-    <b>Legislation Issues:</b>
-    <%= @legislation.issues.collect { |i| "<a href='/issues/#{Issue.where("name like ?", "%#{i.name}").first.id}'>#{i.name}</a>" }.to_sentence.html_safe %>
-  </p>		
+      <aside id="cosponsors" class="box_d">
+        <% cosponsors = @legislation.legislation_cosponsors %>
+        <h2>Cosponsors (<%= cosponsors.count %>)</h2>
+        <ul id="cosponsors-list">
+          <% cosponsors.each do |c| %>
+          <p><a href="<%= person_path(Person.find(c.person.id)) %>"><%= c.person.name %></a></p>
+          <% end %>
+        </ul>
+      </aside>
 
-  <p>
-    <b>Committees:</b>
-    <%= @legislation.committees.collect { |c| "<a href='/committees/#{Committee.where("name like ?", "%#{c.name}").first.id }'>#{c.name}</a>" }.to_sentence.html_safe %>
-  </p>
-
-  <p>
-    <b>Bill PDF:</b>
-    <a href="<%= @legislation.bill_pdf %>">Download</a>
-    <iframe src="http://docs.google.com/gview?url=<%= @legislation.bill_pdf %>&embedded=true" style="width:960px; height:900px;" frameborder="0"></iframe>
-  </p>	
-
+      <aside id="committees" class="box_c">
+        <h2>Committees</h2>
+        <% @legislation.committees.each do |c| %>
+        <% end %>
+      </aside>
+    </div>
+  </article>
 </div>

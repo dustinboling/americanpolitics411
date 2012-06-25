@@ -2,7 +2,7 @@ class LegislationController < ApplicationController
   
   require 'open-uri'
   
-  layout 'admin'
+  layout 'public'
   
   def index
     list
