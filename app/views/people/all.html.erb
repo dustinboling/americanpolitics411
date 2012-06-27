@@ -1,27 +1,27 @@
-<div class="container">
-	<div class="page-header">
-		<%= render 'layouts/messages' %>
-		
-		<h3>All People</h3>
-			<table class="zebra-striped span6">
-				<tr>
-					<th>Person</th>
-					<% if can? :edit, Person %>
-						<th>Actions<th>
-					<% end %>			
-				</tr>
-				<% @people.each do |person| %>
-				<tr>
-					<td><%= link_to "#{person.first_name} #{person.last_name}", person_path(person) %></td>
-					<% if can? :edit, Person %>
-						<td>
-							<a href ="<%= edit_person_path(person) %>" class="btn small primary">Edit</a>
-						</td>
-						<td>
-							<%= link_to 'Destroy', person, confirm: 'Are you sure?', :method => :delete, :class => 'btn small danger' %>
-						</td>
-					<% end %>
-				</tr>
-			<% end %>
-		</table>
+<div class="page-header">
+  <%= render 'layouts/messages' %>
+</div>
+
+<div class="content-wrap twelvel column">
+  <h3>Officials</h3>
+  <table>
+    <tr>
+      <% if can? :edit, Person %>
+      <th>Actions<th>
+      <% end %>			
+    </tr>
+    <% @people.each do |person| %>
+    <tr>
+      <td><%= link_to "#{person.first_name} #{person.last_name}", person_path(person) %></td>
+      <% if can? :edit, Person %>
+      <td>
+        <a href ="<%= edit_person_path(person) %>" class="btn small primary">Edit</a>
+      </td>
+      <td>
+        <%= link_to 'Destroy', person, confirm: 'Are you sure?', :method => :delete, :class => 'btn small danger' %>
+      </td>
+      <% end %>
+    </tr>
+    <% end %>
+  </table>
 </div>

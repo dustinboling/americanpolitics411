@@ -466,6 +466,7 @@ namespace :seed do
 
       begin
         sleep 1
+        puts "getting member doc.."
         @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}/bills/introduced.xml?api-key=#{@@nyt_api_key}"))
       rescue Exception => e
         case e.message
@@ -480,11 +481,13 @@ namespace :seed do
       end
 
       sleep 2
+      puts "grabbing bills."
       @bills = @member_doc.xpath('//results/bills/bill/number')
       number_bills = @bills.count 
 
       i = 1
       while i <= number_bills
+        puts "getting bill number"
         @bill_number = @member_doc.xpath("//results/bills/bill[#{i}]/number")
         @bill_number_stripped = @bill_number.inner_text.gsub(/[.]/, "").downcase
 

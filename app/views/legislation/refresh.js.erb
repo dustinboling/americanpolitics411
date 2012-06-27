@@ -1,0 +1,1 @@
+$('#legislation-container').html("<%= escape_javascript(render(:partial => 'legislation_partial', :locals => {:legislation => @legislation})).html_safe %>")

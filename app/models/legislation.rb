@@ -1,5 +1,7 @@
 class Legislation < ActiveRecord::Base
   
+  before_save :set_introduced_year
+
   has_many :committee_legislations
   has_many :committees, :through => :committee_legislations
   
@@ -8,5 +10,9 @@ class Legislation < ActiveRecord::Base
   
   has_many :legislation_issues
   has_many :issues, :through => :legislation_issues
+
+  def set_introduced_year
+    self.introduced_year = self.introduced_date.split('-').shift
+  end
 
 end

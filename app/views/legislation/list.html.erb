@@ -1,20 +1,37 @@
-<div class="container">
-	<h1>Legislation for <%= CURRENT_YEAR_CONGRESS %> Year of Congress</h1>
+<div class="sixteen columns">
+  <div class="four columns">
+    <h1 class="page-title">Legislation</h1>
+  </div>
+  <div class="three columns">
+    <%= form_for :legislations, :remote => true, :url => {:action => 'refresh'} do |f| %>
+    <label class="two columns">
+      By Year
+      <%= f.text_field :introduced_year %>
+    </label>
+    <%= f.submit "Go", :class => 'no-padding' %>
+    <% end %>
+  </div>
+  <div class="four columns">
+    <%= form_for :legislations, :remote => true, :url => {:action => 'refresh'} do |f| %>
+    <label class="three columns">
+      By Session
+      <% sessions = ["112", "111", "110"] %>
+      <%= f.select :congress_year, sessions %>
+    </label>
+    <%= f.submit "Go", :class => 'no-padding' %>
+    <% end %>
+  </div>
+  <div class="four columns">
+    <%= form_for :legislations, :remote => true, :url => {:action => 'refresh'} do |f| %>
+    <label class="three columns">
+      By Issue
+      <%= f.select :issue_id, Issue.all.collect { |i| [i.name, i.id] } %>
+    </label>
+    <%= f.submit "Go", :class => 'no-padding' %>
+    <% end %>
+  </div>
+</div>
 
-		<table class="zebra-striped">
-			<tr>
-				<th>Bill #</th>
-				<th>Title</th>
-				<th></th>
-			</tr>
-			<% @legislations.each do |legislation| %>
-			<tr>
-        <td class="span3"><%= link_to "#{legislation.bill_number}", legislation %></td>
-				<td><%= legislation.bill_title %></td>
-				<% if can? :edit, Legislation %>
-					<td><%= link_to "Edit", edit_legislation_path(legislation), :class => 'btn small success' %></td>
-				<% end %>
-			</tr>
-		<% end %>
-	</table>
+<div id="legislation-container" class="fifteen columns box_a" style="margin-left: 20px;">
+  <%= render :partial => 'legislation_partial', :locals => {:legislation => @legislation} %>
 </div>

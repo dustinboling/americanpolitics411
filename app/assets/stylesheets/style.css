@@ -63,6 +63,10 @@ hr {
   text-align: center;
 }
 
+.no-padding {
+  margin: 15px 0 !important;
+}
+
 /*
  * Box Styles
  *************************************/
@@ -167,6 +171,62 @@ hr {
   text-decoration: none;
 }
 
+#menu-item-officials-subnav {
+  background-color: rgba(63, 63, 63, 1);
+  position: absolute;
+  left: -10px;
+  padding-top: 40px;
+  width: 100%;
+  height: 270px;
+}
+
+#menu-item-officials-subnav-col1 h2 {
+  color: #FFF;
+  font-size: 15px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+#menu-item-officials-subnav-col1 p {
+  color: #999;
+  font-size: 11px;
+  padding-top: 30px;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+#person-search {
+  background-color: #3F3F3F;
+  color: #FFF;
+}
+
+#menu-item-officials-subnav-col2, 
+#menu-item-officials-subnav-col3, 
+#menu-item-officials-subnav-col4, 
+#menu-item-officials-subnav-col5
+{
+  border-left: 1px solid #fff;
+  padding-left: 10px;
+}
+
+#menu-item-officials-subnav ul {
+  min-height: 250px;
+}
+
+#menu-item-officials-subnav ul li {
+  color: #999;
+  display: block;
+  line-height: 15px;
+  font-size: 11px;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+.list-header {
+  color: #FFF !important;
+  font-size: 13px !important;
+  font-weight: bold;
+}
 
 /*
  * Footer

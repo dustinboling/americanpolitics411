@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.3'
+gem 'rails', '3.1.6'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -19,12 +19,9 @@ gem 'highline'
 gem 'youtube_it'
 gem 'twitter'
 
-# probably move this into development
-gem 'newrelic_rpm'
-
 # helpful helper gems
 # gem 'railroady'
-gem 'annotate', '~> 2.4.1.beta'
+# gem 'annotate', '~> 2.4.1.beta'
 
 # Gems for development mode only.
 gem 'rspec-rails', :group => [:test, :development]
@@ -37,6 +34,7 @@ end
 
 group :production do
   gem 'thin'
+  gem 'newrelic_rpm'
 end
 
 # Gems used only for assets and not required

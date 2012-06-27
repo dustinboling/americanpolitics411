@@ -45,7 +45,7 @@
         <h2>Issues (sectors)</h2>
         <% @legislation.legislation_issues.each do |i|  %>
           <% issue = i.issue %>
-          <p><a href="/issues/<%= issue.id %>"><%= issue.name %></a></p>
+          <p><a href="/issues/<%= issue.to_param %>"><%= issue.name %></a></p>
         <% end %>
       </aside>
 
