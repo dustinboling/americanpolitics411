@@ -15,9 +15,11 @@
       <div class="selector-container">
         <div class="representatives-col1 three columns">
           <h1>House of Representatives</h1>
-          <%= link_to "Browse by State", {:action => 'switch_to_representative_by_state'}, :remote => true %><br />
-          <%= link_to "Browse by Name", {:action => 'switch_to_representative_by_name'}, :remote => true %><br />
-          <%= link_to "Browse by Party", {:action => 'switch_to_representative_by_party'}, :remote => true %><br />
+          <ul>
+            <li><%= link_to "Browse by State", {:action => 'switch_to_representative_by_state'}, :remote => true %></li>
+            <li><%= link_to "Browse by Name", {:action => 'switch_to_representative_by_name'}, :remote => true %></li>
+            <li><%= link_to "Browse by Party", {:action => 'switch_to_representative_by_party'}, :remote => true %></li>
+          </ul>
         </div>
         <div class="navigation-container">
           <%= render :partial => 'browse_by_state', :locals => {:chamber => 'H'} %>
@@ -28,9 +30,11 @@
       <div class="selector-container">
         <div class="representatives-col1 three columns">
           <h1>Senate</h1>
-          <%= link_to "Browse by State", {:action => 'switch_to_senator_by_state'}, :remote => true %><br />
-          <%= link_to "Browse by Name", {:action => 'switch_to_senator_by_name'}, :remote => true %><br />
-          <%= link_to "Browse by Party", {:action => 'switch_to_senator_by_party'}, :remote => true %><br />
+          <ul>
+            <li><%= link_to "Browse by State", {:action => 'switch_to_senator_by_state'}, :remote => true %></li>
+            <li><%= link_to "Browse by Name", {:action => 'switch_to_senator_by_name'}, :remote => true %></li>
+            <li><%= link_to "Browse by Party", {:action => 'switch_to_senator_by_party'}, :remote => true %></li>
+          </ul>
         </div>
         <div class="navigation-container">
           <%= render :partial => 'browse_by_state', :locals => {:chamber => 'S'} %>

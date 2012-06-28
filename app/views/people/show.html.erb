@@ -1,49 +1,53 @@
 <% @page_title = "#{@person.full_name}" %>
 
-<div id="tabs">
-		
-<div class="container-fluid">
-	<div class="span3">
-		<div class="well sidebar pub-nav" id="pub-nav">
-			<%= render 'public-navigation-side' %>
-			<% if can? :edit, Person %>
-				<%= link_to 'Edit', edit_person_path(@person) %> |
-			<% end %>
-				<%= link_to 'Back to List', :controller => 'people', :action => 'all' %>
-		</div>
- 	</div>
-	
-<div id="profile">
-	<div id="tabs-1">
-		<%= render 'showtab1' %>
-	</div> <!-- /#basic_info  -->
-		
-	<div id="tabs-2">
-		<%= render 'showtab2' %>
-	</div> <!-- /#contact_info -->
-		
-	<div id="tabs-3">
-		<%= render 'showtab3' %>
-	</div> <!-- /#relationships -->
-	
-	<div id="tabs-4">
-		<%= render 'showtab4' %>
-	</div> <!-- /#financial -->
-	
-	<div id="tabs-5">
-		<%= render 'showtab5' %>
-	</div> <!-- /#political -->
-	
-	<div id="tabs-6">
-		<%= render 'showtab6' %>
-	</div> <!-- /#controversy -->
-	
-	<div id="tabs-7">
-		<%= render 'showtab7' %>
-	</div> <!-- /#establishment -->
-	
-	<div id="tabs-8">
-		<%= render 'showtab8' %>
-	</div> <!-- /#attachments -->
-	
-</div> <!-- /#profile -->
+<div class="page-header">
+  <%= render 'layouts/messages' %>
+</div>
+
+<div class="content-wrap sixteen columns">
+  <ul class="tabs">
+    <li><a class="active" href="#basic-info">Basic Info</a></li>
+    <li><a href="#contact-info">Contact Info</a></li>
+    <li><a href="#relationships">Relationships</a></li>
+    <li><a href="#financial">Financial</a></li>
+    <li><a href="#political">Political</a></li>
+    <li><a href="#controversy">Controversy</a></li>
+    <li><a href="#establishment">Establishment</a></li>
+    <li><a href="#attachments">Attachments</a></li>
+  </ul>
+
+  <ul class="tabs-content">
+    <li id="basic-info" class="active">
+      <%= render 'showtab1' %>
+    </li> <!-- /#basic_info  -->
+
+    <li id="contact-info">
+      <%= render 'showtab2' %>
+    </li> <!-- /#contact_info -->
+
+    <li id="relationships">
+      <%= render 'showtab3' %>
+    </li> <!-- /#relationships -->
+
+    <li id="financial">
+      <%= render 'showtab4' %>
+    </li> <!-- /#financial -->
+
+    <li id="political">
+      <%= render 'showtab5' %>
+    </li> <!-- /#political -->
+
+    <li id="controversy">
+      <%= render 'showtab6' %>
+    </li> <!-- /#controversy -->
+
+    <li id="establishment">
+      <%= render 'showtab7' %>
+    </li> <!-- /#establishment -->
+
+    <li id="attachments">
+      <%= render 'showtab8' %>
+    </li> <!-- /#attachments -->
+  </ul>
+
+</div> <!-- /#content-wrap -->
