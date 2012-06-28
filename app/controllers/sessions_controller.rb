@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   
-  layout 'admin'
+  layout 'public'
   
   def new
   end

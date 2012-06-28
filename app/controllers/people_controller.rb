@@ -1,7 +1,10 @@
 class PeopleController < ApplicationController
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:all, :representatives, :senators, :indiv_contributors, :pac_contributors, :autocomplete_person_name, :autocomplete_person_url]
+  skip_authorize_resource :only => [:all, :representatives, :senators, :indiv_contributors, 
+    :pac_contributors, :autocomplete_person_name, :autocomplete_person_url, :refresh_officials, 
+    :switch_to_representative_by_state, :switch_to_representative_by_name, :switch_to_representative_by_party,
+    :switch_to_senator_by_state, :switch_to_senator_by_name, :switch_to_senator_by_party]
 
   layout 'public'
 
@@ -17,7 +20,6 @@ class PeopleController < ApplicationController
     render json: @people.collect { |p| { :label => "#{p.first_name} #{p.last_name}", :value => p.slug } }
   end
 
-  # GET /all
   def all
     @people = Person.order("people.id ASC")
 
@@ -28,17 +30,71 @@ class PeopleController < ApplicationController
     end
   end
 
-  # GET /senators
   def senators
     @people = Person.where("chamber = 'S'").order("people.last_name ASC")
   end
 
-  # GET /representatives
   def representatives
-    @people = Person.where("chamber = 'H'").order("people.last_name ASC")
+    @people = []
   end
 
-  # GET /people
+  def switch_to_representative_by_state
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
+
+  def switch_to_representative_by_name
+    respond_to do |format|
+      format.js { render :layout => false }
+    end 
+  end
+
+  def switch_to_representative_by_party
+    respond_to do |format|
+      format.js { render :layout => false }
+    end 
+  end
+
+  def switch_to_senator_by_state
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
+  
+  def switch_to_senator_by_name
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
+
+  def switch_to_senator_by_state
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
+
+  def refresh_officials
+    if params.has_key?(:state) && params.has_key(:chamber)
+      @people = Person.where(:current_state => params[:state], :chamber => params[:chamber])
+    elsif params.has_key?(:name) && params.has_key?(:chamber)
+      name_range  = params[:name].split('-')
+      @people = Person.where("chamber = '#{params[:chamber]}' AND last_name BETWEEN '#{name_range[0]}' AND '#{name_range[1]}'")
+    elsif params.has_key?(:chamber) && params.has_key?(:party)
+      @people = Person.where(:chamber => params[:chamber], :current_party => params[:party])
+    elsif params.has_key?(:state)
+      @people = Person.where(:current_state => params[:state])
+    elsif params.has_key?(:party)
+      @people = Person.where(:current_party => params[:party])
+    elsif params.has_key?(:chamber)
+      @people = Person.where(:chamber => params[:chamber])
+    end
+
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
+
   def index
     render 'all'
   end
@@ -47,7 +103,6 @@ class PeopleController < ApplicationController
     @people = People.order("people.id ASC")
   end
 
-  # GET /people/1
   def show
     @person = Person.find(params[:id])
 
@@ -110,8 +165,6 @@ class PeopleController < ApplicationController
       :contributor_type => "I")
   end
 
-  # GET /people/new
-  # GET /people/new.json
   def new
     @person = Person.new
     @religions = Religion.order('id ASC')
@@ -122,13 +175,10 @@ class PeopleController < ApplicationController
     end
   end
 
-  # GET /people/1/edit
   def edit
     @person = Person.find(params[:id])
   end
 
-  # POST /people
-  # POST /people.json
   def create
     @person = Person.new(params[:person])
 
@@ -146,8 +196,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  # PUT /people/1
-  # PUT /people/1.json
   def update
     @person = Person.find(params[:id])
 
@@ -164,8 +212,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  # DELETE /people/1
-  # DELETE /people/1.json
   def destroy
     @person = Person.find(params[:id])
     @person.destroy

@@ -19,6 +19,13 @@ Politics411::Application.routes.draw do
  
   get "people/senators"
   get "people/representatives"
+  get "people/refresh_officials"
+  get "people/switch_to_representative_by_state"
+  get "people/switch_to_representative_by_name"
+  get "people/switch_to_representative_by_party"
+  get "people/switch_to_senator_by_state"
+  get "people/switch_to_senator_by_party"
+  get "people/switch_to_senator_by_name"
   
   # Routes for autocomplete
   get "universities/autocomplete_university_name"

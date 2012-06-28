@@ -20,14 +20,3 @@ function add_fields(link, association, content) {
     $(link).parent().parent().before(content.replace(regexp, new_id))
 }
 
-$(document).ready(function() {
-    $('#menu-item-officials-subnav').hide();
-    $('#menu-item-officials').hover(function() {
-        // show subnav
-        $('#menu-item-officials-subnav').css('visibility', '').slideDown(100);
-    },
-    function() {
-        // hide subnav
-        $('#menu-item-officials-subnav').slideUp(100);
-    });
-});

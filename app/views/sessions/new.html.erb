@@ -1,24 +1,28 @@
-<div class="container">
-	<h1>Log in:</h1>
+<div class="content-wrap tweleve columns">
+  <div id="login-column-1" class="six columns">
+    <h1 class="page-title">Log in:</h1>
 
-	<% if flash[:notice] %>
-		<p id="flash_notice"><%= flash[:notice] %></p>
-	<% end %>
+    <% if flash[:notice] %>
+    <p id="flash_notice"><%= flash[:notice] %></p>
+    <% end %>
 
-	<%= form_tag(sessions_path, :class => 'form-stacked') do %>
+    <%= form_tag(sessions_path, :class => 'form-stacked') do %>
 
-	    <%= label_tag :username %>
-	    <%= text_field_tag :username, params[:username] %>
+    <%= label_tag :username %>
+    <%= text_field_tag :username, params[:username] %>
 
-	    <%= label_tag :password %>
-	    <%= password_field_tag :password %>
+    <%= label_tag :password %>
+    <%= password_field_tag :password %>
 
-	    <%= check_box_tag :remember_me, 1, params[:remember_me] %>
-			<%= label_tag :remember_me %><br />
+    <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+    <%= label_tag :remember_me %><br />
 
-	  <%= submit_tag "Log in", :class => 'btn success' %>
-	<% end %>
-	
-	<b>Forgot password?</b>
-	<%= render 'forgot_password_form' %>
+    <%= submit_tag "Log in", :class => 'btn success' %>
+    <% end %>
+  </div>
+
+  <div id="login-column-2" class="six columns">
+    <h2 class="page-title alpha">Forgot password?</h2>
+    <%= render 'forgot_password_form' %>
+  </div>
 </div>

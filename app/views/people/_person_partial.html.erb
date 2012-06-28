@@ -1,0 +1,7 @@
+<% if @people.count == 0 %>
+  <h2>Select from the options above.</h2>
+<% else %>
+  <% @people.each do |p| %>
+    <%= p.name %>
+  <% end %>
+<% end %>

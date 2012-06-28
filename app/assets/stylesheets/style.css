@@ -183,14 +183,15 @@ hr {
 #menu-item-officials-subnav-col1 h2 {
   color: #FFF;
   font-size: 15px;
+  padding-top: 10px;
   text-align: left;
   text-transform: uppercase;
 }
 
 #menu-item-officials-subnav-col1 p {
-  color: #999;
+  color: #ddd;
   font-size: 11px;
-  padding-top: 30px;
+  padding-top: 40px;
   text-align: left;
   text-transform: capitalize;
 }
@@ -206,18 +207,28 @@ hr {
 #menu-item-officials-subnav-col5
 {
   border-left: 1px solid #fff;
-  padding-left: 10px;
+  padding-left: 9px;
 }
 
 #menu-item-officials-subnav ul {
-  min-height: 250px;
+  min-height: 230px;
 }
 
 #menu-item-officials-subnav ul li {
-  color: #999;
+  color: #ddd;
   display: block;
   line-height: 15px;
   font-size: 11px;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+#menu-item-officials-subnav ul li a {
+  color: #ddd;
+  display: block;
+  line-height: 15px;
+  font-size: 11px;
+  padding: 0;
   text-align: left;
   text-transform: capitalize;
 }
@@ -226,6 +237,7 @@ hr {
   color: #FFF !important;
   font-size: 13px !important;
   font-weight: bold;
+  padding-top: 10px;
 }
 
 /*

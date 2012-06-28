@@ -1,28 +1,50 @@
-<div class="container">
-	<div class="page-header">
-		<%= render 'layouts/messages' %>
-		
-		<h3>Representatives</h3>
-		<table class="zebra-striped span6">
-			<tr>
-				<th>Senator</th>
-				<% if can? :edit, Person %>
-					<th>Actions<th>
-				<% end %>
-			</tr>
-			<% @people.each do |person| %>
-			<tr>
-				<td><a href="<%= person_path(person) %>"><%= person.name %></a></td>
-				<% if can? :edit, Person %>
-					<td>
-						<a href ="<%= edit_person_path(person) %>" class="btn small primary">Edit</a>
-					</td>
-					<td>
-						<%= link_to 'Destroy', person, confirm: 'Are you sure?', :method => :delete, :class => 'btn small danger' %>
-					</td>
-				<% end %>
-			</tr>
-			<% end %>
-		</table>
-	</div>
+<%= stylesheet_link_tag 'representatives' %>
+
+<div class="page-header">
+  <%= render 'layouts/messages' %>
+</div>
+
+<div class="content-wrap sixteen columns">
+  <ul class="tabs">
+    <li><a class="active" href="#house">House</a></li>
+    <li><a href="#senate">Senate</a></li>
+    <li><a href="#people">People</a></li>
+  </ul>
+  <ul class="tabs-content">
+    <li class="active" id="house">
+      <div class="selector-container">
+        <div class="representatives-col1 three columns">
+          <h1>House of Representatives</h1>
+          <%= link_to "Browse by State", {:action => 'switch_to_representative_by_state'}, :remote => true %><br />
+          <%= link_to "Browse by Name", {:action => 'switch_to_representative_by_name'}, :remote => true %><br />
+          <%= link_to "Browse by Party", {:action => 'switch_to_representative_by_party'}, :remote => true %><br />
+        </div>
+        <div class="navigation-container">
+          <%= render :partial => 'browse_by_state', :locals => {:chamber => 'H'} %>
+        </div>
+      </div>
+    </li>
+    <li id="senate">
+      <div class="selector-container">
+        <div class="representatives-col1 three columns">
+          <h1>Senate</h1>
+          <%= link_to "Browse by State", {:action => 'switch_to_senator_by_state'}, :remote => true %><br />
+          <%= link_to "Browse by Name", {:action => 'switch_to_senator_by_name'}, :remote => true %><br />
+          <%= link_to "Browse by Party", {:action => 'switch_to_senator_by_party'}, :remote => true %><br />
+        </div>
+        <div class="navigation-container">
+          <%= render :partial => 'browse_by_state', :locals => {:chamber => 'S'} %>
+        </div>
+      </div>
+    </li>
+    <li id="people">
+      <div class="selector-container">
+        <%= render :partial => 'browse_people' %>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div id="person-container" class="fifteen columns box_a" style="margin-left: 20px; margin-top: 20px;">
+  <%= render :partial => 'person_partial', :locals => {:people => @people} %>
 </div>
