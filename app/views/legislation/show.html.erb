@@ -43,9 +43,26 @@
 
       <aside id="issues" class="box_c">
         <h2>Issues (sectors)</h2>
-        <% @legislation.legislation_issues.each do |i|  %>
+        <% legislation_issues = @legislation.legislation_issues %>
+        <% issue_count = legislation_issues.count %>
+        <% n = 1 %>
+        <% legislation_issues.each do |i| %>
           <% issue = i.issue %>
-          <p><a href="/issues/<%= issue.to_param %>"><%= issue.name %></a></p>
+          <% if n < 7 %>
+            <p><a href="/issues/<%= issue.to_param %>"><%= issue.name %></a></p>
+          <% elsif n == 7 %>
+            <p>
+              <%= link_to "more...", "#", :id => "more-issues", :onclick => "return false;" %>
+            </p>
+            <p class="hidden-issue" style="display:none;">
+              <%= link_to issue.name, issue_path(issue.to_param) %>
+            </p>
+          <% else %>
+            <p class="hidden-issue" style="display:none;">
+              <%= link_to issue.name, issue_path(issue.to_param) %>
+            </p>
+          <% end %>
+          <% n = n + 1 %>
         <% end %>
       </aside>
 
@@ -56,7 +73,7 @@
 
       <aside id="cosponsors" class="box_d">
         <% cosponsors = @legislation.legislation_cosponsors %>
-        <h2>Cosponsors (<%= cosponsors.count %>)</h2>
+        <h2 id="cosponsors-header"><a href="#" onclick="return false;">Cosponsors (<%= cosponsors.count %>)</a></h2>
         <ul id="cosponsors-list">
           <% cosponsors.each do |c| %>
           <p><a href="<%= person_path(Person.find(c.person.id)) %>"><%= c.person.name %></a></p>

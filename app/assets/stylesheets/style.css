@@ -590,6 +590,11 @@ aside.box_c h2,
   background-color: #3F3F3F;
 }
 
+#cosponsors-header a {
+  color: #fff;
+  text-decoration: none;
+}
+
 #status td {
   font-size: 11px;
   line-height: 1.3;

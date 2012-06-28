@@ -52,6 +52,7 @@ COMPLETED
 #55 - make sure when an admin changes an issue name, the change is reflected in sub-issues
 #58 - Add about & contact info & jurisdiction to committees/ make committees editable.
 #56 - Make h1s dynamic: 'Editing organization' should be 'Editing #{name of org.}'
+#60 - currently legislation#show only shows top 7 issues. need todo some jquery to show the rest.
 
 ON HOLD
 ==============||==
