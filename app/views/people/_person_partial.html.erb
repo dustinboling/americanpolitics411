@@ -4,15 +4,17 @@
 <table id="officials-table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Party</th>
+      <th>Name (Party)</th>
+      <th>State</th>
+      <th>Contact Phone</th>
     </tr>
   </thead>
   <tbody>
     <% @people.each do |p| %>
     <tr>
-      <td><%= link_to p.name, person_path(p.to_param) %></td>
-      <td><%= p.current_party %></td>
+      <td><%= link_to "#{p.name} (#{p.current_party})", person_path(p.to_param) %></td>
+      <td><%= p.contact_state %></td>
+      <td><%= p.contact_phone %></td>
     </tr>
     <% end %>
   </tbody>

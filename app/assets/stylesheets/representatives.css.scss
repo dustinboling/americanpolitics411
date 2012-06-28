@@ -37,7 +37,7 @@
       margin: 0;
       font-size: 11px;
       a {
-        line-height: 1.3px;
+        line-height: 1.3;
         color: #fff;
         text-decoration: none;
       }
@@ -45,10 +45,20 @@
   }
 }
 
+#person-container {
+  // bumping up rather than changing base.css
+  margin-top: -5px;
+  width: 907px;
+}
+
 #officials-table {
   border: 1px solid #9f9f9f;
   width: 100%;
+  thead {
+    background-color: #ddd;
+  }
   th {
+    border: 1px solid #9f9f9f;
     font-weight: bold;
     padding: 2px;
   }
