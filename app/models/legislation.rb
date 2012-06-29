@@ -15,4 +15,8 @@ class Legislation < ActiveRecord::Base
     self.introduced_year = self.introduced_date.split('-').shift
   end
 
+  def to_param
+    "#{id} #{bill_number}".parameterize
+  end
+
 end

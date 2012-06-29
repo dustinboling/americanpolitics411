@@ -79,6 +79,8 @@ hr {
  *  Box d: rounded corners - no background color, no border - used for colored boxes, colors assigned by page (legislation)
  *  Box e: black border, no background, square corners
  *  Box f: 2px light grey border, no background - used for news blocks on home and news pages
+ * Box_red: no border, red background
+ * Box g : it's box_b but !important
  */
 
 .box_a, 
@@ -122,6 +124,21 @@ hr {
   padding: 5px;
 }
 
+.box_red {
+  background-color: red !important;
+  color: #fff !important;
+  border: 1px solid red !important;
+  border-radius: 5px !important;
+  padding: 1px;
+}
+
+.box_g {
+  background-color: #efefef !important;
+  border: 2px solid #ababab !important;
+  border-radius: 3px !important;
+  margin-bottom: 10px !important;
+  padding: 4px !important;
+}
 
 /*
  * Header
