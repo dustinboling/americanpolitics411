@@ -1,22 +1,27 @@
+<%= stylesheet_link_tag "legislation" %>
 <% if @legislation.count == 0 %>
 <h2>No records found.</h2>
 <% else %>
-<table class="zebra-striped">
-  <tr>
-    <th>Date</th>
-    <th>Bill No.</th>
-    <th>Bill Title</th>
-    <th>Outcome</th>
-  </tr>
-  <% @legislation.each do |legislation| %>
-  <tr>
-    <td><%= legislation.introduced_date %></td>
-    <td class="span3"><%= link_to "#{legislation.bill_number}", legislation %></td>
-    <td><%= truncate(legislation.bill_title, :length => 80) %></td>
-    <% if can? :edit, Legislation %>
-    <td><%= link_to "Edit", edit_legislation_path(legislation), :class => 'btn small success' %></td>
+<table id="legislation-table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Bill No.</th>
+      <th>Bill Title</th>
+      <th>Outcome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @legislation.each do |legislation| %>
+    <tr class="<%= cycle("even", "odd") %>">
+      <td><%= legislation.introduced_date %></td>
+      <td class="span3"><%= link_to "#{legislation.bill_number}", legislation %></td>
+      <td><%= truncate(legislation.bill_title, :length => 80) %></td>
+      <% if can? :edit, Legislation %>
+        <td><%= link_to "Edit", edit_legislation_path(legislation), :class => 'btn small success' %></td>
+      <% end %>
+    </tr>
     <% end %>
-  </tr>
-  <% end %>
+  </tbody>
 </table>
 <% end %>
