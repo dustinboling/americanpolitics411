@@ -1,12 +1,14 @@
 class PeopleController < ApplicationController
 
-  load_and_authorize_resource
-  skip_authorize_resource :only => [:all, :representatives, :senators, :indiv_contributors, 
-    :pac_contributors, :autocomplete_person_name, :autocomplete_person_url, :refresh_officials, 
-    :switch_to_representative_by_state, :switch_to_representative_by_name, :switch_to_representative_by_party,
-    :switch_to_senator_by_state, :switch_to_senator_by_name, :switch_to_senator_by_party]
-
   layout 'public'
+
+  load_and_authorize_resource
+  skip_authorize_resource :only => [:all, :representatives, :senators, 
+    :indiv_contributors, :pac_contributors, :autocomplete_person_name, 
+    :autocomplete_person_url, :refresh_officials, 
+    :switch_to_representative_by_state, :switch_to_representative_by_name, 
+    :switch_to_representative_by_party, :switch_to_senator_by_state, 
+    :switch_to_senator_by_name, :switch_to_senator_by_party]
 
   # populate list of names for autocomplete
   def autocomplete_person_name

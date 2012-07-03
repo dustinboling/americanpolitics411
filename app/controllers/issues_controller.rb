@@ -1,6 +1,6 @@
 class IssuesController < ApplicationController
 
-  layout 'admin'
+  layout 'public'
 
   def index
     @issues = Issue.order('id ASC')

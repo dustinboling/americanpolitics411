@@ -1,31 +1,37 @@
-<div class="container">	
-	<%= error_messages_for(@user) %>
+<div class="content-wrap sixteen columns">	
+  <%= error_messages_for(@user) %>
 
-	<h1>Manage Users</h1>
+  <h1 class="page-title">Manage Users</h1>
 
-	<table class="listing">
-		<tr class="header">
-			<th>username</th>
-			<th>email</th>
-			<th>role</th>
-			<th>actions</th>
-		</tr>
-	<% @users.each do |user| %>
-		<tr class="<%= cycle('odd', 'even') %>">
-	    <td><%= user.username %></td>
-			<td><%= user.email %></td>
-			<td><%= user.roles_mask %></td>
-			<% if can? :edit, User %>
-				<td><%= link_to 'Edit', edit_user_path(user), :class => 'btn small primary' %></td>
-			<% end %>
-			<td><%= link_to 'Show', user, :class => 'btn small success' %></td>
-			<% if can? :destroy, User %>	
-			<td><%= link_to 'Destroy', user, confirm: "Do you really want to delete this user?", :method => :delete, :class => 'btn small danger' %></td>
-			<% end %>
-		</tr>
-	<% end %>
-	</table>
-	<% if can? :create, User %>
-		<%= link_to('Add User', {:controller => 'users', :action => 'new'}, :class => 'btn success', :style => 'float: left;') %>
-	<% end %>
+  <table>
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Actions</th>
+      <% if can? :edit, User %>
+      <th></th>
+      <% end %>
+      <% if can? :destroy, User %>
+      <th></th>
+      <% end %>
+    </tr>
+    <% @users.each do |user| %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= user.username %></td>
+      <td><%= user.email %></td>
+      <td><%= user.roles_mask %></td>
+      <% if can? :edit, User %>
+      <td><%= link_to 'Edit', edit_user_path(user), :class => 'btn small primary' %></td>
+      <% end %>
+      <td><%= link_to 'Show', user, :class => 'btn small success' %></td>
+      <% if can? :destroy, User %>	
+      <td><%= link_to 'Destroy', user, confirm: "Do you really want to delete this user?", :method => :delete, :class => 'btn small danger' %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </table>
+  <% if can? :create, User %>
+  <%= link_to('Add User', {:controller => 'users', :action => 'new'}, :class => 'btn success', :style => 'float: left;') %>
+  <% end %>
 </div>

@@ -1,5 +1,5 @@
-<div class="container">
-	<h1>New person</h1>
+<div class="content-wrap sixteen columns">
+	<h1 class="page-title">New person</h1>
 
 	<% if can? :create, Person %>
 		<%= render 'form' %>
@@ -7,5 +7,4 @@
 		<%= "You do not have permission to create new people." %>
 	<% end %>
 
-	<%= link_to 'Back', root_url, :class => 'btn danger' %>
 </div>

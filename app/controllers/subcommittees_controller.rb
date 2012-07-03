@@ -1,6 +1,6 @@
 class SubcommitteesController < ApplicationController
   
-  layout 'admin'
+  layout 'public'
   
   def index
     @subcommittees = Subcommittee.order("chamber ASC", "name ASC")

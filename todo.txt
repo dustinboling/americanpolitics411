@@ -15,6 +15,7 @@ AP411 - ROADMAP
         sessions_controller.rb
         subcommittees_controller.rb
 #59 - add date to beginning of summary
+#60 - on person#show#financial make the 'more...' links drop down with jquery
 
 COMPLETED
 ==============||==

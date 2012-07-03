@@ -3,7 +3,7 @@ class OrganizationsController < ApplicationController
   load_and_authorize_resource
   skip_authorize_resource :only => :show
   
-  layout 'admin'
+  layout 'public'
   
   def autocomplete_organization_name
     @organizations = Organization.order(:name).where("name like ?", "%#{params[:term]}%")

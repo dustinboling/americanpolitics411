@@ -1,6 +1,6 @@
 class CommitteesController < ApplicationController
 
-  layout 'admin'
+  layout 'public'
 
   def index
     @house_committees = Committee.where("name like 'House%'")

@@ -1,13 +1,10 @@
 <div class="hero-unit span13">
   <h3>Attachments</h3>
   <p>
-    <b>Articles:</b>
-  </p>
-  <p>
-    <b>Videos:</b>
     <% if @person.youtube_id.blank? %>	
     <% else %>		
       <% begin %>
+        <b>Videos:</b>
         <h3>Videos from <%= @person.first_name %> <%= @person.last_name %>'s youtube:</h3>
         <% @personal_videos = $youtube.videos_by(:user => "#{@person.youtube_id}", :page => 1, :per_page => 18) %>
         <% @personal_videos.videos.each do |v| %>
