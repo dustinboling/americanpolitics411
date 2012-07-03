@@ -1,17 +1,20 @@
-<% @page_title = "Showing User: #{@user.username}" %>
+<% @page_title = "#{@user.username}" %>
+<div class="content-wrap sixteen columns">
+  <p>
+    <b>Username:</b>
+    <%= @user.username %>
+  </p>
+  <p>
+    <b>Email:</b>
+    <%= @user.email %>
+  </p>
+  <p>
+    <b>Roles:</b>
+    <%= @user.roles_mask %>
+  </p>
+  <% if Activity.where(:resource_type => "user", :resource_id => @user.id).count > 0 %>
+  <% a = Activity.where(:resource_type => "user", :resource_id => @user.id).last %>
+  <p>Last edited by: <%= User.find(a.user_id).username %> @ <%= a.created_at %></p>
+  <% end %>
 
-<p>
-	<b>Username:</b>
-	<%= @user.username %>
-</p>
-<p>
-	<b>Email:</b>
-	<%= @user.email %>
-</p>
-<p>
-	<b>Roles:</b>
-	<%= @user.roles_mask %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to '<< Back to List', users_path %>
+</div>

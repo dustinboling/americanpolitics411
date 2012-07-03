@@ -9,6 +9,9 @@
       <th>Bill No.</th>
       <th>Bill Title</th>
       <th>Outcome</th>
+      <% if can? :edit, Legislation %>
+      <th>Edit</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>

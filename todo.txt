@@ -4,18 +4,15 @@ AP411 - ROADMAP
 #48 - remove unused json in controllers
 #51 - Split up legislation into types (H.R., H.CON.RES, etc)
 #52 - make legislation search lists
-#57 - these need authorization loaded: 
-        application_controller.rb
-        committees_controller.rb
-        contributor_controller.rb
-        issues_controller.rb
-        legislation_controller.rb
-        main_issues_controller.rb
-        password_resets_controller.rb
-        sessions_controller.rb
-        subcommittees_controller.rb
+#57 - these need authorization loaded: application_controller.rb committees_controller.rb contributor_controller.rb issues_controller.rb legislation_controller.rb main_issues_controller.rb password_resets_controller.rb sessions_controller.rb subcommittees_controller.rb
 #59 - add date to beginning of summary
 #60 - on person#show#financial make the 'more...' links drop down with jquery
+#61 - all activities must have a log of which user made them
+#62 - show these activities upon the users#show
+#63 - brakeman: fix all issues
+#64 - add a history page like on wikipedia for people
+#65 - last updated by for people
+#66 - need to disable all of the bootstrap stuff EXCEPT topbar and MAYBE the form stuff. 
 
 COMPLETED
 ==============||==
