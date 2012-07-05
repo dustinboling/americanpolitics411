@@ -1,17 +1,20 @@
 <h3>Degrees</h3>
-	<table class="zebra-striped">
-		<tr>
-			<th>University</th>
-			<th>Year</th>
-			<th>Degree Earned</th>
-			<th></th>
-		</tr>
-		<%= f.fields_for :degrees do |degree| %>
-			<%= render 'degree_fields', :f => degree %>
-		<% end %>
-		<tr>
-			<td>
-				<%= link_to_add_fields "Add Degree", f, :degrees %>
-			</td>
-		</td>
-	</table>
+<table class="zebra-striped">
+  <tr>
+    <th>University</th>
+    <th>Year</th>
+    <th>Degree Earned</th>
+    <th></th>
+  </tr>
+  <%= f.fields_for :degrees do |degree| %>
+  <%= render 'degree_fields', :f => degree %>
+  <% end %>
+  <tr>
+    <td>
+      <%= link_to_add_fields "Add Degree", f, :degrees %>
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>

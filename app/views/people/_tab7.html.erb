@@ -1,35 +1,41 @@
 <h3>Accusations</h3>
-	<table class="zebra-striped">
-		<tr>
-			<th>Year</th>
-			<th>Accusation</th>
-			<th>Outcome</th>
-			<th></th>
-		</tr>
-		<%= f.fields_for :accusations do |accusation| %>
-			<%= render 'accusation_fields', :f => accusation %>
-		<% end %>
-		<tr>
-			<td>
-				<%= link_to_add_fields "Add Accusation", f, :accusations %>
-			</td>
-		</tr>
-	</table>
+<table class="zebra-striped">
+  <tr>
+    <th>Year</th>
+    <th>Accusation</th>
+    <th>Outcome</th>
+    <th></th>
+  </tr>
+  <%= f.fields_for :accusations do |accusation| %>
+  <%= render 'accusation_fields', :f => accusation %>
+  <% end %>
+  <tr>
+    <td>
+      <%= link_to_add_fields "Add Accusation", f, :accusations %>
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
 
 <h3>Litigations</h3>
-	<table class="zebra-striped">
-		<tr>
-			<th>Year</th>
-			<th>Accusation</th>
-			<th>Outcome</th>
-			<th></th>
-		</tr>
-		<%= f.fields_for :litigations do |litigation| %>
-			<%= render 'litigation_fields', :f => litigation %>
-		<% end %>
-		<tr>
-			<td>
-				<%= link_to_add_fields "Add Litigation", f, :litigations %>
-			</td>
-		</tr>
-	</table>
+<table class="zebra-striped">
+  <tr>
+    <th>Year</th>
+    <th>Accusation</th>
+    <th>Outcome</th>
+    <th></th>
+  </tr>
+  <%= f.fields_for :litigations do |litigation| %>
+  <%= render 'litigation_fields', :f => litigation %>
+  <% end %>
+  <tr>
+    <td>
+      <%= link_to_add_fields "Add Litigation", f, :litigations %>
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>

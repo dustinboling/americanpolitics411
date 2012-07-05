@@ -1,36 +1,43 @@
 <h3>Political Offices</h3>
-	<table class="zebra-striped">
-		<tr>
-			<th>Position</th>
-			<th>District</th>
-			<th>Office</th>
-			<th>Year Started</th>
-			<th>Year Ended</th>
-			<th></th>
-		</tr>
-		<%= f.fields_for :political_offices do |political_office| %>
-			<%= render 'political_office_fields', :f => political_office %>
-		<% end %>
-		<tr>
-			<td>
-				<%= link_to_add_fields "Add Political Office", f, :political_offices %>
-			</td>
-		</tr>
-	</table>
-	
+<table class="zebra-striped">
+  <tr>
+    <th>Position</th>
+    <th>District</th>
+    <th>Office</th>
+    <th>Year Started</th>
+    <th>Year Ended</th>
+    <th></th>
+  </tr>
+  <%= f.fields_for :political_offices do |political_office| %>
+  <%= render 'political_office_fields', :f => political_office %>
+  <% end %>
+  <tr>
+    <td>
+      <%= link_to_add_fields "Add Political Office", f, :political_offices %>
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
 <h3>Supporters</h3>
-	<table class="zebra-striped">
-		<tr>
-			<th>Group Name</th>
-			<th>Support Percentage</th>
-			<th></th>
-		</tr>
-		<%= f.fields_for :supporters do |supporter| %>
-			<%= render 'supporter_fields', :f => supporter %>
-		<% end %>
-		<tr>
-			<td>
-				<%= link_to_add_fields "Add Support Demographic", f, :supporters %>
-			</td>
-		</tr>
-	</table>
+<table class="zebra-striped">
+  <tr>
+    <th>Group Name</th>
+    <th>Support Percentage</th>
+    <th></th>
+  </tr>
+  <%= f.fields_for :supporters do |supporter| %>
+  <%= render 'supporter_fields', :f => supporter %>
+  <% end %>
+  <tr>
+    <td>
+      <%= link_to_add_fields "Add Support Demographic", f, :supporters %>
+    </td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>

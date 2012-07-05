@@ -1,0 +1,59 @@
+<%= stylesheet_link_tag 'twitter/bootstrap' %>
+<%= stylesheet_link_tag 'jquery.wysiwyg.css' %>
+<%= javascript_include_tag 'jquery.wysiwyg.js' %>
+<%= javascript_include_tag 'controls/wysiwyg.image.js' %>
+<%= javascript_include_tag 'controls/wysiwyg.link.js' %>
+<%= javascript_include_tag 'controls/wysiwyg.table.js' %>
+<script type="text/javascript">
+  (function($) {
+    $(document).ready(function() {
+      $('.wysiwyg').wysiwyg({
+        initialContent: "",
+        iFrameClass: "full-width",
+        controls: {
+          strikeThrough: {visible: false},
+          subscript: {visible: false},
+          superscript: {visible: false},
+          indent: {visible: false},
+          outdent: {visible: false},
+          h1: {visible: false},
+          h2: {visible: false},
+          h3: {visible: false},
+          justifyLeft: {visible: false},
+          justifyRight: {visible: false},
+          justifyCenter: {visible: false},
+          justifyFull: {visible: false},
+          removeFormat: {visible: false},
+          insertImage: {visible: false},
+          code: {visible: false}
+        }
+      });
+    });
+  })(jQuery);
+</script>
+<style>
+  .full-width { 
+    width: 100%;
+  }
+  div.topbar-wrapper {
+    position: relative;
+    height: 40px;
+    margin: 5px 0 15px;
+    z-index: 5;
+  }
+  div.topbar-wrapper div.topbar {
+    position: absolute;
+    margin: 0 -20px;
+  }
+  div.topbar-wrapper div.topbar .topbar-inner {
+    padding-left: 20px;
+    padding-right: 20px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+  }
+  div#person-container {
+    margin-top: 7px;
+  }
+  ul { list-style: none !important; }
+</style>

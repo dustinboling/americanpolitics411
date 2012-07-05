@@ -1,36 +1,67 @@
+<ul class="tabs">
+  <li><a class="active" href="#bio">Bio</a></li>
+  <li><a href="#professional-experience">Professional Experience</a></li>
+  <li><a href="#literary-work">Literary Work</a></li>
+</ul>
+
+<ul class="tabs-content">
+  <li class="active" id="bio">
+    <%= f.label :bio %>
+    <%= f.text_area :bio, :rows => 3, :class => 'wysiwyg' %>
+  </li>
+
+  <li id="professional-experience">
+    <%= f.label :professional_experience %>
+    <%= f.text_area :professional_experience, :rows => 3, :class => 'wysiwyg' %>
+  </li>
+
+
+  <li id="literary-work">
+    <%= f.label :literary_work %>
+    <%= f.text_area :literary_work, :rows => 3, :class => 'wysiwyg' %>
+  </li>
+</ul>
+
 <h3>Family Members</h3>
-	<table class="zebra-striped">
-		<tr>
-			<th>Related to</th>
-			<th>Relationship</th>
-			<th>Notes</th>
-			<th></th>
-		</tr>
-	  <%= f.fields_for(:family_members, @person.family_members) do |family_member| %>
-			<%= render 'family_member_fields', :f => family_member %>
-	  <% end %>
-		<tr class="addfield">
-			<td>
-				<%= link_to_add_fields "Add New Family Member", f, :family_members %>
-			</td>
-		</tr>
-	</table>
+<table class="zebra-striped">
+  <tr>
+    <th>Related to</th>
+    <th>Relationship</th>
+    <th>Notes</th>
+    <th></th>
+  </tr>
+  <%= f.fields_for(:family_members, @person.family_members) do |family_member| %>
+  <%= render 'family_member_fields', :f => family_member %>
+  <% end %>
+  <tr class="addfield">
+    <td>
+      <%= link_to_add_fields "Add New Family Member", f, :family_members %>
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
 
 <h3>Business Associates</h3>
-	<table class="zebra-striped">
-		<tr>
-			<th>Organization</th>
-			<th>Business Associate</th>
-			<th>Relationship</th>
-			<th>Position</th>
-			<th></th>
-		</tr>
-		<%= f.fields_for :business_associates do |business_associate| %>
-			<%= render 'business_associate_fields', :f => business_associate %>
-		<% end %>
-		<tr>
-			<td>
-				<%= link_to_add_fields "Add New Business Associate", f, :business_associates %>
-			</td>
-		</tr>
-	</table>
+<table class="zebra-striped">
+  <tr>
+    <th>Organization</th>
+    <th>Business Associate</th>
+    <th>Relationship</th>
+    <th>Position</th>
+    <th></th>
+  </tr>
+  <%= f.fields_for :business_associates do |business_associate| %>
+  <%= render 'business_associate_fields', :f => business_associate %>
+  <% end %>
+  <tr>
+    <td>
+      <%= link_to_add_fields "Add New Business Associate", f, :business_associates %>
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>

@@ -1,45 +1,54 @@
 <%= form_for(@person, :html => { :class => 'form-stacked' }) do |f| %>
-	<%= error_messages_for(@person) %>
+<%= error_messages_for(@person) %>
 
-<div id="tabs-1">
-	<%= render 'layouts/messages' %>
-	<%= render 'form-personal', :f => f %>
-</div> <!-- /#personal-tab -->
+<ul class="tabs">
+  <li><a class="active" href="#basic-info">Basic Info</a></li>
+  <li><a href="#contact-info">Contact Info</a></li>
+  <li><a href="#personal">Personal</a></li>
+  <li><a href="#financial">Financial</a></li>
+  <li><a href="#education">Education</a></li>
+  <li><a href="#political">Political</a></li>
+  <li><a href="#controversy">Controversy</a></li>
+  <li><a href="#establishment">Establishment</a></li>
+</ul>
 
-<div id="tabs-2">
-		<%= render 'form-contact', :f => f %>
-</div>
+<ul class="tabs-content">
+  <li class="active box_a" id="basic-info" style="min-height: 310px;">
+    <%= render 'layouts/messages' %>
+    <%= render 'form-personal', :f => f %>
+  </li>
 
-<div id="tabs-3">	
-	<%= render 'tab3', :f => f %> 
-</div> <!-- /#personal-tab -->
+  <li class="box_a" id="contact-info" style="min-height: 310px;">
+    <%= render 'form-contact', :f => f %>
+  </li>
 
-<div id="tabs-4">
-	<%= render 'tab4', :f => f %>
-</div> <!-- /#transactions-tab -->
+  <li class="box_a" id="personal">
+    <%= render 'tab3', :f => f %> 
+  </li> <!-- /#personal-tab -->
 
-<div id="tabs-5">
-	<%= render 'tab5', :f => f %>
-</div> <!-- /#education-tab -->
+  <li class="box_a" id="financial">
+    <%= render 'tab4', :f => f %>
+  </li> <!-- /#financial-tab -->
 
-<div id="tabs-6">
-	<%= render 'tab6', :f => f %>
-</div> <!-- /#political-tab -->
+  <li class="box_a" id="education">
+    <%= render 'tab5', :f => f %>
+  </li> <!-- /#education-tab -->
 
-<div id="tabs-7">
-	<%= render 'tab7', :f => f %>
-</div> <!-- /#controversy-tab -->
+  <li class="box_a" id="political">
+    <%= render 'tab6', :f => f %>
+  </li> <!-- /#political-tab -->
 
-<div id="tabs-8">
-	<%= render 'tab8', :f => f %>
-</div> <!-- /#establishment-tab -->
+  <li class="box_a" id="controversy">
+    <%= render 'tab7', :f => f %>
+  </li> <!-- /#controversy-tab -->
 
-<div id="tabs-9">
-	<%= render 'tab9', :f => f %>
-</div>
+  <li class="box_a" id="establishment">
+    <%= render 'tab8', :f => f %>
+  </li> <!-- /#establishment-tab -->
+</ul>
 
 <p class="right">
-	<%= f.submit 'Update Person', :class => 'btn primary' %>
+  <%= f.submit 'Update Person', :class => 'btn primary' %>
 </p>
 
 <% end %>

@@ -1,46 +1,56 @@
 <%= form_for(@person, :html => { :class => 'form-stacked' }) do |f| %>
-	<%= error_messages_for(@person) %>
+<%= error_messages_for(@person) %>
 
-	<div class="field">
+<div class="sixteen columns">
+  <div class="seven columns" style="padding-left:100px;">
     <%= f.label :first_name %>
     <%= f.text_field :first_name %>
-  </div>
-	<div class="field">
+
     <%= f.label :middle_name %>
     <%= f.text_field :middle_name %>
-  </div>
-	<div class="field">
+
     <%= f.label :last_name %>
     <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
+
     <%= f.label :suffix %>
     <%= f.text_field :suffix %>
   </div>
-	<div class="field">
-		<%= f.label :religion, 'Religion' %>
-		<%= collection_select(:person, :religion_id, Religion.all, :id, :name) %>
-	</div>
-  <div class="field">
+  <div class="seven columns">
+    <%= f.label :religion, 'Religion' %>
+    <%= collection_select(:person, :religion_id, Religion.all, :id, :name) %>
+
     <%= f.label :date_of_birth %>
     <%= f.date_select :date_of_birth, :order => [:month, :day, :year], :start_year => 1901 %>
-  </div>
-  <div class="field">
+
     <%= f.label :date_of_death %>
     <%= f.date_select :date_of_death, :order => [:month, :day, :year], :start_year => 1851, :include_blank => true, :default => nil %>
   </div>
-  <div class="field">
-    <%= f.label :bio %>
-    <%= f.text_area :bio, :rows => 5 %>
-  </div>
-  <div class="field">
-    <%= f.label :professional_experience %>
-    <%= f.text_area :professional_experience, :rows => 5 %>
-  </div>
-  <div class="field">
-    <%= f.label :literary_work %>
-    <%= f.text_area :literary_work, :rows => 5 %>
-  </div><br />
+</div>
+
+<div class="sixteen columns">
+  <div class="twelve columns" style="padding-left:100px">
+    <ul class="tabs">
+      <li><a class="active" href="#bio">Bio</a></li>
+      <li><a href="#professional-experience">Professional Experience</a></li>
+      <li><a href="#literary-work">Literary Work</a></li>
+    </ul>
+
+    <ul class="tabs-content">
+      <li class="active" id="bio">
+        <%= f.label :bio %>
+        <%= f.text_area :bio, :rows => 5, :class => 'wysiwyg' %>
+      </li>
+      <li id="professional-experience">
+        <%= f.label :professional_experience %>
+        <%= f.text_area :professional_experience, :rows => 5, :class => 'wysiwyg' %>
+      </li>
+      <li id="literary-work">
+        <%= f.label :literary_work %>
+        <%= f.text_area :literary_work, :rows => 5, :class => 'wysiwyg' %>
+      </li>
+    </ul><br />
     <%= f.submit 'Add Person', :class => 'btn success' %>
+  </div>
+</div>
 
 <% end %>
