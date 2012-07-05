@@ -17,6 +17,7 @@ AP411 - ROADMAP
 #68 - add new specs for activities. verify that we are testing as much as possible.
 #69 - make sure bio/literary work/etc markup shows up correctly in front end
 #70 - restyle tabs into a basic breadcrumb for bio/literary/professional editor person#edit 
+#71 - bootstrap or skeleton is messing up the form for tables on jwysiwyg
 
 COMPLETED
 ==============||==
