@@ -1,0 +1,53 @@
+<% @page_title = "#{@person.full_name}" %>
+
+<div class="page-header">
+  <%= render 'layouts/messages' %>
+</div>
+
+<div class="content-wrap sixteen columns">
+  <ul class="tabs">
+    <li><a class="active" href="#basic-info">Basic Info</a></li>
+    <li><a href="#contact-info">Contact Info</a></li>
+    <li><a href="#relationships">Relationships</a></li>
+    <li><a href="#financial">Financial</a></li>
+    <li><a href="#political">Political</a></li>
+    <li><a href="#controversy">Controversy</a></li>
+    <li><a href="#establishment">Establishment</a></li>
+    <li><a href="#attachments">Attachments</a></li>
+  </ul>
+
+  <ul class="tabs-content">
+    <li id="basic-info" class="active">
+      <%= render 'showtab1' %>
+    </li> <!-- /#basic_info  -->
+
+    <li id="contact-info">
+      <%= render 'showtab2' %>
+    </li> <!-- /#contact_info -->
+
+    <li id="relationships">
+      <%= render 'showtab3' %>
+    </li> <!-- /#relationships -->
+
+    <li id="financial">
+      <%= render 'showtab4' %>
+    </li> <!-- /#financial -->
+
+    <li id="political">
+      <%= render 'showtab5' %>
+    </li> <!-- /#political -->
+
+    <li id="controversy">
+      <%= render 'showtab6' %>
+    </li> <!-- /#controversy -->
+
+    <li id="establishment">
+      <%= render 'showtab7' %>
+    </li> <!-- /#establishment -->
+
+    <li id="attachments">
+      <%= render 'showtab8' %>
+    </li> <!-- /#attachments -->
+  </ul>
+
+</div> <!-- /#content-wrap -->

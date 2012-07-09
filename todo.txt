@@ -18,6 +18,9 @@ AP411 - ROADMAP
 #69 - make sure bio/literary work/etc markup shows up correctly in front end
 #70 - restyle tabs into a basic breadcrumb for bio/literary/professional editor person#edit 
 #71 - bootstrap or skeleton is messing up the form for tables on jwysiwyg
+#72 - switch over the bootstrap css flash messages to plaintext
+#73 - add default image for politicians
+#74 - add number total to controversy, hide lit/acc nodes underneath
 
 COMPLETED
 ==============||==
