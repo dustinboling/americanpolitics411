@@ -112,6 +112,9 @@ window.onload = function() {
               data: { pid: window.pid, 
                 nytid: window.nytid, 
                 partial_name: ajaxPartials[n - 4]
+              },
+              success: function() {
+                loader.hide();
               }
             });
           }
@@ -213,6 +216,7 @@ function makeRect(partial) {
     "stroke-width": 3,
     cursor: "move"
   });
+  loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
   $.ajax({
     type: "GET",
     url: 'refresh_bubble_rect',
@@ -220,6 +224,9 @@ function makeRect(partial) {
     data: { pid: window.pid, 
       nytid: window.nytid, 
       partial_name: partial
+    }, 
+    success: function() {
+      loader.hide();
     }
   });
   newRect.node.onclick = function() {
@@ -235,6 +242,7 @@ function makeRectBlank() {
     "stroke-width": 3,
     cursor: "move"
   });
+  loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
   return newRect;
 }
 
