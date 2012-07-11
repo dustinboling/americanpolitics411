@@ -1,6 +1,9 @@
 <% p = Person.find(params[:pid]) %>
+<% investments = p.personal_assets %>
+
 <h1>Investments</h1>
-<table>
+<% if investments.count > 0 %>
+<table class="table-striped">
   <thead>
     <tr>
       <th></th>
@@ -10,7 +13,7 @@
     </tr>
   </thead>
   <tbody>
-    <% p.personal_assets.each do |p| %>
+    <% investments.each do |p| %>
     <tr>
       <td></td>
       <td></td>
@@ -20,4 +23,6 @@
     <% end %>
   </tbody>
 </table>
-
+<% else %>
+<p>Research is in progress.</p>
+<% end %>

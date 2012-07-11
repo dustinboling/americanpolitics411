@@ -1,2 +1,32 @@
 <% p = Person.find(params[:pid]) %>
+<% earmarks = p.earmarks %>
+
 <h1>Earmarks</h1>
+<% if earmarks.count > 0 %>
+<table class="table-striped">
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Recipient</th>
+      <th>Organization ID</th>
+      <th>Description</th>
+      <th>Bill</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% earmarks.each do |e| %>
+      <td><%= e.fiscal_year %></td>
+      <td><%= e.recipient %></td>
+      <td><%= e.organization_id %></td>
+      <td><%= e.description %></td>
+      <td><%= e.bill %></td>
+      <td><%= number_to_currency(e.final_amount, :precision => 0) %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+<% else %>
+<p>No earmarks on record for <%= p.full_name %>.</p>
+<% end %>

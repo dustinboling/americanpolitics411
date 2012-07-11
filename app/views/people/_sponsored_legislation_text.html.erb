@@ -3,8 +3,8 @@
 <% sponsored_legislation = Legislation.where(:bill_sponsor_id => nytid) %>
 
 <h1>Sponsored Legislation</h1>
-<ul>
+<p>
   <% sponsored_legislation.each do |s| %>
-  <li><%= s.bill_number %></li>
+    <%= s.bill_number %>
   <% end %>
-</ul>
+</p>

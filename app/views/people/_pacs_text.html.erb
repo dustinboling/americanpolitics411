@@ -12,6 +12,7 @@ pac_contributors = TransparencyData::Client.contributions(
 %>
 
 <%# print data (for humans) %>
+<% if pac_contributors.count > 0 %>
 <h1>PAC Contributions</h1>
 <table>
   <thead>
@@ -31,3 +32,6 @@ pac_contributors = TransparencyData::Client.contributions(
     <% end %>
   </tbody>
 </table>
+<% else %>
+<p>Could not find any PAC contributors for <%= person_name %></p>
+<% end %>

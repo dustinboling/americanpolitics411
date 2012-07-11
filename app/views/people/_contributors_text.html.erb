@@ -13,7 +13,8 @@ contributors = TransparencyData::Client.contributions(
 
 <%# for humans. %>
 <h1>Contributors (Individual)</h1>
-<table>
+<% if contributors.count > 0 %>
+<table class="table-striped">
   <thead>
     <tr>
       <th>Amount</th>
@@ -31,3 +32,6 @@ contributors = TransparencyData::Client.contributions(
     <% end %>
   </tbody>
 </table>
+<% else %>
+<p>No contributors found for <%= person_name %></p>
+<% end %>

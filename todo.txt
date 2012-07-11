@@ -33,6 +33,7 @@ AP411 - ROADMAP
 #84 - person#show: earmarks should not show up if a person is not a senator/representative. same for all LEGISLATIVE items
 #85 - amazon or wikipedia for "literary work" links
 #86 - better views for PAC/Indiv. contributors with some maps and stuff
+#87 - add conditionals for person#show ajax. WISHLIST: don't show a node if it doesn't have any info.
 
 COMPLETED
 ==============||==
