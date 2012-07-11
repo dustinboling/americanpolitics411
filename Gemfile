@@ -20,7 +20,7 @@ gem 'youtube_it'
 gem 'twitter'
 
 # no idea why this is needed
-gem 'yajl-ruby'
+# gem 'yajl-ruby'
 
 # helpful helper gems
 # gem 'railroady'
