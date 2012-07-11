@@ -93,7 +93,7 @@ window.onload = function() {
       // non-clickable!
       sx = shapes[i].attrs.x + 50;
       sy = shapes[i].attrs.y + 23;
-      r.text(sx, sy, nodeTexts[i - 4] + i);
+      r.text(sx, sy, nodeTexts[i - 4]);
     } else {
       sx = shapes[i].attrs.x + 50;
       sy = shapes[i].attrs.y + 23;
