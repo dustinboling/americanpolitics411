@@ -21,6 +21,7 @@ gem 'twitter'
 
 # no idea why this is needed
 gem 'yajl-ruby'
+gem 'fastercsv'
 
 # helpful helper gems
 # gem 'railroady'
