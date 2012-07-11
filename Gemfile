@@ -19,6 +19,9 @@ gem 'highline'
 gem 'youtube_it'
 gem 'twitter'
 
+# no idea why this is needed
+gem 'yajl-ruby'
+
 # helpful helper gems
 # gem 'railroady'
 # gem 'annotate', '~> 2.4.1.beta'
