@@ -76,6 +76,12 @@ class PeopleController < ApplicationController
     end
   end
 
+  def get_professional_experience_text
+    respond_to do |format|
+      format.js { render :layout => false }
+    end 
+  end
+
   def refresh_officials
     if params.has_key?(:state) && params.has_key(:chamber)
       @people = Person.where(:current_state => params[:state], :chamber => params[:chamber])
@@ -107,29 +113,6 @@ class PeopleController < ApplicationController
 
   def show
     @person = Person.find(params[:id])
-
-    # Load necessary information from the various APIs
-    @pac_contributors = TransparencyData::Client.contributions(
-      :recipient_ft => "#{@person.remove_name_numericality}", 
-      :cycle => 2011,
-      :amount => {:gte => 2300},
-      :contributor_type => "C"
-    )
-    @individual_contributors = TransparencyData::Client.contributions(
-      :recipient_ft => "#{@person.remove_name_numericality}", 
-      :cycle => 2011, 
-      :amount => {:gte => 2300},
-      :contributor_type => "I"
-    )
-
-    # sectors
-    @entity = TransparencyData::Client.entities(:search => "#{@person.remove_name_numericality}")
-    if @entity.first
-      @id = @entity.first.id
-      @sectors = TransparencyData::Client.top_sectors(@id)
-    else
-      @sectors = []
-    end
 
     # Get most recent tweets
     unless @person.twitter_id.blank?

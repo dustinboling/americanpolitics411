@@ -1,0 +1,18 @@
+<h1>Issue Positions</h1>
+<% p = Person.find(params[:pid]) %>
+<table>
+  <thead>
+    <th>Topic</th>
+    <th>Question</th>
+    <th>Position</th>
+  </thead>
+  <tbody>
+    <% p.issue_positions.each do |i| %>
+    <tr>
+      <td><%= i.issue_topic %></td>
+      <td><%= i.question %></td>
+      <td><%= i.position %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

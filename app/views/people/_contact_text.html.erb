@@ -1,0 +1,13 @@
+<% p = Person.find(params[:pid]) %>
+<h1>Contact</h1>
+<h4>Address</h4>
+<address>
+  <%= p.contact_street_address %><br>
+  <%= p.contact_city %>, <%= p.contact_state %> <%= p.contact_zip %>
+</address><br>
+
+<h4>Phone/Fax/Email</h4>
+<b>Phone: </b><%= p.contact_phone %><br>
+<b>Email: </b><%= p.contact_email %><br>
+<b>Fax: </b><%= p.contact_fax %><br>
+

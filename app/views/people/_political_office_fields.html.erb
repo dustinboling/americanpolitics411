@@ -1,10 +1,8 @@
 <tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
 
-    <td><%= f.text_field :position %></td>
-    <td><%= f.text_field :district %></td>
     <td><%= f.text_field :office %></td>
-    <td><%= f.date_select :date_started, {:start_year => 1951, :discard_day => true, :discard_month => true}, {:class => 'span2'} %></td>
-    <td><%= f.date_select :date_finished, {:start_year => 1951, :discard_day => true, :discard_month => true, :include_blank => true}, {:class => 'span2'} %></td>
+    <td><%= f.date_select :date_started, {:start_year => 1951}, {:class => 'span2'} %></td>
+    <td><%= f.date_select :date_finished, {:start_year => 1951, :include_blank => true}, {:class => 'span2'} %></td>
 		<td><%= link_to_remove_fields "remove", f %></td>
 </tr>

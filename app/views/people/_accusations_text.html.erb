@@ -1,0 +1,18 @@
+<h1>Accusations</h1>
+<% p = Person.find(params[:pid]) %>
+<table>
+  <thead>
+    <th>Date</th>
+    <th>Accusation</th>
+    <th>Outcome</th>
+  </thead>
+  <tbody>
+    <% p.accusations.each do |a| %>
+    <tr>
+      <td><%= a.date.year %></td>
+      <td><%= a.accusation %></td>
+      <td><%= a.outcome %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

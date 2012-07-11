@@ -1,0 +1,10 @@
+<% p = Person.find(params[:pid]) %>
+<% nytid = params[:nytid] %>
+<% sponsored_legislation = Legislation.where(:bill_sponsor_id => nytid) %>
+
+<h1>Sponsored Legislation</h1>
+<ul>
+  <% sponsored_legislation.each do |s| %>
+  <li><%= s.bill_number %></li>
+  <% end %>
+</ul>

@@ -18,6 +18,7 @@ gem 'transparency_data'
 gem 'highline'
 gem 'youtube_it'
 gem 'twitter'
+gem 'sanitize'
 
 # helpful helper gems
 # gem 'railroady'

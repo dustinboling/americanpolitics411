@@ -1,0 +1,33 @@
+<%# get data. %>
+<% 
+p = Person.find(params[:pid])
+person_name = "#{p.first_name} " + "#{p.last_name}"
+
+contributors = TransparencyData::Client.contributions(
+:recipient_ft => "#{person_name}",
+:cycle => 2011,
+:amount => {:gte => 2300},
+:contributor_type => "I"
+)
+%>
+
+<%# for humans. %>
+<h1>Contributors (Individual)</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th>Contributor</th>
+      <th>Contribution Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% contributors.each do |c| %>
+    <tr>
+      <td><%= p.amount %></td>
+      <td><%= p.contributor_name %></td>
+      <td><%= p.date %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

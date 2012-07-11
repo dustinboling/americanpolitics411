@@ -5,19 +5,42 @@
   window.photo_url = "<%= @person.photo_url %>";
 </script>
 <% end %>
-<%# set these ones and let the client side figure it out %>
+
+<% @family_members = "" %>
+<% @person.family_members.each do |fm| %>
+<% @family_members = @family_members + fm.family_member + " (" + fm.relationship + ")" + "<br>" %>
+<% end %>
+
+<% @political_offices = "" %>
+<% @person.political_offices.each do |po| %>
+<% @political_offices = @political_offices + po.office + ": " + po.date_started.to_s + "-" + po.date_finished.to_s + "<br>" %>
+<% end %>
+
+<% @education = "" %>
+<% @person.degrees.each do |d| %>
+<% @education = @education + University.find(d.university_id).name + " " + d.year_earned.year.to_s + d.degree_earned + "<br>" %>
+<% end %>
+
+<%# set them on and let the client side figure it out %>
 <script>
+  window.pid = "<%= @person.id %>";
+  window.nytid = "<%= @person.nyt_id %>";
   window.full_name = "<%= @person.full_name %>";
+  window.birthplace = "<%= @person.birthplace %>";
+  window.education = "<%= @education.html_safe %>";
+  window.literary_work = "<%= js_safe(@person.literary_work) %>";
+  window.organizations = "TODO";
+  window.contact = "<%= print_contact_info %>";
   window.litigation = "<%= @person.litigations %>";
   window.accusations = "<%= @person.accusations %>";
   window.issue_positions = "<%= @person.issue_positions %>";
-  window.net_worth = "Minimum: <%= @person.net_worth_minimum %>\n"
-    + "Average: <%= @person.net_worth_average %>\n"
-    + "Maximum: <%= @person.net_worth_maximum %>";
+  window.net_worth = "<b>Minimum:</b> <%= @person.net_worth_minimum %><br>"
+    + "<b>Average:</b> <%= @person.net_worth_average %><br>"
+    + "<b>Maximum:</b> <%= @person.net_worth_maximum %>";
   window.investments = "<%= @person.personal_assets %>";
-  window.family_network = "<%= @person.family_members %>";
+  window.family_network = "<%= @family_members.html_safe %>";
   window.professional_experience = "<%= @person.professional_experience %>";
-  window.political_offices = "<%= @person.political_offices %>";
+  window.political_offices = "<%= @political_offices.html_safe %>";
   window.earmarks = "<%= @person.earmarks %>";
   window.campaign_platforms = "<%= @person.campaign_platforms %>";
   window.flip_flops = "<%= @person.flip_flops %>";
@@ -27,8 +50,17 @@
   <%= render 'layouts/messages' %>
 </div>
 
+<style>
+  #popup-text {
+    position: absolute;
+    top: 80px;
+    left: 60px;
+  }
+</style>
 <div class="sixteen columns">
   <div id="bubble-map">
+  </div>
+  <div id="popup-text">
   </div>
   <div id="media-center-separator">
     <h4>Media Center</h4>

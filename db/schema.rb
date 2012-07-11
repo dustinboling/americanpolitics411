@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120703225942) do
+ActiveRecord::Schema.define(:version => 20120709224017) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -369,6 +369,7 @@ ActiveRecord::Schema.define(:version => 20120703225942) do
     t.string   "crp_id"
     t.string   "votesmart_id"
     t.text     "slug"
+    t.string   "birthplace"
   end
 
   create_table "personal_assets", :force => true do |t|

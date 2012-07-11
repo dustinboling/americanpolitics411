@@ -1,0 +1,9 @@
+<% p = Person.find(params[:pid]) %>
+<% committees = CommitteeAssignment.where(:person_id => params[:pid]) %>
+
+<h1>Committees</h1>
+<ul>
+  <% committees.each do |c| %>
+  <li><%= Committee.find(c.committee_id).name %></li>
+  <% end %>
+</ul>

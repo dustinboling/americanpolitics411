@@ -1,0 +1,23 @@
+<% p = Person.find(params[:pid]) %>
+<h1>Investments</h1>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% p.personal_assets.each do |p| %>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+

@@ -1,0 +1,9 @@
+<% p = Person.find(params[:pid]) %>
+<% cosponsored_legislation = LegislationCosponsor.where(:person_id => params[:pid]) %>
+
+<h1>Co-sponsored Legislation</h1>
+<ul>
+  <% cosponsored_legislation.each do |c| %>
+  <li><%= Legislation.find(c.legislation_id).bill_number %></li>
+  <% end %>
+</ul>

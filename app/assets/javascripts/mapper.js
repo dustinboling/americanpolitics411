@@ -60,91 +60,131 @@ window.onload = function() {
   r = Raphael("bubble-map", 940, 480),
   connections = [];
   shapes = [  r.rect(370, 40, 200, 40, 10),   // [0] = name
-              r.rect(1, 310, 300, 150, 10),   // [1] = twitter box
-              r.rect(370, 90, 200, 200, 10),  // [2] = picture
-              r.rect(370, 300, 200, 160, 10), // [3] = details
-              r.rect(180, 30, 100, 45, 10),   // [4] = professional experience
-              r.rect(200, 170, 100, 45, 10) , // [5] = controversy
-              r.rect(180, 245, 100, 45, 10),  // [6] = issue positions
-              r.rect(600, 200, 100, 45, 10),  // [7] = political offices
-              r.rect(35, 1, 100, 45, 10),     // [8] = family network
-              r.rect(13, 70, 100, 45, 10),    // [9] = investments
-              r.rect(5, 140, 100, 45, 10),    // [10] = net worth
-              r.rect(155, 100, 100, 45, 10),  // [11] = accusations 
-              r.rect(80, 200, 100, 45, 10),   // [12] = litigation
-              r.rect(620, 290, 100, 45, 10),  // [13] = voting behavior
-              r.rect(760, 300, 100, 45, 10),  // [14] = earmarks
-              r.rect(780, 400, 100, 45, 10),  // [15] = co-sponsored
-              r.rect(630, 380, 100, 45, 10),  // [16] = sponsored
-              r.rect(735, 240, 100, 45, 10),  // [17] = committees
-              r.rect(750, 180, 100, 45, 10),  // [18] = campaign platforms
-              r.rect(780, 120, 100, 45, 10),  // [19] = flip flops
-              r.rect(640, 90, 100, 45, 10),   // [20] = contributors
-              r.rect(805, 50, 100, 45, 10),   // [21] = PACs
-              r.rect(700, 5, 100, 45, 10)     // [22] = demographics & endorsements
-          ];
-  popupTexts = [professional_experience, "nothing", issue_positions, political_offices, family_network, investments, net_worth, accusations, litigation, "nothing", earmarks, "needs some ajax", "needs some ajax", "needs some ajax", campaign_platforms, flip_flops, "needs some ajax", "PAC's: needs some ajax", "Demographics/Endorsements: might need some ajax" ]; 
+    r.rect(1, 310, 300, 150, 10),   // [1] = twitter box
+    r.rect(370, 90, 200, 200, 10),  // [2] = picture
+    r.rect(370, 300, 200, 160, 10), // [3] = details
+    r.rect(180, 30, 100, 45, 10),   // [4] = professional experience
+    r.rect(200, 170, 100, 45, 10) , // [5] = controversy
+    r.rect(180, 245, 100, 45, 10),  // [6] = issue positions
+    r.rect(600, 200, 100, 45, 10),  // [7] = political offices
+    r.rect(35, 1, 100, 45, 10),     // [8] = family network
+    r.rect(13, 70, 100, 45, 10),    // [9] = investments
+    r.rect(5, 140, 100, 45, 10),    // [10] = net worth
+    r.rect(155, 100, 100, 45, 10),  // [11] = accusations 
+    r.rect(80, 200, 100, 45, 10),   // [12] = litigation
+    r.rect(620, 290, 100, 45, 10),  // [13] = voting behavior
+    r.rect(760, 300, 100, 45, 10),  // [14] = earmarks
+    r.rect(780, 400, 100, 45, 10),  // [15] = co-sponsored
+    r.rect(630, 380, 100, 45, 10),  // [16] = sponsored
+    r.rect(735, 240, 100, 45, 10),  // [17] = committees
+    r.rect(750, 180, 100, 45, 10),  // [18] = campaign platforms
+    r.rect(780, 120, 100, 45, 10),  // [19] = flip flops
+    r.rect(640, 90, 100, 45, 10),   // [20] = contributors
+    r.rect(805, 50, 100, 45, 10),   // [21] = PACs
+    r.rect(700, 5, 100, 45, 10)     // [22] = demographics & endorsements
+  ];
   nodeTexts = ["Professional\n experience", "Controversy", "Issue Positions", "Political Offices", "Family Network", "Investments", "Net Worth", "Accusations", "Litigation", "Voting Behavior", "Earmarks", "Co-sponsored", "Sponsored\n Legislation", "Committees", "Campaign Platforms", "Flip flops", "Contributors", "PACs", "Demographics &\n Endorsements"];
+  ajaxPartials = ["professional_experience_text", "controversy_text", "issue_positions_text", "political_offices_text", "family_network_text", "investments_text", "net_worth_text", "accusations_text", "litigation_text", "voting_behavior_text", "earmarks_text", "cosponsored_legislation_text", "sponsored_legislation_text", "committees_text", "campaign_platforms_text", "flip_flops_text", "contributors_text", "pacs_text", "demographics_and_endorsements_text"];
   i = 0;
-  popovers = [];
-  popoverTexts = [];
   for (shape in shapes) {
     if (i < 4 ) {
       // do nothing
+    } else if (i == 5) {
+      // non-clickable!
+      sx = shapes[i].attrs.x + 50;
+      sy = shapes[i].attrs.y + 23;
+      r.text(sx, sy, nodeTexts[i - 4] + i);
     } else {
       sx = shapes[i].attrs.x + 50;
       sy = shapes[i].attrs.y + 23;
       r.text(sx, sy, nodeTexts[i - 4] + i);
       shapes[i].node.onclick = function() {
-        newRect = r.rect(0, 0, 940, 480).attr({
-          fill: "#EEE",
-          stroke: "#BBB",
-          "stroke-width": 3,
-          cursor: "move",
-        });
-        // set the text manually. this is annoying.
-        for (key in this) {
-          console.log(key);
+        // make rectangle
+        newRect = makeRectBlank();
+        // get ajax based on what node we are in
+        n = 0
+        while (n < 23) {
+          if (n == this.raphaelid) {
+            $.ajax({
+              type: "GET",
+              url: 'refresh_bubble_rect',
+              dataType: "script",
+              data: { pid: window.pid, 
+                nytid: window.nytid, 
+                partial_name: ajaxPartials[n - 4]
+              }
+            });
           }
-        if (this.raphaelid == 4) {
-          pText = r.text(100, 40, popupTexts[0]);
-        } else if (this.raphaelid == 5) {
-          // do nothing, this is a non-clickable node
-        } else if (this.raphaelid == 6) {
-          pText = r.text(100, 40, popupTexts[2]);
-        } else if (this.raphaelid == 7) {
-          pText = r.text(100, 40, popupTexts[3]);
-        } else if (this.raphaelid == 8) {
-          pText = r.text(100, 40, popupTexts[4]);
-        } else if (this.raphaelid == 9) {
-          pText = r.text(100, 40, popupTexts[5]);
-        } else if (this.raphaelid == 10) {
-          pText = r.text(100, 40, popupTexts[6]);
+          n = n + 1;
         }
         newRect.node.onclick = function() {
-          pText.hide();
           newRect.hide();
+          $('#popup-text').hide();
         }
       }
     }
     i = i + 1;
   }
+  // this is the loop we need to change main node colors to darker grey
   for (var i = 0, ii = shapes.length; i < ii; i++) {
-    var color = "#BBB";
-    shapes[i].attr({
-      fill: "#EEE", 
-      stroke: color, 
-      "fill-opacity": 1, 
-      "stroke-width": 3, 
-      cursor: "move"
-    });
+    if (i == 5) {
+      shapes[i].attr({
+        fill: "#CCC",
+        stroke: "#BBB",
+        "fill-opacity": 1, 
+        "stroke-width": 3,
+        cursor: "move"
+      });
+      shapes[i].node.onclick = function() {
+        shapes[11].attr({
+          stroke: "red"
+        });
+        shapes[12].attr({
+          stroke: "blue"
+        });
+      } 
+    } else {
+      shapes[i].attr({
+        fill: "#EEE", 
+        stroke: "#BBB", 
+        "fill-opacity": 1, 
+        "stroke-width": 3, 
+        cursor: "move"
+      });
+    }
   }
-  // add images
+  // do image
   if (window.photo_url != undefined) {
     var personImage = window.photo_url
     r.image(personImage, 370, 89, 202, 202)
   }
-  // add connections
+  // main-infotabs
+  r.text(440, 60, full_name);
+  r.text(455, 320, "Birthplace: " + birthplace);
+  eduRect = r.rect(380, 370, 170, 15, 5).attr({stroke: "none", fill: "red"});
+  eduRectText = r.text(425, 378, "EDUCATION").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
+  litRect = r.rect(380, 390, 170, 15, 5).attr({stroke: "none", fill: "red"});
+  litRectText = r.text(443, 398, "LITERARY WORKS").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
+  orgRect = r.rect(380, 410, 170, 15, 5).attr({stroke: "none", fill: "red"});
+  orgRectText = r.text(438, 418, "ORGANIZATIONS").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
+  contactRect = r.rect(380, 430, 170, 15, 5).attr({stroke: "none", fill: "red"});
+  contactRectText = r.text(419, 438, "CONTACT").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
+  // main-infotabs listeners
+  eduRect.node.onclick = function() {
+    makeRect("education_text");
+  }
+  litRect.node.onclick = function() {
+    makeRect("literary_works_text");
+  }
+  orgRect.node.onclick = function() {
+    makeRect("organizations_text");
+  }
+  contactRect.node.onclick = function() {
+    makeRect("contact_text");
+  }
+  // twitterbox
+
+  // connections
   connections.push(r.connection(shapes[2], shapes[4], "#444"));
   connections.push(r.connection(shapes[2], shapes[5], "#444"));
   connections.push(r.connection(shapes[2], shapes[6], "#444"));
@@ -165,3 +205,35 @@ window.onload = function() {
   connections.push(r.connection(shapes[20], shapes[22], "#444"));
   connections.push(r.connection(shapes[18], shapes[19], "#444"));
 };
+
+function makeRect(partial) {
+  newRect = r.rect(0, 0, 940, 480).attr({ 
+    fill: "#FFF",
+    stroke: "#BBB",
+    "stroke-width": 3,
+    cursor: "move"
+  });
+  $.ajax({
+    type: "GET",
+    url: 'refresh_bubble_rect',
+    dataType: "script",
+    data: { pid: window.pid, 
+      nytid: window.nytid, 
+      partial_name: partial
+    }
+  });
+  newRect.node.onclick = function() {
+    $('#popup-text').hide();
+    newRect.hide();
+  }
+}
+
+function makeRectBlank() {
+  newRect = r.rect(0, 0, 940, 480).attr({ 
+    fill: "#FFF",
+    stroke: "#BBB",
+    "stroke-width": 3,
+    cursor: "move"
+  });
+  return newRect;
+}

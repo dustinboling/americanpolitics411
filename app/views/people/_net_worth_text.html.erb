@@ -1,0 +1,5 @@
+<% p = Person.find(params[:pid]) %>
+<h1>Net Worth</h1>
+<h3>Average: <%= number_to_currency(p.net_worth_average) %></h3>
+<h3>Minimum: <%= number_to_currency(p.net_worth_minimum) %></h3>
+<h3>Maximum: <%= number_to_currency(p.net_worth_maximum) %></h3>

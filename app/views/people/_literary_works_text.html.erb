@@ -1,0 +1,5 @@
+<% p = Person.find(params[:pid]) %>
+<% literary_work = p.literary_work %>
+
+<h1>Literary work</h1>
+<%= literary_work.html_safe %>

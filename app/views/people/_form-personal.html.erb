@@ -21,6 +21,9 @@
   <%= f.label :religion, 'Religion' %>
   <%= collection_select(:person, :religion_id, Religion.all, :id, :name, {:include_blank => true}) %><br /><br />
 
+  <%= f.label :birthplace %>
+  <%= f.text_field :birthplace %><br /><br />
+
   <%= f.label :date_of_birth %>
   <%= f.date_select :date_of_birth, {:order => [:month, :day, :year], :start_year => 1901}, {:class => 'span2'} %><br /><br />
 

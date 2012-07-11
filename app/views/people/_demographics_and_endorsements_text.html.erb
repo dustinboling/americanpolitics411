@@ -1,0 +1,39 @@
+<% @person = Person.find(params[:pid]) %>
+
+<%
+@entity = TransparencyData::Client.entities(:search => "#{@person.remove_name_numericality}")
+if @entity.first
+@id = @entity.first.id
+@sectors = TransparencyData::Client.top_sectors(@id)
+else
+@sectors = []
+end
+%>
+<h1>Demographics & Endorsements</h1>
+<% if @sectors.count > 0 %>
+<table class="table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>				
+      <th>Total Amount</th>
+      <th>Percent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% contributions_by_sector_math %>
+    <% @sectors.collect do |s| %>
+    <tr>
+      <td><%= s.name %></td>
+      <td><%= number_to_currency(s.amount) %></td>
+      <td><%= sprintf("%0.02f", ((s.amount.to_f / @i.to_f)) * 100) %></td>
+    </tr>
+    <% end %>
+    <tr>
+      <td><h4>Total:</h4></h4></td>
+    <td><h4><%= number_to_currency(@i) %></h4></td>
+    <td></td>
+  </tbody>
+</table>
+<% else %>
+Information is not currently available, research is in progress.
+<% end %>

@@ -21,6 +21,17 @@ AP411 - ROADMAP
 #72 - switch over the bootstrap css flash messages to plaintext
 #73 - add default image for politicians
 #74 - add number total to controversy, hide lit/acc nodes underneath
+#75 - new person page: it sucks to have to scroll through the years, make these autocomplete hybrids.
+#76 - <b> tags are not presenting correctly on ajax calls in person#show
+#77 - add loading image for ajax calls on person#show
+#78 - at people/index there is a js error: 'b is undefined'
+#79 - bubble map: when you click on a main node, it's subnodes should colorize, so the user feels as if something has happened.
+#80 - person#edit: cannot add an endorsement
+#81 - personal contributors for obama?
+#82 - investements/transactions: can we just get this stuff on the fly? see bubble map
+#83 - need something for voting behavior
+#84 - person#show: earmarks should not show up if a person is not a senator/representative. same for all LEGISLATIVE items
+#85 - amazon or wikipedia for "literary work" links
 
 COMPLETED
 ==============||==

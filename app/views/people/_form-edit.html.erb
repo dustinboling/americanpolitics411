@@ -3,8 +3,9 @@
 
 <ul class="tabs">
   <li><a class="active" href="#basic-info">Basic Info</a></li>
-  <li><a href="#contact-info">Contact Info</a></li>
+  <li><a href="#contact-info">Contact</a></li>
   <li><a href="#personal">Personal</a></li>
+  <li><a href="#relationships">Relationships</a></li>
   <li><a href="#financial">Financial</a></li>
   <li><a href="#education">Education</a></li>
   <li><a href="#political">Political</a></li>
@@ -13,12 +14,12 @@
 </ul>
 
 <ul class="tabs-content">
-  <li class="active box_a" id="basic-info" style="min-height: 310px;">
+  <li class="active box_a" id="basic-info" style="min-height: 340px;">
     <%= render 'layouts/messages' %>
     <%= render 'form-personal', :f => f %>
   </li>
 
-  <li class="box_a" id="contact-info" style="min-height: 310px;">
+  <li class="box_a" id="contact-info" style="min-height: 340px;">
     <%= render 'form-contact', :f => f %>
   </li>
 
@@ -26,6 +27,9 @@
     <%= render 'tab3', :f => f %> 
   </li> <!-- /#personal-tab -->
 
+  <li class="box_a" id="relationships">
+    <%= render 'familymembers', :f => f %>
+  </li>
   <li class="box_a" id="financial">
     <%= render 'tab4', :f => f %>
   </li> <!-- /#financial-tab -->

@@ -1,0 +1,20 @@
+<h1>Political Offices</h1>
+<% p = Person.find(params[:pid]) %>
+<table>
+  <thead>
+    <tr>
+      <th>Office</th> 
+      <th>Date Started</th>
+      <th>Date Finished</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% p.political_offices.order('date_started DESC').each do |p| %>
+    <tr>
+      <td><%= p.office %></td>
+      <td><%= p.date_started %></td>
+      <td><%= p.date_finished %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

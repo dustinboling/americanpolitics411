@@ -56,4 +56,19 @@ module PeopleHelper
     end
   end
   
+  def bubble_safe(str, opts={})
+    opts[:width] ||= 80
+    zero_width_space = "&#8203;"
+    regex = /.{1,#{opts[:width]}}/
+    (str.length < opts[:width]) ? text :
+    str.scan(regex).join(zero_width_space)
+  end
+
+  def js_safe(html)
+    html.html_safe.gsub(/\r/, "\\r").gsub(/\n/, "\\n") 
+  end
+
+  def print_contact_info
+    contact_info = @person.contact_phone
+  end
 end

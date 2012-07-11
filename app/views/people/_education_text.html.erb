@@ -1,0 +1,22 @@
+<% p = Person.find(params[:pid]) %>
+<% degrees = p.degrees %>
+
+<h1>Education</h1>
+<table>
+  <thead>
+    <tr>
+      <th>University</th>
+      <th>Year Earned</th>
+      <th>Degree Earned</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% degrees.order('year_earned ASC').each do |d| %>
+    <tr>
+      <td><%= University.find(d.university_id).name %></td>
+      <td><%= d.year_earned.year %></td>
+      <td><%= d.degree_earned %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
