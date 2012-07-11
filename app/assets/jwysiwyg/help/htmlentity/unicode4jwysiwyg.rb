@@ -10,8 +10,8 @@ rescue LoadError
   puts "You should install Bundler using 'gem install bundler' and run 'bundle install'"
 end
 
-require 'yajl'
-require 'fastercsv'
+# require 'yajl'
+# require 'fastercsv'
 
 ## These four elements are also valid in XML
 ## &apos btw is only valid in XML, and is not an HTML entity
