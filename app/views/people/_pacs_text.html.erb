@@ -4,16 +4,16 @@ p = Person.find(params[:pid])
 person_name = "#{p.first_name} " + "#{p.last_name}"
 
 pac_contributors = TransparencyData::Client.contributions(
-:recipient_ft => "#{person_name}", 
-:cycle => 2011,
-:amount => {:gte => 2300},
-:contributor_type => "C"
+  :recipient_ft => "#{person_name}", 
+  :cycle => 2011,
+  :amount => {:gte => 2300},
+  :contributor_type => "C"
 )
 %>
 
 <%# print data (for humans) %>
-<% if pac_contributors.count > 0 %>
 <h1>PAC Contributions</h1>
+<% if pac_contributors.count > 0 %>
 <table class="table-striped">
   <thead>
     <tr>
@@ -23,7 +23,7 @@ pac_contributors = TransparencyData::Client.contributions(
     </tr>
   </thead>
   <tbody>
-    <% pac_contributors.take(9).each do |p| %>
+    <% pac_contributors.take(12).each do |p| %>
     <tr>
       <td><%= p.amount %></td>
       <td><%= p.contributor_name %></td>
@@ -33,5 +33,5 @@ pac_contributors = TransparencyData::Client.contributions(
   </tbody>
 </table>
 <% else %>
-<p>Could not find any PAC contributors for <%= person_name %></p>
+<p>No PAC contributors found for <%= person_name %></p>
 <% end %>
