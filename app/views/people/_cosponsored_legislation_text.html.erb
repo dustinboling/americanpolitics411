@@ -2,9 +2,12 @@
 <% cosponsored_legislation = LegislationCosponsor.where(:person_id => params[:pid]) %>
 
 <h1>Co-sponsored Legislation</h1>
+<% if cosponsored_legislation.count > 0 %>
 <p style="width: 900px;">
   <% cosponsored_legislation.each do |c| %>
   <%= link_to Legislation.find(c.legislation_id).bill_number, legislation_path(c.legislation_id) %>
   <% end %>
 </p>
-</ul>
+<% else %>
+<p><%= p.full_name %> has no cosponsored legislation.</p>
+<% end %>

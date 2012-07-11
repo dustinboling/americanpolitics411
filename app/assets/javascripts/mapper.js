@@ -162,8 +162,8 @@ window.onload = function() {
     r.image(personImage, 370, 89, 202, 202)
   }
   // main-infotabs
-  r.text(440, 60, full_name);
-  r.text(455, 320, "Birthplace: " + birthplace);
+  r.text(385, 60, full_name).attr({"text-anchor": "start"});
+  r.text(385, 320, "Birthplace: " + birthplace).attr({"text-anchor": "start"});
   eduRect = r.rect(380, 370, 170, 15, 5).attr({stroke: "none", fill: "red"});
   eduRectText = r.text(425, 378, "EDUCATION").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
   litRect = r.rect(380, 390, 170, 15, 5).attr({stroke: "none", fill: "red"});

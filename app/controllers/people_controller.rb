@@ -121,18 +121,6 @@ class PeopleController < ApplicationController
   def show
     @person = Person.find(params[:id])
 
-    # Get most recent tweets
-    unless @person.twitter_id.blank?
-      begin
-        @recent_tweets = Twitter.user_timeline("#{@person.twitter_id}").take(10)
-      rescue Exception => e
-        case e.message
-        when /Twitter is over capacity/
-          @recent_tweets = Twitter.user_timeline("#{@person.twitter_id}").take(10)
-        end
-      end
-    end
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @person }

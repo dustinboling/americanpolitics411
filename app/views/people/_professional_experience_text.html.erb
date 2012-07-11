@@ -3,7 +3,9 @@
 
 <h1>Professional Experience</h1>
 <% if professional_experience != nil %>
-<%= professional_experience.html_safe %>
+<div style="width: 840px;">
+  <p><%= professional_experience.html_safe %></p>
+</div>
 <% else %>
 <p>Research is in progress.</p>
 <% end %>

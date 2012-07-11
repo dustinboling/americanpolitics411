@@ -3,8 +3,12 @@
 <% sponsored_legislation = Legislation.where(:bill_sponsor_id => nytid) %>
 
 <h1>Sponsored Legislation</h1>
+<% if sponsored_legislation.count > 0 %>
 <p>
   <% sponsored_legislation.each do |s| %>
     <%= link_to s.bill_number, legislation_path(s.id) %>
   <% end %>
 </p>
+<% else %>
+<p><%= p.full_name %> has no sponsored legislation.</p>
+<% end %>
