@@ -65,7 +65,6 @@ GEM
       i18n (~> 0.4)
     faraday (0.8.1)
       multipart-post (~> 1.1)
-    fastercsv (1.5.5)
     ffi (1.0.11)
     guard (1.2.1)
       listen (>= 0.4.2)
@@ -229,7 +228,6 @@ DEPENDENCIES
   coffee-rails (~> 3.1.1)
   factory_girl_rails
   faker
-  fastercsv
   guard-rspec
   highline
   jquery-rails
