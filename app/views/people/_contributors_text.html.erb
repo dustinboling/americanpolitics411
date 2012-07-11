@@ -22,11 +22,11 @@ contributors = TransparencyData::Client.contributions(
     </tr>
   </thead>
   <tbody>
-    <% contributors.each do |c| %>
+    <% contributors.take(9)each do |c| %>
     <tr>
-      <td><%= p.amount %></td>
-      <td><%= p.contributor_name %></td>
-      <td><%= p.date %></td>
+      <td><%= c.amount %></td>
+      <td><%= c.contributor_name %></td>
+      <td><%= c.date %></td>
     </tr>
     <% end %>
   </tbody>
