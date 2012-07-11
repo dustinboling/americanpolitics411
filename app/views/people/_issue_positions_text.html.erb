@@ -1,5 +1,8 @@
 <h1>Issue Positions</h1>
 <% p = Person.find(params[:pid]) %>
+<% issue_positions = p.issue_positions %>
+
+<% if issue_positions.count > 0 %>
 <table class="table-striped">
   <thead>
     <th>Topic</th>
@@ -7,7 +10,7 @@
     <th>Position</th>
   </thead>
   <tbody>
-    <% p.issue_positions.each do |i| %>
+    <% issue_positions.each do |i| %>
     <tr>
       <td><%= i.issue_topic %></td>
       <td><%= i.question %></td>
@@ -16,3 +19,6 @@
     <% end %>
   </tbody>
 </table>
+<% else %>
+<p>Research is currently in progress</p>
+<% end %>

@@ -2,6 +2,7 @@
 <% degrees = p.degrees %>
 
 <h1>Education</h1>
+<% if degrees.count > 0 %>
 <table>
   <thead>
     <tr>
@@ -20,3 +21,6 @@
     <% end %>
   </tbody>
 </table>
+<% else %>
+<p>Research is in progress.</p>
+<% end %>

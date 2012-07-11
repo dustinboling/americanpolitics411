@@ -2,8 +2,12 @@
 <% committees = CommitteeAssignment.where(:person_id => params[:pid]) %>
 
 <h1>Committees</h1>
+<% if committees.count > 0 %>
 <ul>
   <% committees.each do |c| %>
-  <li><%= Committee.find(c.committee_id).name %></li>
+  <li><%= link_to Committee.find(c.committee_id).name, committee_path(c.committee_id) %></li>
   <% end %>
 </ul>
+<% else %>
+<p><%= p.full_name %> is not assigned to any committees.</p>
+<% end %>

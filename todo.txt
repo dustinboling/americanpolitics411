@@ -34,6 +34,9 @@ AP411 - ROADMAP
 #85 - amazon or wikipedia for "literary work" links
 #86 - better views for PAC/Indiv. contributors with some maps and stuff
 #87 - add conditionals for person#show ajax. WISHLIST: don't show a node if it doesn't have any info.
+#88 - fix text alignment on bubble map
+#89 - scrolling lists/list tables
+#90 - 'more...' link for PACS/Indiv contributors
 
 COMPLETED
 ==============||==

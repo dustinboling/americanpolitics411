@@ -1,14 +1,14 @@
-<% @person = Person.find(params[:pid]) %>
-
-<%
-@entity = TransparencyData::Client.entities(:search => "#{@person.remove_name_numericality}")
-if @entity.first
-@id = @entity.first.id
-@sectors = TransparencyData::Client.top_sectors(@id)
-else
-@sectors = []
-end
+<% 
+  @person = Person.find(params[:pid])
+  @entity = TransparencyData::Client.entities(:search => "#{@person.remove_name_numericality}")
+  if @entity.first
+    @id = @entity.first.id
+    @sectors = TransparencyData::Client.top_sectors(@id)
+  else
+    @sectors = []
+  end
 %>
+
 <h1>Demographics & Endorsements</h1>
 <% if @sectors.count > 0 %>
 <table class="table-striped">

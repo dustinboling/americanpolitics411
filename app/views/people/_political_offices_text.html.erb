@@ -1,5 +1,8 @@
 <h1>Political Offices</h1>
 <% p = Person.find(params[:pid]) %>
+<% political_offices = p.political_offices %>
+
+<% if political_offices.count > 0 %>
 <table class="table-striped">
   <thead>
     <tr>
@@ -18,3 +21,6 @@
     <% end %>
   </tbody>
 </table>
+<% else %>
+<p>Research is in progress.</p>
+<% end %>

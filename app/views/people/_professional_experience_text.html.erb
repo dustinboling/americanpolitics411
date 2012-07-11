@@ -1,3 +1,9 @@
 <% p = Person.find(params[:pid]) %>
+<% professional_experience = p.professional_experience %>
+
 <h1>Professional Experience</h1>
-<%= p.professional_experience.html_safe %>
+<% if professional_experience != nil %>
+<%= professional_experience.html_safe %>
+<% else %>
+<p>Research is in progress.</p>
+<% end %>

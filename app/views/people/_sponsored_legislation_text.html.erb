@@ -5,6 +5,6 @@
 <h1>Sponsored Legislation</h1>
 <p>
   <% sponsored_legislation.each do |s| %>
-    <%= s.bill_number %>
+    <%= link_to s.bill_number, legislation_path(s.id) %>
   <% end %>
 </p>

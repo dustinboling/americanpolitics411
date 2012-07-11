@@ -8,18 +8,16 @@
     <tr>
       <th>Year</th>
       <th>Recipient</th>
-      <th>Organization ID</th>
       <th>Description</th>
       <th>Bill</th>
       <th>Amount</th>
     </tr>
   </thead>
   <tbody>
+    <% earmarks.each do |e| %>
     <tr>
-      <% earmarks.each do |e| %>
       <td><%= e.fiscal_year %></td>
       <td><%= e.recipient %></td>
-      <td><%= e.organization_id %></td>
       <td><%= e.description %></td>
       <td><%= e.bill %></td>
       <td><%= number_to_currency(e.final_amount, :precision => 0) %></td>

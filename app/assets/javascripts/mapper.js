@@ -97,7 +97,7 @@ window.onload = function() {
     } else {
       sx = shapes[i].attrs.x + 50;
       sy = shapes[i].attrs.y + 23;
-      r.text(sx, sy, nodeTexts[i - 4] + i);
+      r.text(sx, sy, nodeTexts[i - 4]);
       shapes[i].node.onclick = function() {
         // make rectangle
         newRect = makeRectBlank();
