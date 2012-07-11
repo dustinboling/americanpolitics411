@@ -32,6 +32,7 @@ AP411 - ROADMAP
 #83 - need something for voting behavior
 #84 - person#show: earmarks should not show up if a person is not a senator/representative. same for all LEGISLATIVE items
 #85 - amazon or wikipedia for "literary work" links
+#86 - better views for PAC/Indiv. contributors with some maps and stuff
 
 COMPLETED
 ==============||==

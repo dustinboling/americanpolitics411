@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @individual_contributors.collect do |c| %>
+    <% @individual_contributors.take(9).collect do |c| %>
     <tr>
       <td><%= c.amount %></td>
       <td><%= c.contributor_name %></td>
