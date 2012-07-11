@@ -27,23 +27,7 @@
   window.nytid = "<%= @person.nyt_id %>";
   window.full_name = "<%= @person.full_name %>";
   window.birthplace = "<%= @person.birthplace %>";
-  window.education = "<%= @education.html_safe %>";
-  window.literary_work = "<%= js_safe(@person.literary_work) %>";
-  window.organizations = "TODO";
-  window.contact = "<%= print_contact_info %>";
-  window.litigation = "<%= @person.litigations %>";
-  window.accusations = "<%= @person.accusations %>";
-  window.issue_positions = "<%= @person.issue_positions %>";
-  window.net_worth = "<b>Minimum:</b> <%= @person.net_worth_minimum %><br>"
-    + "<b>Average:</b> <%= @person.net_worth_average %><br>"
-    + "<b>Maximum:</b> <%= @person.net_worth_maximum %>";
-  window.investments = "<%= @person.personal_assets %>";
-  window.family_network = "<%= @family_members.html_safe %>";
-  window.professional_experience = "<%= @person.professional_experience %>";
-  window.political_offices = "<%= @political_offices.html_safe %>";
-  window.earmarks = "<%= @person.earmarks %>";
-  window.campaign_platforms = "<%= @person.campaign_platforms %>";
-  window.flip_flops = "<%= @person.flip_flops %>";
+  window.twitter_id = "<%= @person.twitter_id %>";
 </script>
 
 <div class="page-header">

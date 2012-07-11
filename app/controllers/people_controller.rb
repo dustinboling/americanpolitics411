@@ -8,7 +8,8 @@ class PeopleController < ApplicationController
     :autocomplete_person_url, :refresh_officials, 
     :switch_to_representative_by_state, :switch_to_representative_by_name, 
     :switch_to_representative_by_party, :switch_to_senator_by_state, 
-    :switch_to_senator_by_name, :switch_to_senator_by_party]
+    :switch_to_senator_by_name, :switch_to_senator_by_party,
+    :refresh_bubble_rect]
 
   # populate list of names for autocomplete
   def autocomplete_person_name
@@ -80,6 +81,12 @@ class PeopleController < ApplicationController
     respond_to do |format|
       format.js { render :layout => false }
     end 
+  end
+
+  def refresh_bubble_rect
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
   end
 
   def refresh_officials

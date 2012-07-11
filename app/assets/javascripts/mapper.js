@@ -237,3 +237,29 @@ function makeRectBlank() {
   });
   return newRect;
 }
+
+function Twitterbox() {
+  this.screen_name = window.twitter_id;
+  this.callback = generateCallback();
+  this.tweets = [];
+  $.ajax({
+    type: "GET",
+    url: "http://api.twitter.com/1/statuses/user_timeline.json",
+    dataType: "jsonp",
+    data: { screen_name: this.screen_name, count: 10, callback: this.callback },
+    success: function(data) {
+      $.each(data, function() {
+        tweets.push(data);
+      });
+    }
+  });
+
+  Twitterbox.prototype.getMostRecent = function() {
+  }
+}
+
+function generateCallback() {
+  randomNumber = Math.random() * 10000000000;
+  callback = Math.floor(randomNumber);
+  return callback;
+}
