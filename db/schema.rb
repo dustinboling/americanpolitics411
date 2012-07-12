@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120712152338) do
+ActiveRecord::Schema.define(:version => 20120712155846) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -462,6 +462,7 @@ ActiveRecord::Schema.define(:version => 20120712152338) do
     t.string   "chamber"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "about"
   end
 
   add_index "subcommittees", ["committee_id"], :name => "index_subcommittees_on_committee_id"
