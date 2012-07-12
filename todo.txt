@@ -42,6 +42,7 @@ AP411 - ROADMAP
 #93 - loading box for legislation (difficult because there is no success callback for $.html)
 #94 - add type support for datatables so currency sorts correctly
 #95 - need to put a timer on newRect for mapper.js so a user can't close a window before the ajax call completes.
+#96 - escape should close bubble map rects
 
 COMPLETED
 ==============||==

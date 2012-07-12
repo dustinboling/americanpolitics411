@@ -128,6 +128,7 @@ window.onload = function() {
         newRect.node.onclick = function() {
           newRect.hide();
           $('#popup-text').hide();
+          closeButton.hide();
         }
       }
     }
@@ -219,6 +220,7 @@ window.onload = function() {
 };
 
 function makeRect(partial) {
+  // instantiate objects
   newRect = r.rect(0, 0, 940, 480).attr({ 
     fill: "#FFF",
     stroke: "#BBB",
@@ -226,6 +228,8 @@ function makeRect(partial) {
     cursor: "move"
   });
   loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
+  closeButton = r.text(850, 20, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start"});
+  // get data
   $.ajax({
     type: "GET",
     url: 'refresh_bubble_rect',
@@ -238,9 +242,16 @@ function makeRect(partial) {
       loader.hide();
     }
   });
+  // setup listeners
   newRect.node.onclick = function() {
     $('#popup-text').hide();
     newRect.hide();
+    closeButton.hide();
+  }
+  closeButton.node.onclick = function() {
+    $('#popup-text').hide();
+    newRect.hide();
+    closeButton.hide();
   }
 }
 
@@ -251,6 +262,12 @@ function makeRectBlank() {
     "stroke-width": 3,
     cursor: "move"
   });
+  closeButton = r.text(850, 20, "CLOSE X").attr({"font-size": "16px;", "text-anchor": "start"});
+  closeButton.node.onclick = function() {
+    $('#popup-text').hide();
+    newRect.hide();
+    closeButton.hide();
+  }
   loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
   return newRect;
 }
@@ -271,7 +288,13 @@ function Twitterbox() {
     }
   });
 
-  Twitterbox.prototype.getMostRecent = function() {
+  Twitterbox.prototype.getFirstTweet = function() {
+  }
+  
+  Twitterbox.prototype.getNextTweet = function() {
+  }
+
+  Twitterbox.prototype.getPrevTweet = function() {
   }
 }
 
