@@ -1,13 +1,26 @@
 // Place all the styles related to the Committees controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.column {
-  float: left;
-  padding: 4px;
-  width: 32%;
-    ul {
-      list-style: none;
+
+#committee-page {
+  p {
+    font-size: 11px;
+  }
+  ul{
+    li {
       padding: 0;
       margin: 0;
+      a {
+        font-size: 11px;
+        text-decoration: none !important;
+      }
+    }
   }
+}
+
+#jurisdiction,
+#subcommittees,
+#contact-info {
+  margin-right: 0;
+  width: 510px;
 }

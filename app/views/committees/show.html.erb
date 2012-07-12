@@ -1,36 +1,49 @@
-<div class="container">
+<div id="committee-page" class="sixteen columns">
   <p id="notice"><%= notice %></p>
 
-  <h1><%= @committee.name %></h1>
+  <h1 class="page-title"><%= @committee.name %></h1>
 
-  <div id="about">
-    <%= @committee.about %>
+  <div id="about" class="box_a">
+    <h2 class="sub-title">About</h4>
+    <% if @committee.about == nil %>
+    <p><%= RESEARCH_IN_PROGRESS %></p>
+    <% else %>
+    <p><%= @committee.about %></p>
+    <% end %>
   </div>
 
   <div class="row">
-    <div id="members" class="span4 column">
-      <h2>Members</h2>
-      <ul>
+    <div class="six columns box_b" style="margin-left: 0;">
+      <h2 class="sub-title">Members</h2>
+      <ul id="members">
         <% @committee.people.collect do |person| %>
-          <li><%= link_to "#{person.name}", person %></li>
+        <li><%= link_to "#{person.name}", person %></li>
         <% end %>
       </ul>
     </div>
-    <div class="column">
-      <div id="jurisdiction">
-        <h2>Jurisdiction</h2>
-      </div>
-      <div id="subcommittees">
-        <h2>Subcommittees</h2>
-        <ul>
-          <% @committee.subcommittees.collect do |sc| %>
-            <li><%= link_to "#{sc.name}", sc %></li>
-          <% end %>
-        </ul>
-      </div>
-      <div id="contact-info">
-        <h2>Contact Info</h2>
-      </div>
+    <div id="jurisdiction" class="nine columns box_b committee-right">
+      <h2 class="sub-title">Jurisdiction</h2>
+      <% if @committee.jurisdiction == nil %>
+      <p><%= RESEARCH_IN_PROGRESS %></p>
+      <% else %>
+      <%= @committee.jurisdiction %>
+      <% end %>
+    </div>
+    <div id="subcommittees" class="nine columns box_b committee-right">
+      <h2 class="sub-title">Subcommittees</h2>
+      <ul>
+        <% @committee.subcommittees.collect do |sc| %>
+        <li><%= link_to "#{sc.name}", sc %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div id="contact-info" class="nine columns box_b committee-right">
+      <h2 class="sub-title">Contact Info</h2>
+      <% if @committee.contact_info == nil %>
+      <p><%= RESEARCH_IN_PROGRESS %></p>
+      <% else %>
+      <% @committee.contact_info %>
+      <% end %>
     </div>
   </div>
 

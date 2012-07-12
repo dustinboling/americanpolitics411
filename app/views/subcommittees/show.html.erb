@@ -1,5 +1,5 @@
 <div class="container">
-	<h1><%= @subcommittee.name.gsub(/Subcommittee/, "") %> (<%= @subcommittee.chamber %>)</h1>
+  <h1 class="page-title"><%= @subcommittee.name.gsub(/Subcommittee/, "") %> (<%= @subcommittee.chamber %>)</h1>
 	<p>
 		<b>People who belong to this subcommittee:</b>
 		<%= @subcommittee.people.collect { |person|
