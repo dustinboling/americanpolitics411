@@ -18,6 +18,7 @@ gem 'transparency_data'
 gem 'highline'
 gem 'youtube_it'
 gem 'twitter'
+gem 'jquery-ui-rails'
 
 # helpful helper gems
 # gem 'railroady'
@@ -44,7 +45,6 @@ group :assets do
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
-  gem 'jquery-ui-rails'
 end
 
 # To use ActiveModel has_secure_password
