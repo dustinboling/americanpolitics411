@@ -1,7 +1,5 @@
 class LegislationController < ApplicationController
 
-  require 'open-uri'
-
   layout 'public'
 
   def index

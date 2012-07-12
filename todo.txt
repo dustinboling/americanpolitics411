@@ -38,7 +38,8 @@ AP411 - ROADMAP
 #89 - scrolling lists/list tables
 #90 - 'more...' link for PACS/Indiv contributors
 #91 - finish twitterbox.
-#91 - change all inner instances of 'content-wrap' to 'sixteen columns'
+#92 - change all inner instances of 'content-wrap' to 'sixteen columns'
+#93 - loading box for legislation (difficult because there is no success callback for $.html)
 
 COMPLETED
 ==============||==

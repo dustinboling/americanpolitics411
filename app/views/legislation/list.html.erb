@@ -33,5 +33,7 @@
 </div>
 
 <div id="legislation-container" class="fifteen columns box_a" style="margin-left: 20px;">
-  <%= render :partial => 'legislation_partial', :locals => {:legislation => @legislation} %>
+  <div id="legislation">
+    <%= render :partial => 'legislation_partial', :locals => {:legislation => @legislation} %>
+  </div>
 </div>
