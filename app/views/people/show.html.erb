@@ -1,30 +1,10 @@
 <% @page_title = "#{@person.full_name}" %>
-<%# here is where we put our stuff into js variables %>
-<% if @person.photo_url != nil %>
-<script type="text/javascript">
-  window.photo_url = "<%= @person.photo_url %>";
-</script>
-<% end %>
 
-<% @family_members = "" %>
-<% @person.family_members.each do |fm| %>
-<% @family_members = @family_members + fm.family_member + " (" + fm.relationship + ")" + "<br>" %>
-<% end %>
-
-<% @political_offices = "" %>
-<% @person.political_offices.each do |po| %>
-<% @political_offices = @political_offices + po.office + ": " + po.date_started.to_s + "-" + po.date_finished.to_s + "<br>" %>
-<% end %>
-
-<% @education = "" %>
-<% @person.degrees.each do |d| %>
-<% @education = @education + University.find(d.university_id).name + " " + d.year_earned.year.to_s + d.degree_earned + "<br>" %>
-<% end %>
-
-<%# set them on and let the client side figure it out %>
+<%# push necessary data to DOM %>
 <script>
   window.pid = "<%= @person.id %>";
   window.nytid = "<%= @person.nyt_id %>";
+  window.photo_url = "<%= @person.photo_url %>";
   window.full_name = "<%= @person.full_name %>";
   window.birthplace = "<%= @person.birthplace %>";
   window.twitter_id = "<%= @person.twitter_id %>";
@@ -38,7 +18,20 @@
   #popup-text {
     position: absolute;
     top: 80px;
-    left: 60px;
+    left: 20px;
+  }
+  /* fix datatable */
+  #data-table {
+    width: 920px;
+  }
+  #data-table_filter label {
+    text-align: right;
+    margin: 0;
+    padding: 0;
+  }
+  #data-table_filter input {
+    margin: 0;
+    padding: 0;
   }
 </style>
 <div class="sixteen columns">

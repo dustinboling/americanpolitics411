@@ -11,12 +11,12 @@
 
 <h1>Demographics & Endorsements</h1>
 <% if @sectors.count > 0 %>
-<table class="table-striped">
+<table class="table-striped" style="width: 920px;">
   <thead>
     <tr>
       <th>Name</th>				
-      <th>Total Amount</th>
       <th>Percent</th>
+      <th>Total Amount</th>
     </tr>
   </thead>
   <tbody>
@@ -24,14 +24,14 @@
     <% @sectors.collect do |s| %>
     <tr>
       <td><%= s.name %></td>
-      <td><%= number_to_currency(s.amount) %></td>
       <td><%= sprintf("%0.02f", ((s.amount.to_f / @i.to_f)) * 100) %></td>
+      <td><%= number_to_currency(s.amount) %></td>
     </tr>
     <% end %>
     <tr>
+      <td></td>
       <td><h4>Total:</h4></h4></td>
     <td><h4><%= number_to_currency(@i) %></h4></td>
-    <td></td>
   </tbody>
 </table>
 <% else %>

@@ -14,7 +14,7 @@ contributors = TransparencyData::Client.contributions(
 <%# for humans. %>
 <h1>Contributors (Individual)</h1>
 <% if contributors.count > 0 %>
-<table class="table-striped">
+<table id="data-table" class="table-striped">
   <thead>
     <tr>
       <th>Amount</th>
@@ -23,7 +23,7 @@ contributors = TransparencyData::Client.contributions(
     </tr>
   </thead>
   <tbody>
-    <% contributors.take(15).each do |c| %>
+    <% contributors.each do |c| %>
     <tr>
       <td><%= c.amount %></td>
       <td><%= c.contributor_name %></td>

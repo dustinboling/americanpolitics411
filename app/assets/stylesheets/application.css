@@ -9,5 +9,7 @@
  *= require issues
  *= require committees
  *= require subcommittees
- *= require jquery-ui-1.8.17.custom
+ *= require jquery.ui.core
+ *= require jquery.ui.theme
+ *= require dataTables/jquery.dataTables
 */

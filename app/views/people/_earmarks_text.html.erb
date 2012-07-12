@@ -1,30 +1,30 @@
 <% p = Person.find(params[:pid]) %>
 <% earmarks = p.earmarks %>
 
-<h1>Earmarks</h1>
+<h2>Earmarks</h2>
 <% if earmarks.count > 0 %>
-<table class="table-striped">
-  <thead>
-    <tr>
-      <th>Year</th>
-      <th>Recipient</th>
-      <th>Description</th>
-      <th>Bill</th>
-      <th>Amount</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% earmarks.each do |e| %>
-    <tr>
-      <td><%= e.fiscal_year %></td>
-      <td><%= e.recipient %></td>
-      <td><%= e.description %></td>
-      <td><%= e.bill %></td>
-      <td><%= number_to_currency(e.final_amount, :precision => 0) %></td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
+<div id="data-table-wrapper" style="width: 920px;">
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Description</th>
+        <th>Bill</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody style="300px;">
+      <% earmarks.each do |e| %>
+      <tr>
+        <td><%= e.fiscal_year %></td>
+        <td><%= truncate(e.description, :length => 70) %></td>
+        <td><%= truncate(e.bill, :length => 50) %></td>
+        <td><%= number_to_currency(e.final_amount, :precision => 0) %></td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <% else %>
 <p>No earmarks on record for <%= p.full_name %>.</p>
 <% end %>

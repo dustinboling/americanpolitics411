@@ -115,6 +115,11 @@ window.onload = function() {
               },
               success: function() {
                 loader.hide();
+                $('#data-table').dataTable({
+                  sPaginationType: "full_numbers",
+                  bLengthChange: false,
+                  bJQueryUI: true
+                });
               }
             });
           }
@@ -163,7 +168,11 @@ window.onload = function() {
   }
   // main-infotabs
   r.text(385, 60, full_name).attr({"text-anchor": "start"});
-  r.text(385, 320, "Birthplace: " + birthplace).attr({"text-anchor": "start"});
+  if (window.birthplace != "") {
+    r.text(385, 320, "Birthplace: " + birthplace).attr({"text-anchor": "start"});
+  } else {
+    r.text(385, 320, "Birthplace: unknown" + birthplace).attr({"text-anchor": "start"});
+  }
   eduRect = r.rect(380, 370, 170, 15, 5).attr({stroke: "none", fill: "red"});
   eduRectText = r.text(425, 378, "EDUCATION").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
   litRect = r.rect(380, 390, 170, 15, 5).attr({stroke: "none", fill: "red"});

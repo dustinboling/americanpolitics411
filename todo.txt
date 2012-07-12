@@ -40,6 +40,8 @@ AP411 - ROADMAP
 #91 - finish twitterbox.
 #92 - change all inner instances of 'content-wrap' to 'sixteen columns'
 #93 - loading box for legislation (difficult because there is no success callback for $.html)
+#94 - add type support for datatables so currency sorts correctly
+#95 - need to put a timer on newRect for mapper.js so a user can't close a window before the ajax call completes.
 
 COMPLETED
 ==============||==
