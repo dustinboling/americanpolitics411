@@ -90,15 +90,15 @@ class PeopleController < ApplicationController
   end
 
   def refresh_officials
-    if params.has_key?(:state) && params.has_key(:chamber)
-      @people = Person.where(:current_state => params[:state], :chamber => params[:chamber])
+    if params.has_key?(:state_represented) && params.has_key?(:chamber)
+      @people = Person.where(:state_represented => params[:state_represented], :chamber => params[:chamber])
     elsif params.has_key?(:name) && params.has_key?(:chamber)
       name_range  = params[:name].split('-')
       @people = Person.where("chamber = '#{params[:chamber]}' AND last_name BETWEEN '#{name_range[0]}' AND '#{name_range[1]}'")
     elsif params.has_key?(:chamber) && params.has_key?(:party)
       @people = Person.where(:chamber => params[:chamber], :current_party => params[:party])
     elsif params.has_key?(:state)
-      @people = Person.where(:current_state => params[:state])
+      @people = Person.where(:state_represented => params[:state])
     elsif params.has_key?(:party)
       @people = Person.where(:current_party => params[:party])
     elsif params.has_key?(:chamber)

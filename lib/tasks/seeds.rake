@@ -14,6 +14,22 @@ namespace :seed do
   @@house_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/house/members.xml?api-key=#{@@nyt_api_key}"
   @@senate_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/senate/members?api-key=#{@@nyt_api_key}"
 
+  desc "Add states to congress members"
+  task :states => :environment do 
+    people = Person.all
+    people.each do |p|
+      bioguide_id = p.nyt_id
+      ph = Sunlight::Legislator.all_where(:bioguide_id => bioguide_id).first
+      if ph.nil?
+        puts "Could not find data for #{bioguide_id}!"
+      else
+        puts "Updating #{ph.bioguide_id}"
+        p.state_represented = ph.state
+        p.save
+      end
+    end
+  end
+
   desc "Add net worth to members of congress"
   task :net_worth => :environment do
     csv = "/Users/alan/sites/politics411/PFD/crp_data.csv"
