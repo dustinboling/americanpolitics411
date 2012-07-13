@@ -82,7 +82,7 @@ window.onload = function() {
     r.rect(805, 50, 100, 45, 10),   // [21] = PACs
     r.rect(700, 5, 100, 45, 10)     // [22] = demographics & endorsements
   ];
-  nodeTexts = ["Professional\n experience", "Controversy", "Issue Positions", "Political Offices", "Family Network", "Investments", "Net Worth", "Accusations", "Litigation", "Voting Behavior", "Earmarks", "Co-sponsored", "Sponsored\n Legislation", "Committees", "Campaign Platforms", "Flip flops", "Contributors", "PACs", "Demographics &\n Endorsements"];
+  nodeTexts = ["Professional\n experience", "Controversy", "Issue Positions", "Political Offices", "Family Network", "Investments", "Net Worth", "Accusations", "Litigation", "Voting Behavior", "Earmarks", "Co-sponsored", "Sponsored\n Legislation", "Committees", "Campaign\nPlatforms", "Flip flops", "Contributors", "PACs", "Demographics &\n Endorsements"];
   ajaxPartials = ["professional_experience_text", "controversy_text", "issue_positions_text", "political_offices_text", "family_network_text", "investments_text", "net_worth_text", "accusations_text", "litigation_text", "voting_behavior_text", "earmarks_text", "cosponsored_legislation_text", "sponsored_legislation_text", "committees_text", "campaign_platforms_text", "flip_flops_text", "contributors_text", "pacs_text", "demographics_and_endorsements_text"];
   i = 0;
   for (shape in shapes) {
@@ -92,11 +92,11 @@ window.onload = function() {
       // non-clickable!
       sx = shapes[i].attrs.x + 50;
       sy = shapes[i].attrs.y + 23;
-      r.text(sx, sy, nodeTexts[i - 4]);
+      r.text(sx, sy, nodeTexts[i - 4]).attr({"font-size": "12px"});
     } else {
       sx = shapes[i].attrs.x + 50;
       sy = shapes[i].attrs.y + 23;
-      r.text(sx, sy, nodeTexts[i - 4]);
+      r.text(sx, sy, nodeTexts[i - 4]).attr({"font-size": "12px"});
       shapes[i].node.onclick = function() {
         // make rectangle
         newRect = makeRectBlank();
@@ -166,11 +166,12 @@ window.onload = function() {
       });
     }
   }
-  // do image
+  // image
   if (window.photo_url != undefined) {
     var personImage = window.photo_url
     r.image(personImage, 370, 89, 202, 202)
   }
+
   // main-infotabs
   if (window.state_represented != "") {
     r.text(380, 60, full_name + " (" + current_party + ") - " + state_represented ).attr({"font-size": "14px", "text-anchor": "start"});
@@ -203,6 +204,7 @@ window.onload = function() {
   contactRect.node.onclick = function() {
     makeRect("contact_text");
   }
+
   // twitterbox
   function Twitterbox() {
     this.callback = generateCallback();
@@ -242,7 +244,6 @@ window.onload = function() {
 
     timelinePromise = getTimeline();
     timelinePromise.success(function(timeline) {
-      console.log(timeline[0]);
       $('#current-tweet').html('<p>' + timeline[0]['text'] + '</p>');
     });
 

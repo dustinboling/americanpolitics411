@@ -45,6 +45,7 @@ AP411 - ROADMAP
 #96 - escape should close bubble map rects
 #97 - bubble map will be more performant if we do an html overlay for all the text boxes (hold them until document.onload)
 #98 - get twitterbox to only do one request (timeline, as it contains user data)
+#99 - add onclicks to node texts on bubblemap
 
 COMPLETED
 ==============||==
