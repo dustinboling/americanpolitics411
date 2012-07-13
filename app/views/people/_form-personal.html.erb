@@ -1,5 +1,4 @@
 <h3>Basic Info</h3>
-
 <div class="seven columns">
   <%= f.label :first_name %>
   <%= f.text_field :first_name %>
@@ -22,11 +21,11 @@
   <%= collection_select(:person, :religion_id, Religion.all, :id, :name, {:include_blank => true}) %><br /><br />
 
   <%= f.label :birthplace %>
-  <%= f.text_field :birthplace %><br /><br />
+  <%= f.text_field :birthplace %>
 
   <%= f.label :date_of_birth %>
-  <%= f.date_select :date_of_birth, {:order => [:month, :day, :year], :start_year => 1901}, {:class => 'span2'} %><br /><br />
+  <%= f.date_select :date_of_birth, {:order => [:month, :day, :year], :start_year => 1901}, {:class => 'two columns'} %><br /><br />
 
   <%= f.label :date_of_death %>
-  <%= f.date_select :date_of_death, {:order => [:month, :day, :year], :start_year => 1851, :include_blank => true, :default => nil}, {:class => 'span2'} %>
+  <%= f.date_select :date_of_death, {:order => [:month, :day, :year], :start_year => 1851, :include_blank => true, :default => nil}, {:class => 'two columns'} %>
 </div>

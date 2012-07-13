@@ -43,6 +43,8 @@ AP411 - ROADMAP
 #94 - add type support for datatables so currency sorts correctly
 #95 - need to put a timer on newRect for mapper.js so a user can't close a window before the ajax call completes.
 #96 - escape should close bubble map rects
+#97 - bubble map will be more performant if we do an html overlay for all the text boxes (hold them until document.onload)
+#98 - get twitterbox to only do one request (timeline, as it contains user data)
 
 COMPLETED
 ==============||==

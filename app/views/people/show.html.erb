@@ -5,7 +5,9 @@
   window.pid = "<%= @person.id %>";
   window.nytid = "<%= @person.nyt_id %>";
   window.photo_url = "<%= @person.photo_url %>";
-  window.full_name = "<%= @person.full_name %>";
+  window.full_name = "<%= @person.first_name + " " + @person.last_name %>";
+  window.current_party = "<%= @person.current_party %>";
+  window.state_represented = "<%= @person.state_represented %>";
   window.birthplace = "<%= @person.birthplace %>";
   window.twitter_id = "<%= @person.twitter_id %>";
 </script>
@@ -20,6 +22,14 @@
     top: 80px;
     left: 20px;
   }
+  #current-tweet p {
+    position: absolute;
+    left: 20px;
+    top: 430px;
+    word-wrap: break-word;
+    width: 335px;
+  }
+
   /* fix datatable */
   #data-table {
     width: 920px;
@@ -38,6 +48,8 @@
   <div id="bubble-map">
   </div>
   <div id="popup-text">
+  </div>
+  <div id="current-tweet">
   </div>
   <div id="media-center-separator">
     <h4>Media Center</h4>

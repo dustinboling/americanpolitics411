@@ -1,38 +1,35 @@
 <h3>Contact Info</h3>
 <div class="seven columns">
-  <div class="field">
-    <%= f.label :contact_street_address, "Street Address" %>
-    <%= f.text_field :contact_street_address %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_city, "City" %>
-    <%= f.text_field :contact_city %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_state, "State" %>
-    <%= f.text_field :contact_state %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_zip, "Zip Code" %>
-    <%= f.text_field :contact_zip %>
-  </div>
+  <%= f.label :contact_street_address, "Street Address" %>
+  <%= f.text_field :contact_street_address %>
+
+  <%= f.label :contact_city, "City" %>
+  <%= f.text_field :contact_city %>
+
+  <%= f.label :contact_state, "State" %>
+  <%= f.text_field :contact_state %>
+
+  <%= f.label :contact_zip, "Zip Code" %>
+  <%= f.text_field :contact_zip %>
+
+  <%= f.label "Twitter ID" %>
+  <%= f.text_field :twitter_id %>
 </div>
 
 <div class="seven columns">
-  <div class="field">
-    <%= f.label :contact_phone, "Phone" %>
-    <%= f.text_field :contact_phone %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_fax, "Fax" %>
-    <%= f.text_field :contact_fax %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_email, "Email" %>
-    <%= f.text_field :contact_email %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_web_page_url, "Web Page URL" %>
-    <%= f.text_field :contact_web_page_url %>
-  </div>
+  <%= f.label :contact_phone, "Phone" %>
+  <%= f.text_field :contact_phone %>
+
+  <%= f.label :contact_fax, "Fax" %>
+  <%= f.text_field :contact_fax %>
+
+
+  <%= f.label :contact_email, "Email" %>
+  <%= f.text_field :contact_email %>
+
+  <%= f.label :contact_web_page_name %>
+  <%= f.text_field :contact_web_page_name %>
+
+  <%= f.label :contact_web_page_url, "Web Page URL" %>
+  <%= f.text_field :contact_web_page_url %>
 </div>

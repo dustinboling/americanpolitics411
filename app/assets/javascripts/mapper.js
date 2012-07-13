@@ -1,4 +1,3 @@
-// attribution: graffle.js demo from the raphael.js site
 Raphael.fn.connection = function (obj1, obj2, line, bg) {
   if (obj1.line && obj1.from && obj1.to) {
     line = obj1;
@@ -60,7 +59,7 @@ window.onload = function() {
   r = Raphael("bubble-map", 940, 480),
   connections = [];
   shapes = [  r.rect(370, 40, 200, 40, 10),   // [0] = name
-    r.rect(1, 310, 300, 150, 10),   // [1] = twitter box
+    r.rect(1, 310, 340, 150, 10),   // [1] = twitter box
     r.rect(370, 90, 200, 200, 10),  // [2] = picture
     r.rect(370, 300, 200, 160, 10), // [3] = details
     r.rect(180, 30, 100, 45, 10),   // [4] = professional experience
@@ -128,6 +127,7 @@ window.onload = function() {
         newRect.node.onclick = function() {
           newRect.hide();
           $('#popup-text').hide();
+          $('#current-tweet').show();
           closeButton.hide();
         }
       }
@@ -142,7 +142,6 @@ window.onload = function() {
         stroke: "#BBB",
         "fill-opacity": 1, 
         "stroke-width": 3,
-        cursor: "move"
       });
       shapes[i].node.onclick = function() {
         shapes[11].attr({
@@ -152,13 +151,18 @@ window.onload = function() {
           stroke: "blue"
         });
       } 
+    } else if (i == 1) {
+      shapes[i].attr({
+        stroke: "#BBB",
+        "fill": "#FFF",
+        "stroke-width": 3
+      });
     } else {
       shapes[i].attr({
         fill: "#EEE", 
         stroke: "#BBB", 
         "fill-opacity": 1, 
-        "stroke-width": 3, 
-        cursor: "move"
+        "stroke-width": 3
       });
     }
   }
@@ -168,7 +172,11 @@ window.onload = function() {
     r.image(personImage, 370, 89, 202, 202)
   }
   // main-infotabs
-  r.text(385, 60, full_name).attr({"text-anchor": "start"});
+  if (window.state_represented != "") {
+    r.text(380, 60, full_name + " (" + current_party + ") - " + state_represented ).attr({"font-size": "14px", "text-anchor": "start"});
+  } else {
+    r.text(385, 60, full_name).attr({"font-size": "14px", "text-anchor": "start"});
+  }
   if (window.birthplace != "") {
     r.text(385, 320, "Birthplace: " + birthplace).attr({"text-anchor": "start"});
   } else {
@@ -196,6 +204,58 @@ window.onload = function() {
     makeRect("contact_text");
   }
   // twitterbox
+  function Twitterbox() {
+    this.callback = generateCallback();
+    this.timeline;
+
+    function getUser() {
+      return $.ajax({
+        type: "GET",
+        url: "http://api.twitter.com/1/users/lookup.json",
+        dataType: "jsonp",
+        data: { screen_name: twitter_id, callback: this.callback },
+        success: function(data) {
+          return data;
+        }
+      });
+    }
+
+    function getTimeline() {
+      return $.ajax({
+        type: "GET",
+        url: "http://api.twitter.com/1/statuses/user_timeline.json",
+        dataType: "jsonp",
+        data: { screen_name: twitter_id, calllback: this.callback },
+        success: function(timeline) {
+          return timeline;
+        }
+      });
+    }
+
+    userPromise = getUser();
+    userPromise.success(function(data) {
+      img = data[0]['profile_image_url'].toString();
+      tb_img = r.image(img, 10, 325, 48, 48);
+      tb_name = r.text(65, 335, data[0]['name']).attr({"font-size": "20px", "text-anchor": "start", stroke: "#999", fill: "#999"});
+      tb_screen_name = r.text(65, 355, "@" + twitter_id).attr({"font-size": "14px", "text-anchor": "start", fill: "red"});
+    });
+
+    timelinePromise = getTimeline();
+    timelinePromise.success(function(timeline) {
+      console.log(timeline[0]);
+      $('#current-tweet').html('<p>' + timeline[0]['text'] + '</p>');
+    });
+
+    Twitterbox.prototype.showFirstTweet = function() {
+    }
+
+    Twitterbox.prototype.showNextTweet = function() {
+    }
+
+    Twitterbox.prototype.showPrevTweet = function() {
+    }
+  }
+  tb = new Twitterbox();
 
   // connections
   connections.push(r.connection(shapes[2], shapes[4], "#444"));
@@ -227,8 +287,9 @@ function makeRect(partial) {
     "stroke-width": 3,
     cursor: "move"
   });
+  $('#current-tweet').hide();
   loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
-  closeButton = r.text(850, 20, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start"});
+  closeButton = r.text(850, 30, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start"});
   // get data
   $.ajax({
     type: "GET",
@@ -245,11 +306,13 @@ function makeRect(partial) {
   // setup listeners
   newRect.node.onclick = function() {
     $('#popup-text').hide();
+    $('#current-tweet').show();
     newRect.hide();
     closeButton.hide();
   }
   closeButton.node.onclick = function() {
     $('#popup-text').hide();
+    $('#current-tweet').show();
     newRect.hide();
     closeButton.hide();
   }
@@ -262,9 +325,11 @@ function makeRectBlank() {
     "stroke-width": 3,
     cursor: "move"
   });
-  closeButton = r.text(850, 20, "CLOSE X").attr({"font-size": "16px;", "text-anchor": "start"});
+  $('#current-tweet').hide();
+  closeButton = r.text(850, 30, "CLOSE X").attr({"font-size": "16px;", "text-anchor": "start"});
   closeButton.node.onclick = function() {
     $('#popup-text').hide();
+    $('#current-tweet').show();
     newRect.hide();
     closeButton.hide();
   }
@@ -272,31 +337,6 @@ function makeRectBlank() {
   return newRect;
 }
 
-function Twitterbox() {
-  this.screen_name = window.twitter_id;
-  this.callback = generateCallback();
-  this.tweets = [];
-  $.ajax({
-    type: "GET",
-    url: "http://api.twitter.com/1/statuses/user_timeline.json",
-    dataType: "jsonp",
-    data: { screen_name: this.screen_name, count: 10, callback: this.callback },
-    success: function(data) {
-      $.each(data, function() {
-        tweets.push(data);
-      });
-    }
-  });
-
-  Twitterbox.prototype.getFirstTweet = function() {
-  }
-  
-  Twitterbox.prototype.getNextTweet = function() {
-  }
-
-  Twitterbox.prototype.getPrevTweet = function() {
-  }
-}
 
 function generateCallback() {
   randomNumber = Math.random() * 10000000000;
