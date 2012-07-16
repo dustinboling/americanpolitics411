@@ -71,11 +71,11 @@ window.onload = function() {
     r.rect(5, 140, 100, 45, 10),    // [10] = net worth
     r.rect(155, 100, 100, 45, 10),  // [11] = accusations 
     r.rect(80, 200, 100, 45, 10),   // [12] = litigation
-    r.rect(620, 290, 100, 45, 10),  // [13] = voting behavior
-    r.rect(760, 300, 100, 45, 10),  // [14] = earmarks
+    r.rect(620, 300, 100, 45, 10),  // [13] = voting behavior
+    r.rect(760, 315, 100, 45, 10),  // [14] = earmarks
     r.rect(780, 400, 100, 45, 10),  // [15] = co-sponsored
     r.rect(630, 380, 100, 45, 10),  // [16] = sponsored
-    r.rect(735, 240, 100, 45, 10),  // [17] = committees
+    r.rect(735, 250, 100, 45, 10),  // [17] = committees
     r.rect(750, 180, 100, 45, 10),  // [18] = campaign platforms
     r.rect(780, 120, 100, 45, 10),  // [19] = flip flops
     r.rect(640, 90, 100, 45, 10),   // [20] = contributors
@@ -243,18 +243,31 @@ window.onload = function() {
     });
 
     timelinePromise = getTimeline();
+    var i = 0;
     timelinePromise.success(function(timeline) {
-      $('#current-tweet').html('<p>' + timeline[0]['text'] + '</p>');
+      // most-current tweet
+      $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
+
+      // controls
+      twitter_right_arrow = r.image('/assets/twitter_right_arrow.png', 310, 420, 25, 25)
+      twitter_left_arrow = r.image('/assets/twitter_left_arrow.png', 280, 420, 25, 25)
+      twitter_right_arrow.node.onclick = function() {
+        i = i + 1; 
+        if (timeline[i] == undefined) {
+          i = i - 1;
+        } else {
+          $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
+        }
+      }
+      twitter_left_arrow.node.onclick = function() {
+        i = i - 1; 
+        if (timeline[i] == undefined) {
+          i = i + 1;
+        } else {
+          $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
+        }
+      }
     });
-
-    Twitterbox.prototype.showFirstTweet = function() {
-    }
-
-    Twitterbox.prototype.showNextTweet = function() {
-    }
-
-    Twitterbox.prototype.showPrevTweet = function() {
-    }
   }
   tb = new Twitterbox();
 
@@ -337,7 +350,6 @@ function makeRectBlank() {
   loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
   return newRect;
 }
-
 
 function generateCallback() {
   randomNumber = Math.random() * 10000000000;
