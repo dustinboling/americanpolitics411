@@ -33,11 +33,9 @@ AP411 - ROADMAP
 #84 - person#show: earmarks should not show up if a person is not a senator/representative. same for all LEGISLATIVE items
 #85 - amazon or wikipedia for "literary work" links
 #86 - better views for PAC/Indiv. contributors with some maps and stuff
-#87 - add conditionals for person#show ajax. WISHLIST: don't show a node if it doesn't have any info.
 #88 - fix text alignment on bubble map
 #89 - scrolling lists/list tables
 #90 - 'more...' link for PACS/Indiv contributors
-#91 - finish twitterbox.
 #92 - change all inner instances of 'content-wrap' to 'sixteen columns'
 #93 - loading box for legislation (difficult because there is no success callback for $.html)
 #94 - add type support for datatables so currency sorts correctly
@@ -46,9 +44,12 @@ AP411 - ROADMAP
 #97 - bubble map will be more performant if we do an html overlay for all the text boxes (hold them until document.onload)
 #98 - get twitterbox to only do one request (timeline, as it contains user data)
 #99 - add onclicks to node texts on bubblemap
-#100 - govtrack.us/data/photos
+#100 - govtrack.us/data/photos, get these into the database.
 #101 - find organizations from an api.
 #102 - fec api (look into it)
+#103 - if a youtube request for a person's videos returns empty then we need to do a secondary search for videos containing their name
+#105 - bubble-map must present congress nodes only for congress people
+#106 - Twitterbox: handle use-case where a person does not have an account
 
 COMPLETED
 ==============||==
@@ -87,6 +88,9 @@ COMPLETED
 #58 - Add about & contact info & jurisdiction to committees/ make committees editable.
 #56 - Make h1s dynamic: 'Editing organization' should be 'Editing #{name of org.}'
 #60 - currently legislation#show only shows top 7 issues. need todo some jquery to show the rest.
+#87 - add conditionals for person#show ajax. WISHLIST: don't show a node if it doesn't have any info.
+#91 - finish twitterbox.
+#104 - when a person is created, user must select whether they are a member of congress
 
 ON HOLD
 ==============||==
@@ -102,6 +106,7 @@ ON HOLD
 #36 - validations: (255) length on string fields - don't know what this means
 #47 - add organizations with earmarks rake task
 #15 - separate admin/public layouts (including css) *on hold until bootstrap 2.0 SASS is ready - ON HOLD UNTIL DESIGN IS DONE
+#16 - bubble-map: don't show a node if it doesn't have any info
 
 CANCELED
 ==============||==

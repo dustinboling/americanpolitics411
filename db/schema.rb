@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120712163532) do
+ActiveRecord::Schema.define(:version => 20120716213140) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -372,6 +372,7 @@ ActiveRecord::Schema.define(:version => 20120712163532) do
     t.text     "slug"
     t.string   "birthplace"
     t.string   "state_represented"
+    t.boolean  "is_congress_member"
   end
 
   create_table "personal_assets", :force => true do |t|

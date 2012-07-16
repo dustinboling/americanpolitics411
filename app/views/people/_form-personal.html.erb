@@ -11,6 +11,9 @@
 
   <%= f.label :suffix %>
   <%= f.text_field :suffix %>
+
+  <%= f.label :is_congress_member, "This person has been a member of congress" %>
+  <%= f.check_box :is_congress_member %>
 </div>
 
 <div class="seven columns">
@@ -28,4 +31,6 @@
 
   <%= f.label :date_of_death %>
   <%= f.date_select :date_of_death, {:order => [:month, :day, :year], :start_year => 1851, :include_blank => true, :default => nil}, {:class => 'two columns'} %>
+
+
 </div>

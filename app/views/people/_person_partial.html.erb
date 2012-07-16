@@ -5,15 +5,13 @@
   <thead>
     <tr>
       <th>Name (Party)</th>
-      <th>State</th>
       <th>Contact Phone</th>
     </tr>
   </thead>
   <tbody>
     <% @people.each do |p| %>
     <tr class="<%= cycle("even", "odd") %>">
-      <td><%= link_to "#{p.name} (#{p.current_party})", person_path(p.to_param) %></td>
-      <td><%= p.state_represented %></td>
+      <td><%= link_to "#{p.name} (#{p.current_party}-#{p.state_represented})", person_path(p.to_param) %></td>
       <td><%= p.contact_phone %></td>
     </tr>
     <% end %>
