@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120716213140) do
+ActiveRecord::Schema.define(:version => 20120717214356) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(:version => 20120716213140) do
   end
 
   add_index "accusations", ["person_id"], :name => "index_accusations_on_person_id"
+
+  create_table "actions", :force => true do |t|
+    t.integer  "legislation_id"
+    t.text     "text"
+    t.datetime "acted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -252,6 +260,12 @@ ActiveRecord::Schema.define(:version => 20120716213140) do
     t.string   "democratic_cosponsors"
     t.text     "summary"
     t.integer  "introduced_year"
+    t.text     "rtc_id"
+    t.text     "bill_type"
+    t.integer  "session"
+    t.text     "short_title"
+    t.text     "popular_title"
+    t.text     "chamber"
   end
 
   add_index "legislations", ["bill_uri"], :name => "index_legislations_on_bill_uri"
@@ -324,6 +338,19 @@ ActiveRecord::Schema.define(:version => 20120716213140) do
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
   add_index "pages", ["subject_id"], :name => "index_pages_on_subject_id"
 
+  create_table "passage_votes", :force => true do |t|
+    t.integer  "legislation_id"
+    t.text     "result"
+    t.datetime "voted_at"
+    t.text     "passage_type"
+    t.text     "text"
+    t.text     "how"
+    t.text     "roll_id"
+    t.text     "chamber"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "people", :force => true do |t|
     t.string   "first_name"
     t.string   "middle_name"
@@ -373,6 +400,15 @@ ActiveRecord::Schema.define(:version => 20120716213140) do
     t.string   "birthplace"
     t.string   "state_represented"
     t.boolean  "is_congress_member"
+    t.text     "eventful_id"
+    t.text     "official_rss"
+    t.text     "webform"
+    t.text     "nickname"
+    t.text     "bioguide_id"
+    t.text     "senate_class"
+    t.text     "congresspedia_url"
+    t.boolean  "in_office"
+    t.string   "district"
   end
 
   create_table "personal_assets", :force => true do |t|

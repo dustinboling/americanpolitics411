@@ -84,9 +84,10 @@ window.onload = function() {
   ];
   nodeTexts = ["Professional\n experience", "Controversy", "Issue Positions", "Political Offices", "Family Network", "Investments", "Net Worth", "Accusations", "Litigation", "Voting Behavior", "Earmarks", "Co-sponsored", "Sponsored\n Legislation", "Committees", "Campaign\nPlatforms", "Flip flops", "Contributors", "PACs", "Demographics &\n Endorsements"];
   ajaxPartials = ["professional_experience_text", "controversy_text", "issue_positions_text", "political_offices_text", "family_network_text", "investments_text", "net_worth_text", "accusations_text", "litigation_text", "voting_behavior_text", "earmarks_text", "cosponsored_legislation_text", "sponsored_legislation_text", "committees_text", "campaign_platforms_text", "flip_flops_text", "contributors_text", "pacs_text", "demographics_and_endorsements_text"];
+
   i = 0;
   for (shape in shapes) {
-    if (i < 4 ) {
+    if (i < 4) {
       // do nothing
     } else if (i == 5) {
       // non-clickable!
@@ -96,7 +97,40 @@ window.onload = function() {
     } else {
       sx = shapes[i].attrs.x + 50;
       sy = shapes[i].attrs.y + 23;
-      r.text(sx, sy, nodeTexts[i - 4]).attr({"font-size": "12px"});
+      texts = [];
+      texts[i] = r.text(sx, sy, nodeTexts[i - 4]).attr({"font-size": "12px"});
+      texts[i].node.onclick = function() {
+        newRect = makeRectBlank();
+        n = 23;
+        while (n < 46) {
+          if (n == this.raphaelid) {
+            $.ajax({
+              type: "GET",
+              url: 'refresh_bubble_rect',
+              dataType: "script",
+              data: { pid: window.pid, 
+                nytid: window.nytid, 
+                partial_name: ajaxPartials[n - 23]
+              },
+              success: function() {
+                loader.hide();
+                $('#data-table').dataTable({
+                  sPaginationType: "full_numbers",
+                  bLengthChange: false,
+                  bJQueryUI: true
+                });
+              }
+            });
+          }
+          n = n + 1;
+        }
+        newRect.node.onclick = function() {
+          newRect.hide();
+          $('#popup-text').hide();
+          $('#current-tweet').show();
+          closeButton.hide();
+        }
+      }
       shapes[i].node.onclick = function() {
         // make rectangle
         newRect = makeRectBlank();
@@ -134,6 +168,7 @@ window.onload = function() {
     }
     i = i + 1;
   }
+
   // this is the loop we need to change main node colors to darker grey
   for (var i = 0, ii = shapes.length; i < ii; i++) {
     if (i == 5) {
@@ -191,17 +226,30 @@ window.onload = function() {
   orgRectText = r.text(438, 418, "ORGANIZATIONS").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
   contactRect = r.rect(380, 430, 170, 15, 5).attr({stroke: "none", fill: "red"});
   contactRectText = r.text(419, 438, "CONTACT").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
+
   // main-infotabs listeners
   eduRect.node.onclick = function() {
+    makeRect("education_text");
+  }
+  eduRectText.node.onclick = function() {
     makeRect("education_text");
   }
   litRect.node.onclick = function() {
     makeRect("literary_works_text");
   }
+  litRectText.node.onclick = function() {
+    makeRect("literary_works_text");
+  }
   orgRect.node.onclick = function() {
     makeRect("organizations_text");
   }
+  orgRectText.node.onclick = function() {
+    makeRect("organizations_text");
+  }
   contactRect.node.onclick = function() {
+    makeRect("contact_text");
+  }
+  contactRectText.node.onclick = function() {
     makeRect("contact_text");
   }
 

@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/asebastian/transparency-data.git
+  revision: 84f1551c9fee492fdc8d8b661e06e7367dcf397c
+  specs:
+    transparency_data (0.0.4)
+      hashie (~> 1.0.0)
+      monster_mash (~> 0.1.0)
+      rake
+
+GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
   revision: 535d355c85d3a79984cfe310b22aeb9ca05252e6
   specs:
@@ -38,7 +47,7 @@ GEM
       multi_json (>= 1.0, < 1.3)
     addressable (2.2.8)
     arel (2.2.3)
-    bcrypt-ruby (2.1.4)
+    bcrypt-ruby (3.0.1)
     builder (3.0.0)
     cancan (1.6.8)
     capybara (1.1.2)
@@ -57,6 +66,12 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.3.3)
+    congress (0.0.4)
+      faraday (~> 0.7.4)
+      faraday_middleware (~> 0.7.0)
+      hashie (~> 1.0.0)
+      multi_json (~> 1.0.3)
+      rash (~> 0.3.0)
     daemons (1.1.8)
     diff-lcs (1.1.3)
     erubis (2.7.0)
@@ -70,19 +85,28 @@ GEM
       railties (>= 3.0.0)
     faker (1.0.1)
       i18n (~> 0.4)
-    faraday (0.8.1)
+    faraday (0.7.6)
+      addressable (~> 2.2)
       multipart-post (~> 1.1)
+      rack (~> 1.1)
+    faraday_middleware (0.7.0)
+      faraday (~> 0.7.3)
     ffi (1.0.11)
+    git (1.2.5)
     guard (1.2.3)
       listen (>= 0.4.2)
       thor (>= 0.14.6)
     guard-rspec (1.2.0)
       guard (>= 1.1)
-    hashie (0.2.2)
+    hashie (1.0.0)
     highline (1.6.13)
     hike (1.2.1)
-    httpauth (0.1)
     i18n (0.6.0)
+    jeweler (1.8.4)
+      bundler (~> 1.0)
+      git (>= 1.2.5)
+      rake
+      rdoc
     jquery-rails (1.0.19)
       railties (~> 3.0)
       thor (~> 0.14)
@@ -90,10 +114,8 @@ GEM
       jquery-rails
       railties (>= 3.1.0)
     json (1.7.3)
-    jwt (0.1.4)
-      json (>= 1.2.4)
     kgio (2.7.4)
-    libwebsocket (0.1.3)
+    libwebsocket (0.1.4)
       addressable
     listen (0.4.7)
       rb-fchange (~> 0.0.5)
@@ -106,17 +128,14 @@ GEM
     mime-types (1.19)
     monster_mash (0.1.4)
       typhoeus (>= 0.1.25)
-    multi_json (1.2.0)
+    multi_json (1.0.4)
     multipart-post (1.1.5)
     newrelic_rpm (3.4.0.1)
     nokogiri (1.5.5)
     oauth (0.4.6)
-    oauth2 (0.8.0)
-      faraday (~> 0.8)
-      httpauth (~> 0.1)
-      jwt (~> 0.1.4)
+    oauth2 (0.5.2)
+      faraday (~> 0.7)
       multi_json (~> 1.0)
-      rack (~> 1.2)
     pg (0.14.0)
     polyglot (0.3.3)
     rack (1.3.6)
@@ -145,6 +164,8 @@ GEM
       thor (~> 0.14.6)
     raindrops (0.10.0)
     rake (0.9.2.2)
+    rash (0.3.0)
+      hashie (~> 1.0.0)
     rb-fchange (0.0.5)
       ffi
     rb-fsevent (0.9.1)
@@ -179,12 +200,10 @@ GEM
       multi_json (~> 1.0)
       rubyzip
     simple_oauth (0.1.8)
-    sorcery (0.6.0)
-      bcrypt-ruby (~> 2.1.4)
-      oauth (>= 0.4.4)
-      oauth (>= 0.4.4)
-      oauth2 (>= 0.1.1)
-      oauth2 (>= 0.1.1)
+    sorcery (0.7.12)
+      bcrypt-ruby (~> 3.0.0)
+      oauth (~> 0.4.4)
+      oauth2 (~> 0.5.1)
     sprockets (2.0.4)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -198,10 +217,6 @@ GEM
       rack (>= 1.0.0)
     thor (0.14.6)
     tilt (1.3.3)
-    transparency_data (0.0.4)
-      hashie (~> 0.2.0)
-      monster_mash (~> 0.1.0)
-      rake
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
@@ -224,12 +239,12 @@ GEM
     xpath (0.1.4)
       nokogiri (~> 1.3)
     ym4r (0.6.1)
-    youtube_it (2.1.5)
+    youtube_it (2.1.4)
       builder
-      faraday (~> 0.8)
-      nokogiri (~> 1.5.2)
+      faraday (~> 0.7.3)
+      jeweler (~> 1.8.3)
       oauth (~> 0.4.4)
-      oauth2 (~> 0.6)
+      oauth2 (~> 0.5.2)
       simple_oauth (~> 0.1.5)
 
 PLATFORMS
@@ -239,6 +254,7 @@ DEPENDENCIES
   cancan
   capybara
   coffee-rails (~> 3.1.1)
+  congress
   factory_girl_rails
   faker
   guard-rspec
@@ -257,7 +273,7 @@ DEPENDENCIES
   sorcery
   sunlight
   thin
-  transparency_data
+  transparency_data!
   twitter
   uglifier (>= 1.0.3)
   unicorn

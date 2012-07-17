@@ -14,6 +14,217 @@ namespace :seed do
   @@house_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/house/members.xml?api-key=#{@@nyt_api_key}"
   @@senate_members = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/senate/members?api-key=#{@@nyt_api_key}"
 
+  ###
+  # NEW STUFF
+  #
+  desc "Populate database with legislation"
+  task :legislation, [:session] => :environment do |t, args|
+    if args.session.nil?
+      abort("You must pass a session number:\n  rake seed:legislation [session]\n\nNOTE: if you are using zsh then escape brackets like so: rake seed:legislation\\[session\\]")
+    end
+    puts "Adding legislation for session ##{args.session}..."
+    client = Congress::Client.new
+    legislation = client.bills(:session => args.session)
+
+    puts "Total number of bills: #{legislation['count']}"
+    batches = (legislation['count'].to_i / 50.0).ceil
+
+    page = 1
+    batches.times do
+      legislation = client.bills(:session => args.session, :per_page => 50, :page => page)
+      bills = legislation['bills']
+      bills.each do |b|
+        introduced_year = b.introduced_at.to_time.year
+        @bill = b
+        if b.chamber == "senate"
+          @chamber = "S"
+        elsif b.chamber == "house"
+          @chamber = "H"
+        end
+
+        # add legislation
+        puts "==||=============================="
+        puts "Adding legislation: #{b.number}..."
+        if b.sponsor.nil?
+          @first_name = ""
+          @last_name = ""
+        else
+          @first_name = b.sponsor.first_name
+          @last_name = b.sponsor.last_name
+        end
+        if b.last_version.nil?
+          @pdf = nil
+        else
+          @pdf = b.last_version.urls.pdf
+        end
+        l = Legislation.create(
+          :rtc_id => b.bill_id,
+          :bill_type => b.bill_type,
+          :bill_number => b.number, 
+          :session => b.session,
+          :introduced_year => introduced_year,
+          :introduced_date => b.introduced_at,
+          :chamber => @chamber,
+          :short_title => b.short_title,
+          :bill_title => b.official_title,
+          :popular_title => b.popular_title,
+          :summary => b.summary,
+          :bill_sponsor => "#{@first_name} #{@last_name}",
+          :bill_sponsor_id => b.sponsor_id,
+          :bill_pdf => @pdf,
+          :latest_major_action => b.last_action,
+          :latest_major_action_date => b.last_action_at
+        )
+
+        # add legislation issues
+        puts "Adding issues... for #{b.number}"
+        legislation_issues = @bill.keywords
+        legislation_issues.each do |li|
+          if Issue.find_by_name(li)
+            puts "assigning #{li} to #{Legislation.find_by_rtc_id(@bill.bill_id).bill_number}"
+            l_issue = LegislationIssue.create(
+              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
+              :issue_id => Issue.find_by_name(li).id
+            )
+          else 
+            puts "adding issue: #{li}."
+            issue = Issue.create(
+              :name => li
+            )
+            l_issue = LegislationIssue.create(
+              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
+              :issue_id => issue.id
+            )
+          end
+        end
+
+        # add cosponsors
+        puts "Adding cosponsors..."
+        cosponsors = @bill.cosponsors
+        cosponsors.each do |c|
+          unless Person.find_by_bioguide_id(c.bioguide_id).nil?
+            l = LegislationCosponsor.create(
+              :person_id => Person.find_by_bioguide_id(c.bioguide_id).id,
+              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
+            )
+          end
+        end
+
+        # add committees
+        puts "Adding committees..."
+        committees = @bill.committees
+        committees.each do |c|
+          code = c[1]['committee']['committee_id']
+          name = c[1]['committee']['name']
+          chamber = c[1]['committee']['chamber']
+          if Committee.find_by_code(code)
+            cl = CommitteeLegislation.create(
+              :committee_id => Committee.find_by_code(code).id,
+              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
+            )
+          else 
+            co = Committee.create(
+              :code => code,
+              :name => name,
+              :chamber => chamber
+            )
+            cl = CommitteeLegislation.create(
+              :committee_id => co.id,
+              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
+            )
+          end
+        end
+
+        # add actions
+        puts "Adding actions..."
+        actions = @bill.actions
+        actions.each do |a|
+          action = Action.create(
+            :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
+            :acted_at => a.acted_on,
+            :text => a.text
+          )
+        end
+
+        # add votes
+        puts "Adding votes..."
+        passage_votes = @bill.passage_votes
+        passage_votes.each do |p|
+          pv = PassageVote.create(
+            :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
+            :result => p.result,
+            :voted_at => p.voted_at, 
+            :passage_type => p.passage_type, 
+            :text => p.text,
+            :how => p.how,
+            :roll_id => p.roll_id,
+            :chamber => p.chamber
+          ) 
+        end
+      end
+      page = page + 1
+    end
+  end
+
+  desc "Populate database with current congress members"
+  task :congress => :environment do
+    puts "Adding current house members to the database..."
+    representatives = Sunlight::Legislator.all_where(:in_office => 1, :title => "Rep")
+    representatives.each do |r|
+      create_person(r)
+      puts "#{r.bioguide_id}"
+    end
+
+    puts "Adding current senate members to the database..."
+    senators = Sunlight::Legislator.all_where(:in_office => 1, :title => "Sen")
+    senators.each do |s|
+      create_person(s)
+      puts "#{s.bioguide_id}"
+    end
+    puts "All done!"
+  end
+
+  def create_person(person)
+    # set up youtube id from url
+    youtube_url = person.youtube_url
+    youtube_url_array = youtube_url.split('/')
+    youtube_id = youtube_url_array[-1]
+    p = Person.new
+    p.update_attributes({
+      :is_congress_member => true,
+      :chamber => 'H',
+      :in_office => person.in_office,
+      :state_represented => person.state,
+      :district => person.district,
+      :crp_id => person.crp_id,
+      :current_party => person.party,
+      :contact_email => person.email,
+      :votesmart_id => person.votesmart_id,
+      :contact_web_page_url => person.website,
+      :contact_fax => person.fax,
+      :govtrack_id => person.govtrack_id,
+      :first_name => person.firstname,
+      :middle_name => person.middlename,
+      :last_name => person.lastname,
+      :contact_street_address => person.congress_office,
+      :contact_phone => person.phone,
+      :webform => person.webform,
+      :youtube_id => youtube_id,
+      :nickname => person.nickname,
+      :bioguide_id => person.bioguide_id,
+      :fec_id => person.fec_id,
+      :gender => person.gender,
+      :senate_class => person.senate_class,
+      :suffix => person.name_suffix,
+      :twitter_id => person.twitter_id,
+      :date_of_birth => person.birthdate,
+      :congresspedia_url => person.congresspedia_url
+    })
+  end
+
+  ###
+  # OK
+  #
   desc "Add states to congress members"
   task :states => :environment do 
     people = Person.all
@@ -138,7 +349,6 @@ namespace :seed do
     csv = "/Users/alan/sites/politics411/PFD/PFDasset.txt"
     CSV.foreach(csv) do |row|
       @crp = row[2].gsub("|", "")
-
     end
 
     @crp_ids.each do |crp|
@@ -146,113 +356,8 @@ namespace :seed do
         puts "Entry blank, skipping!"
       else
         @person = Person.find_by_crp_id(@crp)
-
       end
     end
-  end
-
-  desc "Populate database with House members"
-  task :house => :environment do
-    puts "Getting list of house members for 112th year of congress..."
-    @doc = Nokogiri::XML(open(@@house_members))
-    @house_members = @doc.xpath('//id')
-
-    puts "Creating profiles..."
-    @house_members.map { |member| 
-      @id = member.inner_text
-
-      if person_exists
-        puts "skipping #{@id}"
-      else
-        begin
-          @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@nyt_api_key}"))
-        rescue Exception => e
-          case e.message
-          when /504 Gateway Timeout/
-            puts "504 Gateway Timeout, retrying in 1..."
-            sleep 1
-            redo
-          end
-        end 
-        if @person = Sunlight::Legislator.all_where(:bioguide_id => @id).first.blank?
-          # load empty parameters because we cant find them using the bioguide_id
-          @phone = ""
-          @email = ""
-          @crp_id = ""
-          @fec_id = ""
-          @votesmart_id = ""
-        else
-          @person = Sunlight::Legislator.all_where(:bioguide_id => @id).first
-          @phone = @person.phone
-          @email = @person.email
-          @crp_id = @person.crp_id
-          @fec_id = @person.fec_id
-          @votesmart_id = @person.votesmart_id
-        end
-
-        ch = "H"
-        make_person(ch)
-        save_legislative_office
-
-        puts "Added congressman #{@member_doc.xpath('//last_name').inner_text}" 
-        sleep 1
-      end
-    }
-
-    puts "All done!"
-
-  end
-
-  desc "Get list of current members of senate"
-  task :senate => :environment do
-    puts "Getting list of current members of senate..."
-    @doc = Nokogiri::XML(open(@@senate_members))
-    @senate_members = @doc.xpath('//id')
-
-    puts "Creating new senator profiles..."
-    @senate_members.map { |member| 
-      @id = member.inner_text
-
-      if person_exists
-        puts "skipping #{@id}"
-      else
-        begin
-          @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}.xml?api-key=#{@@nyt_api_key}"))
-        rescue Exception => e
-          case e.message
-          when /504 Gateway Timeout/
-            puts "504 Gateway Timeout, retrying in 1..."
-            sleep 1
-            redo
-          end
-        end
-        if @person = Sunlight::Legislator.all_where(:bioguide_id => @id).first.blank?
-          # load empty parameters because we cant find them using the bioguide_id
-          @phone = ""
-          @email = ""
-          @crp_id = ""
-          @fec_id = ""
-          @votesmart_id = ""
-        else
-          @person = Sunlight::Legislator.all_where(:bioguide_id => @id).first
-          @phone = @person.phone
-          @email = @person.email
-          @crp_id = @person.crp_id
-          @fec_id = @person.fec_id
-          @votesmart_id = @person.votesmart_id
-        end
-
-        ch = "S"
-        make_person(ch)
-        save_legislative_office
-
-        puts "Added senator #{@member_doc.xpath('//last_name').inner_text}"
-        sleep 1
-      end
-    }
-
-    puts "All done!"
-
   end
 
   desc "Do all of the committees & subcommittees (at once)"
@@ -466,151 +571,6 @@ namespace :seed do
         print "x"
       end
     end
-  end
-
-  desc "Add all legislation attached to current members"
-  task :legislation => :environment do
-    make_join_with_prompt
-    puts "Traversing legislation tree by congress member..."
-
-    @congress_members.each do |member| 
-      @id = member.inner_text
-      @member = Person.find_by_nyt_id(@id)
-      @member_chamber = @member.chamber
-      puts "==||===================================================="
-      puts "Updating legislation for legislator with the id #{@id}..."
-
-      begin
-        sleep 1
-        puts "getting member doc.."
-        @member_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/#{@id}/bills/introduced.xml?api-key=#{@@nyt_api_key}"))
-      rescue Exception => e
-        case e.message
-        when /403 Developer Over Rate/
-          puts "over rate for the day!"
-          exit
-        when /504 Gateway Timeout/
-          puts "504 Gateway Timeout, retrying in 1..."
-          sleep 1
-          redo
-        end
-      end
-
-      sleep 2
-      puts "grabbing bills."
-      @bills = @member_doc.xpath('//results/bills/bill/number')
-      number_bills = @bills.count 
-
-      i = 1
-      while i <= number_bills
-        puts "getting bill number"
-        @bill_number = @member_doc.xpath("//results/bills/bill[#{i}]/number")
-        @bill_number_stripped = @bill_number.inner_text.gsub(/[.]/, "").downcase
-
-        begin
-          sleep 1
-          @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}.xml?api-key=#{@@nyt_api_key_2}"))
-        rescue Exception => e
-          case e.message
-          when /404 Not Found/
-            sleep 1
-            puts "Can't find this bill for the current year of congress, going back in time!"
-            begin                
-              @bill_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/111/bills/#{@bill_number_stripped}.xml?api-key=#{@@nyt_api_key}"))
-            rescue Exception => e
-              case e.message
-              when /504 Gateway Timeout/
-                puts "504 Gateway Timeout, retrying in 1..."
-                sleep 1
-                redo
-              end
-            end                
-          when /504 Gateway Timeout/
-            puts "504 Gateway Timeout, Retrying in 1..."
-            sleep 1
-            redo
-          when /403 Developer Over Rate/
-            puts "over rate for the day!"
-            exit
-          end
-        end
-
-        begin
-          sleep 1
-          @bill_cosponsors_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/cosponsors.xml?api-key=#{@@nyt_api_key}"))
-        rescue Exception => e
-          case e.message
-          when /504 Gateway Timeout/
-            puts "504 Gateway Timeout, Retrying in 1..."
-            sleep 1
-            redo
-          when /403 Developer Over Rate/
-            puts "over rate for the day!"
-            exit
-          end
-        end
-
-        begin
-          sleep 1
-          @bill_subjects_doc = Nokogiri::XML(open("http://api.nytimes.com/svc/politics/v3/us/legislative/congress/112/bills/#{@bill_number_stripped}/subjects.xml?api-key=#{@@nyt_api_key_2}"))
-        rescue Exception => e
-          case e.message
-          when /504 Gateway Timeout/
-            puts "504 Gateway Timeout, retrying in 1..."
-            sleep 1
-            redo
-          when /403 Developer Over Rate/
-            puts "over rate for the day!"
-            exit
-          end
-        end
-
-        @bill_sponsor_id = @member_doc.xpath("//results/id").inner_text
-        @bill_title = @member_doc.xpath("//results/bills/bill[#{i}]/title").inner_text
-        @bill_introduced_date = @member_doc.xpath("//results/bills/bill[#{i}]/introduced_date").inner_text
-        @bill_committees = @member_doc.xpath("//results/bills/bill[#{i}]/committees").inner_text
-        @committees = @bill_committees.split("; ")
-
-        @congress_year = @bill_doc.xpath("/result_set/results/congress").inner_text
-        @bill_sponsor = @bill_doc.xpath("//results/sponsor").inner_text
-        @bill_pdf_url = @bill_doc.xpath("//results/gpo_pdf_uri").inner_text
-        @bill_latest_action = @bill_doc.xpath("//results/latest_major_action").inner_text
-        @bill_latest_action_date = @bill_doc.xpath("//results/latest_major_action_date").inner_text
-
-        @bill_subjects = @bill_subjects_doc.xpath("//results/subjects/subject/name")
-
-        @bill_cosponsors = @bill_cosponsors_doc.xpath('//results/cosponsors[2]/cosponsor/cosponsor_id')
-        @bill_democratic_cosponsors = @bill_cosponsors_doc.xpath('/result_set/results/cosponsors_by_party/party[@id = "D"]').inner_text
-        @bill_republican_cosponsors = @bill_cosponsors_doc.xpath('/result_set/results/cosponsors_by_party/party[@id = "R"]').inner_text
-
-        puts "Checking if #{@bill_number.inner_text} exists"        
-        if bill_exists
-          puts "Skipping bill number #{@bill_number.inner_text}, already exists!"
-          # update_bill
-          # update_bill_committees
-          # update_legislation_issues
-          # update_bill_cosponsors
-          # update_related_bills
-
-          sleep 2
-          i += 1
-        else
-          puts "Creating new records for #{@bill_number.inner_text}..."
-          puts "Making Bill..."
-          make_bill
-          puts "Saving committees for #{@bill_number.inner_text}..."
-          save_bill_committees
-          puts "Saving legislation issues for #{@bill_number.inner_text}..."
-          save_legislation_issues
-          puts "Saving cosponsors for #{@bill_number.inner_text}..."
-          save_bill_cosponsors
-
-          sleep 2
-          i += 1
-        end
-      end
-    end
-    puts "Successfully added legislation for #{@congress_members.inner_text}!!!"
   end
 
   def make_bill
