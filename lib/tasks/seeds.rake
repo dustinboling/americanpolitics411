@@ -206,20 +206,20 @@ namespace :seed do
     puts "Adding current house members to the database..."
     representatives = Sunlight::Legislator.all_where(:in_office => 1, :title => "Rep")
     representatives.each do |r|
-      create_person(r)
+      create_person(r, "H")
       puts "#{r.bioguide_id}"
     end
 
     puts "Adding current senate members to the database..."
     senators = Sunlight::Legislator.all_where(:in_office => 1, :title => "Sen")
     senators.each do |s|
-      create_person(s)
+      create_person(s, "S")
       puts "#{s.bioguide_id}"
     end
     puts "All done!"
   end
 
-  def create_person(person)
+  def create_person(person, chamber)
     # set up youtube id from url
     youtube_url = person.youtube_url
     youtube_url_array = youtube_url.split('/')
@@ -227,7 +227,7 @@ namespace :seed do
     p = Person.new
     p.update_attributes({
       :is_congress_member => true,
-      :chamber => 'H',
+      :chamber => chamber,
       :in_office => person.in_office,
       :state_represented => person.state,
       :district => person.district,
