@@ -11,9 +11,9 @@ class LegislationController < ApplicationController
     if params[:legislations][:introduced_year]
       year = params[:legislations][:introduced_year]
       @legislation = Legislation.where("introduced_year = #{year}")  
-    elsif params[:legislations][:congress_year]
-      congress_year = params[:legislations][:congress_year]
-      @legislation = Legislation.where(:congress_year => congress_year)
+    elsif params[:legislations][:session]
+      congress_year = params[:legislations][:session]
+      @legislation = Legislation.where(:session => congress_year)
     elsif params[:legislations][:issue_id]
       issue = Issue.find(params[:legislations][:issue_id])
       @legislation = Legislation.all(:include => :legislation_issues, :joins => :legislation_issues, :conditions => "issue_id = #{issue.id}")

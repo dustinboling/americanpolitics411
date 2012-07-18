@@ -17,7 +17,7 @@
   <tbody>
     <% @legislation.each do |legislation| %>
     <tr class="<%= cycle("even", "odd") %>">
-      <td><%= link_to legislation.introduced_date, legislation %></td>
+      <td><%= link_to legislation.introduced_date.to_date, legislation %></td>
       <td class="span3"><%= link_to "#{legislation.bill_type.upcase} #{legislation.bill_number}", legislation %></td>
       <td><%= link_to truncate(legislation.bill_title, :length => 80), legislation %></td>
       <td></td>

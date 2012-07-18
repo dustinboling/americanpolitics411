@@ -387,11 +387,11 @@ namespace :seed do
       sc.members.each do |member|
         puts "Mapping #{member.bioguide_id} to #{Committee.find_by_code(sc.id).name}!"
 
-        if Person.find_by_nyt_id(member.bioguide_id).id.nil?          
+        if Person.find_by_bioguide_id(member.bioguide_id).id.nil?          
           puts "Member with the id #{member.bioguide_id} does not exist, skipping!"
         else
           @assignment = CommitteeAssignment.new(
-            :person_id => Person.find_by_nyt_id(member.bioguide_id).id,
+            :person_id => Person.find_by_bioguide_id(member.bioguide_id).id,
             :committee_id => Committee.find_by_code(sc.id).id
           )
           @assignment.save
@@ -410,7 +410,7 @@ namespace :seed do
       hc.members.each do |member|
         puts "Mapping #{member.bioguide_id} to #{Committee.find_by_code(hc.id).name}!"
         @assignment = CommitteeAssignment.new(
-          :person_id => Person.find_by_nyt_id(member.bioguide_id).id,
+          :person_id => Person.find_by_bioguide_id(member.bioguide_id).id,
           :committee_id => Committee.find_by_code(hc.id).id
         )
         @assignment.save
@@ -427,7 +427,7 @@ namespace :seed do
       jc.members.each do |member|
         puts "Mapping #{member.bioguide_id} to #{Committee.find_by_code(jc.id).name}!"
         @assignment = CommitteeAssignment.new(
-          :person_id => Person.find_by_nyt_id(member.bioguide_id).id,
+          :person_id => Person.find_by_bioguide_id(member.bioguide_id).id,
           :committee_id => Committee.find_by_code(jc.id).id
         )
         @assignment.save
@@ -460,7 +460,7 @@ namespace :seed do
           sub.members.each do |sm|
             puts "Mapping #{sm.bioguide_id} to #{sub.name}..."
             @subcommittee_assignment = SubcommitteeAssignment.new(
-              :person_id => Person.find_by_nyt_id(sm.bioguide_id).id,
+              :person_id => Person.find_by_bioguide_id(sm.bioguide_id).id,
               :subcommittee_id => Subcommittee.find_by_code(sub.id).id
             )
             @subcommittee_assignment.save
@@ -483,7 +483,7 @@ namespace :seed do
           sub.members.each do |sm|
             puts "Mapping #{sm.bioguide_id} to #{sub.name}..."
             @subcommittee_assignment = SubcommitteeAssignment.new(
-              :person_id => Person.find_by_nyt_id(sm.bioguide_id).id,
+              :person_id => Person.find_by_bioguide_id(sm.bioguide_id).id,
               :subcommittee_id => Subcommittee.find_by_code(sub.id).id
             )
             @subcommittee_assignment.save
@@ -506,7 +506,7 @@ namespace :seed do
           sub.members.each do |sm|
             puts "Mapping #{sm.bioguide_id} to #{sub.name}..."
             @subcommittee_assignment = SubcommitteeAssignment.new(
-              :person_id => Person.find_by_nyt_id(sm.bioguide_id).id,
+              :person_id => Person.find_by_bioguide_id(sm.bioguide_id).id,
               :subcommittee_id => Subcommittee.find_by_code(sub.id).id
             )
             @subcommittee_assignment.save
@@ -638,7 +638,7 @@ namespace :seed do
     if @bill_cosponsors.count > 0
       @bill_cosponsors.each do |cosponsor_id|
         @legislation_cosponsor = LegislationCosponsor.new(
-          :person_id => Person.find_by_nyt_id(cosponsor_id.inner_text).id,
+          :person_id => Person.find_by_bioguide_id(cosponsor_id.inner_text).id,
           :legislation_id => Legislation.find_by_bill_number(@bill_number.inner_text).id
         )
         if @legislation_cosponsor.save
@@ -653,7 +653,7 @@ namespace :seed do
 
   def save_committee_assignment
     @committee_assignment = CommitteeAssignment.new(
-      :person_id => Person.find_by_nyt_id(@id).id,
+      :person_id => Person.find_by_bioguide_id(@id).id,
       :committee_id => Committee.find_by_code(@code).id,
       :year => "112" 
     )
@@ -707,7 +707,7 @@ namespace :seed do
       @id = @member_doc.xpath("/result_set/results/member/id").inner_text
 
       @office = LegislativeOffice.new(
-        :person_id => Person.find_by_nyt_id(@id).id,
+        :person_id => Person.find_by_bioguide_id(@id).id,
         :congress_year => @congress_year,
         :chamber => @chamber,
         :state => @state,
@@ -849,7 +849,7 @@ namespace :seed do
   end
 
   def person_exists
-    if Person.find_by_nyt_id("#{@id}").nil?
+    if Person.find_by_bioguide_id("#{@id}").nil?
       false
     else
       true

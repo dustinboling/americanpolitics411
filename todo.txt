@@ -51,6 +51,9 @@ AP411 - ROADMAP
 #108 - legislation videos async from real time congress (RTC)
 #109 - async load votes from RTC
 #110 - update task for bills from RTC using timestamp
+#111 - archival data from Thomas or govtrack.us
+#112 - move model logic out of controllers into lib where possible
+#113 - implement kaminari pagination for legislation page.
 
 API LIST
 ==============||==

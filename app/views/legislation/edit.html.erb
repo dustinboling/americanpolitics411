@@ -26,7 +26,7 @@
 
     <p>
       <b>Sponsor:</b>
-      <a href="<%= person_path(Person.find_by_nyt_id(@legislation.bill_sponsor_id)) %>"><%= @legislation.bill_sponsor %></a>
+      <a href="<%= person_path(Person.find_by_bioguide_id(@legislation.bill_sponsor_id)) %>"><%= @legislation.bill_sponsor %></a>
     </p>
 
     <p>
