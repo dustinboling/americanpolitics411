@@ -166,6 +166,19 @@ namespace :seed do
     end
   end
 
+  desc "Add photo urls"
+  task :photos => :environment do
+    people = Person.all
+    people.each do |p|
+      puts "adding photo for #{p.first_name} #{p.last_name}"
+      base_url = "http://www.govtrack.us/data/photos/"
+      photo_url = base_url + p.govtrack_id + "-200px.jpeg"
+      p.update_attributes(
+        :photo_url => photo_url
+      )
+    end
+  end
+
   desc "Fix the acted_at field on all bills"
   task :fix_actions => :environment do
     client = Congress::Client.new

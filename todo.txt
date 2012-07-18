@@ -54,6 +54,7 @@ AP411 - ROADMAP
 #111 - archival data from Thomas or govtrack.us
 #112 - move model logic out of controllers into lib where possible
 #113 - implement kaminari pagination for legislation page.
+#114 - bubble-map: co-sponsored legislation should be a datatable
 
 API LIST
 ==============||==
