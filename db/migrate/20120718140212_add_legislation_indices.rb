@@ -9,5 +9,11 @@ class AddLegislationIndices < ActiveRecord::Migration
   end
 
   def down
+    remove_index :legislations, :introduced_date
+    remove_index :legislations, [:bill_type, :bill_number]
+    remove_index :legislations, :session
+    remove_index :legislations, :id
+    remove_index :legislations, :chamber
+    remove_index :legislations, :rtc_id
   end
 end

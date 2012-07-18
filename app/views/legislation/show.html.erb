@@ -7,7 +7,7 @@
 
   <article>
   <div class="twelve columns">
-    <h4 id="legislation-title"><%= @legislation.bill_number %> <%= @legislation.bill_title.upcase %></h4>
+    <h4 id="legislation-title"><%= @legislation.bill_type.upcase %> <%= @legislation.bill_number %>: <%= @legislation.bill_title.upcase %></h4>
     <div class="bill_pdf">
       <% if @legislation.bill_pdf != nil %>
       <iframe src="http://docs.google.com/gview?url=<%= @legislation.bill_pdf %>&embedded=true" class="twelve columns" style="height:900px;" frameborder="0"></iframe>
@@ -24,16 +24,28 @@
 
     <aside id="status" class="box_c">
     <h2>Status</h2>
+    <% if @legislation.actions %>
+    <% actions = @legislation.actions %>
     <table>
+      <% actions.each do |a| %>
       <tr>
-        <td>Introduced</td>
-        <td>Mar 21, 2012</td>
+        <td><%= truncate(a.text, :length => 80) %></td>
+        <td><%= a.acted_at %></td>
       </tr>
+      <% end %>
+      <% if @legislation.passage_votes %>
+      <% passage_votes = @legislation.passage_votes %>
+      <% passage_votes.each do |pv| %>
       <tr>
-        <td class="pending">Passed House</td>
-        <td></td>
+        <td><%= "#{pv.result}ed".capitalize %> <%= pv.chamber.capitalize %></td>
+        <td><%= pv.voted_at.to_date %></td>
       </tr>
+      <% end %>
+      <% end %>
     </table>
+    <% else %>
+      No actions recorded.
+    <% end %>
     </aside>
 
     <aside id="prognosis" class="box_c">
@@ -42,7 +54,17 @@
     </aside>
 
     <aside id="votes" class="box_d">
-    <h2>Votes Yea (n) Nay (n2)</h2>
+    <% client = Congress::Client.new %>
+    <% votes = client.votes(:bill_id => @legislation.rtc_id) %>
+    <% if votes['count'] == 0 %>
+    <h2>No Votes</h2>
+    <% else %>
+    <% vote = votes['votes'].last %>
+    <% breakdown = vote.vote_breakdown.total %>
+    <% yea = breakdown.yea %>
+    <% nay = breakdown.nay %>
+    <h2>Votes Yea (<%= yea %>) Nay (<%= nay %>)</h2>
+    <% end %>
     </aside>
 
     <aside id="issues" class="box_c">

@@ -72,7 +72,7 @@ namespace :seed do
           :bill_sponsor => "#{@first_name} #{@last_name}",
           :bill_sponsor_id => b.sponsor_id,
           :bill_pdf => @pdf,
-          :latest_major_action => b.last_action,
+          :latest_major_action => b.last_action.text,
           :latest_major_action_date => b.last_action_at
         )
 
@@ -141,7 +141,7 @@ namespace :seed do
         actions.each do |a|
           action = Action.create(
             :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
-            :acted_at => a.acted_on,
+            :acted_at => a.acted_at,
             :text => a.text
           )
         end
@@ -163,6 +163,28 @@ namespace :seed do
         end
       end
       page = page + 1
+    end
+  end
+
+  desc "Fix the acted_at field on all bills"
+  task :fix_actions => :environment do
+    client = Congress::Client.new
+    Legislation.find_each do |l|
+      bill_ary = client.bills(:bill_id => l.rtc_id)
+      bill = bill_ary['bills'].first
+      @bill_id = bill.bill_id
+      actions = bill.actions
+
+      actions.each do |a|
+        puts "updating #{@bill_id}..."
+        act = Action.where(
+          :legislation_id => Legislation.find_by_rtc_id(@bill_id),
+          :text => a.text
+        ).first
+        act.update_attributes(
+          :acted_at => a.acted_at
+        )
+      end
     end
   end
 

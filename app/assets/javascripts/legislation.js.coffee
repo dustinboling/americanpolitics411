@@ -5,7 +5,10 @@
 $(document).ready ->
   $('ul#cosponsors-list').hide()
   $('#more-issues').click ->
-    $('p.hidden-issue').show()
+    if $('p.hidden-issue').is(':visible')
+      $('p.hidden-issue').hide()
+    else
+      $('p.hidden-issue').show()
   $('h2#cosponsors-header').click ->
     if $('ul#cosponsors-list').is(':visible')
       $('ul#cosponsors-list').hide()

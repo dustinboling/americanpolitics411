@@ -20,7 +20,13 @@
       <td><%= link_to legislation.introduced_date.to_date, legislation %></td>
       <td class="span3"><%= link_to "#{legislation.bill_type.upcase} #{legislation.bill_number}", legislation %></td>
       <td><%= link_to truncate(legislation.bill_title, :length => 80), legislation %></td>
-      <td></td>
+      <% if legislation.passage_votes.empty? %>
+      <td><%= legislation.latest_major_action %></td>
+      <% else %>
+      <% passage_votes = legislation.passage_votes %>
+      <% last_vote = passage_votes.last %>
+      <td><%= "#{last_vote.result.capitalize}ed #{last_vote.chamber.capitalize}"%></td>
+      <% end %>
       <% if can? :edit, Legislation %>
       <td><%= link_to "Edit", edit_legislation_path(legislation), :class => 'btn small success' %></td>
       <% end %>

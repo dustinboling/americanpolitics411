@@ -5,7 +5,6 @@ Politics411::Application.routes.draw do
 
   get "legislation/index"
   get "legislation/refresh"
-  match "legislation/:id" => "legislation#show"
   
   match "subcommittees/:id" => "subcommittees#show"
   

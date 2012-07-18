@@ -2,6 +2,9 @@ class Legislation < ActiveRecord::Base
   
   before_save :set_introduced_year
 
+  has_many :actions
+  has_many :passage_votes
+
   has_many :committee_legislations
   has_many :committees, :through => :committee_legislations
   

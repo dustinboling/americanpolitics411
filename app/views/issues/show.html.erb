@@ -1,7 +1,13 @@
-<div class="container">
-	<h1><%= @issue.name %></h1>
-	<b>List of bills which are about this issue:</b>
-	<% @bills.each do |bill| %>
-		<a href="/legislation/show?bill_number=<%= Legislation.find_by_id(bill.legislation.id).bill_number %>"><%= Legislation.find_by_id(bill.legislation.id).bill_number %></a>
-	<% end %>
+<div class="sixteen columns">
+  <h1 class="page-title"><%= @issue.name %></h1>
+  <table class="legislation-table">
+    <% @bills.each do |bill| %>
+    <% legislation = Legislation.find(bill.legislation.id) %>
+    <% bill_number = "#{legislation.bill_type.upcase} #{legislation.bill_number}" %>
+    <tr class="<%= cycle("even", "odd") %>">
+      <td><%= link_to bill_number, legislation %></td>
+      <td><%= link_to truncate(legislation.bill_title, :length => 130), legislation %></td>
+    </tr>
+    <% end %>
+  </table>
 </div>
