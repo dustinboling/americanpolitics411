@@ -204,26 +204,26 @@ window.onload = function() {
   // image
   if (window.photo_url != undefined) {
     var personImage = window.photo_url
-    r.image(personImage, 370, 89, 202, 202)
+    r.image(personImage, 369, 89, 202, 202)
   }
 
   // main-infotabs
   if (window.state_represented != "") {
     r.text(380, 60, full_name + " (" + current_party + ") - " + state_represented ).attr({"font-size": "14px", "text-anchor": "start"});
   } else {
-    r.text(385, 60, full_name).attr({"font-size": "14px", "text-anchor": "start"});
+    r.text(382, 60, full_name).attr({"font-size": "14px", "text-anchor": "start"});
   }
   if (window.birthplace != "") {
-    r.text(385, 320, "Birthplace: " + birthplace).attr({"text-anchor": "start"});
+    r.text(382, 320, "Birthplace: " + birthplace).attr({"text-anchor": "start", "font-size": "12px"});
   } else {
-    r.text(385, 320, "Birthplace: unknown" + birthplace).attr({"text-anchor": "start"});
+    r.text(382, 320, "Birthplace: unknown" + birthplace).attr({"text-anchor": "start", "font-size": "12px"});
   }
   if (window.birthdate != "") {
-    r.text(385, 330, "Born " + birthdate).attr({"text-anchor": "start"});
+    r.text(382, 335, "Born " + birthdate).attr({"text-anchor": "start", "font-size": "12px"});
   } else {
-    r.text(385, 330, "Birthdate: unknown").attr({"text-anchor": "start"});
+    r.text(382, 335, "Birthdate: unknown").attr({"text-anchor": "start", "font-size": "12px"});
   }
-  religionInfo = r.text(385, 340, "Religion: " + religion).attr({"text-anchor": "start"});
+  religionInfo = r.text(382, 350, "Religion: " + religion).attr({"text-anchor": "start", "font-size": "12px"});
   eduRect = r.rect(380, 370, 170, 15, 5).attr({stroke: "none", fill: "red"});
   eduRectText = r.text(425, 378, "EDUCATION").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
   litRect = r.rect(380, 390, 170, 15, 5).attr({stroke: "none", fill: "red"});
