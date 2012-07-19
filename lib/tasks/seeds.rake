@@ -29,7 +29,6 @@ namespace :seed do
     puts "Total number of bills: #{legislation['count']}"
     batches = (legislation['count'].to_i / 50.0).ceil
 
-
     page = 1
     batches.times do
       legislation = client.bills(:session => args.session, :per_page => 50, :page => page)
@@ -169,7 +168,6 @@ namespace :seed do
             :roll_id => p.roll_id,
             :chamber => p.chamber
           ) 
-
         end
       end
       page = page + 1
@@ -412,7 +410,7 @@ namespace :seed do
     end
 
     csv = "/Users/alan/sites/politics411/PFD/PFDasset.txt"
-    CSV.foreach(csv) do |row|
+    CSV.foreach(csv, "r:ISO-8859-15:UTF-8") do |row|
       @crp = row[2].gsub("|", "")
     end
 
@@ -420,7 +418,7 @@ namespace :seed do
       if crp.blank?
         puts "Entry blank, skipping!"
       else
-        @person = Person.find_by_crp_id(@crp)
+        p = Person.find_by_crp_id(@crp)
       end
     end
   end
@@ -580,62 +578,6 @@ namespace :seed do
       end
     end
     puts "Success!"
-  end
-
-  desc "Add CRS legislative summaries * Must be loaded AFTER seed:legislation is run all the way through"
-  task :legislative_summaries => :environment do
-    @legislation = Legislation.all
-    @ls_log_path = "#{Dir.pwd}/lib/tasks/logs/legislative_summaries.txt"
-
-    print "Adding legislative summaries:"
-
-    @legislation.map do |l|
-      make_thomas_url(l)
-
-      doc = Nokogiri::HTML(open(@query))
-      summary_paragraphs = doc.xpath('//html/body/div/div[3]/p')
-      paragraph_count = summary_paragraphs.count
-
-      if doc.xpath('//html/body/div/div[3]/p[2]').inner_text.blank? 
-        i = 3
-        pary = []
-        while i <= paragraph_count do
-          current_paragraph = doc.xpath("//html/body/div/div[3]/p[#{i}]").inner_text
-
-          # skip empty tags
-          if current_paragraph.blank?
-            i = i + 1
-          else
-            pp = "<p>" + current_paragraph + "</p>"
-            p = pp.gsub(/-/, "").gsub(/\n/, "")
-            pary << p
-            i = i + 1
-          end
-        end
-
-        # write to database
-        l.summary = pary
-        l.save
-
-        # log pass
-        log = File.open(@ls_log_path, 'a')
-        log.write("#{Time.now.strftime("%I:%M:%S")} #{Time.now.to_date}, #{l.bill_number}, #{paragraph_count}, pass\n")
-        log.close
-
-        print "."
-      else
-        # write default message to database
-        l.summary = "No summary available for this legislation"
-        l.save
-
-        # log fail
-        log = File.open(@ls_log_path, 'a')
-        log.write("#{Time.now.strftime("%I:%M:%S")} #{Time.now.to_date}, #{l.bill_number}, #{paragraph_count}, fail\n")
-        log.close 
-
-        print "x"
-      end
-    end
   end
 
   def make_bill
