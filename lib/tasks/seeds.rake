@@ -172,6 +172,7 @@ namespace :seed do
       end
       page = page + 1
     end
+    Update.create(:task => "legislation")
   end
 
   desc "Add bill votes to people."
@@ -214,6 +215,7 @@ namespace :seed do
       end
       page = page + 1
     end
+    Update.create(:task => "votes")
   end
 
   desc "Add photo urls"

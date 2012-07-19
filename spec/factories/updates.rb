@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :update do
-    last_update "2012-07-19 13:35:16"
-    suntime "MyString"
+    task "MyString"
+    utc_timestamp "2012-07-19 14:02:54"
   end
 end
