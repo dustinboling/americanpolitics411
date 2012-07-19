@@ -4,6 +4,7 @@ class Legislation < ActiveRecord::Base
 
   has_many :actions
   has_many :passage_votes
+  has_many :person_votes
 
   has_many :committee_legislations
   has_many :committees, :through => :committee_legislations

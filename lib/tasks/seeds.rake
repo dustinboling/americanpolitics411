@@ -29,6 +29,7 @@ namespace :seed do
     puts "Total number of bills: #{legislation['count']}"
     batches = (legislation['count'].to_i / 50.0).ceil
 
+
     page = 1
     batches.times do
       legislation = client.bills(:session => args.session, :per_page => 50, :page => page)
@@ -54,8 +55,15 @@ namespace :seed do
         end
         if b.last_version.nil?
           @pdf = nil
+          @last_major_action = nil
         else
           @pdf = b.last_version.urls.pdf
+          begin
+            @last_major_action = b.last_action.text
+          rescue Exception => e
+            @last_major_action = nil
+            puts "This happened: #{e}, continuing..."
+          end
         end
         l = Legislation.create(
           :rtc_id => b.bill_id,
@@ -72,7 +80,7 @@ namespace :seed do
           :bill_sponsor => "#{@first_name} #{@last_name}",
           :bill_sponsor_id => b.sponsor_id,
           :bill_pdf => @pdf,
-          :latest_major_action => b.last_action.text,
+          :latest_major_action => @last_major_action,
           :latest_major_action_date => b.last_action_at
         )
 
@@ -150,8 +158,9 @@ namespace :seed do
         puts "Adding votes..."
         passage_votes = @bill.passage_votes
         passage_votes.each do |p|
+          legislation_id = Legislation.find_by_rtc_id(@bill.bill_id).id
           pv = PassageVote.create(
-            :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
+            :legislation_id => legislation_id, 
             :result => p.result,
             :voted_at => p.voted_at, 
             :passage_type => p.passage_type, 
@@ -160,6 +169,49 @@ namespace :seed do
             :roll_id => p.roll_id,
             :chamber => p.chamber
           ) 
+
+        end
+      end
+      page = page + 1
+    end
+  end
+
+  desc "Add bill votes to people."
+  task :votes, [:session] => :environment do |t, args|
+    puts "Connecting client..."
+    client = Congress::Client.new
+
+    page = 1
+    total_votes = client.votes(:session => args.session, :per_page => 50)
+    puts "Total number of votes: #{total_votes['count']}"
+    batches = (total_votes['count'].to_i / 50.0).ceil
+    batches.times do
+      votes_ary = client.votes(:session => args.session, :per_page => 50, :page => page)
+      votes = votes_ary['votes']
+      puts "==|Batch #{page}|==========================="
+      votes.each do |v|
+        puts "Adding votes for #{v.bill_id}..."
+        rtc_id = v.bill_id
+        if Legislation.find_by_rtc_id(rtc_id)
+          legislation = Legislation.find_by_rtc_id(rtc_id)
+          legislation_id = legislation.id
+          voters = v.voters
+          voters.each do |voter|
+            bioguide_id = voter[1].voter.bioguide_id
+            vote = voter[1].vote
+            if Person.find_by_bioguide_id(bioguide_id)
+              person_id = Person.find_by_bioguide_id(bioguide_id).id
+              PersonVote.create(
+                :legislation_id => legislation_id,
+                :person_id => person_id,
+                :vote => vote
+              )
+            else
+              # do nothing
+            end
+          end
+        else
+          # do nothing
         end
       end
       page = page + 1

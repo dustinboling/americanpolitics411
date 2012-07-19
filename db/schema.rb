@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120717214356) do
+ActiveRecord::Schema.define(:version => 20120718210511) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -410,6 +410,16 @@ ActiveRecord::Schema.define(:version => 20120717214356) do
     t.boolean  "in_office"
     t.string   "district"
   end
+
+  create_table "person_votes", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "legislation_id"
+    t.text     "vote"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "person_votes", ["person_id"], :name => "index_person_votes_on_person_id"
 
   create_table "personal_assets", :force => true do |t|
     t.integer  "person_id"

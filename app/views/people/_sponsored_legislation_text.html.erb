@@ -4,10 +4,22 @@
 
 <h1>Sponsored Legislation</h1>
 <% if sponsored_legislation.count > 0 %>
-<p>
-  <% sponsored_legislation.each do |s| %>
-    <%= link_to s.bill_number, legislation_path(s.id) %>
-  <% end %>
+<table id="data-table">
+  <thead>
+    <tr>
+      <th>Bill Number</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% sponsored_legislation.each do |s| %>
+    <tr>
+      <td><%= link_to "#{s.bill_type.upcase} #{s.bill_number}", legislation_path(s.id) %></td>
+      <td><%= link_to truncate(s.bill_title, :length => 120), legislation_path(s.id) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 </p>
 <% else %>
 <p><%= p.full_name %> has no sponsored legislation.</p>

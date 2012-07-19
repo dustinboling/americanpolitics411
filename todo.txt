@@ -12,44 +12,31 @@ AP411 - ROADMAP
 #63 - brakeman: fix all issues
 #64 - add a history page like on wikipedia for updates people have made
 #65 - last updated by for people
-#66 - need to disable all of the bootstrap stuff EXCEPT topbar and MAYBE the form stuff. 
 #67 - all specs must pass
 #68 - add new specs for activities. verify that we are testing as much as possible.
-#69 - make sure bio/literary work/etc markup shows up correctly in front end
 #70 - restyle tabs into a basic breadcrumb for bio/literary/professional editor person#edit 
 #71 - bootstrap or skeleton is messing up the form for tables on jwysiwyg
 #72 - switch over the bootstrap css flash messages to plaintext
 #73 - add default image for politicians
 #74 - add number total to controversy, hide lit/acc nodes underneath
 #75 - new person page: it sucks to have to scroll through the years, make these autocomplete hybrids.
-#76 - <b> tags are not presenting correctly on ajax calls in person#show
-#77 - add loading image for ajax calls on person#show
 #78 - at people/index there is a js error: 'b is undefined'
-#79 - bubble map: when you click on a main node, it's subnodes should colorize, so the user feels as if something has happened.
 #80 - person#edit: cannot add an endorsement
 #81 - personal contributors for obama?
 #82 - investements/transactions: can we just get this stuff on the fly? see bubble map
-#83 - need something for voting behavior
 #84 - person#show: earmarks should not show up if a person is not a senator/representative. same for all LEGISLATIVE items
 #85 - amazon or wikipedia for "literary work" links
 #86 - better views for PAC/Indiv. contributors with some maps and stuff
-#88 - fix text alignment on bubble map
-#89 - scrolling lists/list tables
 #90 - 'more...' link for PACS/Indiv contributors
 #92 - change all inner instances of 'content-wrap' to 'sixteen columns'
-#93 - loading box for legislation (difficult because there is no success callback for $.html)
 #94 - add type support for datatables so currency sorts correctly
 #95 - need to put a timer on newRect for mapper.js so a user can't close a window before the ajax call completes.
-#96 - escape should close bubble map rects
 #97 - bubble map will be more performant if we do an html overlay for all the text boxes (hold them until document.onload)
-#98 - get twitterbox to only do one request (timeline, as it contains user data)
-#99 - add onclicks to node texts on bubblemap
 #103 - if a youtube request for a person's videos returns empty then we need to do a secondary search for videos containing their name
 #105 - bubble-map must present congress nodes only for congress people
 #106 - Twitterbox: handle use-case where a person does not have an account
 #107 - controversy text when clicked must activate subnodes
 #108 - legislation videos async from real time congress (RTC)
-#109 - async load votes from RTC
 #110 - update task for bills from RTC using timestamp
 #111 - archival data from Thomas or govtrack.us
 #112 - move model logic out of controllers into lib where possible
@@ -58,7 +45,6 @@ AP411 - ROADMAP
 
 API LIST
 ==============||==
-#100 - govtrack.us/data/photos, get these into the database.
 #102 - fec api (look into it)
 #101 - find organizations from an api.
 #### - maplight.org: "bill positions"
@@ -104,6 +90,18 @@ COMPLETED
 #87 - add conditionals for person#show ajax. WISHLIST: don't show a node if it doesn't have any info.
 #91 - finish twitterbox.
 #104 - when a person is created, user must select whether they are a member of congress
+#100 - govtrack.us/data/photos, get these into the database.
+#77 - add loading image for ajax calls on person#show
+#88 - fix text alignment on bubble map
+#89 - scrolling lists/list tables
+#66 - need to disable all of the bootstrap stuff EXCEPT topbar and MAYBE the form stuff. 
+#79 - bubble map: when you click on a main node, it's subnodes should colorize, so the user feels as if something has happened.
+#69 - make sure bio/literary work/etc markup shows up correctly in front end
+#76 - <b> tags are not presenting correctly on ajax calls in person#show
+#83 - need something for voting behavior
+#96 - escape should close bubble map rects
+#99 - add onclicks to node texts on bubblemap
+#109 - async load votes from RTC
 
 ON HOLD
 ==============||==
@@ -120,6 +118,7 @@ ON HOLD
 #47 - add organizations with earmarks rake task
 #15 - separate admin/public layouts (including css) *on hold until bootstrap 2.0 SASS is ready - ON HOLD UNTIL DESIGN IS DONE
 #16 - bubble-map: don't show a node if it doesn't have any info
+#93 - loading box for legislation (difficult because there is no success callback for $.html)
 
 CANCELED
 ==============||==
@@ -129,3 +128,4 @@ CANCELED
 #28 - Tests for CanCan authorization
 #45 - need a full history of actions for each bill (can't find this, although I thought it was somewhere) 
 #50 - Issue where flash messages pop up inappropriately: to reproduce: 1) edit a person's field, 2) update person 3) show person in another window 4) remove updated field 5) refresh show tab 6) flash message shows up in the show tab as well *should not happen in production*
+#98 - get twitterbox to only do one request (timeline, as it contains user data)

@@ -176,7 +176,7 @@ window.onload = function() {
         fill: "#CCC",
         stroke: "#BBB",
         "fill-opacity": 1, 
-        "stroke-width": 3,
+        "stroke-width": 3
       });
       shapes[i].node.onclick = function() {
         shapes[11].attr({

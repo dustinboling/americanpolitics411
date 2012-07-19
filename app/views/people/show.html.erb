@@ -3,7 +3,7 @@
 <%# push necessary data to DOM %>
 <script>
   window.pid = "<%= @person.id %>";
-  window.nytid = "<%= @person.nyt_id %>";
+  window.nytid = "<%= @person.bioguide_id %>";
   window.photo_url = "<%= @person.photo_url %>";
   window.full_name = "<%= @person.first_name + " " + @person.last_name %>";
   window.current_party = "<%= @person.current_party %>";

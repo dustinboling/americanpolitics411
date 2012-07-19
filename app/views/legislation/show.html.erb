@@ -30,7 +30,7 @@
       <% actions.each do |a| %>
       <tr>
         <td><%= truncate(a.text, :length => 80) %></td>
-        <td><%= a.acted_at %></td>
+        <td><%= a.acted_at.to_date %></td>
       </tr>
       <% end %>
       <% if @legislation.passage_votes %>
@@ -63,7 +63,7 @@
     <% breakdown = vote.vote_breakdown.total %>
     <% yea = breakdown.yea %>
     <% nay = breakdown.nay %>
-    <h2>Votes Yea (<%= yea %>) Nay (<%= nay %>)</h2>
+    <h2>Votes: Yea (<%= yea %>) - Nay (<%= nay %>)</h2>
     <% end %>
     </aside>
 
