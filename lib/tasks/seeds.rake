@@ -231,28 +231,6 @@ namespace :seed do
     end
   end
 
-  desc "Fix the acted_at field on all bills"
-  task :fix_actions => :environment do
-    client = Congress::Client.new
-    Legislation.find_each do |l|
-      bill_ary = client.bills(:bill_id => l.rtc_id)
-      bill = bill_ary['bills'].first
-      @bill_id = bill.bill_id
-      actions = bill.actions
-
-      actions.each do |a|
-        puts "updating #{@bill_id}..."
-        act = Action.where(
-          :legislation_id => Legislation.find_by_rtc_id(@bill_id),
-          :text => a.text
-        ).first
-        act.update_attributes(
-          :acted_at => a.acted_at
-        )
-      end
-    end
-  end
-
   desc "Populate database with current congress members"
   task :congress => :environment do
     puts "Adding current house members to the database..."
