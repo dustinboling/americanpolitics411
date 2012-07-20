@@ -30,12 +30,10 @@ AP411 - ROADMAP
 #90 - 'more...' link for PACS/Indiv contributors
 #92 - change all inner instances of 'content-wrap' to 'sixteen columns'
 #94 - add type support for datatables so currency sorts correctly
-#95 - need to put a timer on newRect for mapper.js so a user can't close a window before the ajax call completes.
 #97 - bubble map will be more performant if we do an html overlay for all the text boxes (hold them until document.onload)
 #103 - if a youtube request for a person's videos returns empty then we need to do a secondary search for videos containing their name
 #105 - bubble-map must present congress nodes only for congress people
 #106 - Twitterbox: handle use-case where a person does not have an account
-#107 - controversy text when clicked must activate subnodes
 #108 - legislation videos async from real time congress (RTC)
 #110 - update task for bills from RTC using timestamp
 #111 - archival data from Thomas or govtrack.us
@@ -102,6 +100,7 @@ COMPLETED
 #96 - escape should close bubble map rects
 #99 - add onclicks to node texts on bubblemap
 #109 - async load votes from RTC
+#95 - need to put a timer on newRect for mapper.js so a user can't close a window before the ajax call completes.
 
 ON HOLD
 ==============||==
@@ -119,6 +118,7 @@ ON HOLD
 #15 - separate admin/public layouts (including css) *on hold until bootstrap 2.0 SASS is ready - ON HOLD UNTIL DESIGN IS DONE
 #16 - bubble-map: don't show a node if it doesn't have any info
 #93 - loading box for legislation (difficult because there is no success callback for $.html)
+#107 - controversy text when clicked must activate subnodes
 
 CANCELED
 ==============||==

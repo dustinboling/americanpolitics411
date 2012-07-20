@@ -102,9 +102,10 @@ window.onload = function() {
       texts[i].node.onclick = function() {
         newRect = makeRectBlank();
         n = 23;
+        var xhr;
         while (n < 46) {
           if (n == this.raphaelid) {
-            $.ajax({
+            var xhr = $.ajax({
               type: "GET",
               url: 'refresh_bubble_rect',
               dataType: "script",
@@ -125,6 +126,8 @@ window.onload = function() {
           n = n + 1;
         }
         newRect.node.onclick = function() {
+          xhr.abort();
+          loader.hide();
           newRect.hide();
           $('#popup-text').hide();
           $('#current-tweet').show();
@@ -138,7 +141,7 @@ window.onload = function() {
         n = 0
         while (n < 23) {
           if (n == this.raphaelid) {
-            $.ajax({
+            var xhr = $.ajax({
               type: "GET",
               url: 'refresh_bubble_rect',
               dataType: "script",
@@ -159,6 +162,8 @@ window.onload = function() {
           n = n + 1;
         }
         newRect.node.onclick = function() {
+          xhr.abort();
+          loader.hide();
           newRect.hide();
           $('#popup-text').hide();
           $('#current-tweet').show();
@@ -359,7 +364,7 @@ function makeRect(partial) {
   loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
   closeButton = r.text(850, 30, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start"});
   // get data
-  $.ajax({
+  var xhr = $.ajax({
     type: "GET",
     url: 'refresh_bubble_rect',
     dataType: "script",
@@ -371,14 +376,19 @@ function makeRect(partial) {
       loader.hide();
     }
   });
+
   // setup listeners
   newRect.node.onclick = function() {
+    xhr.abort();
+    loader.hide();
     $('#popup-text').hide();
     $('#current-tweet').show();
     newRect.hide();
     closeButton.hide();
   }
   closeButton.node.onclick = function() {
+    xhr.abort();
+    loader.hide();
     $('#popup-text').hide();
     $('#current-tweet').show();
     newRect.hide();
@@ -396,6 +406,7 @@ function makeRectBlank() {
   $('#current-tweet').hide();
   closeButton = r.text(850, 30, "CLOSE X").attr({"font-size": "16px;", "text-anchor": "start"});
   closeButton.node.onclick = function() {
+    loader.hide();
     $('#popup-text').hide();
     $('#current-tweet').show();
     newRect.hide();
