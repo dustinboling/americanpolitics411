@@ -1,55 +1,6 @@
 require 'spec_helper'
 
 describe "topbar" do
-  describe "GET topbar links as anonymous" do
-    it "should show home when anonymous clicks the logo" do
-      visit root_url
-      click_link("American Politics 411")
-      page.should have_content("All People")
-    end
-    
-    it "should show home page when anonymous clicks the home link" do
-      visit root_url
-      click_link("Home")
-      page.should have_content("All People")
-    end
-    
-    it "should show legislation when anonymous clicks the legislation link" do
-      visit root_url
-      click_link("Legislation")
-      page.should have_content("Legislation for #{CURRENT_YEAR_CONGRESS} Year of Congress")
-    end
-    
-    it "should show a list of senators when anonymous clicks the senators link" do
-      visit root_url
-      click_link("Senators")
-      page.should have_content("Senators")
-    end
-    
-    it "should show a list of representatives when anonymous clicks the senators link" do
-      visit root_url
-      click_link("Representatives")
-      page.should have_content("Representatives")
-    end
-    
-    it "should show a list of committees when anonymous clicks the committees link" do
-      visit root_url
-      click_link("View Committees")
-      page.should have_content("Committees")
-    end
-    
-    it "should show a list of subcommittees when anonymous clicks the subcommittes link" do
-      visit root_url
-      click_link("View Subcommittees")
-      page.should have_content("Subcommittees")
-    end
-    
-    it "should show the log in link" do
-      visit root_url
-      page.should have_link("log in")
-    end
-  end
-  
   describe "GET topbar as admin" do
     before :each do 
       @user = FactoryGirl.create(:user, :roles_mask => 1)
@@ -102,7 +53,7 @@ describe "topbar" do
 
     it "should show a list of Issues when admin clicks manage issues" do
       click_link "Issues"
-      page.should have_content("Manage Issues")
+      page.should have_content("Issues")
     end
 
     it "should show a list of Committees when admin clicks manage committees" do
@@ -164,25 +115,17 @@ describe "topbar" do
     
     it "should show organizations#index when superadmin clicks organizations" do
       click_link "Organizations"
-      page.should have_content("Listing organizations")
+      page.should have_content("Manage organizations")
     end
     
     it "should show universities#index when superadmin clicks universities" do 
       click_link "Universities"
-      page.should have_content("Listing universities")
+      page.should have_content("Manage universities")
     end
     
     it "should show religions#index when superadmin clicks religions" do
       click_link "Religions"
-      page.should have_content("Listing religions")
-    end
-    
-    it "should show a list of users when superadmin clicks manage legislation" do
-      @legislation = Legislation.new
-      @legislation.save
-      
-      click_link "Legislation"
-      page.should have_link("Edit")
+      page.should have_content("Manage religions")
     end
     
     it "should show a list of users when superadmin clicks manage users" do
@@ -192,7 +135,7 @@ describe "topbar" do
 
     it "should show a list of Issues when superadmin clicks manage issues" do
       click_link "Issues"
-      page.should have_content("Manage Issues")
+      page.should have_content("Issues")
     end
 
     it "should show a list of Committees when superadmin clicks manage committees" do

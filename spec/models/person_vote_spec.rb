@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe Activity do
+describe PersonVote do
 end

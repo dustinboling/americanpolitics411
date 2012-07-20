@@ -5,17 +5,15 @@
   <h1 class="page-title">Add new user</h1>
   <p>Hello, superadmin. Here is where you add a new user into the system. There are three types of users, choose wisely.</p>
 
-    <dl>
-      <dt style="font-weight:bold;">Superadmin</dt>
-      <dd>The most powerful of all users. Can delete user accounts, modify/destroy ANY resource. Only people that need to delete user accounts should be superadmins. -NOTE: currently superadmins can delete other superadmins, so don't give someone this role unless you trust them to not delete you from the system.</dd>
-      <dt style="font-weight:bold;">Admin</dt>
-      <dd>Somewhat powerful user. Can modify/destroy all resources EXCEPT users.</dd>
-      <dt style="font-weight:bold;">Reader</dt>
-      <dd>User with the least powers. They can read stuff.</dd>
-    </dl><br />
-</div>
+  <dl>
+    <dt style="font-weight:bold;">Superadmin</dt>
+    <dd>The most powerful of all users. Can delete user accounts, modify/destroy ANY resource. Only people that need to delete user accounts should be superadmins. -NOTE: currently superadmins can delete other superadmins, so don't give someone this role unless you trust them to not delete you from the system.</dd>
+    <dt style="font-weight:bold;">Admin</dt>
+    <dd>Somewhat powerful user. Can modify/destroy all resources EXCEPT users.</dd>
+    <dt style="font-weight:bold;">Reader</dt>
+    <dd>User with the least powers. They can read stuff.</dd>
+  </dl><br />
 
-<div class="content-wrap six columns" style="padding-top: 20px;">
   <p>
     <%= f.label :username %>
     <%= f.text_field :username %>
@@ -34,11 +32,13 @@
   </p>
   <p>
     <%= f.label :roles %>
-    <% for role in User::ROLES %>
-    <%= check_box_tag "user[roles][]", role, @user.roles.include?(role), :id => role %>
-    <%=h role.humanize %><br />
-    <% end %>
-    <%= hidden_field_tag "user[roles][]", "" %>
+    <div id="roles">
+      <% for role in User::ROLES %>
+      <%= check_box_tag "user[roles][]", role, @user.roles.include?(role), :id => role %>
+      <%=h role.humanize %><br />
+      <% end %>
+      <%= hidden_field_tag "user[roles][]", "" %>
+    </div>
   </p>
 
   <%= f.submit :class => 'btn success' %>

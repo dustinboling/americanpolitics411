@@ -18,7 +18,7 @@ describe "People" do
   describe "GET /people" do
     it "displays a list of all people" do
       visit people_path
-      page.should have_content("All People")
+      page.should have_content("Officials")
     end
   end
   
@@ -56,7 +56,6 @@ describe "Legislation" do
       visit issues_path
       click_link("TEST Issue")
       page.should have_content("TEST Issue")
-      page.should have_content("List of bills which are about this issue")
     end
   end
   
