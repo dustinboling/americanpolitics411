@@ -191,6 +191,9 @@ namespace :seed do
       votes.each do |v|
         puts "Adding votes for #{v.bill_id}..."
         rtc_id = v.bill_id
+        @voted_at = v.voted_at
+        @how = v.how
+        @result = v.result
         if Legislation.find_by_rtc_id(rtc_id)
           legislation = Legislation.find_by_rtc_id(rtc_id)
           legislation_id = legislation.id
@@ -204,9 +207,9 @@ namespace :seed do
                 :legislation_id => legislation_id,
                 :person_id => person_id,
                 :vote => vote,
-                :voted_at => v.voted_at,
-                :how => v.how,
-                :result => v.result
+                :voted_at => @voted_at,
+                :how => @how,
+                :result => @result
               )
             else
               # do nothing
@@ -424,6 +427,7 @@ namespace :seed do
         puts "Entry blank, skipping!"
       else
         p = Person.find_by_crp_id(@crp)
+        asset = Asset.create()
       end
     end
   end
