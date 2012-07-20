@@ -102,7 +102,6 @@ window.onload = function() {
       texts[i].node.onclick = function() {
         newRect = makeRectBlank();
         n = 23;
-        var xhr;
         while (n < 46) {
           if (n == this.raphaelid) {
             var xhr = $.ajax({
