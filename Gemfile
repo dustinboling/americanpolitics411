@@ -35,7 +35,7 @@ group :test, :development do
 end
 
 group :production do
-  gem 'thin'
+  gem 'unicorn'
   gem 'newrelic_rpm'
 end
 
