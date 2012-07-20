@@ -143,7 +143,6 @@ namespace :update do
       page = page + 1
     end
     Update.create(:task => "legislation", :count => @bill_count)
-    puts "Added #{@bill_count} bills."
   end
 
   desc "Update votes"
@@ -190,8 +189,6 @@ namespace :update do
       end
       page = page + 1
     end
-    Update.create(:task => "votes", :count => @vote_count)
-    puts "Added #{@vote_count} votes."
   end
 
 end
