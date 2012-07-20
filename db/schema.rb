@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120728340613) do
+ActiveRecord::Schema.define(:version => 20120728340614) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -423,6 +423,9 @@ ActiveRecord::Schema.define(:version => 20120728340613) do
     t.text     "vote"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "voted_at"
+    t.string   "how"
+    t.string   "result"
   end
 
   add_index "person_votes", ["person_id"], :name => "index_person_votes_on_person_id"

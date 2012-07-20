@@ -203,7 +203,10 @@ namespace :seed do
               PersonVote.create(
                 :legislation_id => legislation_id,
                 :person_id => person_id,
-                :vote => vote
+                :vote => vote,
+                :voted_at => v.voted_at,
+                :how => v.how,
+                :result => v.result
               )
             else
               # do nothing
