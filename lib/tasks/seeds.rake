@@ -191,7 +191,9 @@ namespace :seed do
       votes.each do |v|
         puts "Adding votes for #{v.bill_id}..."
         rtc_id = v.bill_id
-        @voted_at = v.voted_at
+        if v.voted_at
+          @voted_at = v.voted_at
+        end
         @how = v.how
         @result = v.result
         if Legislation.find_by_rtc_id(rtc_id)
