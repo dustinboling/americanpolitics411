@@ -216,12 +216,12 @@ window.onload = function() {
   if (window.birthplace != "") {
     r.text(382, 320, "Birthplace: " + birthplace).attr({"text-anchor": "start", "font-size": "12px"});
   } else {
-    r.text(382, 320, "Birthplace: unknown" + birthplace).attr({"text-anchor": "start", "font-size": "12px"});
+    r.text(382, 320, "Birthplace: Unknown" + birthplace).attr({"text-anchor": "start", "font-size": "12px"});
   }
   if (window.birthdate != "") {
     r.text(382, 335, "Born " + birthdate).attr({"text-anchor": "start", "font-size": "12px"});
   } else {
-    r.text(382, 335, "Birthdate: unknown").attr({"text-anchor": "start", "font-size": "12px"});
+    r.text(382, 335, "Birthdate: Unknown").attr({"text-anchor": "start", "font-size": "12px"});
   }
   religionInfo = r.text(382, 350, "Religion: " + religion).attr({"text-anchor": "start", "font-size": "12px"});
   eduRect = r.rect(380, 370, 170, 15, 5).attr({stroke: "none", fill: "red"});
