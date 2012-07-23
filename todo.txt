@@ -27,7 +27,6 @@ AP411 - ROADMAP
 #110 - update task for bills from RTC using timestamp
 #111 - archival data from Thomas or govtrack.us
 #112 - move model logic out of controllers into lib where possible
-#113 - implement kaminari pagination for legislation page.
 #114 - autocomplete/auto-add religions
 #115 - $$$ Make sure any currency fields will allow commas, periods + strip currency symbols.
 #116 - move all autocompletes into an autocomplete api
@@ -102,6 +101,7 @@ COMPLETED
 #60 - on person#show#financial make the 'more...' links drop down with jquery
 #114 - bubble-map: co-sponsored legislation should be a datatable
 #72 - switch over the bootstrap css flash messages to plaintext
+#113 - implement kaminari pagination for legislation page.
 
 ON HOLD
 ==============||==
