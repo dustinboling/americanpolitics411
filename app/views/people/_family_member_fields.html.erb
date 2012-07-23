@@ -1,6 +1,6 @@
 <tr class="fields">
   <%= f.hidden_field :person_id, :value => @person.id %>
-  <td><%= f.text_field :family_member, :class => 'person-list', data: {people_source: people_autocomplete_person_name_path} %></td>
+  <td><%= f.text_field :family_member, :class => 'person-list', data: {people_source: api_autocomplete_autocomplete_person_name_path} %></td>
   <td><%= f.text_field :relationship %></td>
   <td><%= f.text_field :notes %></td>
   <td><%= link_to_remove_fields "remove", f %></td>

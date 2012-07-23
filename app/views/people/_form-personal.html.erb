@@ -20,8 +20,15 @@
   <%= f.label :photo_url %>
   <%= f.text_field :photo_url %>
 
-  <%= f.label :religion, 'Religion' %>
-  <%= f.text_field :religion, :class => 'organization-list', data: {religions_source: religions_autocomplete_religion_name_path} %>
+  <div class="row" style="margin: 0;">
+    <div class="one column" style="margin: 0;">
+      <%= f.label :religion, 'Religion' %>
+    </div>
+    <div class="two columns" style="padding-left: 5px;">
+      <%= link_to "Add new", new_religion_path %>
+    </div>
+  </div>
+  <%= collection_select(:person, :religion_id, Religion.all, :id, :name, {:include_blank => true}) %><br /><br />
 
   <%= f.label :birthplace %>
   <%= f.text_field :birthplace %>
@@ -31,4 +38,5 @@
 
   <%= f.label :date_of_death %>
   <%= f.date_select :date_of_death, {:order => [:month, :day, :year], :start_year => 1851, :include_blank => true, :default => nil}, {:class => 'two columns'} %>
+
 </div>

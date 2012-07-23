@@ -155,7 +155,7 @@
 <polyline fill="none" stroke="black" points="644,-932.1 853.635,-932.1 "/>
 <text text-anchor="start" x="652" y="-914.1" font-family="Times,serif" font-size="14.00">_callback_before_211</text>
 <text text-anchor="start" x="652" y="-897.3" font-family="Times,serif" font-size="14.00">_one_time_conditions_valid_212?</text>
-<text text-anchor="start" x="652" y="-880.5" font-family="Times,serif" font-size="14.00">autocomplete_organization_name</text>
+<text text-anchor="start" x="652" y="-880.5" font-family="Times,serif" font-size="14.00">api_autocomplete_autocomplete_organization_name_path</text>
 <text text-anchor="start" x="652" y="-863.7" font-family="Times,serif" font-size="14.00">create</text>
 <text text-anchor="start" x="652" y="-846.9" font-family="Times,serif" font-size="14.00">destroy</text>
 <text text-anchor="start" x="652" y="-830.1" font-family="Times,serif" font-size="14.00">edit</text>

@@ -1,7 +1,7 @@
 <tr class="fields actions">
 	<%= f.hidden_field :person_id, :value => @person.id %>
 		<td>
-			<%= f.text_field :university_name, :class => 'university-list', data: {universities_source: universities_autocomplete_university_name_path} %>
+			<%= f.text_field :university_name, :class => 'university-list', data: {universities_source: api_autocomplete_autocomplete_university_name_path} %>
 		</td>
     <td><%= f.date_select :year_earned, {:start_year => 1951, :discard_day => true, :discard_month => true}, {:class => 'span2'} %></td>
     <td><%= f.text_field :degree_earned, :class => 'span2' %></td>

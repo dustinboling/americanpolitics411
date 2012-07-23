@@ -23,7 +23,7 @@ class Api::AutocompleteController < ApplicationController
   #
   def autocomplete_religion_name
     @religions = Religion.order(:name).where("name like ?", "%#{params[:term]}%")
-    render json: @religions.map { |r|
+    render json: @religions.collect { |r|
       { 
         :label => "#{r.name}",
         :value => p.id 
