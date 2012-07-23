@@ -10,7 +10,6 @@ AP411 - ROADMAP
 #65 - last updated by for people
 #68 - add new specs for activities. verify that we are testing as much as possible.
 #70 - restyle tabs into a basic breadcrumb for bio/literary/professional editor person#edit 
-#72 - switch over the bootstrap css flash messages to plaintext
 #73 - add default image for politicians
 #75 - new person page: it sucks to have to scroll through the years, make these autocomplete hybrids.
 #78 - at people/index there is a js error: 'b is undefined'
@@ -29,7 +28,9 @@ AP411 - ROADMAP
 #111 - archival data from Thomas or govtrack.us
 #112 - move model logic out of controllers into lib where possible
 #113 - implement kaminari pagination for legislation page.
-#114 - bubble-map: co-sponsored legislation should be a datatable
+#114 - autocomplete/auto-add religions
+#115 - $$$ Make sure any currency fields will allow commas, periods + strip currency symbols.
+#116 - move all autocompletes into an autocomplete api
 
 API LIST
 ==============||==
@@ -95,6 +96,8 @@ COMPLETED
 #90 - 'more...' link for PACS/Indiv contributors
 #48 - remove unused json in controllers
 #60 - on person#show#financial make the 'more...' links drop down with jquery
+#114 - bubble-map: co-sponsored legislation should be a datatable
+#72 - switch over the bootstrap css flash messages to plaintext
 
 ON HOLD
 ==============||==
