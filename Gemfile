@@ -20,6 +20,7 @@ gem 'highline'
 gem 'youtube_it'
 gem 'twitter'
 gem 'jquery-ui-rails'
+gem 'kaminari'
 
 # helpful helper gems
 # gem 'railroady'

@@ -36,4 +36,5 @@
   <div id="legislation">
     <%= render :partial => 'legislation_partial', :locals => {:legislation => @legislation} %>
   </div>
+  <%= paginate @legislation, :window => 12 %>
 </div>

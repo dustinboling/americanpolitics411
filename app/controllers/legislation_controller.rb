@@ -41,7 +41,7 @@ class LegislationController < ApplicationController
   end
 
   def list
-    @legislation = Legislation.order('introduced_date DESC').limit(40)
+    @legislation = Legislation.order('introduced_date DESC').page(params[:page]).per(25)
   end
 
   def update
