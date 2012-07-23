@@ -49,6 +49,10 @@
   </ul>
 </div>
 
-<div id="person-container" class="fifteen columns box_a">
+<% if current_user %>
+  <div id="person-container" class="fifteen columns box_a">
+<% else %>
+  <div id="person-container" class="fifteen columns box_a" style="margin-top: 10px;">
+<% end %>
     <%= render :partial => 'person_partial', :locals => {:people => @people} %>
 </div>
