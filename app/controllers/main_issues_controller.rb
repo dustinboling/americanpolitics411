@@ -1,11 +1,6 @@
 class MainIssuesController < ApplicationController
   layout 'admin'
 
-  def autocomplete_main_issues_name
-    @main_issues = MainIssue.order(:name).where("name like?", "%#{params[:term]}%")
-    render json: @main_issues.map(&:name)  
-  end
-
   def index
     @main_issues = MainIssue.order('name ASC')
   end

@@ -5,6 +5,6 @@
 
 	<p>
 		<b>People who are <%= @religion.name %>:</b><br />
-		<%= @religion.people.collect { |p| "#{p.full_name}" }.to_sentence %>
+		<%= @religion.people.collect { |p| link_to "#{p.full_name}", p }.to_sentence %>
 	</p>
 </div>

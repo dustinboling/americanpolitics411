@@ -31,5 +31,28 @@ class Api::AutocompleteController < ApplicationController
     }
   end
 
+  ###
+  # UNIVERSITIES
+  #
+  def autocomplete_university_name
+    @universities = University.order(:name).where("name like ?", "%#{params[:term]}%")
+    render json: @universities.map(&:name)
+  end
+
+  ###
+  # ORGANIZATIONS
+  #
+  def autocomplete_organization_name
+    @organizations = Organization.order(:name).where("name like ?", "%#{params[:term]}%")
+    render json: @organizations.map(&:name)
+  end
+  
+  ###
+  # MAIN ISSUES
+  #
+  def autocomplete_main_issues_name
+    @main_issues = MainIssue.order(:name).where("name like?", "%#{params[:term]}%")
+    render json: @main_issues.map(&:name)  
+  end
 
 end

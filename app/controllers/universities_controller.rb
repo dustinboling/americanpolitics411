@@ -7,13 +7,6 @@ class UniversitiesController < ApplicationController
   
   before_filter :find_person
   
-  def autocomplete_university_name
-    @universities = University.order(:name).where("name like ?", "%#{params[:term]}%")
-    render json: @universities.map(&:name)
-  end
-  
-  # GET /universities
-  # GET /universities.json
   def index
     @universities = University.find(:all)
   end
@@ -22,8 +15,6 @@ class UniversitiesController < ApplicationController
     @universities = University.sorted.where(:person_id => @person.id)
   end
 
-  # GET /universities/1
-  # GET /universities/1.json
   def show
     @universities = University.find(params[:id])
     @university = University.find(params[:id])
@@ -34,8 +25,6 @@ class UniversitiesController < ApplicationController
     end
   end
 
-  # GET /universities/new
-  # GET /universities/new.json
   def new
     @university = University.new
     @universities = University.order('id ASC')
@@ -47,13 +36,10 @@ class UniversitiesController < ApplicationController
     end
   end
 
-  # GET /universities/1/edit
   def edit
     @university = University.find(params[:id])
   end
 
-  # POST /universities
-  # POST /universities.json
   def create
     @university = University.new(params[:university])
 
@@ -68,8 +54,6 @@ class UniversitiesController < ApplicationController
     end
   end
 
-  # PUT /universities/1
-  # PUT /universities/1.json
   def update
     @university = University.find(params[:id])
 
@@ -84,8 +68,6 @@ class UniversitiesController < ApplicationController
     end
   end
 
-  # DELETE /universities/1
-  # DELETE /universities/1.json
   def destroy
     @university = University.find(params[:id])
     if Degree.where("university_id = #{params[:id]}").empty?

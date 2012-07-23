@@ -28,12 +28,13 @@ Politics411::Application.routes.draw do
   get "people/switch_to_senator_by_name"
   get "people/refresh_bubble_rect"
   
-  # Routes for autocomplete
-  get "universities/autocomplete_university_name"
-  get "people/autocomplete_person_name"
-  get "people/autocomplete_person_url"
-  get "organizations/autocomplete_organization_name"
-  get "main_issues/autocomplete_main_issues_name"
+  # Routes for autocomplete api
+  get "api/autocomplete/autocomplete_person_name"
+  get "api/autocomplete/autocomplete_person_url"
+  get "api/autocomplete/autocomplete_religion_name"
+  get "api/autocomplete/autocomplete_university_name"
+  get "api/autocomplete/autocomplete_organization_name"
+  get "api/autocomplete/autocomplete_main_issues_name"
   
   get "login" => "sessions#new", :as => "login"
   get "logout" => "sessions#destroy", :as => "logout"

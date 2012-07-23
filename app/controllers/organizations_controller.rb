@@ -5,11 +5,6 @@ class OrganizationsController < ApplicationController
   
   layout 'public'
   
-  def autocomplete_organization_name
-    @organizations = Organization.order(:name).where("name like ?", "%#{params[:term]}%")
-    render json: @organizations.map(&:name)
-  end
-  
   def index
     @organizations = Organization.all
 
@@ -18,7 +13,6 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  # GET /organizations/1
   def show
     @organization = Organization.find(params[:id])
 
@@ -27,7 +21,6 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  # GET /organizations/new
   def new
     @organization = Organization.new
 
@@ -36,12 +29,10 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  # GET /organizations/1/edit
   def edit
     @organization = Organization.find(params[:id])
   end
 
-  # POST /organizations
   def create
     @organization = Organization.new(params[:organization])
 
@@ -54,7 +45,6 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  # PUT /organizations/1
   def update
     @organization = Organization.find(params[:id])
 
@@ -67,8 +57,6 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  # DELETE /organizations/1
-  # DELETE /organizations/1.json
   def destroy
     @organization = Organization.find(params[:id])
     @organization.destroy
