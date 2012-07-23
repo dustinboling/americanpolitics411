@@ -5,9 +5,6 @@ class ReligionsController < ApplicationController
 
   layout 'public'
 
-  def autocomplete_religion_name
-  end
-
   # GET /religions
   def index
     @religions = Religion.all
