@@ -31,6 +31,9 @@ AP411 - ROADMAP
 #114 - autocomplete/auto-add religions
 #115 - $$$ Make sure any currency fields will allow commas, periods + strip currency symbols.
 #116 - move all autocompletes into an autocomplete api
+#117 - autocomplete for religions
+#118 - add silent creator for religions
+#119 - reimplement organizations in admin, potentially with silent creator
 
 API LIST
 ==============||==
