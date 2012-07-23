@@ -4,18 +4,19 @@ Politics411::Application.routes.draw do
   get "subcommittees/show"
 
   get "legislation/index"
-  get "legislation/refresh"
-  
+  post "legislation/refresh"
+  match "legislation/:id" => "legislation#show"
+
   match "subcommittees/:id" => "subcommittees#show"
-  
+
   get "contributor/show"
-  
+
   get "committees/index"
   get "committees/manage"
 
   match "senators" => "people#senators"
   match "representatives" => "people#representatives"
- 
+
   get "people/senators"
   get "people/representatives"
   get "people/refresh_officials"
@@ -27,7 +28,7 @@ Politics411::Application.routes.draw do
   get "people/switch_to_senator_by_party"
   get "people/switch_to_senator_by_name"
   get "people/refresh_bubble_rect"
-  
+
   # Routes for autocomplete api
   get "api/autocomplete/autocomplete_person_name"
   get "api/autocomplete/autocomplete_person_url"
@@ -35,11 +36,11 @@ Politics411::Application.routes.draw do
   get "api/autocomplete/autocomplete_university_name"
   get "api/autocomplete/autocomplete_organization_name"
   get "api/autocomplete/autocomplete_main_issues_name"
-  
+
   get "login" => "sessions#new", :as => "login"
   get "logout" => "sessions#destroy", :as => "logout"
   get "signup" => "users#new", :as => "signup"
-  
+
   # Resourceful routes
   resources :main_issues
   resources :issues
@@ -75,9 +76,9 @@ Politics411::Application.routes.draw do
   resources :religions
   resources :universities 
   resources :degrees
-    
+
   root :to => "people#all"
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

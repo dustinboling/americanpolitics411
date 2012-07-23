@@ -10,13 +10,13 @@ class LegislationController < ApplicationController
   def refresh
     if params[:legislations][:introduced_year]
       year = params[:legislations][:introduced_year]
-      @legislation = Legislation.where("introduced_year = #{year}")  
+      @legislation = Legislation.where("introduced_year = #{year}").page(params[:page]).per(25)
     elsif params[:legislations][:session]
       congress_year = params[:legislations][:session]
-      @legislation = Legislation.where(:session => congress_year)
+      @legislation = Legislation.where(:session => congress_year).page(params[:page]).per(25)
     elsif params[:legislations][:issue_id]
       issue = Issue.find(params[:legislations][:issue_id])
-      @legislation = Legislation.all(:include => :legislation_issues, :joins => :legislation_issues, :conditions => "issue_id = #{issue.id}")
+      @legislation = Legislation.all(:include => :legislation_issues, :joins => :legislation_issues, :conditions => "issue_id = #{issue.id}").page(params[:page]).per(25)
     end
 
     respond_to do |format|
