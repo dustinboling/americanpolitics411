@@ -74,6 +74,7 @@ window.onload = function () {
                     newRect.hide();
                     $('#popup-text').hide();
                     $('#current-tweet').show();
+                    $('#follow-button').show();
                     closeButton.hide();
                 }
             }
@@ -109,6 +110,7 @@ window.onload = function () {
                     loader.hide();
                     newRect.hide();
                     $('#popup-text').hide();
+                    $('#follow-button').show();
                     $('#current-tweet').show();
                     closeButton.hide();
                 }
@@ -240,8 +242,8 @@ window.onload = function () {
         userPromise.success(function(data) {
             img = data[0]['profile_image_url'].toString();
             tb_img = r.image(img, 10, 325, 48, 48);
-            tb_name = r.text(65, 335, data[0]['name']).attr({"font-size": "20px", "text-anchor": "start", stroke: "#999", fill: "#999"});
-            tb_screen_name = r.text(65, 355, "@" + twitter_id).attr({"font-size": "14px", "text-anchor": "start", fill: "red"});
+            tb_name = r.text(65, 330, data[0]['name']).attr({"font-size": "14px", "text-anchor": "start", stroke: "#999", fill: "#999"});
+            tb_screen_name = r.text(65, 345, "@" + twitter_id).attr({"font-size": "12px", "text-anchor": "start", fill: "red"});
         });
 
         timelinePromise = getTimeline();
@@ -303,6 +305,7 @@ function makeRect(partial) {
         "stroke-width": 3,
         cursor: "move"
     });
+    $('#follow-button').hide();
     $('#current-tweet').hide();
     loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
     closeButton = r.text(850, 30, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start"});
@@ -326,6 +329,7 @@ function makeRect(partial) {
         loader.hide();
         $('#popup-text').hide();
         $('#current-tweet').show();
+        $('#follow-button').show();
         newRect.hide();
         closeButton.hide();
     }
@@ -333,6 +337,7 @@ function makeRect(partial) {
         xhr.abort();
         loader.hide();
         $('#popup-text').hide();
+        $('#follow-button').show();
         $('#current-tweet').show();
         newRect.hide();
         closeButton.hide();
@@ -346,11 +351,13 @@ function makeRectBlank() {
         "stroke-width": 3,
         cursor: "move"
     });
+    $('#follow-button').hide();
     $('#current-tweet').hide();
     closeButton = r.text(850, 30, "CLOSE X").attr({"font-size": "16px;", "text-anchor": "start"});
     closeButton.node.onclick = function() {
         loader.hide();
         $('#popup-text').hide();
+        $('#follow-button').show();
         $('#current-tweet').show();
         newRect.hide();
         closeButton.hide();
