@@ -217,10 +217,11 @@ window.onload = function () {
         function getUser() {
             return $.ajax({
                 type: "GET",
-                url: "http://api.twitter.com/1/users/lookup.json",
+                url: "https://api.twitter.com/1/users/lookup.json",
                 dataType: "jsonp",
                 data: { screen_name: twitter_id, callback: this.callback },
                 success: function(data) {
+                    $('#follow-button').show();
                     return data;
                 }
             });
@@ -229,7 +230,7 @@ window.onload = function () {
         function getTimeline() {
             return $.ajax({
                 type: "GET",
-                url: "http://api.twitter.com/1/statuses/user_timeline.json",
+                url: "https://api.twitter.com/1/statuses/user_timeline.json",
                 dataType: "jsonp",
                 data: { screen_name: twitter_id, calllback: this.callback },
                 success: function(timeline) {
