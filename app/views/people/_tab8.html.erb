@@ -1,4 +1,4 @@
-  <h2>Political Offices</h2>
+<h2>Political Offices</h2>
 
 <table class="zebra-striped">
   <tr>
@@ -11,6 +11,18 @@
   </tr>
   <%= f.fields_for :political_offices do |political_office| %>
   <%= render 'political_office_fields', :f => political_office %>
+  <% end %>
+  <% if @person.political_offices.count == 0 %>
+  <tr>
+    <td>
+      No political offices have been added.
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
   <% end %>
   <tr>
     <td>
@@ -33,6 +45,15 @@
   </tr>
   <%= f.fields_for :supporters do |supporter| %>
   <%= render 'supporter_fields', :f => supporter %>
+  <% end %>
+  <% if @person.supporters.count == 0 %>
+    <tr>
+      <td>
+        No supporters have been added.
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
   <% end %>
   <tr>
     <td>

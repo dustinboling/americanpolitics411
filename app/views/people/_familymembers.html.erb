@@ -10,6 +10,16 @@
   <%= f.fields_for(:family_members, @person.family_members) do |family_member| %>
   <%= render 'family_member_fields', :f => family_member %>
   <% end %>
+  <% if @person.family_members.count == 0 %>
+  <tr>
+    <td>
+      No family members have been added.
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <% end %>
   <tr class="addfield">
     <td>
       <%= link_to_add_fields "Add New Family Member", f, :family_members %>
@@ -31,6 +41,17 @@
   </tr>
   <%= f.fields_for :business_associates do |business_associate| %>
   <%= render 'business_associate_fields', :f => business_associate %>
+  <% end %>
+  <% if @person.business_associates.count == 0 %>
+  <tr>
+    <td>
+      No business associates have been added.
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
   <% end %>
   <tr>
     <td>

@@ -1,4 +1,4 @@
-  <h2>Endorsements</h2>
+<h2>Endorsements</h2>
 
 <table class="zebra-striped">
   <tr>
@@ -8,6 +8,15 @@
   </tr>
   <%= f.fields_for :endorsements do |endorsement| %>
   <%= render 'endorsement_fields', :f => endorsement %>
+  <% end %>
+  <% if @person.endorsements.count == 0 %>
+  <tr>
+    <td>
+      No endorsements have been added.
+    </td>
+    <td></td>
+    <td></td>
+  </tr>
   <% end %>
   <tr>
     <td>
@@ -29,6 +38,16 @@
   </tr>
   <%= f.fields_for :issue_positions do |issue_position| %>
   <%= render 'issue_position_fields', :f => issue_position %>
+  <% end %>
+  <% if @person.issue_positions.count == 0 %>
+  <tr>
+    <td>
+      No issue positions have been added.
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
   <% end %>
   <tr>
     <td>
@@ -52,6 +71,16 @@
   <%= f.fields_for :flip_flops do |flip_flop| %>
   <%= render 'flip_flop_fields', :f => flip_flop %>
   <% end %>
+  <% if @person.flip_flops.count == 0 %>
+  <tr>
+    <td>
+      No flip-flops have been added. 
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <% end %>
   <tr>
     <td>
       <%= link_to_add_fields "Add Flip Flop", f, :flip_flops %>
@@ -72,6 +101,16 @@
   </tr>
   <%= f.fields_for :campaign_platforms do |campaign_platform| %>
   <%= render 'campaign_platform_fields', :f => campaign_platform %>
+  <% end %>
+  <% if @person.campaign_platforms.count == 0 %>
+  <tr>
+    <td>
+      No campaign platforms have been added.
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
   <% end %>
   <tr>
     <td>

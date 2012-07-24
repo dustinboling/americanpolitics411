@@ -35,6 +35,8 @@ AP411 - ROADMAP
 #119 - reimplement organizations in admin, potentially with silent creator
 #120 - fix legislation#list pagination for ajax calls (try making a partial and calling that) see: https://github.com/amatsuda/kaminari/issues/224
 #121 - better styling for datatables
+#122 - move styles from people#show.html to people.scss
+#123 - use skeleton style buttons in admin instead of bootstrap
 
 
 API LIST

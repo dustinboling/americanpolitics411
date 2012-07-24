@@ -27,6 +27,17 @@
   <%= f.fields_for :personal_assets do |asset| %>
   <%= render 'personal_asset_fields', :f => asset %>
   <% end %>
+  <% if @person.personal_assets.count == 0 %>
+  <tr>
+    <td>
+      No personal assets have been added.
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <% end %>
   <tr>
     <td>
       <%= link_to_add_fields "Add New Asset", f, :personal_assets %>
@@ -50,6 +61,18 @@
   </tr>
   <%= f.fields_for :transactions do |transaction| %>
   <%= render 'transaction_fields', :f => transaction  %>
+  <% end %>
+  <% if @person.transactions.count == 0 %>
+  <tr>
+    <td>
+      No transactions have been added.
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
   <% end %>
   <tr>
     <td>

@@ -10,6 +10,16 @@
   <%= f.fields_for :accusations do |accusation| %>
   <%= render 'accusation_fields', :f => accusation %>
   <% end %>
+  <% if @person.accusations.count == 0 %>
+    <tr>
+      <td>
+        No accusations have been added.
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  <% end %>
   <tr>
     <td>
       <%= link_to_add_fields "Add Accusation", f, :accusations %>
@@ -30,6 +40,16 @@
   </tr>
   <%= f.fields_for :litigations do |litigation| %>
   <%= render 'litigation_fields', :f => litigation %>
+  <% end %>
+  <% if @person.litigations.count == 0 %>
+    <tr>
+      <td>
+        No litigations have been added.
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
   <% end %>
   <tr>
     <td>
