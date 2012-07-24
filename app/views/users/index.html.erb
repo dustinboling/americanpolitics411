@@ -1,19 +1,17 @@
-<div class="content-wrap sixteen columns">	
+<div class="sixteen columns">	
   <%= error_messages_for(@user) %>
-
   <h1 class="page-title">Manage Users</h1>
-
-  <table>
+  <table class="table-striped">
     <tr>
       <th>Username</th>
       <th>Email</th>
       <th>Role</th>
       <th>Actions</th>
       <% if can? :edit, User %>
-      <th></th>
+      <th>Edit</th>
       <% end %>
       <% if can? :destroy, User %>
-      <th></th>
+      <th>Destroy</th>
       <% end %>
     </tr>
     <% @users.each do |user| %>
@@ -22,16 +20,16 @@
       <td><%= user.email %></td>
       <td><%= user.roles_mask %></td>
       <% if can? :edit, User %>
-      <td><%= link_to 'Edit', edit_user_path(user), :class => 'btn small primary' %></td>
+      <td><%= link_to 'Edit', edit_user_path(user) %></td>
       <% end %>
-      <td><%= link_to 'Show', user, :class => 'btn small success' %></td>
+      <td><%= link_to 'Show', user %></td>
       <% if can? :destroy, User %>	
-      <td><%= link_to 'Destroy', user, confirm: "Do you really want to delete this user?", :method => :delete, :class => 'btn small danger' %></td>
+      <td><%= link_to 'Destroy', user, confirm: "Do you really want to delete this user?", :method => :delete %></td>
       <% end %>
     </tr>
     <% end %>
   </table>
   <% if can? :create, User %>
-  <%= link_to('Add User', {:controller => 'users', :action => 'new'}, :class => 'btn success', :style => 'float: left;') %>
+  <%= link_to('Add User', {:controller => 'users', :action => 'new'}, :class => 'button', :style => 'float: left;') %>
   <% end %>
 </div>

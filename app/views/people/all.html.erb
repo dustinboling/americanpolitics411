@@ -1,24 +1,30 @@
-<div class="content-wrap twelve column">
+<div class="sixteen columns">
   <%= render 'layouts/messages' %>
-  <h3>Officials</h3>
-  <table>
-    <tr>
-      <% if can? :edit, Person %>
-      <th>Actions<th>
-      <% end %>			
-    </tr>
-    <% @people.each do |person| %>
-    <tr>
-      <td><%= link_to "#{person.first_name} #{person.last_name}", person_path(person) %></td>
-      <% if can? :edit, Person %>
-      <td>
-        <a href ="<%= edit_person_path(person) %>" class="btn small primary">Edit</a>
-      </td>
-      <td>
-        <%= link_to 'Destroy', person, confirm: 'Are you sure?', :method => :delete, :class => 'btn small danger' %>
-      </td>
+  <h2 class="page-title">Manage People</h2>
+  <table class="table-striped">
+    <thead>
+      <tr>
+        <% if can? :edit, Person %>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Destroy</th>
+        <% end %>			
+      </tr>
+    </thead>
+    <tbody>
+      <% @people.each do |person| %>
+      <tr class="<%= cycle('even', 'odd') %>">
+        <td><%= link_to "#{person.first_name} #{person.last_name}", person_path(person) %></td>
+        <% if can? :edit, Person %>
+        <td>
+          <a href ="<%= edit_person_path(person) %>">Edit</a>
+        </td>
+        <td>
+          <%= link_to 'Destroy', person, confirm: 'Are you sure?', :method => :delete %>
+        </td>
+        <% end %>
+      </tr>
       <% end %>
-    </tr>
-    <% end %>
-  </table>
+    </table>
+  </tbody>
 </div>

@@ -1,23 +1,25 @@
-<div class="content-wrap sixteen columns">
-	<h1 class="page-title">Manage religions</h1>
-
-	<table>
-	  <tr>
-	    <th>Name</th>
-	    <th></th>
-	    <th></th>
-	    <th></th>
-	  </tr>
-
-	<% @religions.each do |religion| %>
-	  <tr>
-	    <td><%= religion.name %></td>
-	    <td><%= link_to 'Show', religion, :class => 'btn small success' %></td>
-	    <td><%= link_to 'Edit', edit_religion_path(religion), :class => 'btn small primary' %></td>
-	    <td></td>
-	  </tr>
-	<% end %>
-	</table>
-
-	<%= link_to 'New Religion', {:controller => 'religions', :action => 'new'}, :class => 'btn success' %>
+<div class="sixteen columns">
+  <%= render 'layouts/messages' %>
+  <h1 class="page-title">Manage religions</h1>
+  <table class="table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Show</th>
+        <th>Edit</th>
+        <th>Destroy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @religions.each do |religion| %>
+      <tr class="<%= cycle('even', 'odd') %>">
+        <td><%= religion.name %></td>
+        <td><%= link_to 'Show', religion %></td>
+        <td><%= link_to 'Edit', edit_religion_path(religion) %></td>
+        <td><%= link_to 'Destroy', religion, confirm: 'Are you sure?', method: :delete%></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to 'New Religion', {:controller => 'religions', :action => 'new'}, :class => 'button' %>
 </div>

@@ -1,22 +1,25 @@
-<div class="content-wrap sixteen columns">
+<div class="sixteen columns">
   <h1 class="page-title">Issues</h1>
-
   <table class="table-striped">
-    <tr>
-      <th class="span10">Name</th>
-      <th>Assigned To</th>
-      <th></th>
-    </tr>
-    <% @issues.each do |issue| %>
+    <thead>
       <tr>
+        <th class="span10">Name</th>
+        <th>Assigned To</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @issues.each do |issue| %>
+      <tr class="<%= cycle('even', 'odd') %>">
         <td><%= link_to "#{issue.name}", issue %></td>
         <td><%= issue.main_issues.collect { |mi| mi.name }.to_sentence %></td>
         <% if can? :edit, Issue %>
-          <td><%= link_to "Edit", edit_issue_path(issue), :class => "btn small success" %></td>
+        <td><%= link_to "Edit", edit_issue_path(issue) %></td>
         <% else %>
-          <td></td>
+        <td></td>
         <% end %>
       </tr>
-    <% end %>
+      <% end %>
+    </tbody>
   </table>
 </div>
