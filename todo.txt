@@ -106,6 +106,7 @@ COMPLETED
 #72 - switch over the bootstrap css flash messages to plaintext
 #113 - implement kaminari pagination for legislation page.
 #123 - use skeleton style buttons in admin instead of bootstrap
+#124 - legislation#show should show most recent bills overseen with a link to all historical overseen bills
 
 ON HOLD
 ==============||==

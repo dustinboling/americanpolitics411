@@ -49,6 +49,20 @@
 
   <div id="bills">
     <h2>Bills Overseen</h2>
-    <%= @committee.legislations.collect { |l| l.bill_number }.to_sentence %>
+    <% legislations = @committee.legislations %>
+    <table class="table-striped">
+      <thead>
+        <th>Bill Number</th>
+        <th>Bill Title</th>
+      </thead>
+      <tbody>
+        <% legislations.each do |l| %>
+        <tr>
+          <td><%= link_to "#{l.bill_type.upcase} #{l.bill_number}", l %></td>
+          <td><%= link_to l.bill_title, l %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
