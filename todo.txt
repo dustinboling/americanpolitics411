@@ -34,6 +34,7 @@ AP411 - ROADMAP
 #118 - add silent creator for religions
 #119 - reimplement organizations in admin, potentially with silent creator
 #120 - fix legislation#list pagination for ajax calls (try making a partial and calling that) see: https://github.com/amatsuda/kaminari/issues/224
+#121 - better styling for datatables
 
 
 API LIST

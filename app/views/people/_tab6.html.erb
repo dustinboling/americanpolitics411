@@ -1,4 +1,5 @@
-<h3>Endorsements</h3>
+  <h2>Endorsements</h2>
+
 <table class="zebra-striped">
   <tr>
     <th>Organization</th>
@@ -18,7 +19,7 @@
 </table>
 
 
-<h3>Issue Positions</h3>
+<h2>Issue Positions</h2>
 <table class="zebra-striped">
   <tr>
     <th>Issue Topic</th>
@@ -40,7 +41,7 @@
 </table>
 
 
-<h3>Flip-Flops</h3>
+<h2>Flip-Flops</h2>
 <table class="zebra-striped">
   <tr>
     <th>Year</th>
@@ -52,16 +53,16 @@
   <%= render 'flip_flop_fields', :f => flip_flop %>
   <% end %>
   <tr>
-    <th>
+    <td>
       <%= link_to_add_fields "Add Flip Flop", f, :flip_flops %>
-    </th>
+    </td>
     <td></td>
     <td></td>
     <td></td>
   </tr>
 </table>
 
-<h3>Campaign Platforms</h3>
+<h2>Campaign Platforms</h2>
 <table class="zebra-striped">
   <tr>
     <th>Year</th>
@@ -73,9 +74,9 @@
   <%= render 'campaign_platform_fields', :f => campaign_platform %>
   <% end %>
   <tr>
-    <th>
+    <td>
       <%= link_to_add_fields "Add Campaign Platform", f, :campaign_platforms %>
-    </th>
+    </td>
     <td></td>
     <td></td>
     <td></td>

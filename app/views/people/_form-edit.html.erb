@@ -13,13 +13,13 @@
   <li><a href="#establishment">Establishment</a></li>
 </ul>
 
-<ul class="tabs-content">
+<ul class="tabs-content" style="width: 940px;">
   <li class="active box_a" id="basic-info" class="fifteen columns" style="min-height: 400px;">
     <%= render 'layouts/messages' %>
     <%= render 'form-personal', :f => f %>
   </li>
 
-  <li class="box_a" id="contact-info" style="min-height: 370px; min-width: 890px;">
+  <li class="box_a" id="contact-info" style="min-height: 400px; min-width: 890px;">
     <%= render 'form-contact', :f => f %>
   </li>
 
@@ -51,8 +51,14 @@
   </li> <!-- /#establishment-tab -->
 </ul>
 
-<p class="right">
-  <%= f.submit 'Update Person', :class => 'btn primary' %>
-</p>
+<div class="fifteen columns">
+  <p class="right">
+    <%= f.submit 'Update Person', :class => 'btn primary' %>
+  </p>
+  <p class="left">
+    <%= link_to 'Show', @person %> |
+    <%= link_to 'Back', people_path %>
+  </p>
+</div>
 
 <% end %>
