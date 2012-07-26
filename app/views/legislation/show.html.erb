@@ -19,7 +19,11 @@
 
   <div class="four columns">
     <div id="full_text" class="box_d">
+      <% if @legislation.bill_pdf %>
       <h2><a href="<%= @legislation.bill_pdf %>" style="color: #FFF; text-decoration: none;">Download PDF</a></h2>
+      <% else %>
+      <h2>No PDF</h2>
+      <% end %>
     </div>
 
     <aside id="status" class="box_c">
