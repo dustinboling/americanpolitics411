@@ -31,20 +31,6 @@ describe PeopleController do
     end
   end
 
-  describe "GET /autocomplete_person_name" do
-    it "returns http success" do
-      get :autocomplete_person_name
-      response.should be_success
-    end
-  end
-
-  describe "GET /autocomplete_person_url" do
-    it "returns http success" do
-      get :autocomplete_person_url
-      response.should be_success
-    end
-  end
-
   describe "GET /show" do
     it "returns http success" do
       p = FactoryGirl.create(:person)

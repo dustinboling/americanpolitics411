@@ -15,6 +15,8 @@ class Legislation < ActiveRecord::Base
   has_many :legislation_issues
   has_many :issues, :through => :legislation_issues
 
+  SESSIONS = [111, 112]
+
   def set_introduced_year
     self.introduced_year = self.introduced_date.split('-').shift
   end
