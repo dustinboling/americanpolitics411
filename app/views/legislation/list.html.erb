@@ -15,7 +15,7 @@
     <%= form_for :legislations, :remote => true, :url => {:action => 'refresh'} do |f| %>
     <label class="three columns">
       By Session
-      <%= f.select :session, Legislation::SESSIONS, {}, :class => 'box_g' %>
+      <%= f.select :session, Legislation::SESSIONS, {}, :class => 'box_g', :style => "height: 30px;" %>
     </label>
     <%= f.submit "Go", :class => 'no-padding box_red' %>
     <% end %>
