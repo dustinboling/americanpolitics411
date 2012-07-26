@@ -24,7 +24,7 @@
     <%= form_for :legislations, :remote => true, :url => {:action => 'refresh'} do |f| %>
     <label class="three columns">
       By Issue
-      <%= f.select :issue_id, Issue.all.collect { |i| [i.name, i.id] }, {}, :class => 'box_g' %>
+      <%= f.text_field :issue_name, :class => 'issues-list box_g', :data => {issues_source: api_autocomplete_autocomplete_issues_name_path}, :style => 'width: 150px;' %>
     </label>
     <%= f.submit "Go", :class => 'no-padding box_red' %>
     <% end %>

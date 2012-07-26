@@ -14,8 +14,8 @@ class LegislationController < ApplicationController
     elsif params[:legislations][:session]
       congress_year = params[:legislations][:session]
       @legislation = Legislation.where(:session => congress_year).page(params[:page]).per(25)
-    elsif params[:legislations][:issue_id]
-      issue = Issue.find(params[:legislations][:issue_id])
+    elsif params[:legislations][:issue_name]
+      issue = Issue.find_by_name(params[:legislations][:issue_name])
       li = LegislationIssue.where(:issue_id => issue.id).includes(:legislation)
       @legislation = []
       li.each do |l|

@@ -43,11 +43,26 @@ class Api::AutocompleteController < ApplicationController
   end
   
   ###
-  # MAIN ISSUES
+  # ISSUES
   #
   def autocomplete_main_issues_name
     @main_issues = MainIssue.order(:name).where("name like?", "%#{params[:term]}%")
     render json: @main_issues.map(&:name)  
+  end
+
+  def autocomplete_issues_name
+    @issues = Issue.order(:name).where("name like?", "%#{params[:term]}%")
+    render json: @issues.map(&:name) 
+  end
+
+  def autocomplete_issues_name_id
+    @issues = Issue.order(:name).where("name like?", "%#{params[:term]}%")
+    render json: @issues.collect { |i|
+      {
+        :label => "#{i.name}",
+        :value => i.id
+      }
+    }
   end
 
 end

@@ -14,3 +14,9 @@ $(document).ready ->
       $('ul#cosponsors-list').hide()
     else
       $('ul#cosponsors-list').show()
+
+jQuery ->
+  $('.issues-list').live('focus', (event) ->
+    $(this).autocomplete
+      source: $('.issues-list').data('issues-source')
+    )
