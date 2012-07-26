@@ -4,7 +4,7 @@ Politics411::Application.routes.draw do
   get "subcommittees/show"
 
   # ajax for legislation
-  post "legislation/refresh"
+  get "legislation/refresh"
 
   match "subcommittees/:id" => "subcommittees#show"
 

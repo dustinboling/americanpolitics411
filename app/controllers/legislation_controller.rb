@@ -16,7 +16,13 @@ class LegislationController < ApplicationController
       @legislation = Legislation.where(:session => congress_year).page(params[:page]).per(25)
     elsif params[:legislations][:issue_id]
       issue = Issue.find(params[:legislations][:issue_id])
-      @legislation = Legislation.all(:include => :legislation_issues, :joins => :legislation_issues, :conditions => "issue_id = #{issue.id}").page(params[:page]).per(25)
+      li = LegislationIssue.where(:issue_id => issue.id)
+      @legislation = []
+      li.each do |l|
+        @legislation << l.legislation
+      end
+      @legislation = Kaminari.paginate_array(@legislation).page(params[:page]).per(25)
+      # @legislation = Legislation.find(:all, :include => :legislation_issues, :joins => :legislation_issues, :conditions => "issue_id = #{issue.id}").page(params[:page]).per(25)
     end
 
     respond_to do |format|
