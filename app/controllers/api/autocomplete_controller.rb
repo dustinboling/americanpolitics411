@@ -8,7 +8,7 @@ class Api::AutocompleteController < ApplicationController
     render json: @people.map(&:name)
   end
 
-  def autocomplete_person_slug
+  def autocomplete_person_name_to_slug
     @people = Person.order(:slug).where("slug like ?", "%#{params[:term]}%")
     render json: @people.collect { |p| 
       { 
