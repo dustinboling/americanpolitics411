@@ -4,7 +4,8 @@ describe "NewPeople" do
   describe "POST people/new" do
     it "should create a new person" do
       @user = FactoryGirl.create(:user, :roles_mask => 1)
-      @person = FactoryGirl.create(:person)
+      @religion = Religion.create(:id => 7, :name => "Anti-Alanism")
+      @person = FactoryGirl.create(:person, :religion_id => 7)
       
       visit login_path
       fill_in "Username", :with => @user.username

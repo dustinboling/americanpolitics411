@@ -22,4 +22,9 @@ FactoryGirl.define do
     password '123'
     password_confirmation '123'
   end
+
+  factory :religion do
+    id 7
+    name "Anti-Alanism"
+  end
 end

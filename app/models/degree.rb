@@ -1,4 +1,6 @@
 class Degree < ActiveRecord::Base
+
+  attr_accessible :person_id, :university_name, :year_earned, :degree_earned
   belongs_to :university
   belongs_to :person
   

@@ -35,31 +35,3 @@
     <td></td>
   </tr>
 </table>
-
-<h2>Supporters</h2>
-<table class="zebra-striped">
-  <tr>
-    <th>Group Name</th>
-    <th>Support Percentage</th>
-    <th></th>
-  </tr>
-  <%= f.fields_for :supporters do |supporter| %>
-  <%= render 'supporter_fields', :f => supporter %>
-  <% end %>
-  <% if @person.supporters.count == 0 %>
-    <tr>
-      <td>
-        No supporters have been added.
-      </td>
-      <td></td>
-      <td></td>
-    </tr>
-  <% end %>
-  <tr>
-    <td>
-      <%= link_to_add_fields "Add Support Demographic", f, :supporters %>
-    </td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>

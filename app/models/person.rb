@@ -1,6 +1,8 @@
 class Person < ActiveRecord::Base
   
-  validates_presence_of :first_name, :last_name
+  attr_accessible :first_name, :middle_name, :last_name, :suffix, :religion_id, :date_of_birth, :date_of_death, :bio, :professional_experience, :literary_work, :contact_street_address,  :contact_city, :contact_state, :contact_zip, :twitter_id, :contact_phone, :contact_fax, :contact_email, :contact_web_page_name, :contact_web_page_url, :photo_url, :birthplace, :is_congress_member, :net_worth_minimum, :net_worth_average, :net_worth_maximum, :business_associates_attributes, :family_members_attributes, :personal_assets_attributes, :transactions_attributes, :degrees_attributes, :endorsements_attributes, :issue_positions_attributes, :flip_flops_attributes, :campaign_platforms_attributes, :accusations_attributes, :litigations_attributes, :political_offices_attributes, :supporters_attributes
+
+  validates_presence_of :first_name, :last_name, :religion_id
   
   before_create :set_name
   before_update :set_name

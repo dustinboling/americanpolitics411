@@ -1,4 +1,6 @@
 class PersonalAsset < ActiveRecord::Base
+
+  attr_accessible :person_id, :value_min, :value_max, :value, :created_at, :updated_at, :organization_id
   belongs_to :person
   belongs_to :organization
   

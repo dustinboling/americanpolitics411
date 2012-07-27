@@ -1,4 +1,6 @@
 class BusinessAssociate < ActiveRecord::Base
+
+  attr_accessible :person_id, :organization_name, :full_name, :business_relationship, :position
   belongs_to :person
   belongs_to :organization
   

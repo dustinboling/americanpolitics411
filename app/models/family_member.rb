@@ -1,6 +1,8 @@
 class FamilyMember < ActiveRecord::Base
   belongs_to :person
-  
+
+  attr_accessible :person_id, :family_member, :relationship, :notes
+
   def find_person_name
     # Person.find(family_member).name
   end
