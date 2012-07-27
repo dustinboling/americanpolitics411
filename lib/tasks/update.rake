@@ -160,17 +160,21 @@ namespace :update do
     @last_updated_at = last_update.utc_timestamp.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     page = 1
-    total_votes = client.votes(:voted_at__gte => @last_updated_at, :per_page => 50)
+    total_votes = client.votes(:session => args.session, :per_page => 50)
     puts "Total number of votes: #{total_votes['count']}"
     batches = (total_votes['count'].to_i / 50.0).ceil
     batches.times do
-      votes_ary = client.votes(:voted_at__gte => @last_updated_at, :per_page => 50, :page => page)
+      votes_ary = client.votes(:session => args.session, :per_page => 50, :page => page)
       votes = votes_ary['votes']
       puts "==|Batch #{page}|==========================="
-      @vote_count = 1
       votes.each do |v|
         puts "Adding votes for #{v.bill_id}..."
         rtc_id = v.bill_id
+        if v.voted_at
+          @voted_at = v.voted_at
+        end
+        @how = v.how
+        @result = v.result
         if Legislation.find_by_rtc_id(rtc_id)
           legislation = Legislation.find_by_rtc_id(rtc_id)
           legislation_id = legislation.id
@@ -183,7 +187,10 @@ namespace :update do
               PersonVote.create(
                 :legislation_id => legislation_id,
                 :person_id => person_id,
-                :vote => vote
+                :vote => vote,
+                :voted_at => @voted_at,
+                :how => @how,
+                :result => @result
               )
             else
               # do nothing
@@ -192,7 +199,6 @@ namespace :update do
         else
           # do nothing
         end
-        @vote_count = @vote_count + 1
       end
       page = page + 1
     end
