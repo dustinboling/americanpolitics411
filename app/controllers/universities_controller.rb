@@ -70,7 +70,7 @@ class UniversitiesController < ApplicationController
 
   def destroy
     @university = University.find(params[:id])
-    if Degree.where("university_id = #{params[:id]}").empty?
+    if Degree.where("university_id = ?", "#{params[:id]}").empty?
       @university.destroy
     else
       flash[:error] = "Cannot delete a university while it is attached to a person"

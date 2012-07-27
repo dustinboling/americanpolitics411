@@ -81,7 +81,7 @@ class PeopleController < ApplicationController
       @people = Person.where(:state_represented => params[:state_represented], :chamber => params[:chamber])
     elsif params.has_key?(:name) && params.has_key?(:chamber)
       name_range  = params[:name].split('-')
-      @people = Person.where("chamber = '#{params[:chamber]}' AND last_name BETWEEN '#{name_range[0]}' AND '#{name_range[1]}'")
+      @people = Person.where("'chamber = ?', '#{params[:chamber]}' AND last_name BETWEEN '#{name_range[0]}' AND '#{name_range[1]}'")
     elsif params.has_key?(:chamber) && params.has_key?(:party)
       @people = Person.where(:chamber => params[:chamber], :current_party => params[:party])
     elsif params.has_key?(:state)

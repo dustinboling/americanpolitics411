@@ -10,7 +10,7 @@ class LegislationController < ApplicationController
   def refresh
     if params[:legislations][:introduced_year]
       year = params[:legislations][:introduced_year]
-      @legislation = Legislation.where("introduced_year = #{year}").page(params[:page]).per(25)
+      @legislation = Legislation.where("introduced_year = ?", "#{year}").page(params[:page]).per(25)
     elsif params[:legislations][:session]
       congress_year = params[:legislations][:session]
       @legislation = Legislation.where(:session => congress_year).page(params[:page]).per(25)
