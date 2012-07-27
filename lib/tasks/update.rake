@@ -20,7 +20,7 @@ namespace :update do
       bills = legislation['bills']
       @bill_count = 1
       bills.each do |b|
-        @introduced_year = b.introduced_at.to_time.year
+        introduced_year = b.introduced_at.to_time.year
         @bill = b
         if b.chamber == "senate"
           @chamber = "S"
@@ -55,7 +55,7 @@ namespace :update do
           :bill_type => b.bill_type,
           :bill_number => b.number, 
           :session => b.session,
-          :introduced_year => @introduced_year,
+          :introduced_year => introduced_year,
           :introduced_date => b.introduced_at,
           :chamber => @chamber,
           :short_title => b.short_title,
