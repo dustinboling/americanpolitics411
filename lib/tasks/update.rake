@@ -95,7 +95,7 @@ namespace :update do
         puts "Adding cosponsors..."
         cosponsors = @bill.cosponsors
         cosponsors.each do |c|
-          unless Person.find_by_bioguide_id(c.bioguide_id).nil?
+          unless Person.find_by_bioguide_id(c.bioguide_id).nil? || Legislation.find_by_rtc_id(@bill.bill_id).nil?
             l = LegislationCosponsor.create(
               :person_id => Person.find_by_bioguide_id(c.bioguide_id).id,
               :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
