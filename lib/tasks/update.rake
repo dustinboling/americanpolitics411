@@ -110,21 +110,23 @@ namespace :update do
           code = c[1]['committee']['committee_id']
           name = c[1]['committee']['name']
           chamber = c[1]['committee']['chamber']
-          if Committee.find_by_code(code)
-            cl = CommitteeLegislation.create(
-              :committee_id => Committee.find_by_code(code).id,
-              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
-            )
-          else 
-            co = Committee.create(
-              :code => code,
-              :name => name,
-              :chamber => chamber
-            )
-            cl = CommitteeLegislation.create(
-              :committee_id => co.id,
-              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
-            )
+          unless Committee.find_by_code(code).nil? || Legislation.find_by_rtc_id(@bill.bill_id).nil?
+            if Committee.find_by_code(code)
+              cl = CommitteeLegislation.create(
+                :committee_id => Committee.find_by_code(code).id,
+                :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
+              )
+            else 
+              co = Committee.create(
+                :code => code,
+                :name => name,
+                :chamber => chamber
+              )
+              cl = CommitteeLegislation.create(
+                :committee_id => co.id,
+                :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
+              )
+            end
           end
         end
 
