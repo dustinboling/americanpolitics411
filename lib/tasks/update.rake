@@ -72,22 +72,24 @@ namespace :update do
         # add legislation issues
         puts "Adding issues... for #{b.number}"
         legislation_issues = @bill.keywords
-        legislation_issues.each do |li|
-          if Issue.find_by_name(li)
-            puts "assigning #{li} to #{Legislation.find_by_rtc_id(@bill.bill_id).bill_number}"
-            l_issue = LegislationIssue.create(
-              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
-              :issue_id => Issue.find_by_name(li).id
-            )
-          else 
-            puts "adding issue: #{li}."
-            issue = Issue.create(
-              :name => li
-            )
-            l_issue = LegislationIssue.create(
-              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
-              :issue_id => issue.id
-            )
+        unless Legislation.find_by_rtc_id(@bill.bill_id).nil? || Issue.find_by_name(li).nil?
+          legislation_issues.each do |li|
+            if Issue.find_by_name(li)
+              puts "assigning #{li} to #{Legislation.find_by_rtc_id(@bill.bill_id).bill_number}"
+              l_issue = LegislationIssue.create(
+                :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
+                :issue_id => Issue.find_by_name(li).id
+              )
+            else 
+              puts "adding issue: #{li}."
+              issue = Issue.create(
+                :name => li
+              )
+              l_issue = LegislationIssue.create(
+                :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
+                :issue_id => issue.id
+              )
+            end
           end
         end
 
