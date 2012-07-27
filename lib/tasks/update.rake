@@ -134,11 +134,13 @@ namespace :update do
         puts "Adding actions..."
         actions = @bill.actions
         actions.each do |a|
-          action = Action.create(
-            :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
-            :acted_at => a.acted_at,
-            :text => a.text
-          )
+          unless Legislation.find_by_rtc_id(@bill.bill_id).nil?
+            action = Action.create(
+              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
+              :acted_at => a.acted_at,
+              :text => a.text
+            )
+          end
         end
         @bill_count = @bill_count + 1
       end
