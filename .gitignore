@@ -21,6 +21,7 @@ config/database.yml
 # Ignore CSV directories
 /PFD
 /earmarks
+/.sass-cache
 
 # Ignore Benchmarks
 bm-gsub.rb
