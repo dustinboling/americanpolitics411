@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120728340614) do
+ActiveRecord::Schema.define(:version => 20120730174049) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -438,6 +438,7 @@ ActiveRecord::Schema.define(:version => 20120728340614) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "organization_id"
+    t.text     "organization_name"
   end
 
   add_index "personal_assets", ["organization_id"], :name => "index_personal_assets_on_organization_id"
