@@ -1,0 +1,17 @@
+{ "People": {
+<% @people.each_with_index do |person, i| %>
+<% name = person.full_name.gsub(/  /, " ") %>
+  "<%= person.id %>": {
+  <% if i == @people.length - 1 %>
+      "slug": "<%= person.slug %>",
+      "full_name": "<%= name %>"
+    }
+  <% else %>
+      "slug": "<%= person.slug %>",
+      "full_name": "<%= name %>"
+    },
+  <% i = i + 1 %>
+  <% end %>
+<% end %>
+  }
+}

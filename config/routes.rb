@@ -37,6 +37,9 @@ Politics411::Application.routes.draw do
   get "api/autocomplete/autocomplete_main_issues_name"
   get "api/autocomplete/autocomplete_issues_name"
 
+  # people api
+  get "api/people/index"
+
   get "login" => "sessions#new", :as => "login"
   get "logout" => "sessions#destroy", :as => "logout"
   get "signup" => "users#new", :as => "signup"
