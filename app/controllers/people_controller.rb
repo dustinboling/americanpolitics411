@@ -107,11 +107,23 @@ class PeopleController < ApplicationController
 
   def show
     @person = Person.find(params[:id])
+    endpoint = "http://204.236.234.179/ap411/official/"
+    url = endpoint + @person.slug + "/?output=json"
+    @articles = fetch_json(url)
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @person }
     end
+  end
+
+  def fetch_json(url)
+    require 'json'
+    require 'net/http'
+
+    resp = Net::HTTP.get_response(URI.parse(url))
+    data = resp.body
+    JSON.parse(data)
   end
 
   def pac_contributors

@@ -2,7 +2,7 @@
 <h2>No videos for this person.</h2>
 <% else %>
 <% begin %>
-<% @personal_videos = $youtube.videos_by(:user => "#{@person.youtube_id}", :page => 1, :per_page => 18) %>
+<% @personal_videos = $youtube.videos_by(:user => "#{@person.youtube_id}", :page => 1, :per_page => 2) %>
 <% rescue %>
 <% else %>
 <% @personal_videos.videos.each do |v| %>

@@ -19,6 +19,20 @@
 </div>
 
 <style>
+  #media-center-videos {
+    border-left: 1px solid #777;
+  }
+  #media-center-videos a img {
+    width: 360px;
+    height: 270px;
+    padding-left: 50px;
+  }
+  #print-header,
+  #media-center-header,
+  #video-media-header {
+    padding-left: 60px;
+    line-height: 1;
+  }
   #popup-text {
     position: absolute;
     top: 80px;
@@ -67,12 +81,26 @@
   <div id="current-tweet">
   </div>
   <div id="media-center-separator">
-    <h4>Media Center</h4>
+    <div id="print-header" class="four columns">
+      <h4>Print Media >></h4>
+    </div>
+    <div id="media-center-header" class="four columns">
+      <h4>Media Center</h4>
+    </div>
+    <div id="video-media-header" class="four columns">
+      <h4>Video Media >></h4>
+    </div>
   </div>
   <div id="media-center" class="sixteen columns">
-    <div id="media-center-articles">
+    <div id="media-center-articles" class="eight columns">
+      <% @articles = @articles['articles'] %>
+      <% @articles.each do |a| %>
+      <% article = a[1] %>
+      <h4><%= article['post_title'] %></h4>
+      <p><%= article['post_excerpt'] %></p>
+      <% end %>
     </div>
-    <div id="media-center-videos">
+    <div id="media-center-videos" class="seven columns">
       <%= render :partial => 'media' %>
     </div>
   </div>
