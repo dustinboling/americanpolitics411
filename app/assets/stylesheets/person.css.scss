@@ -15,7 +15,8 @@
 }
 
 #media-center-articles {
-  height: 400px;
+  height: 490px;
+  border-right: 1px solid #333;
 }
 
 h2.edit-title {
@@ -27,6 +28,7 @@ h2.edit-title {
   display: inline-block;
   width: 200px;
   height: 100px;
+  padding-right: 20px;
 }
 
 .article h4 {
@@ -44,8 +46,8 @@ h2.edit-title {
   padding-top: 10px;
 }
 
-#media-center-videos {
-  border-left: 1px solid #777;
+.red {
+  color: red;
 }
 
 #media-center-videos a img {
