@@ -107,7 +107,7 @@ class PeopleController < ApplicationController
 
   def show
     @person = Person.find(params[:id])
-    endpoint = "http://204.236.234.179/ap411/official/"
+    endpoint = "http:/ap411.pagodabox.com/official/"
     url = endpoint + @person.slug + "/?output=json"
     @articles = fetch_json(url)
 
