@@ -3,10 +3,10 @@ window.onload = function () {
     r = Raphael("bubble-map", 940, 480);
     connections = [];
     shapes = [];
-    shapes = [  r.rect(370, 40, 200, 40, 10),   // [0] = name
+    shapes = [  r.rect(370, 10, 200, 40, 10),   // [0] = name
         r.rect(1, 310, 340, 150, 10),   // [1] = twitter box
-        r.rect(370, 90, 200, 200, 10),  // [2] = picture
-        r.rect(370, 300, 200, 160, 10), // [3] = details
+        r.rect(370, 60, 200, 200, 10),  // [2] = picture
+        r.rect(370, 309, 200, 150, 10), // [3] = details
         r.rect(180, 30, 100, 45, 10),   // [4] = professional experience
         r.rect(200, 170, 100, 45, 10),  // [5] = controversy
         r.rect(180, 245, 100, 45, 10),  // [6] = issue positions
@@ -221,14 +221,14 @@ window.onload = function () {
     // image
     if (window.photo_url != undefined) {
         var personImage = window.photo_url
-        r.image(personImage, 369, 89, 202, 202)
+        r.image(personImage, 369, 59, 202, 240)
     }
 
     // main-infotabs
     if (window.state_represented != "") {
-        r.text(380, 60, full_name + " (" + current_party + ") - " + state_represented ).attr({"font-size": "14px", "text-anchor": "start"});
+        r.text(380, 30, full_name + " (" + current_party + ") - " + state_represented ).attr({"font-size": "14px", "text-anchor": "start"});
     } else {
-        r.text(382, 60, full_name).attr({"font-size": "14px", "text-anchor": "start"});
+        r.text(382, 30, full_name).attr({"font-size": "14px", "text-anchor": "start"});
     }
     if (window.birthplace != "") {
         r.text(382, 320, "Birthplace: " + birthplace).attr({"text-anchor": "start", "font-size": "12px"});
