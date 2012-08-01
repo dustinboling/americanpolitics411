@@ -2,12 +2,13 @@
 window.onload = function () {
     r = Raphael("bubble-map", 940, 480);
     connections = [];
+    shapes = [];
     shapes = [  r.rect(370, 40, 200, 40, 10),   // [0] = name
         r.rect(1, 310, 340, 150, 10),   // [1] = twitter box
         r.rect(370, 90, 200, 200, 10),  // [2] = picture
         r.rect(370, 300, 200, 160, 10), // [3] = details
         r.rect(180, 30, 100, 45, 10),   // [4] = professional experience
-        r.rect(200, 170, 100, 45, 10), // [5] = controversy
+        r.rect(200, 170, 100, 45, 10),  // [5] = controversy
         r.rect(180, 245, 100, 45, 10),  // [6] = issue positions
         r.rect(600, 200, 100, 45, 10),  // [7] = political offices
         r.rect(35, 1, 100, 45, 10),     // [8] = family network
@@ -31,6 +32,7 @@ window.onload = function () {
 
     i = 0;
     for (shape in shapes) {
+        texts = [];
         if (i < 4) {
             // do nothing
         } else if (i == 5) {
@@ -38,10 +40,18 @@ window.onload = function () {
             sx = shapes[i].attrs.x + 50;
             sy = shapes[i].attrs.y + 23;
             r.text(sx, sy, nodeTexts[i - 4]).attr({"font-size": "12px"});
+        } else if ((i == 13 || i == 14 || i == 15 || i == 16 || i == 17) && (window.congressmember == "false")) {
+            sx = shapes[i].attrs.x + 50;
+            sy = shapes[i].attrs.y + 23;
+            texts[i] = r.text(sx, sy, nodeTexts[i - 4]).attr({
+                fill: "#999",
+                "font-size": "12px"
+            });
+            texts[i].node.onclick = function() {
+            }
         } else {
             sx = shapes[i].attrs.x + 50;
             sy = shapes[i].attrs.y + 23;
-            texts = [];
             texts[i] = r.text(sx, sy, nodeTexts[i - 4]).attr({"font-size": "12px"});
             texts[i].node.onclick = function() {
                 newRect = makeRectBlank();
@@ -121,34 +131,74 @@ window.onload = function () {
 
     // this is the loop we need to change main node colors to darker grey
     for (var i = 0, ii = shapes.length; i < ii; i++) {
-        if (i == 5) {
-            shapes[i].attr({
-                fill: "#CCC",
-                stroke: "#BBB",
-                "fill-opacity": 1, 
-                "stroke-width": 3
-            });
-            shapes[i].node.onclick = function() {
-                shapes[11].attr({
-                    stroke: "red"
+        if (window.congressmember == "false") {
+            if (i == 5) {
+                shapes[i].attr({
+                    fill: "#CCC",
+                    stroke: "#BBB",
+                    "fill-opacity": 1, 
+                    "stroke-width": 3
                 });
-                shapes[12].attr({
-                    stroke: "blue"
+                shapes[i].node.onclick = function() {
+                    shapes[11].attr({
+                        stroke: "red"
+                    });
+                    shapes[12].attr({
+                        stroke: "blue"
+                    });
+                } 
+            } else if (i == 13 || i == 14  || i == 15 || i == 16 || i == 17) {
+                shapes[i].attr({
+                    fill: "#EEE",
+                    stroke: "#AAA",
+                    "fill-opacity": 1
                 });
-            } 
-        } else if (i == 1) {
-            shapes[i].attr({
-                stroke: "#BBB",
-                "fill": "#FFF",
-                "stroke-width": 3
-            });
+                shapes[i].node.onclick = function() {
+                }
+            } else if (i == 1) {
+                shapes[i].attr({
+                    stroke: "#BBB",
+                    "fill": "#FFF",
+                    "stroke-width": 3
+                });
+            } else {
+                shapes[i].attr({
+                    fill: "#EEE", 
+                    stroke: "#BBB", 
+                    "fill-opacity": 1, 
+                    "stroke-width": 3
+                });
+            }
         } else {
-            shapes[i].attr({
-                fill: "#EEE", 
-                stroke: "#BBB", 
-                "fill-opacity": 1, 
-                "stroke-width": 3
-            });
+            if (i == 5) {
+                shapes[i].attr({
+                    fill: "#CCC",
+                    stroke: "#BBB",
+                    "fill-opacity": 1, 
+                    "stroke-width": 3
+                });
+                shapes[i].node.onclick = function() {
+                    shapes[11].attr({
+                        stroke: "red"
+                    });
+                    shapes[12].attr({
+                        stroke: "blue"
+                    });
+                } 
+            } else if (i == 1) {
+                shapes[i].attr({
+                    stroke: "#BBB",
+                    "fill": "#FFF",
+                    "stroke-width": 3
+                });
+            } else {
+                shapes[i].attr({
+                    fill: "#EEE", 
+                    stroke: "#BBB", 
+                    "fill-opacity": 1, 
+                    "stroke-width": 3
+                });
+            }
         }
     }
     // image
@@ -214,65 +264,69 @@ window.onload = function () {
         this.callback = generateCallback();
         this.timeline;
 
-        function getUser() {
-            return $.ajax({
-                type: "GET",
-                url: "https://api.twitter.com/1/users/lookup.json",
-                dataType: "jsonp",
-                data: { screen_name: twitter_id, callback: this.callback },
-                success: function(data) {
-                    $('#follow-button').show();
-                    return data;
+        if (window.twitter_id == "") {
+            tb_error = r.text(65, 345, "Could not load feed.").attr({"font-size": "24px", "text-anchor": "start", fill: "#999"});
+        } else {
+            function getUser() {
+                return $.ajax({
+                    type: "GET",
+                    url: "https://api.twitter.com/1/users/lookup.json",
+                    dataType: "jsonp",
+                    data: { screen_name: twitter_id, callback: this.callback },
+                    success: function(data) {
+                        $('#follow-button').show();
+                        return data;
+                    }
+                });
+            }
+
+            function getTimeline() {
+                return $.ajax({
+                    type: "GET",
+                    url: "https://api.twitter.com/1/statuses/user_timeline.json",
+                    dataType: "jsonp",
+                    data: { screen_name: twitter_id, calllback: this.callback },
+                    success: function(timeline) {
+                        return timeline;
+                    }
+                });
+            }
+
+            userPromise = getUser();
+            userPromise.success(function(data) {
+                img = data[0]['profile_image_url'].toString();
+                tb_img = r.image(img, 10, 325, 48, 48);
+                tb_name = r.text(65, 330, data[0]['name']).attr({"font-size": "14px", "text-anchor": "start", stroke: "#999", fill: "#999"});
+                tb_screen_name = r.text(65, 345, "@" + twitter_id).attr({"font-size": "12px", "text-anchor": "start", fill: "red"});
+            });
+
+            timelinePromise = getTimeline();
+            var i = 0;
+            timelinePromise.success(function(timeline) {
+                // most-current tweet
+                $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
+
+                // controls
+                twitter_right_arrow = r.image('/assets/twitter_right_arrow.png', 310, 420, 25, 25)
+                twitter_left_arrow = r.image('/assets/twitter_left_arrow.png', 280, 420, 25, 25)
+                twitter_right_arrow.node.onclick = function() {
+                    i = i + 1; 
+                    if (timeline[i] == undefined) {
+                        i = i - 1;
+                    } else {
+                        $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
+                    }
+                }
+                twitter_left_arrow.node.onclick = function() {
+                    i = i - 1; 
+                    if (timeline[i] == undefined) {
+                        i = i + 1;
+                    } else {
+                        $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
+                    }
                 }
             });
         }
-
-        function getTimeline() {
-            return $.ajax({
-                type: "GET",
-                url: "https://api.twitter.com/1/statuses/user_timeline.json",
-                dataType: "jsonp",
-                data: { screen_name: twitter_id, calllback: this.callback },
-                success: function(timeline) {
-                    return timeline;
-                }
-            });
-        }
-
-        userPromise = getUser();
-        userPromise.success(function(data) {
-            img = data[0]['profile_image_url'].toString();
-            tb_img = r.image(img, 10, 325, 48, 48);
-            tb_name = r.text(65, 330, data[0]['name']).attr({"font-size": "14px", "text-anchor": "start", stroke: "#999", fill: "#999"});
-            tb_screen_name = r.text(65, 345, "@" + twitter_id).attr({"font-size": "12px", "text-anchor": "start", fill: "red"});
-        });
-
-        timelinePromise = getTimeline();
-        var i = 0;
-        timelinePromise.success(function(timeline) {
-            // most-current tweet
-            $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
-
-            // controls
-            twitter_right_arrow = r.image('/assets/twitter_right_arrow.png', 310, 420, 25, 25)
-            twitter_left_arrow = r.image('/assets/twitter_left_arrow.png', 280, 420, 25, 25)
-            twitter_right_arrow.node.onclick = function() {
-                i = i + 1; 
-                if (timeline[i] == undefined) {
-                    i = i - 1;
-                } else {
-                    $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
-                }
-            }
-            twitter_left_arrow.node.onclick = function() {
-                i = i - 1; 
-                if (timeline[i] == undefined) {
-                    i = i + 1;
-                } else {
-                    $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
-                }
-            }
-        });
     }
     tb = new Twitterbox();
 
