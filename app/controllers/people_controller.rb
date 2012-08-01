@@ -51,7 +51,7 @@ class PeopleController < ApplicationController
       format.js { render :layout => false }
     end
   end
-  
+
   def switch_to_senator_by_name
     respond_to do |format|
       format.js { render :layout => false }
@@ -108,7 +108,7 @@ class PeopleController < ApplicationController
   def show
     @person = Person.find(params[:id])
     endpoint = "http:/ap411.pagodabox.com/official/"
-    url = endpoint + @person.slug + "/?output=json"
+    url = endpoint + @person.slug + "?output=json"
     @articles = fetch_json(url)
 
     respond_to do |format|
