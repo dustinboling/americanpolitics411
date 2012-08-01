@@ -27,8 +27,22 @@ window.onload = function () {
         r.rect(805, 50, 100, 45, 10),   // [21] = PACs
         r.rect(700, 5, 100, 45, 10)     // [22] = demographics & endorsements
     ];
+
     nodeTexts = ["Professional\n experience", "Controversy", "Issue Positions", "Political Offices", "Family Network", "Investments", "Net Worth", "Accusations", "Litigation", "Voting Behavior", "Earmarks", "Co-sponsored", "Sponsored\n Legislation", "Committees", "Campaign\nPlatforms", "Flip flops", "Contributors", "PACs", "Demographics &\n Endorsements"];
     ajaxPartials = ["professional_experience_text", "controversy_text", "issue_positions_text", "political_offices_text", "family_network_text", "investments_text", "net_worth_text", "accusations_text", "litigation_text", "voting_behavior_text", "earmarks_text", "cosponsored_legislation_text", "sponsored_legislation_text", "committees_text", "campaign_platforms_text", "flip_flops_text", "contributors_text", "pacs_text", "demographics_and_endorsements_text"];
+
+    function hoverIn() {
+        this.attr({stroke: "#000"});
+    }
+    function hoverOut() {
+        this.attr({stroke: "#BBB"});
+    }
+    function hoverInText(shapes, i) {
+        shapes[i].attr({stroke: "#000"});
+    }
+    function hoverOutText(shapes, i) {
+        shapes[i].attr({stroke: "BBB"});
+    }
 
     i = 0;
     for (shape in shapes) {
@@ -53,6 +67,7 @@ window.onload = function () {
             sx = shapes[i].attrs.x + 50;
             sy = shapes[i].attrs.y + 23;
             texts[i] = r.text(sx, sy, nodeTexts[i - 4]).attr({"font-size": "12px"});
+            texts[i].mouseover(hoverInText(shapes, i));
             texts[i].node.onclick = function() {
                 newRect = makeRectBlank();
                 n = 23;
@@ -63,8 +78,8 @@ window.onload = function () {
                             url: 'refresh_bubble_rect',
                             dataType: "script",
                             data: { pid: window.pid, 
-                                nytid: window.nytid, 
-                                partial_name: ajaxPartials[n - 23]
+                                    nytid: window.nytid, 
+                                    partial_name: ajaxPartials[n - 23]
                             },
                             success: function() {
                                 loader.hide();
@@ -88,6 +103,8 @@ window.onload = function () {
                     closeButton.hide();
                 }
             }
+            shapes[i].mouseover(hoverIn);
+            shapes[i].mouseout(hoverOut);
             shapes[i].node.onclick = function() {
                 // make rectangle
                 newRect = makeRectBlank();
