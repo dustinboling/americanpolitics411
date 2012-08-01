@@ -72,7 +72,7 @@
     padding: 0;
   }
 </style>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
 <div class="sixteen columns">
   <div id="bubble-map">
@@ -86,8 +86,10 @@
         top: 405px;
       }
     </style>
+    <% unless @person.twitter_id.nil? %>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     <a href="https://twitter.com/<%= @person.twitter_id %>" class="twitter-follow-button" data-show-count="false">Follow @<%= @person.twitter_id %></a>
+    <% end %>
   </div>
   <div id="popup-text">
   </div>
@@ -106,6 +108,9 @@
   </div>
   <div id="media-center" class="sixteen columns">
     <div id="media-center-articles" class="eight columns">
+      <% if @articles.nil? %>
+      <h2>No articles found.</h1>
+      <% else %>
       <% @articles = @articles['articles'] %>
       <% @articles.each do |a| %>
       <% article = a[1] %>
@@ -113,6 +118,7 @@
         <h4><%= article['post_title'] %></h4>
         <p><%= article['post_excerpt'] %></p>
       </div>
+      <% end %>
       <% end %>
     </div>
     <div id="media-center-videos" class="seven columns">

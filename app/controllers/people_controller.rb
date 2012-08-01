@@ -121,9 +121,12 @@ class PeopleController < ApplicationController
     require 'json'
     require 'net/http'
 
-    resp = Net::HTTP.get_response(URI.parse(url))
-    data = resp.body
-    JSON.parse(data)
+    begin
+      resp = Net::HTTP.get_response(URI.parse(url))
+      data = resp.body
+      JSON.parse(data)
+    rescue Exception => e
+    end
   end
 
   def pac_contributors
