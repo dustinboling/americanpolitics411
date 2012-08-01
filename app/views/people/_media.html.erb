@@ -4,6 +4,7 @@
     <iframe class="youtube-player" type="text/html" width="400" height="241" src="http://www.youtube.com/embed/<%= v.unique_id %>" frameborder="0">
     </iframe>
   <% end %>
+    <p>* These videos are not from the official account of <%= @person.first_name %> <%= @person.last_name %>.</p>
 <% else %>
   <% begin %>
     <% @personal_videos = $youtube.videos_by(:user => "#{@person.youtube_id}", :page => 1, :per_page => 2) %>
