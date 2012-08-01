@@ -14,42 +14,59 @@
   vertical-align: middle;
 }
 
-/* EDIT */
+#media-center-articles {
+  height: 400px;
+}
+
 h2.edit-title {
   font-size: 22px;
   text-transform: uppercase;
 }
 
 .article {
-  display: block;
+  display: inline-block;
   width: 200px;
+  height: 100px;
 }
+
 .article h4 {
   font-weight: bold;
   font-size: 12px;
 }
+
 .article p {
   font-size: 10px;
+  padding: 0;
+  margin: 0;
 }
+
+.first {
+  padding-top: 10px;
+}
+
 #media-center-videos {
   border-left: 1px solid #777;
 }
+
 #media-center-videos a img {
   width: 360px;
   height: 270px;
   padding-left: 50px;
 }
+
 #print-header,
 #media-center-header,
 #video-media-header {
   padding-left: 60px;
   line-height: 1;
 }
+
 #popup-text {
   position: absolute;
   top: 80px;
   left: 20px;
 }
+
 #current-tweet p {
   position: absolute;
   left: 20px;
@@ -58,6 +75,7 @@ h2.edit-title {
   width: 325px;
   word-wrap: break-word;
 }
+
 /* fix datatable */
 #data-table {
   width: 920px;

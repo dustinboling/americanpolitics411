@@ -58,12 +58,18 @@
       <h2>No articles found.</h1>
       <% else %>
       <% @articles = @articles['articles'] %>
-      <% @articles.each do |a| %>
+      <% i = 1 %>
+      <% @articles.take(8).each do |a| %>
       <% article = a[1] %>
+      <% if i == 1 %>
+      <div class="article first">
+      <% else %>
       <div class="article">
-        <h4><%= article['post_title'] %></h4>
-        <p><%= article['post_excerpt'] %></p>
+      <% end %>
+        <h4><%= link_to article['post_title'], article['guid'].gsub(/#038;/, "") %></h4>
+        <p><%= truncate(article['post_excerpt'], :length => 160) %></p>
       </div>
+      <% i = i + 1 %>
       <% end %>
       <% end %>
     </div>
