@@ -236,7 +236,7 @@ window.onload = function () {
         r.text(382, 320, "Birthplace: Unknown" + birthplace).attr({"text-anchor": "start", "font-size": "12px"});
     }
     if (window.birthdate != "") {
-        r.text(382, 335, "Born " + birthdate).attr({"text-anchor": "start", "font-size": "12px"});
+        r.text(382, 335, "Born: " + birthdate).attr({"text-anchor": "start", "font-size": "12px"});
     } else {
         r.text(382, 335, "Birthdate: Unknown").attr({"text-anchor": "start", "font-size": "12px"});
     }
