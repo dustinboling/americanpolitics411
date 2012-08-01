@@ -12,6 +12,7 @@
   window.birthdate = "<%= @person.date_of_birth %>";
   window.religion = "<%= @person.religion.name %>";
   window.twitter_id = "<%= @person.twitter_id %>";
+  window.congressmember = "<%= @person.is_congress_member %>";
 </script>
 
 <div class="page-header">
@@ -19,6 +20,17 @@
 </div>
 
 <style>
+  .article {
+    display: block;
+    width: 200px;
+  }
+  .article h4 {
+    font-weight: bold;
+    font-size: 12px;
+  }
+  .article p {
+    font-size: 10px;
+  }
   #media-center-videos {
     border-left: 1px solid #777;
   }
@@ -60,6 +72,7 @@
     padding: 0;
   }
 </style>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
 <div class="sixteen columns">
   <div id="bubble-map">
@@ -73,8 +86,8 @@
         top: 405px;
       }
     </style>
-    <a href="https://twitter.com/<%= @person.twitter_id %>" class="twitter-follow-button" data-show-count="false">Follow @<%= @person.twitter_id %></a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <a href="https://twitter.com/<%= @person.twitter_id %>" class="twitter-follow-button" data-show-count="false">Follow @<%= @person.twitter_id %></a>
   </div>
   <div id="popup-text">
   </div>
@@ -96,8 +109,10 @@
       <% @articles = @articles['articles'] %>
       <% @articles.each do |a| %>
       <% article = a[1] %>
-      <h4><%= article['post_title'] %></h4>
-      <p><%= article['post_excerpt'] %></p>
+      <div class="article">
+        <h4><%= article['post_title'] %></h4>
+        <p><%= article['post_excerpt'] %></p>
+      </div>
       <% end %>
     </div>
     <div id="media-center-videos" class="seven columns">
