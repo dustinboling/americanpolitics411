@@ -107,7 +107,7 @@ class PeopleController < ApplicationController
 
   def show
     @person = Person.find(params[:id])
-    endpoint = "http:/ap411.pagodabox.com/official/"
+    endpoint = "http://ap411.pagodabox.com/official/"
     url = endpoint + @person.slug + "/?output=json"
     @articles = fetch_json(url)
 
@@ -121,11 +121,10 @@ class PeopleController < ApplicationController
     require 'json'
     require 'net/http'
 
-    resp = Net::HTTP.get_response(URI.parse(url))
-    data = resp.body
-    JSON.parse(data)
-
     begin
+      resp = Net::HTTP.get_response(URI.parse(url))
+      data = resp.body
+      JSON.parse(data)
     rescue Exception => e
     end
   end
