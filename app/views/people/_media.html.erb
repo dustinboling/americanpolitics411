@@ -1,12 +1,18 @@
 <% if @person.youtube_id.blank? %>
-<h2>No videos for this person.</h2>
+  <% @personal_videos = $youtube.videos_by(:query => "#{@person.full_name}", :page => 1, :per_page => 2) %>
+  <% @personal_videos.videos.each do |v| %>
+    <iframe class="youtube-player" type="text/html" width="400" height="241" src="http://www.youtube.com/embed/<%= v.unique_id %>" frameborder="0">
+    </iframe>
+  <% end %>
+    <p>* These videos are not from the official account of <%= @person.first_name %> <%= @person.last_name %>.</p>
 <% else %>
-<% begin %>
-<% @personal_videos = $youtube.videos_by(:user => "#{@person.youtube_id}", :page => 1, :per_page => 18) %>
-<% rescue %>
-<% else %>
-<% @personal_videos.videos.each do |v| %>
-<%= link_to image_tag(v.thumbnails.fourth.url), "#{v.player_url}" %>
-<% end %>
+  <% begin %>
+    <% @personal_videos = $youtube.videos_by(:user => "#{@person.youtube_id}", :page => 1, :per_page => 2) %>
+  <% rescue %>
+  <% else %>
+    <% @personal_videos.videos.each do |v| %>
+      <iframe class="youtube-player" type="text/html" width="400" height="241" src="http://www.youtube.com/embed/<%= v.unique_id %>" frameborder="0">
+      </iframe>
+  <% end %>
 <% end %>
 <% end %>

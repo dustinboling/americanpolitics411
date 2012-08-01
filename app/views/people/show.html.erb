@@ -12,44 +12,17 @@
   window.birthdate = "<%= @person.date_of_birth %>";
   window.religion = "<%= @person.religion.name %>";
   window.twitter_id = "<%= @person.twitter_id %>";
+  window.congressmember = "<%= @person.is_congress_member %>";
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 </script>
 
 <div class="page-header">
   <%= render 'layouts/messages' %>
 </div>
 
-<style>
-  #popup-text {
-    position: absolute;
-    top: 80px;
-    left: 20px;
-  }
-  #current-tweet p {
-    position: absolute;
-    left: 20px;
-    top: 430px;
-    font-size: 12px;
-    width: 325px;
-    word-wrap: break-word;
-  }
-  /* fix datatable */
-  #data-table {
-    width: 920px;
-  }
-  #data-table_filter label {
-    text-align: right;
-    margin: 0;
-    padding: 0;
-  }
-  #data-table_filter input {
-    margin: 0;
-    padding: 0;
-  }
-</style>
 
 <div class="sixteen columns">
-  <div id="bubble-map">
-  </div>
+  <div id="bubble-map"></div>
   <div id="follow-button" style="display: none;">
     <style>
       .twitter-follow-button {
@@ -59,20 +32,47 @@
         top: 405px;
       }
     </style>
+    <% unless @person.twitter_id.nil? %>
     <a href="https://twitter.com/<%= @person.twitter_id %>" class="twitter-follow-button" data-show-count="false">Follow @<%= @person.twitter_id %></a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <% end %>
   </div>
   <div id="popup-text">
   </div>
   <div id="current-tweet">
   </div>
   <div id="media-center-separator">
-    <h4>Media Center</h4>
+    <div id="print-header" class="four columns">
+      <h4>Print Media <span class="red">>></span></h4>
+    </div>
+    <div id="media-center-header" class="four columns">
+      <h4>Media Center</h4>
+    </div>
+    <div id="video-media-header" class="four columns">
+      <h4>Video Media <span class="red">>></span></h4>
+    </div>
   </div>
   <div id="media-center" class="sixteen columns">
-    <div id="media-center-articles">
+    <div id="media-center-articles" class="eight columns">
+      <% if @articles.nil? %>
+      <h2>No articles have been added.</h2>
+      <% else %>
+      <% @articles = @articles['articles'] %>
+      <% i = 1 %>
+      <% @articles.take(8).each do |a| %>
+      <% article = a[1] %>
+      <% if i == 1 %>
+      <div class="article first">
+      <% else %>
+      <div class="article">
+      <% end %>
+        <h4><%= link_to article['post_title'], article['guid'].gsub(/#038;/, "") %></h4>
+        <p><%= truncate(article['post_excerpt'], :length => 140) %><%= link_to " Read More >", article['guid'].gsub(/#038;/, ""), {:style => "color:red;"} %></p>
+      </div>
+      <% i = i + 1 %>
+      <% end %>
+      <% end %>
     </div>
-    <div id="media-center-videos">
+    <div id="media-center-videos" class="seven columns">
       <%= render :partial => 'media' %>
     </div>
   </div>

@@ -3,7 +3,7 @@ class PeopleController < ApplicationController
   layout 'public'
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:all, :representatives, :senators, 
+  skip_authorize_resource :only => [:all, :show, :representatives, :senators, 
     :indiv_contributors, :pac_contributors, :refresh_officials, 
     :switch_to_representative_by_state, :switch_to_representative_by_name, 
     :switch_to_representative_by_party, :switch_to_senator_by_state, 
@@ -51,7 +51,7 @@ class PeopleController < ApplicationController
       format.js { render :layout => false }
     end
   end
-  
+
   def switch_to_senator_by_name
     respond_to do |format|
       format.js { render :layout => false }
@@ -107,10 +107,25 @@ class PeopleController < ApplicationController
 
   def show
     @person = Person.find(params[:id])
+    endpoint = "http://ap411.pagodabox.com/official/"
+    url = endpoint + @person.slug + "/?output=json"
+    @articles = fetch_json(url)
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @person }
+    end
+  end
+
+  def fetch_json(url)
+    require 'json'
+    require 'net/http'
+
+    begin
+      resp = Net::HTTP.get_response(URI.parse(url))
+      data = resp.body
+      JSON.parse(data)
+    rescue Exception => e
     end
   end
 

@@ -1,9 +1,9 @@
 <tr class="fields actions">
-	<%= f.hidden_field :person_id, :value => @person.id %>
-	
-	 <td><%= f.text_field :organization_name, :class => 'organization-list', data: {organizations_source: api_autocomplete_autocomplete_organization_name_path} %></td>
-   <td><%= f.text_field :value, :class => 'span2' %></td>
-   <td><%= f.text_field :value_min, :class => 'span2' %></td>
-   <td><%= f.text_field :value_max, :class => 'span2' %></td>
-	 <td><%= link_to_remove_fields "remove", f %></td>
+  <%= f.hidden_field :person_id, :value => @person.id %>
+
+  <td><%= f.text_field :organization_name, :class => 'organization-list', data: {organizations_source: api_autocomplete_autocomplete_organization_name_path} %></td>
+  <td><%= f.text_field :value, :class => 'span2' %></td>
+  <td><%= f.text_field :value_min, :class => 'span2' %></td>
+  <td><%= f.text_field :value_max, :class => 'span2' %></td>
+  <td><%= link_to_remove_fields "remove", f %></td>
 </tr>

@@ -2,12 +2,13 @@
 window.onload = function () {
     r = Raphael("bubble-map", 940, 480);
     connections = [];
-    shapes = [  r.rect(370, 40, 200, 40, 10),   // [0] = name
+    shapes = [];
+    shapes = [  r.rect(370, 10, 200, 40, 10),   // [0] = name
         r.rect(1, 310, 340, 150, 10),   // [1] = twitter box
-        r.rect(370, 90, 200, 200, 10),  // [2] = picture
-        r.rect(370, 300, 200, 160, 10), // [3] = details
+        r.rect(370, 60, 200, 200, 10),  // [2] = picture
+        r.rect(370, 309, 200, 150, 10), // [3] = details
         r.rect(180, 30, 100, 45, 10),   // [4] = professional experience
-        r.rect(200, 170, 100, 45, 10), // [5] = controversy
+        r.rect(200, 170, 100, 45, 10),  // [5] = controversy
         r.rect(180, 245, 100, 45, 10),  // [6] = issue positions
         r.rect(600, 200, 100, 45, 10),  // [7] = political offices
         r.rect(35, 1, 100, 45, 10),     // [8] = family network
@@ -26,11 +27,26 @@ window.onload = function () {
         r.rect(805, 50, 100, 45, 10),   // [21] = PACs
         r.rect(700, 5, 100, 45, 10)     // [22] = demographics & endorsements
     ];
+
     nodeTexts = ["Professional\n experience", "Controversy", "Issue Positions", "Political Offices", "Family Network", "Investments", "Net Worth", "Accusations", "Litigation", "Voting Behavior", "Earmarks", "Co-sponsored", "Sponsored\n Legislation", "Committees", "Campaign\nPlatforms", "Flip flops", "Contributors", "PACs", "Demographics &\n Endorsements"];
     ajaxPartials = ["professional_experience_text", "controversy_text", "issue_positions_text", "political_offices_text", "family_network_text", "investments_text", "net_worth_text", "accusations_text", "litigation_text", "voting_behavior_text", "earmarks_text", "cosponsored_legislation_text", "sponsored_legislation_text", "committees_text", "campaign_platforms_text", "flip_flops_text", "contributors_text", "pacs_text", "demographics_and_endorsements_text"];
 
+    function hoverIn() {
+        this.attr({stroke: "#000"});
+    }
+    function hoverOut() {
+        this.attr({stroke: "#BBB"});
+    }
+    function hoverInText(shapes, i) {
+        shapes[i].attr({stroke: "#000"});
+    }
+    function hoverOutText(shapes, i) {
+        shapes[i].attr({stroke: "BBB"});
+    }
+
     i = 0;
     for (shape in shapes) {
+        texts = [];
         if (i < 4) {
             // do nothing
         } else if (i == 5) {
@@ -38,11 +54,20 @@ window.onload = function () {
             sx = shapes[i].attrs.x + 50;
             sy = shapes[i].attrs.y + 23;
             r.text(sx, sy, nodeTexts[i - 4]).attr({"font-size": "12px"});
+        } else if ((i == 13 || i == 14 || i == 15 || i == 16 || i == 17) && (window.congressmember == "false")) {
+            sx = shapes[i].attrs.x + 50;
+            sy = shapes[i].attrs.y + 23;
+            texts[i] = r.text(sx, sy, nodeTexts[i - 4]).attr({
+                fill: "#999",
+                "font-size": "12px"
+            });
+            texts[i].node.onclick = function() {
+            }
         } else {
             sx = shapes[i].attrs.x + 50;
             sy = shapes[i].attrs.y + 23;
-            texts = [];
             texts[i] = r.text(sx, sy, nodeTexts[i - 4]).attr({"font-size": "12px"});
+            texts[i].mouseover(hoverInText(shapes, i));
             texts[i].node.onclick = function() {
                 newRect = makeRectBlank();
                 n = 23;
@@ -53,8 +78,8 @@ window.onload = function () {
                             url: 'refresh_bubble_rect',
                             dataType: "script",
                             data: { pid: window.pid, 
-                                nytid: window.nytid, 
-                                partial_name: ajaxPartials[n - 23]
+                                    nytid: window.nytid, 
+                                    partial_name: ajaxPartials[n - 23]
                             },
                             success: function() {
                                 loader.hide();
@@ -78,6 +103,8 @@ window.onload = function () {
                     closeButton.hide();
                 }
             }
+            shapes[i].mouseover(hoverIn);
+            shapes[i].mouseout(hoverOut);
             shapes[i].node.onclick = function() {
                 // make rectangle
                 newRect = makeRectBlank();
@@ -121,47 +148,87 @@ window.onload = function () {
 
     // this is the loop we need to change main node colors to darker grey
     for (var i = 0, ii = shapes.length; i < ii; i++) {
-        if (i == 5) {
-            shapes[i].attr({
-                fill: "#CCC",
-                stroke: "#BBB",
-                "fill-opacity": 1, 
-                "stroke-width": 3
-            });
-            shapes[i].node.onclick = function() {
-                shapes[11].attr({
-                    stroke: "red"
+        if (window.congressmember == "false") {
+            if (i == 5) {
+                shapes[i].attr({
+                    fill: "#CCC",
+                    stroke: "#BBB",
+                    "fill-opacity": 1, 
+                    "stroke-width": 3
                 });
-                shapes[12].attr({
-                    stroke: "blue"
+                shapes[i].node.onclick = function() {
+                    shapes[11].attr({
+                        stroke: "red"
+                    });
+                    shapes[12].attr({
+                        stroke: "blue"
+                    });
+                } 
+            } else if (i == 13 || i == 14  || i == 15 || i == 16 || i == 17) {
+                shapes[i].attr({
+                    fill: "#EEE",
+                    stroke: "#AAA",
+                    "fill-opacity": 1
                 });
-            } 
-        } else if (i == 1) {
-            shapes[i].attr({
-                stroke: "#BBB",
-                "fill": "#FFF",
-                "stroke-width": 3
-            });
+                shapes[i].node.onclick = function() {
+                }
+            } else if (i == 1) {
+                shapes[i].attr({
+                    stroke: "#BBB",
+                    "fill": "#FFF",
+                    "stroke-width": 3
+                });
+            } else {
+                shapes[i].attr({
+                    fill: "#EEE", 
+                    stroke: "#BBB", 
+                    "fill-opacity": 1, 
+                    "stroke-width": 3
+                });
+            }
         } else {
-            shapes[i].attr({
-                fill: "#EEE", 
-                stroke: "#BBB", 
-                "fill-opacity": 1, 
-                "stroke-width": 3
-            });
+            if (i == 5) {
+                shapes[i].attr({
+                    fill: "#CCC",
+                    stroke: "#BBB",
+                    "fill-opacity": 1, 
+                    "stroke-width": 3
+                });
+                shapes[i].node.onclick = function() {
+                    shapes[11].attr({
+                        stroke: "red"
+                    });
+                    shapes[12].attr({
+                        stroke: "blue"
+                    });
+                } 
+            } else if (i == 1) {
+                shapes[i].attr({
+                    stroke: "#BBB",
+                    "fill": "#FFF",
+                    "stroke-width": 3
+                });
+            } else {
+                shapes[i].attr({
+                    fill: "#EEE", 
+                    stroke: "#BBB", 
+                    "fill-opacity": 1, 
+                    "stroke-width": 3
+                });
+            }
         }
     }
     // image
     if (window.photo_url != undefined) {
         var personImage = window.photo_url
-        r.image(personImage, 369, 89, 202, 202)
+        r.image(personImage, 369, 59, 202, 240)
     }
 
     // main-infotabs
     if (window.state_represented != "") {
-        r.text(380, 60, full_name + " (" + current_party + ") - " + state_represented ).attr({"font-size": "14px", "text-anchor": "start"});
+        r.text(380, 30, full_name + " (" + current_party + ") - " + state_represented ).attr({"font-size": "14px", "text-anchor": "start"});
     } else {
-        r.text(382, 60, full_name).attr({"font-size": "14px", "text-anchor": "start"});
+        r.text(382, 30, full_name).attr({"font-size": "14px", "text-anchor": "start"});
     }
     if (window.birthplace != "") {
         r.text(382, 320, "Birthplace: " + birthplace).attr({"text-anchor": "start", "font-size": "12px"});
@@ -169,7 +236,7 @@ window.onload = function () {
         r.text(382, 320, "Birthplace: Unknown" + birthplace).attr({"text-anchor": "start", "font-size": "12px"});
     }
     if (window.birthdate != "") {
-        r.text(382, 335, "Born " + birthdate).attr({"text-anchor": "start", "font-size": "12px"});
+        r.text(382, 335, "Born: " + birthdate).attr({"text-anchor": "start", "font-size": "12px"});
     } else {
         r.text(382, 335, "Birthdate: Unknown").attr({"text-anchor": "start", "font-size": "12px"});
     }
@@ -214,65 +281,69 @@ window.onload = function () {
         this.callback = generateCallback();
         this.timeline;
 
-        function getUser() {
-            return $.ajax({
-                type: "GET",
-                url: "https://api.twitter.com/1/users/lookup.json",
-                dataType: "jsonp",
-                data: { screen_name: twitter_id, callback: this.callback },
-                success: function(data) {
-                    $('#follow-button').show();
-                    return data;
+        if (window.twitter_id == "") {
+            tb_error = r.text(65, 345, "Could not load feed.").attr({"font-size": "24px", "text-anchor": "start", fill: "#999"});
+        } else {
+            function getUser() {
+                return $.ajax({
+                    type: "GET",
+                    url: "https://api.twitter.com/1/users/lookup.json",
+                    dataType: "jsonp",
+                    data: { screen_name: twitter_id, callback: this.callback },
+                    success: function(data) {
+                        $('#follow-button').show();
+                        return data;
+                    }
+                });
+            }
+
+            function getTimeline() {
+                return $.ajax({
+                    type: "GET",
+                    url: "https://api.twitter.com/1/statuses/user_timeline.json",
+                    dataType: "jsonp",
+                    data: { screen_name: twitter_id, calllback: this.callback },
+                    success: function(timeline) {
+                        return timeline;
+                    }
+                });
+            }
+
+            userPromise = getUser();
+            userPromise.success(function(data) {
+                img = data[0]['profile_image_url'].toString();
+                tb_img = r.image(img, 10, 325, 48, 48);
+                tb_name = r.text(65, 330, data[0]['name']).attr({"font-size": "14px", "text-anchor": "start", stroke: "#999", fill: "#999"});
+                tb_screen_name = r.text(65, 345, "@" + twitter_id).attr({"font-size": "12px", "text-anchor": "start", fill: "red"});
+            });
+
+            timelinePromise = getTimeline();
+            var i = 0;
+            timelinePromise.success(function(timeline) {
+                // most-current tweet
+                $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
+
+                // controls
+                twitter_right_arrow = r.image('/assets/twitter_right_arrow.png', 310, 420, 25, 25)
+                twitter_left_arrow = r.image('/assets/twitter_left_arrow.png', 280, 420, 25, 25)
+                twitter_right_arrow.node.onclick = function() {
+                    i = i + 1; 
+                    if (timeline[i] == undefined) {
+                        i = i - 1;
+                    } else {
+                        $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
+                    }
+                }
+                twitter_left_arrow.node.onclick = function() {
+                    i = i - 1; 
+                    if (timeline[i] == undefined) {
+                        i = i + 1;
+                    } else {
+                        $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
+                    }
                 }
             });
         }
-
-        function getTimeline() {
-            return $.ajax({
-                type: "GET",
-                url: "https://api.twitter.com/1/statuses/user_timeline.json",
-                dataType: "jsonp",
-                data: { screen_name: twitter_id, calllback: this.callback },
-                success: function(timeline) {
-                    return timeline;
-                }
-            });
-        }
-
-        userPromise = getUser();
-        userPromise.success(function(data) {
-            img = data[0]['profile_image_url'].toString();
-            tb_img = r.image(img, 10, 325, 48, 48);
-            tb_name = r.text(65, 330, data[0]['name']).attr({"font-size": "14px", "text-anchor": "start", stroke: "#999", fill: "#999"});
-            tb_screen_name = r.text(65, 345, "@" + twitter_id).attr({"font-size": "12px", "text-anchor": "start", fill: "red"});
-        });
-
-        timelinePromise = getTimeline();
-        var i = 0;
-        timelinePromise.success(function(timeline) {
-            // most-current tweet
-            $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
-
-            // controls
-            twitter_right_arrow = r.image('/assets/twitter_right_arrow.png', 310, 420, 25, 25)
-            twitter_left_arrow = r.image('/assets/twitter_left_arrow.png', 280, 420, 25, 25)
-            twitter_right_arrow.node.onclick = function() {
-                i = i + 1; 
-                if (timeline[i] == undefined) {
-                    i = i - 1;
-                } else {
-                    $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
-                }
-            }
-            twitter_left_arrow.node.onclick = function() {
-                i = i - 1; 
-                if (timeline[i] == undefined) {
-                    i = i + 1;
-                } else {
-                    $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
-                }
-            }
-        });
     }
     tb = new Twitterbox();
 

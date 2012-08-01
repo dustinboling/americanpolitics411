@@ -72,22 +72,24 @@ namespace :update do
         # add legislation issues
         puts "Adding issues... for #{b.number}"
         legislation_issues = @bill.keywords
-        legislation_issues.each do |li|
-          if Issue.find_by_name(li)
-            puts "assigning #{li} to #{Legislation.find_by_rtc_id(@bill.bill_id).bill_number}"
-            l_issue = LegislationIssue.create(
-              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
-              :issue_id => Issue.find_by_name(li).id
-            )
-          else 
-            puts "adding issue: #{li}."
-            issue = Issue.create(
-              :name => li
-            )
-            l_issue = LegislationIssue.create(
-              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
-              :issue_id => issue.id
-            )
+        unless Legislation.find_by_rtc_id(@bill.bill_id).nil? || Issue.find_by_name(li).nil?
+          legislation_issues.each do |li|
+            if Issue.find_by_name(li)
+              puts "assigning #{li} to #{Legislation.find_by_rtc_id(@bill.bill_id).bill_number}"
+              l_issue = LegislationIssue.create(
+                :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
+                :issue_id => Issue.find_by_name(li).id
+              )
+            else 
+              puts "adding issue: #{li}."
+              issue = Issue.create(
+                :name => li
+              )
+              l_issue = LegislationIssue.create(
+                :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
+                :issue_id => issue.id
+              )
+            end
           end
         end
 
@@ -95,7 +97,7 @@ namespace :update do
         puts "Adding cosponsors..."
         cosponsors = @bill.cosponsors
         cosponsors.each do |c|
-          unless Person.find_by_bioguide_id(c.bioguide_id).nil?
+          unless Person.find_by_bioguide_id(c.bioguide_id).nil? || Legislation.find_by_rtc_id(@bill.bill_id).nil?
             l = LegislationCosponsor.create(
               :person_id => Person.find_by_bioguide_id(c.bioguide_id).id,
               :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
@@ -110,21 +112,23 @@ namespace :update do
           code = c[1]['committee']['committee_id']
           name = c[1]['committee']['name']
           chamber = c[1]['committee']['chamber']
-          if Committee.find_by_code(code)
-            cl = CommitteeLegislation.create(
-              :committee_id => Committee.find_by_code(code).id,
-              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
-            )
-          else 
-            co = Committee.create(
-              :code => code,
-              :name => name,
-              :chamber => chamber
-            )
-            cl = CommitteeLegislation.create(
-              :committee_id => co.id,
-              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
-            )
+          unless Committee.find_by_code(code).nil? || Legislation.find_by_rtc_id(@bill.bill_id).nil?
+            if Committee.find_by_code(code)
+              cl = CommitteeLegislation.create(
+                :committee_id => Committee.find_by_code(code).id,
+                :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
+              )
+            else 
+              co = Committee.create(
+                :code => code,
+                :name => name,
+                :chamber => chamber
+              )
+              cl = CommitteeLegislation.create(
+                :committee_id => co.id,
+                :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
+              )
+            end
           end
         end
 
@@ -132,11 +136,13 @@ namespace :update do
         puts "Adding actions..."
         actions = @bill.actions
         actions.each do |a|
-          action = Action.create(
-            :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
-            :acted_at => a.acted_at,
-            :text => a.text
-          )
+          unless Legislation.find_by_rtc_id(@bill.bill_id).nil?
+            action = Action.create(
+              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
+              :acted_at => a.acted_at,
+              :text => a.text
+            )
+          end
         end
         @bill_count = @bill_count + 1
       end
@@ -154,17 +160,21 @@ namespace :update do
     @last_updated_at = last_update.utc_timestamp.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     page = 1
-    total_votes = client.votes(:voted_at__gte => @last_updated_at, :per_page => 50)
+    total_votes = client.votes(:session => args.session, :per_page => 50)
     puts "Total number of votes: #{total_votes['count']}"
     batches = (total_votes['count'].to_i / 50.0).ceil
     batches.times do
-      votes_ary = client.votes(:voted_at__gte => @last_updated_at, :per_page => 50, :page => page)
+      votes_ary = client.votes(:session => args.session, :per_page => 50, :page => page)
       votes = votes_ary['votes']
       puts "==|Batch #{page}|==========================="
-      @vote_count = 1
       votes.each do |v|
         puts "Adding votes for #{v.bill_id}..."
         rtc_id = v.bill_id
+        if v.voted_at
+          @voted_at = v.voted_at
+        end
+        @how = v.how
+        @result = v.result
         if Legislation.find_by_rtc_id(rtc_id)
           legislation = Legislation.find_by_rtc_id(rtc_id)
           legislation_id = legislation.id
@@ -177,7 +187,10 @@ namespace :update do
               PersonVote.create(
                 :legislation_id => legislation_id,
                 :person_id => person_id,
-                :vote => vote
+                :vote => vote,
+                :voted_at => @voted_at,
+                :how => @how,
+                :result => @result
               )
             else
               # do nothing
@@ -186,7 +199,6 @@ namespace :update do
         else
           # do nothing
         end
-        @vote_count = @vote_count + 1
       end
       page = page + 1
     end
