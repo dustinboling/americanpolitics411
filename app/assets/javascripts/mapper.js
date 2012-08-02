@@ -313,9 +313,10 @@ window.onload = function () {
             userPromise = getUser();
             userPromise.success(function(data) {
                 img = data[0]['profile_image_url'].toString();
-                tb_img = r.image(img, 10, 325, 48, 48);
-                tb_name = r.text(65, 330, data[0]['name']).attr({"font-size": "14px", "text-anchor": "start", stroke: "#999", fill: "#999"});
-                tb_screen_name = r.text(65, 345, "@" + twitter_id).attr({"font-size": "12px", "text-anchor": "start", fill: "red"});
+                tb_profile_link = "http://www.twitter.com/" + twitter_id;
+                tb_img = r.image(img, 10, 325, 48, 48).attr({href: tb_profile_link});
+                tb_name = r.text(65, 330, data[0]['name']).attr({"font-size": "14px", "text-anchor": "start", stroke: "#999", fill: "#999", href: tb_profile_link });
+                tb_screen_name = r.text(65, 345, "@" + twitter_id).attr({"font-size": "12px", "text-anchor": "start", fill: "red", href: tb_profile_link });
             });
 
             timelinePromise = getTimeline();
