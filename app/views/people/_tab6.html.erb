@@ -1,33 +1,3 @@
-<h2 class="edit-title">Endorsements</h2>
-
-<table class="zebra-striped">
-  <tr>
-    <th>Organization</th>
-    <th>Year</th>
-    <th></th>
-  </tr>
-  <%= f.fields_for :endorsements do |endorsement| %>
-  <%= render 'endorsement_fields', :f => endorsement %>
-  <% end %>
-  <% if @person.endorsements.count == 0 %>
-  <tr>
-    <td>
-      No endorsements have been added.
-    </td>
-    <td></td>
-    <td></td>
-  </tr>
-  <% end %>
-  <tr>
-    <td>
-      <%= link_to_add_fields "Add Endorsement", f, :endorsements %>
-    </td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
-
-
 <h2 class="edit-title">Issue Positions</h2>
 <table class="zebra-striped">
   <tr>
