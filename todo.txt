@@ -1,41 +1,24 @@
 AP411 - ROADMAP
 
 #3 - Security analysis: [1. make sure .slugignore is working properly 2. testing for authentication 3. testing for authorization]
-#51 - Split up legislation into types (H.R., H.CON.RES, etc)
-#57 - these need authorization loaded: application_controller.rb committees_controller.rb contributor_controller.rb issues_controller.rb legislation_controller.rb main_issues_controller.rb password_resets_controller.rb sessions_controller.rb subcommittees_controller.rb
+#57 - these need authorizations loaded: application_controller.rb committees_controller.rb contributor_controller.rb issues_controller.rb legislation_controller.rb main_issues_controller.rb password_resets_controller.rb sessions_controller.rb subcommittees_controller.rb
 #61 - all activities must have a log of which user made them
 #62 - show these activities upon the users#show
-#63 - brakeman: fix all issues
-#64 - add a history page like on wikipedia for updates people have made
-#65 - last updated by for people
 #68 - add new specs for activities. verify that we are testing as much as possible.
-#70 - restyle tabs into a basic breadcrumb for bio/literary/professional editor person#edit 
-#73 - add default image for politicians
-#75 - new person page: it sucks to have to scroll through the years, make these autocomplete hybrids.
 #78 - at people/index there is a js error: 'b is undefined'
-#80 - person#edit: cannot add an endorsement
-#81 - personal contributors for obama?
-#82 - investements/transactions: can we just get this stuff on the fly? see bubble map
-#84 - person#show: earmarks should not show up if a person is not a senator/representative. same for all LEGISLATIVE items
 #86 - better views for PAC/Indiv. contributors with some maps and stuff
 #94 - add type support for datatables so currency sorts correctly
-#97 - bubble map will be more performant if we do an html overlay for all the text boxes (hold them until document.onload)
-#103 - if a youtube request for a person's videos returns empty then we need to do a secondary search for videos containing their name
-#105 - bubble-map must present congress nodes only for congress people
-#106 - Twitterbox: handle use-case where a person does not have an account
 #108 - legislation videos async from real time congress (RTC)
 #110 - update task for bills from RTC using timestamp
 #111 - archival data from Thomas or govtrack.us
 #112 - move model logic out of controllers into lib where possible
 #114 - autocomplete/auto-add religions
 #115 - $$$ Make sure any currency fields will allow commas, periods + strip currency symbols.
-#116 - move all autocompletes into an autocomplete api
-#117 - autocomplete for religions
 #118 - add silent creator for religions
 #119 - reimplement organizations in admin, potentially with silent creator
-#120 - fix legislation#list pagination for ajax calls (try making a partial and calling that) see: https://github.com/amatsuda/kaminari/issues/224
 #121 - better styling for datatables
-#122 - move styles from people#show.html to people.scss
+#126 - api attribution messages.
+#127 - when a call to partial on bubble-map takes to long it should display a timeout message
 
 
 API LIST
@@ -107,6 +90,19 @@ COMPLETED
 #113 - implement kaminari pagination for legislation page.
 #123 - use skeleton style buttons in admin instead of bootstrap
 #124 - legislation#show should show most recent bills overseen with a link to all historical overseen bills
+#51 - Split up legislation into types (H.R., H.CON.RES, etc)
+#63 - brakeman: fix all issues
+#73 - add default image for politicians
+#82 - investements/transactions: can we just get this stuff on the fly? see bubble map
+#80 - person#edit: cannot add an endorsement
+#84 - person#show: earmarks should not show up if a person is not a senator/representative. same for all LEGISLATIVE items
+#103 - if a youtube request for a person's videos returns empty then we need to do a secondary search for videos containing their name
+#105 - bubble-map must present congress nodes only for congress people
+#106 - Twitterbox: handle use-case where a person does not have an account
+#116 - move all autocompletes into an autocomplete api
+#120 - fix legislation#list pagination for ajax calls (try making a partial and calling that) see: https://github.com/amatsuda/kaminari/issues/224
+#122 - move styles from people#show.html to people.scss
+#117 - autocomplete for religions
 
 ON HOLD
 ==============||==
@@ -127,6 +123,8 @@ ON HOLD
 #107 - controversy text when clicked must activate subnodes
 #71 - bootstrap or skeleton is messing up the form for tables on jwysiwyg
 #85 - amazon or wikipedia for "literary work" links
+#64 - add a history page like on wikipedia for updates people have made
+#65 - last updated by for people
 
 CANCELED
 ==============||==
@@ -141,3 +139,7 @@ CANCELED
 #74 - add number total to controversy, hide lit/acc nodes underneath
 #52 - make legislation search lists
 #92 - change all inner instances of 'content-wrap' to 'sixteen columns'
+#75 - new person page: it sucks to have to scroll through the years, make these autocomplete hybrids.
+#81 - personal contributors for obama?
+#97 - bubble map will be more performant if we do an html overlay for all the text boxes (hold them until document.onload)
+#70 - restyle tabs into a basic breadcrumb for bio/literary/professional editor person#edit 
