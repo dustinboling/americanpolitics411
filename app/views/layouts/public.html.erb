@@ -15,29 +15,29 @@
 
     <!-- HEADER -->
     <header id="header" class="container">
-    <div class="one-third column">
-      &nbsp;
-    </div>
-    <div class="one-third column logo">
-      <a href="/" ><img src="/assets/ap411-logo.png"></a>
-    </div>
-    <div class="one-third column">
-      <% unless current_user %>
-      <%= link_to "Log In", new_session_path  %> | <%= link_to "Register", new_user_path %>
-      <% end %> 
-    </div>
+      <div class="one-third column">
+        &nbsp;
+      </div>
+      <div class="one-third column logo">
+        <a href="/" ><img src="/assets/ap411-logo.png"></a>
+      </div>
+      <div class="one-third column">
+        <% unless current_user %>
+        <%= link_to "Log In", new_session_path  %> | <%= link_to "Register", new_user_path %>
+        <% end %> 
+      </div>
     </header>
 
     <!-- NAVIGATION -->
     <div id="content-wrap" class="container clearfix">
       <nav id="header-nav" class="sixteen columns clearfix">
-      <ul id="menu-header" class="menu clearfix">
-        <li id="menu-item-news"><a href="http://ap411.pagodabox.com/news/">News</a></li>
-        <li id="menu-item-events" class="menu-item"><a href="http://ap411.pagodabox.com/events/">Events</a></li>
-        <li id="menu-item-officials" class="menu-item"><a href="/people/representatives">Officials</a></li>
-        <li id="menu-item-legislation" class="menu-item"><a href="/legislation">Legislation</a></li>
-        <li id="menu-item-pundit-cafe" class="menu-item"><a href="http://ap411.pagodabox.com/the-pundit-cafe/">The Pundit Cafe</a></li>
-      </ul>
+        <ul id="menu-header" class="menu clearfix">
+          <li id="menu-item-news"><a href="http://ap411.pagodabox.com/news/">News</a></li>
+          <li id="menu-item-events" class="menu-item"><a href="http://ap411.pagodabox.com/events/">Events</a></li>
+          <li id="menu-item-officials" class="menu-item"><a href="/people/representatives">Officials</a></li>
+          <li id="menu-item-legislation" class="menu-item"><a href="/legislation">Legislation</a></li>
+          <li id="menu-item-pundit-cafe" class="menu-item"><a href="http://ap411.pagodabox.com/the-pundit-cafe/">The Pundit Cafe</a></li>
+        </ul>
       </nav>
       <!-- BODY -->
       <%= yield %>
@@ -47,19 +47,19 @@
 
     <!-- FOOTER -->
     <footer id="footer" class="container clearfix">
-    <nav id="footer-nav" class="twelve columns alpha">
-      <ul id="menu-footer" class="menu clearfix"><li class="menu-item"><a href="http://ap411.pagodabox.com/news/">News</a></li>
-      <li id="menu-item" class="menu-item"><a href="http://ap411.pagodabox.com/events/">Events</a></li>
-      <li id="menu-item" class="menu-item"><a href="/people/representatives">Officials</a></li>
-      <li id="menu-item" class="menu-item"><a href="/legislation">Legislation</a></li>
-      <li id="menu-item" class="menu-item"><a href="http://ap411.pagodabox.com/the-pundit-cafe/">The Pundit Cafe</a></li>
-    </ul>   
-    </nav>
+      <nav id="footer-nav" class="twelve columns alpha">
+        <ul id="menu-footer" class="menu clearfix"><li class="menu-item"><a href="http://ap411.pagodabox.com/news/">News</a></li>
+          <li id="menu-item" class="menu-item"><a href="http://ap411.pagodabox.com/events/">Events</a></li>
+          <li id="menu-item" class="menu-item"><a href="/people/representatives">Officials</a></li>
+          <li id="menu-item" class="menu-item"><a href="/legislation">Legislation</a></li>
+          <li id="menu-item" class="menu-item"><a href="http://ap411.pagodabox.com/the-pundit-cafe/">The Pundit Cafe</a></li>
+        </ul>   
+      </nav>
 
-    <div class="four columns omega">
-      <p class="copyright">Copyright 2012 American Politics 411</p>
-    </div>
-    <div class="four columns omega">&nbsp;</div>
+      <div class="four columns omega">
+        <p class="copyright">Copyright 2012 American Politics 411</p>
+      </div>
+      <div class="four columns omega">&nbsp;</div>
     </footer>
   </body>
 </html>
