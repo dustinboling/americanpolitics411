@@ -3,9 +3,10 @@ window.onload = function () {
     r = Raphael("bubble-map", 940, 480);
     connections = [];
     shapes = [];
-    shapes = [  r.rect(370, 10, 200, 40, 10),   // [0] = name
+    shapes = [  
+        r.rect(370, 10, 200, 40, 10),   // [0] = name
         r.rect(1, 310, 340, 150, 10),   // [1] = twitter box
-        r.rect(370, 60, 200, 200, 10),  // [2] = picture
+        r.rect(370, 80, 200, 200, 10),  // [2] = picture
         r.rect(370, 309, 200, 150, 10), // [3] = details
         r.rect(180, 30, 100, 45, 10),   // [4] = professional experience
         r.rect(200, 170, 100, 45, 10),  // [5] = controversy
@@ -312,9 +313,10 @@ window.onload = function () {
             userPromise = getUser();
             userPromise.success(function(data) {
                 img = data[0]['profile_image_url'].toString();
-                tb_img = r.image(img, 10, 325, 48, 48);
-                tb_name = r.text(65, 330, data[0]['name']).attr({"font-size": "14px", "text-anchor": "start", stroke: "#999", fill: "#999"});
-                tb_screen_name = r.text(65, 345, "@" + twitter_id).attr({"font-size": "12px", "text-anchor": "start", fill: "red"});
+                tb_profile_link = "http://www.twitter.com/" + twitter_id;
+                tb_img = r.image(img, 10, 325, 48, 48).attr({href: tb_profile_link});
+                tb_name = r.text(65, 330, data[0]['name']).attr({"font-size": "14px", "text-anchor": "start", stroke: "#999", fill: "#999", href: tb_profile_link });
+                tb_screen_name = r.text(65, 345, "@" + twitter_id).attr({"font-size": "12px", "text-anchor": "start", fill: "red", href: tb_profile_link });
             });
 
             timelinePromise = getTimeline();

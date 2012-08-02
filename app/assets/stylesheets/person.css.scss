@@ -16,6 +16,7 @@
 
 #media-center-articles {
   height: 490px;
+  padding-top: 5px;
   border-right: 1px solid #333;
 }
 
@@ -48,6 +49,18 @@ h2.edit-title {
 
 .red {
   color: red;
+}
+
+.twitter-follow-button {
+  z-index: 999; 
+  position: absolute; 
+  left: 70px;
+  top: 405px;
+}
+
+#media-center-videos {
+  padding-top: 10px;
+  padding-left: 15px;
 }
 
 #media-center-videos a img {

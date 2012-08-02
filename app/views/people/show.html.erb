@@ -20,18 +20,9 @@
   <%= render 'layouts/messages' %>
 </div>
 
-
 <div class="sixteen columns">
   <div id="bubble-map"></div>
   <div id="follow-button" style="display: none;">
-    <style>
-      .twitter-follow-button {
-        z-index: 999; 
-        position: absolute; 
-        left: 70px;
-        top: 405px;
-      }
-    </style>
     <% unless @person.twitter_id.nil? %>
     <a href="https://twitter.com/<%= @person.twitter_id %>" class="twitter-follow-button" data-show-count="false">Follow @<%= @person.twitter_id %></a>
     <% end %>
@@ -53,7 +44,7 @@
   </div>
   <div id="media-center" class="sixteen columns">
     <div id="media-center-articles" class="eight columns">
-      <% if @articles.nil? %>
+      <% if @articles.nil? || @articles.length <= 1 %>
       <h2>No articles have been added.</h2>
       <% else %>
       <% @articles = @articles['articles'] %>

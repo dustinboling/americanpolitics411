@@ -50,31 +50,33 @@ namespace :update do
             puts "This happened: #{e}, continuing..."
           end
         end
-        l = Legislation.create(
-          :rtc_id => b.bill_id,
-          :bill_type => b.bill_type,
-          :bill_number => b.number, 
-          :session => b.session,
-          :introduced_year => introduced_year,
-          :introduced_date => b.introduced_at,
-          :chamber => @chamber,
-          :short_title => b.short_title,
-          :bill_title => b.official_title,
-          :popular_title => b.popular_title,
-          :summary => b.summary,
-          :bill_sponsor => "#{@first_name} #{@last_name}",
-          :bill_sponsor_id => b.sponsor_id,
-          :bill_pdf => @pdf,
-          :latest_major_action => @last_major_action,
-          :latest_major_action_date => b.last_action_at
-        )
-
+        unless b.bill_number == nil
+          l = Legislation.find_or_create_by_bill_number(
+            :rtc_id => b.bill_id,
+            :bill_type => b.bill_type,
+            :bill_number => b.number, 
+            :session => b.session,
+            :introduced_year => introduced_year,
+            :introduced_date => b.introduced_at,
+            :chamber => @chamber,
+            :short_title => b.short_title,
+            :bill_title => b.official_title,
+            :popular_title => b.popular_title,
+            :summary => b.summary,
+            :bill_sponsor => "#{@first_name} #{@last_name}",
+            :bill_sponsor_id => b.sponsor_id,
+            :bill_pdf => @pdf,
+            :latest_major_action => @last_major_action,
+            :latest_major_action_date => b.last_action_at
+          )
+        end
+      
         # add legislation issues
         puts "Adding issues... for #{b.number}"
         legislation_issues = @bill.keywords
         unless Legislation.find_by_rtc_id(@bill.bill_id).nil? || Issue.find_by_name(li).nil?
           legislation_issues.each do |li|
-            if Issue.find_by_name(li)
+            if Issue.find_or_create_by_name(li)
               puts "assigning #{li} to #{Legislation.find_by_rtc_id(@bill.bill_id).bill_number}"
               l_issue = LegislationIssue.create(
                 :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
@@ -205,5 +207,4 @@ namespace :update do
     Update.create(:task => "votes", :count => @vote_count)
     puts "Added #{@vote_count} votes."
   end
-
 end

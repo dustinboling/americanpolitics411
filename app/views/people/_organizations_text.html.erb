@@ -1,2 +1,40 @@
+<% 
+require 'json'
+require 'net/http'
+
+p = Person.find(params[:pid])
+cid = p.crp_id 
+
+# get json
+unless cid.nil?
+  apikey = "3c994a55a6b79f30f22b6b3942941f62"
+  endpoint = "http://www.opensecrets.org/api/?method=memPFDprofile"
+  url = endpoint + "&year=2009&cid=" + cid + "&output=json&apikey=" + apikey 
+  resp = Net::HTTP.get_response(URI.parse(url))
+  data = resp.body
+  json = JSON.parse(data)
+end
+%>
 <h1>Organizations</h1>
-<p>Research is in progress.</p>
+<% if json.blank? %>
+  <p>Research is in progress.</p>
+<% else %>
+  <% organizations = json['response']['member_profile']['positions']['position'] %>
+  <table class="table-striped">
+    <thead>
+      <tr>
+        <th>Organization</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% organizations.each do |organization| %>
+      <% o = organization['@attributes'] %>
+        <tr>
+          <td><%= o['organization'] %></td>
+          <td><%= o['title'] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
