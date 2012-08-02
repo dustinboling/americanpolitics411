@@ -17,6 +17,23 @@
     <header id="header" class="container">
       <div class="one-third column">
         &nbsp;
+        <div id="social-media-buttons-header">
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/user/americanpoliticsinfo" id="yt-link-top"></a>
+            </li>
+            <li>
+              <a href="http://www.facebook.com" id="facebook-link-top"></a>
+            </li>
+            <li>
+              <a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Famericanpolitics411.com%2F&source=tweetbutton&text=Home%3A&url=http%3A%2F%2Famericanpolitics411.com%2F" id="twitter-link-top"></a>
+            </li>
+            <li>
+              <a href="/rss" id="rss-link-top"></a>
+            </li>
+          </ul>
+        </div>
+        <div id="time-now"><%= Time.now.to_date.strftime("%e %B %Y") %></div>
       </div>
       <div class="one-third column logo">
         <a href="/" ><img src="/assets/ap411-logo.png"></a>
@@ -59,7 +76,25 @@
       <div class="four columns omega">
         <p class="copyright">Copyright 2012 American Politics 411</p>
       </div>
-      <div class="four columns omega">&nbsp;</div>
+      <div class="four columns omega">
+        &nbsp;
+        <div id="social-media-buttons-footer">
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/user/americanpoliticsinfo" id="yt-link-bottom"></a>
+            </li>
+            <li>
+              <a href="http://www.facebook.com" id="facebook-link-bottom"></a>
+            </li>
+            <li>
+              <a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Famericanpolitics411.com%2F&source=tweetbutton&text=Home%3A&url=http%3A%2F%2Famericanpolitics411.com%2F" id="twitter-link-bottom"></a>
+            </li>
+            <li>
+              <a href="/rss" id="rss-link-bottom"></a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </footer>
   </body>
 </html>

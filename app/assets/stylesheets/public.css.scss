@@ -34,3 +34,90 @@ div#person-container {
   margin-top: 7px;
 }
 ul { list-style: none !important; }
+
+#social-media-buttons-header {
+  background-image: url('social-media-buttons.png');
+  width: 142px;
+  height: 31px;
+  position: absolute;
+  top: 70px;
+}
+
+#yt-link-top {
+  position: absolute;
+  top: 0;
+  left: 2px;
+  width: 30px;
+  height: 30px;
+}
+
+#facebook-link-top {
+  position: absolute;
+  top: 0;
+  left: 38px;
+  width: 30px;
+  height: 30px;
+}
+
+#twitter-link-top {
+  position: absolute;
+  top: 0;
+  left: 75px;
+  width: 30px;
+  height: 30px;
+}
+
+#rss-link-top {
+  position: absolute;
+  top: 0;
+  left: 112px;
+  width: 30px;
+  height: 30px;
+}
+
+#social-media-buttons-footer {
+  background-image: url('social-media-buttons.png');
+  width: 142px;
+  height: 31px;
+  position: absolute;
+  bottom: 50px;
+  right: 15px;
+}
+
+#yt-link-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 1px;
+  width: 30px;
+  height: 30px;
+}
+
+#facebook-link-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 38px;
+  width: 30px;
+  height: 30px;
+}
+
+#twitter-link-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 75px;
+  width: 30px;
+  height: 30px;
+}
+
+#rss-link-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 112px;
+  width: 30px;
+  height: 30px;
+}
+
+#time-now {
+  position: absolute;
+  top: 109px;
+}
+
