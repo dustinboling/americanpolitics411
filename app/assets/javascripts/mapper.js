@@ -3,7 +3,8 @@ window.onload = function () {
     r = Raphael("bubble-map", 940, 480);
     connections = [];
     shapes = [];
-    shapes = [  r.rect(370, 10, 200, 40, 10),   // [0] = name
+    shapes = [  
+        r.rect(370, 10, 200, 40, 10),   // [0] = name
         r.rect(1, 310, 340, 150, 10),   // [1] = twitter box
         r.rect(370, 80, 200, 200, 10),  // [2] = picture
         r.rect(370, 309, 200, 150, 10), // [3] = details
