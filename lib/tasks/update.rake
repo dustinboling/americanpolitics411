@@ -207,5 +207,4 @@ namespace :update do
     Update.create(:task => "votes", :count => @vote_count)
     puts "Added #{@vote_count} votes."
   end
-
 end
