@@ -50,6 +50,13 @@ h2.edit-title {
   color: red;
 }
 
+.twitter-follow-button {
+  z-index: 999; 
+  position: absolute; 
+  left: 70px;
+  top: 405px;
+}
+
 #media-center-videos a img {
   width: 360px;
   height: 270px;
