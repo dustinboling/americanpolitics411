@@ -5,15 +5,17 @@ require 'net/http'
 p = Person.find(params[:pid])
 cid = p.crp_id 
 
-# get json
-apikey = "3c994a55a6b79f30f22b6b3942941f62"
-endpoint = "http://www.opensecrets.org/api/?method=memPFDprofile"
-url = endpoint + "&year=2009&cid=" + cid + "&output=json&apikey=" + apikey 
-resp = Net::HTTP.get_response(URI.parse(url))
-data = resp.body
-json = JSON.parse(data)
+unless cid.nil?
+  # get json
+  apikey = "3c994a55a6b79f30f22b6b3942941f62"
+  endpoint = "http://www.opensecrets.org/api/?method=memPFDprofile"
+  url = endpoint + "&year=2009&cid=" + cid + "&output=json&apikey=" + apikey 
+  resp = Net::HTTP.get_response(URI.parse(url))
+  data = resp.body
+  json = JSON.parse(data)
+end
 %>
-<% if json.empty? %>
+<% if json.blank? %>
   <% investments = p.personal_assets %>
   <h1>Investments</h1>
   <% if investments.count > 0 %>
