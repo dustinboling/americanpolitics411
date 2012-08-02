@@ -16,7 +16,7 @@ unless cid.nil?
 end
 %>
 <h1>Organizations</h1>
-<% if json.blank? %>
+<% if json.blank? || json.length <= 1 %>
   <p>Research is in progress.</p>
 <% else %>
   <% organizations = json['response']['member_profile']['positions']['position'] %>
