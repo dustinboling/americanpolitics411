@@ -5,7 +5,7 @@ window.onload = function () {
     shapes = [];
     shapes = [  r.rect(370, 10, 200, 40, 10),   // [0] = name
         r.rect(1, 310, 340, 150, 10),   // [1] = twitter box
-        r.rect(370, 60, 200, 200, 10),  // [2] = picture
+        r.rect(370, 80, 200, 200, 10),  // [2] = picture
         r.rect(370, 309, 200, 150, 10), // [3] = details
         r.rect(180, 30, 100, 45, 10),   // [4] = professional experience
         r.rect(200, 170, 100, 45, 10),  // [5] = controversy
