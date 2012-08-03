@@ -162,11 +162,12 @@ namespace :update do
     @last_updated_at = last_update.utc_timestamp.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     page = 1
-    total_votes = client.votes(:session => args.session, :per_page => 50)
+    @vote_count = 1
+    total_votes = client.votes(:voted_at__gte => @last_updated_at, :per_page => 50)
     puts "Total number of votes: #{total_votes['count']}"
     batches = (total_votes['count'].to_i / 50.0).ceil
     batches.times do
-      votes_ary = client.votes(:session => args.session, :per_page => 50, :page => page)
+      votes_ary = client.votes(:voted_at__gte => @last_updated_at, :per_page => 50, :page => page)
       votes = votes_ary['votes']
       puts "==|Batch #{page}|==========================="
       votes.each do |v|
@@ -194,6 +195,7 @@ namespace :update do
                 :how => @how,
                 :result => @result
               )
+              @vote_count = @vote_count + 1
             else
               # do nothing
             end
