@@ -17,6 +17,7 @@ AP411 - ROADMAP
 #127 - when a call to partial on bubble-map takes to long it should display a timeout message
 #128 - bill_titleize function (e.g. HR => H.R.)
 #129 - load_and_authorize_resource legislation_controller
+#130 - need bill prognosis
 
 
 API LIST
