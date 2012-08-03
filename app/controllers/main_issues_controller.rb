@@ -1,5 +1,9 @@
 class MainIssuesController < ApplicationController
+
   layout 'admin'
+
+  load_and_authorize_resource
+  skip_authorize_resource :only => [:index, :show]
 
   def index
     @main_issues = MainIssue.order('name ASC')

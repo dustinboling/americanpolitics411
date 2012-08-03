@@ -1,6 +1,5 @@
 AP411 - ROADMAP
 
-#57 - these need authorizations loaded: application_controller.rb committees_controller.rb contributor_controller.rb issues_controller.rb legislation_controller.rb main_issues_controller.rb password_resets_controller.rb sessions_controller.rb subcommittees_controller.rb
 #61 - all activities must have a log of which user made them
 #62 - show these activities upon the users#show
 #68 - add new specs for activities. verify that we are testing as much as possible.
@@ -18,6 +17,7 @@ AP411 - ROADMAP
 #126 - api attribution messages.
 #127 - when a call to partial on bubble-map takes to long it should display a timeout message
 #128 - bill_titleize function (e.g. HR => H.R.)
+#129 - load_and_authorize_resource legislation_controller
 
 
 API LIST
@@ -104,6 +104,7 @@ COMPLETED
 #117 - autocomplete for religions
 #121 - better styling for datatables
 #3 - Security analysis: [1. make sure .slugignore is working properly 2. testing for authentication 3. testing for authorization]
+#57 - these need authorizations loaded: application_controller.rb committees_controller.rb contributor_controller.rb issues_controller.rb legislation_controller.rb main_issues_controller.rb password_resets_controller.rb sessions_controller.rb subcommittees_controller.rb
 
 ON HOLD
 ==============||==
