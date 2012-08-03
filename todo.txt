@@ -7,7 +7,6 @@ AP411 - ROADMAP
 #86 - better views for PAC/Indiv. contributors with some maps and stuff
 #94 - add type support for datatables so currency sorts correctly
 #108 - legislation videos async from real time congress (RTC)
-#110 - update task for bills from RTC using timestamp
 #111 - archival data from Thomas or govtrack.us
 #112 - move model logic out of controllers into lib where possible
 #114 - autocomplete/auto-add religions
@@ -105,6 +104,7 @@ COMPLETED
 #121 - better styling for datatables
 #3 - Security analysis: [1. make sure .slugignore is working properly 2. testing for authentication 3. testing for authorization]
 #57 - these need authorizations loaded: application_controller.rb committees_controller.rb contributor_controller.rb issues_controller.rb legislation_controller.rb main_issues_controller.rb password_resets_controller.rb sessions_controller.rb subcommittees_controller.rb
+#110 - update task for bills from RTC using timestamp
 
 ON HOLD
 ==============||==
