@@ -19,6 +19,7 @@ AP411 - ROADMAP
 #121 - better styling for datatables
 #126 - api attribution messages.
 #127 - when a call to partial on bubble-map takes to long it should display a timeout message
+#128 - bill_titleize function (e.g. HR => H.R.)
 
 
 API LIST

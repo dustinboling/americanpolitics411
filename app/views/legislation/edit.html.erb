@@ -13,7 +13,7 @@
 
 <div class="container">
   <%= form_for(@legislation, :html => { :class => 'form-stacked' }) do |f| %>
-    <h1>Editing <%= @legislation.bill_number %></h1>
+  <h1>Editing <%= @legislation.bill_type.upcase %> <%= @legislation.bill_number %></h1>
     <%= error_messages_for(@legislation) %>
 
     <%= f.label :summary %>
@@ -52,19 +52,11 @@
     </p>		
 
     <p>
-      <b>Legislation Main Issues:</b>
-      <% MainIssue.all.each do |issue| %>
-        <%= check_box_tag "legislation" %>
-        <%= issue.name %>
-      <% end %>
-    </p>
-
-    <p>
       <b>Committees:</b>
       <%= @legislation.committees.collect { |c| "<a href='/committees/#{Committee.where("name like ?", "%#{c.name}").first.id }'>#{c.name}</a>" }.to_sentence.html_safe %>
     </p>
 
-    <%= f.submit :class => 'btn success' %>
+    <%= f.submit :class => 'button' %>
 
   <% end %>
 </div>
