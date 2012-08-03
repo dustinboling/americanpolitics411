@@ -46,7 +46,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.1.3', :require => 'sass'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
-  gem 'jquery-datatables-rails'
+  gem 'jquery-datatables-rails', :path => "vendor/gems/jquery-datatables-rails-1.10.0"
 end
 
 # To use ActiveModel has_secure_password

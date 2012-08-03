@@ -7,6 +7,12 @@ GIT
       monster_mash (~> 0.1.0)
       rake
 
+PATH
+  remote: vendor/gems/jquery-datatables-rails-1.10.0
+  specs:
+    jquery-datatables-rails (1.10.0)
+      jquery-rails
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -98,8 +104,6 @@ GEM
       git (>= 1.2.5)
       rake
       rdoc
-    jquery-datatables-rails (1.10.0)
-      jquery-rails
     jquery-rails (1.0.19)
       railties (~> 3.0)
       thor (~> 0.14)
@@ -252,7 +256,7 @@ DEPENDENCIES
   faker
   guard-rspec
   highline
-  jquery-datatables-rails
+  jquery-datatables-rails!
   jquery-rails
   jquery-ui-rails
   json
