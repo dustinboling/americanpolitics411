@@ -1,6 +1,5 @@
 AP411 - ROADMAP
 
-#3 - Security analysis: [1. make sure .slugignore is working properly 2. testing for authentication 3. testing for authorization]
 #57 - these need authorizations loaded: application_controller.rb committees_controller.rb contributor_controller.rb issues_controller.rb legislation_controller.rb main_issues_controller.rb password_resets_controller.rb sessions_controller.rb subcommittees_controller.rb
 #61 - all activities must have a log of which user made them
 #62 - show these activities upon the users#show
@@ -16,7 +15,6 @@ AP411 - ROADMAP
 #115 - $$$ Make sure any currency fields will allow commas, periods + strip currency symbols.
 #118 - add silent creator for religions
 #119 - reimplement organizations in admin, potentially with silent creator
-#121 - better styling for datatables
 #126 - api attribution messages.
 #127 - when a call to partial on bubble-map takes to long it should display a timeout message
 #128 - bill_titleize function (e.g. HR => H.R.)
@@ -104,6 +102,8 @@ COMPLETED
 #120 - fix legislation#list pagination for ajax calls (try making a partial and calling that) see: https://github.com/amatsuda/kaminari/issues/224
 #122 - move styles from people#show.html to people.scss
 #117 - autocomplete for religions
+#121 - better styling for datatables
+#3 - Security analysis: [1. make sure .slugignore is working properly 2. testing for authentication 3. testing for authorization]
 
 ON HOLD
 ==============||==
