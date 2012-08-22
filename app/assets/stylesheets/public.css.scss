@@ -36,7 +36,6 @@ div#person-container {
 ul { list-style: none !important; }
 
 #social-media-buttons-header {
-  background-image: url('social-buttons.png');
   width: 142px;
   height: 31px;
   position: absolute;
@@ -44,39 +43,40 @@ ul { list-style: none !important; }
 }
 
 #yt-link-top {
+  background: url('social-buttons.png') no-repeat scroll 0 0 transparent;
   position: absolute;
-  top: 0;
-  left: 2px;
-  width: 30px;
-  height: 30px;
+  width: 31px;
+  height: 34px;
 }
 
 #facebook-link-top {
+  background: url('social-buttons.png') no-repeat scroll -37px 0 transparent;
   position: absolute;
   top: 0;
-  left: 38px;
-  width: 30px;
-  height: 30px;
+  left: 33px;
+  width: 31px;
+  height: 34px;
 }
 
 #twitter-link-top {
+  background: url('social-buttons.png') no-repeat scroll -73px 0 transparent;
   position: absolute;
   top: 0;
-  left: 75px;
-  width: 30px;
-  height: 30px;
+  left: 65px;
+  width: 31px;
+  height: 34px;
 }
 
 #rss-link-top {
+  background: url('social-buttons.png') no-repeat scroll -111px 0 transparent;
   position: absolute;
   top: 0;
-  left: 112px;
-  width: 30px;
-  height: 30px;
+  left: 99px;
+  width: 31px;
+  height: 34px;
 }
 
 #social-media-buttons-footer {
-  background-image: url('social-media-buttons.png');
   width: 142px;
   height: 31px;
   position: absolute;
@@ -85,35 +85,39 @@ ul { list-style: none !important; }
 }
 
 #yt-link-bottom {
+  background: url('social-buttons.png') no-repeat scroll 0 0 transparent;
   position: absolute;
   bottom: 0;
   left: 1px;
-  width: 30px;
-  height: 30px;
+  width: 31px;
+  height: 34px;
 }
 
 #facebook-link-bottom {
+  background: url('social-buttons.png') no-repeat scroll -37px 0 transparent;
   position: absolute;
   bottom: 0;
-  left: 38px;
-  width: 30px;
-  height: 30px;
+  left: 33px;
+  width: 31px;
+  height: 34px;
 }
 
 #twitter-link-bottom {
+  background: url('social-buttons.png') no-repeat scroll -73px 0 transparent;
   position: absolute;
   bottom: 0;
-  left: 75px;
-  width: 30px;
-  height: 30px;
+  left: 65px;
+  width: 31px;
+  height: 34px;
 }
 
 #rss-link-bottom {
+  background: url('social-buttons.png') no-repeat scroll -111px 0 transparent;
   position: absolute;
   bottom: 0;
-  left: 112px;
-  width: 30px;
-  height: 30px;
+  left: 99px;
+  width: 31px;
+  height: 34px;
 }
 
 #time-now {
