@@ -1,13 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <title>American Politics 411 | <%= @page_title %></title>
+    <title>american politics 411 | <%= @page_title %></title>
     <%= stylesheet_link_tag    'base', 'skeleton', 'layout', 'style', 'person', 'committees', 'application', 'public' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
+    <script type='text/javascript'>
+      (function (d, t) {
+        var bh = d.createelement(t), s = d.getelementsbytagname(t)[0];
+        bh.type = 'text/javascript';
+        bh.src = '//www.bugherd.com/sidebarv2.js?apikey=qogjodg5aecdllg1wxzshg';
+        s.parentnode.insertbefore(bh, s);
+      })(document, 'script');
+    </script> 
   </head>
   <body>
-    <!-- TOPBAR -->
+    <!-- topbar -->
     <% if current_user %>
     <%= render 'layouts/admin-scripts' %>
     <%= render 'layouts/topbar' %>
@@ -49,11 +57,13 @@
     <div id="content-wrap" class="container clearfix">
       <nav id="header-nav" class="sixteen columns clearfix">
         <ul id="menu-header" class="menu clearfix">
-          <li id="menu-item-news"><a href="http://ap411.pagodabox.com/news/">News</a></li>
-          <li id="menu-item-events" class="menu-item"><a href="http://ap411.pagodabox.com/events/">Events</a></li>
+          <li id="menu-item-news"><a href="http://www.americanpolitics411.com/news/">News</a></li>
+          <li id="menu-item-research" class="menu-item"><a href="/">Research</a></li>
+          <li id="menu-item-events" class="menu-item"><a href="http://www.americanpolitics411.com/events/">Events</a></li>
           <li id="menu-item-officials" class="menu-item"><a href="/people/representatives">Officials</a></li>
           <li id="menu-item-legislation" class="menu-item"><a href="/legislation">Legislation</a></li>
-          <li id="menu-item-pundit-cafe" class="menu-item"><a href="http://ap411.pagodabox.com/the-pundit-cafe/">The Pundit Cafe</a></li>
+          <li id="menu-item-pundit-cafe" class="menu-item"><a href="http://www.americanpolitics411.com/pundit-cafe/">The Pundit Cafe</a></li>
+          <li id="menu-item-internships" class="menu-item"><a href="http://www.americanpolitics411.com/internships/">Internships</a></li>
         </ul>
       </nav>
       <!-- BODY -->
@@ -65,11 +75,12 @@
     <!-- FOOTER -->
     <footer id="footer" class="container clearfix">
       <nav id="footer-nav" class="twelve columns alpha">
-        <ul id="menu-footer" class="menu clearfix"><li class="menu-item"><a href="http://ap411.pagodabox.com/news/">News</a></li>
-          <li id="menu-item" class="menu-item"><a href="http://ap411.pagodabox.com/events/">Events</a></li>
+        <ul id="menu-footer" class="menu clearfix"><li class="menu-item"><a href="http://www.americanpolitics411.com/news/">News</a></li>
+          <li id="menu-item-research" class="menu-item"><a href="/">Research</a></li>
+          <li id="menu-item" class="menu-item"><a href="http://www.americanpolitics411.com/events/">Events</a></li>
           <li id="menu-item" class="menu-item"><a href="/people/representatives">Officials</a></li>
           <li id="menu-item" class="menu-item"><a href="/legislation">Legislation</a></li>
-          <li id="menu-item" class="menu-item"><a href="http://ap411.pagodabox.com/the-pundit-cafe/">The Pundit Cafe</a></li>
+          <li id="menu-item" class="menu-item"><a href="http://www.americanpolitics411.com/pundit-cafe/">The Pundit Cafe</a></li>
         </ul>   
       </nav>
 

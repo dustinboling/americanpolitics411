@@ -191,6 +191,10 @@ hr {
   display: block;
 }
 
+#time-now { 
+  font-size: 12px;
+  position: absolute;
+}
 
 /*
  * Header Navigation
