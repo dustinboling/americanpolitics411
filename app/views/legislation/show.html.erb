@@ -98,7 +98,9 @@
 
     <aside id="sponsors" class="box_c">
     <h2>Sponsor</h2>
-    <p><a href="<%= person_path(Person.find_by_bioguide_id(@legislation.bill_sponsor_id)) %>"><%= @legislation.bill_sponsor %></a></p>
+      <% unless Person.find_by_bioguide_id(@legislation.bill_sponsor_id).nil? %>
+        <p><a href="<%= person_path(Person.find_by_bioguide_id(@legislation.bill_sponsor_id)) %>"><%= @legislation.bill_sponsor %></a></p>
+      <% end %>
     </aside>
 
     <aside id="cosponsors" class="box_d">

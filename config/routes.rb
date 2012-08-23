@@ -80,7 +80,7 @@ Politics411::Application.routes.draw do
   resources :universities 
   resources :degrees
 
-  root :to => "people#all"
+  root :to => "people#representatives"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

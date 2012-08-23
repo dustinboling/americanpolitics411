@@ -2,6 +2,9 @@ class CommitteesController < ApplicationController
 
   layout 'public'
 
+  load_and_authorize_resource
+  skip_authorize_resource :only => [:index, :manage, :show]
+
   def index
     @house_committees = Committee.where("name like 'House%'")
     @senate_committees = Committee.where("name like 'Senate%'")

@@ -21,6 +21,7 @@ gem 'youtube_it'
 gem 'twitter'
 gem 'jquery-ui-rails'
 gem 'kaminari'
+gem 'jquery-datatables-rails', :path => "vendor/gems/jquery-datatables-rails-1.10.0"
 
 # helpful helper gems
 # gem 'railroady'
@@ -46,7 +47,6 @@ group :assets do
   gem 'sass-rails',   '~> 3.1.3', :require => 'sass'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
-  gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 end
 
 # To use ActiveModel has_secure_password

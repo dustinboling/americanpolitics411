@@ -1,6 +1,9 @@
 class ContributorController < ApplicationController
   
   layout 'admin'
+
+  load_and_authorize_resource
+  skip_authorize_resource :only => [:show]
  
   def show
    if TransparencyData::Client.entities(:search => params[:contributor_name]).empty? || params[:entity_type] == "I"

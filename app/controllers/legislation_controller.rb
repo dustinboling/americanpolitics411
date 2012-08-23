@@ -29,10 +29,6 @@ class LegislationController < ApplicationController
     end
   end
 
-  def new
-    @legislation = Legislation.new
-  end
-
   def show
     if params[:bill_number]
       @legislation = Legislation.find_by_bill_number(params[:bill_number])
@@ -41,12 +37,16 @@ class LegislationController < ApplicationController
     end 
   end
 
-  def edit
-    @legislation = Legislation.find(params[:id])
-  end
-
   def list
     @legislation = Legislation.order('introduced_date DESC').page(params[:page]).per(25)
+  end
+
+  def new
+    @legislation = Legislation.new
+  end
+
+  def edit
+    @legislation = Legislation.find(params[:id])
   end
 
   def update

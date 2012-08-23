@@ -2,6 +2,9 @@ class IssuesController < ApplicationController
 
   layout 'public'
 
+  load_and_authorize_resource
+  skip_authorize_resource :only => [:index, :show]
+
   def index
     @issues = Issue.order('id ASC')
   end

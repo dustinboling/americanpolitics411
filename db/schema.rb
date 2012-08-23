@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120730174049) do
+ActiveRecord::Schema.define(:version => 20120803165313) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -222,6 +222,8 @@ ActiveRecord::Schema.define(:version => 20120730174049) do
     t.datetime "updated_at"
   end
 
+  add_index "issues", ["name"], :name => "index_issues_on_name"
+
   create_table "legislation_cosponsors", :force => true do |t|
     t.integer  "person_id"
     t.integer  "legislation_id"
@@ -268,11 +270,14 @@ ActiveRecord::Schema.define(:version => 20120730174049) do
     t.text     "chamber"
   end
 
+  add_index "legislations", ["bill_number"], :name => "index_legislations_on_bill_number"
   add_index "legislations", ["bill_type", "bill_number"], :name => "index_legislations_on_bill_type_and_bill_number"
   add_index "legislations", ["bill_uri"], :name => "index_legislations_on_bill_uri"
   add_index "legislations", ["chamber"], :name => "index_legislations_on_chamber"
+  add_index "legislations", ["congress_year"], :name => "index_legislations_on_congress_year"
   add_index "legislations", ["id"], :name => "index_legislations_on_id"
   add_index "legislations", ["introduced_date"], :name => "index_legislations_on_introduced_date"
+  add_index "legislations", ["introduced_year"], :name => "index_legislations_on_introduced_year"
   add_index "legislations", ["rtc_id"], :name => "index_legislations_on_rtc_id"
   add_index "legislations", ["session"], :name => "index_legislations_on_session"
 
@@ -416,6 +421,15 @@ ActiveRecord::Schema.define(:version => 20120730174049) do
     t.boolean  "in_office"
     t.string   "district"
   end
+
+  add_index "people", ["bioguide_id"], :name => "index_people_on_bioguide_id"
+  add_index "people", ["crp_id"], :name => "index_people_on_crp_id"
+  add_index "people", ["current_party"], :name => "index_people_on_current_party"
+  add_index "people", ["govtrack_id"], :name => "index_people_on_govtrack_id"
+  add_index "people", ["last_name"], :name => "index_people_on_last_name"
+  add_index "people", ["nyt_id"], :name => "index_people_on_nyt_id"
+  add_index "people", ["slug"], :name => "index_people_on_slug"
+  add_index "people", ["state_represented"], :name => "index_people_on_state_represented"
 
   create_table "person_votes", :force => true do |t|
     t.integer  "person_id"

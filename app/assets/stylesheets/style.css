@@ -180,7 +180,7 @@ hr {
  *************************************/
 
 #header {
-  height: 130px;
+  height: 125px;
 }
 
 #header .logo {
@@ -191,6 +191,10 @@ hr {
   display: block;
 }
 
+#time-now { 
+  font-size: 12px;
+  position: absolute;
+}
 
 /*
  * Header Navigation
@@ -219,6 +223,7 @@ hr {
 
 #header-nav ul li a {
   display: block;
+  font-size: 16px;
   padding: 10px 15px;
   text-decoration: none;
 }

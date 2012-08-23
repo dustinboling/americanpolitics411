@@ -15,7 +15,7 @@ class Legislation < ActiveRecord::Base
   has_many :legislation_issues
   has_many :issues, :through => :legislation_issues
 
-  SESSIONS = [111, 112]
+  SESSIONS = [112, 111]
 
   def set_introduced_year
     unless self.introduced_year.nil?
