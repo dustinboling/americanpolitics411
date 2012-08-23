@@ -1,5 +1,14 @@
 namespace :update do
 
+  ##### NOTE ##########################################
+  ## These update tasks are returning a lot of nils. ##
+  ## This is a problem with the newest bills being   ##
+  ## incomplete on the api.                          ##
+  ##                                                 ##
+  ## They should probably be replaced with real time ##
+  ## javascript calls to the api's in question.      ##
+  #####################################################
+
   desc "Update legislation since last update."
   task :legislation => :environment do
     client = Congress::Client.new
