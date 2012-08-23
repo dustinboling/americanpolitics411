@@ -18,6 +18,7 @@ AP411 - ROADMAP
 #128 - bill_titleize function (e.g. HR => H.R.)
 #129 - load_and_authorize_resource legislation_controller
 #130 - need bill prognosis
+#131 - fatal git errors are coming from git hooks in datatables gem! 
 
 
 API LIST
