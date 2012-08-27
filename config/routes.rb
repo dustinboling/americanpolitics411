@@ -27,9 +27,12 @@ Politics411::Application.routes.draw do
   get "people/switch_to_senator_by_party"
   get "people/switch_to_senator_by_name"
   get "people/refresh_bubble_rect"
+  get "people/person_not_found"
+  post "people/search"
 
   # Routes for autocomplete api
   get "api/autocomplete/autocomplete_person_name"
+  get "api/autocomplete/autocomplete_person_name_to_slug"
   get "api/autocomplete/autocomplete_person_url"
   get "api/autocomplete/autocomplete_religion_name"
   get "api/autocomplete/autocomplete_university_name"

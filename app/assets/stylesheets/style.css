@@ -253,7 +253,7 @@ hr {
   text-transform: capitalize;
 }
 
-#person-search {
+.person-search {
   background-color: #3F3F3F;
   color: #FFF;
 }

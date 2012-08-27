@@ -1,7 +1,10 @@
 <div class="representatives-col1 three columns">
   <h1>Everyone</h1>
   <p>Know of an individual serving in Federal, State, or Local politics? Search for their name here. Make sure to type their name as accurately as possible.</p>
-  <input type="text" action="people/search" id="person-search" placeholder="Search for a person" >
+  <%= form_tag 'search', :method => :post do %>
+    <%= text_field_tag :name, params[:name], :id => 'name', :name => 'name', :class => 'person-search', data: {people_source: api_autocomplete_autocomplete_person_name_path} %>
+    <%= submit_tag 'Search' %>
+  <% end %>
 </div>
 <div id="menu-item-officials-subnav-col2" class="representatives-col2 three columns one-of-five">
   <ul>

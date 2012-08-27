@@ -3,12 +3,19 @@ class PeopleController < ApplicationController
   layout 'public'
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:all, :show, :representatives, :senators, 
-    :indiv_contributors, :pac_contributors, :refresh_officials, 
-    :switch_to_representative_by_state, :switch_to_representative_by_name, 
-    :switch_to_representative_by_party, :switch_to_senator_by_state, 
-    :switch_to_senator_by_name, :switch_to_senator_by_party,
-    :refresh_bubble_rect]
+  skip_authorize_resource :only => [
+    :all                               , :show                             ,
+    :representatives                   , :senators                         ,
+    :indiv_contributors                , :pac_contributors                 ,
+    :refresh_officials                 , :switch_to_senator_by_party       ,
+    :switch_to_representative_by_state , :switch_to_representative_by_name ,
+    :switch_to_representative_by_party , :switch_to_senator_by_state       ,
+    :switch_to_senator_by_name         , :refresh_bubble_rect
+  ]
+
+  def index
+    render 'all'
+  end
 
   def all
     @people = Person.order("people.id ASC")
@@ -18,6 +25,35 @@ class PeopleController < ApplicationController
       format.json { render :json => @people}
       format.xml { render xml: @people }
     end
+  end
+
+  def list
+    @people = People.order("people.id ASC")
+  end
+
+  def show
+    @person = Person.where(:name => params[:name])
+    endpoint = "http://ap411.pagodabox.com/official/"
+    url = endpoint + @person.slug + "/?output=json"
+    @articles = fetch_json(url)
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @person }
+    end
+  end
+
+  def search
+    @person = Person.where(:name => params[:name]).first
+
+    if @person
+      render :action => 'show', :locals => {:person => @person}
+    else
+      render :action => 'person_not_found', :locals => {:name => params[:name]}
+    end
+  end
+
+  def person_not_found
   end
 
   def senators
@@ -94,26 +130,6 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       format.js { render :layout => false }
-    end
-  end
-
-  def index
-    render 'all'
-  end
-
-  def list
-    @people = People.order("people.id ASC")
-  end
-
-  def show
-    @person = Person.find(params[:id])
-    endpoint = "http://ap411.pagodabox.com/official/"
-    url = endpoint + @person.slug + "/?output=json"
-    @articles = fetch_json(url)
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @person }
     end
   end
 
