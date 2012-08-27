@@ -258,6 +258,16 @@ hr {
   color: #FFF;
 }
 
+input.person-search {
+  width: 110px;
+  float: left;
+}
+
+input.submit-search {
+  float: left;
+  height: 32px !important;
+}
+
 #menu-item-officials-subnav-col2, 
 #menu-item-officials-subnav-col3, 
 #menu-item-officials-subnav-col4, 

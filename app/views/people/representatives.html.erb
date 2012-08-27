@@ -21,8 +21,10 @@
             <li><%= link_to "Browse by Party", {:action => 'switch_to_representative_by_party'}, :remote => true %></li>
           </ul>
           <%= form_tag 'search', :method => :post do %>
+          <div class="row">
             <%= text_field_tag :name, params[:name], :id => 'name', :name => 'name', :class => 'person-search', data: {people_source: api_autocomplete_autocomplete_person_name_path} %>
-            <%= submit_tag 'Search' %>
+            <%= submit_tag 'Go', :class => 'submit-search' %>
+          </div>
           <% end %>
         </div>
         <div class="navigation-container">
@@ -41,7 +43,7 @@
           </ul>
           <%= form_tag 'search', :method => :post do %>
             <%= text_field_tag :name, params[:name], :id => 'name', :name => 'name', :class => 'person-search', data: {people_source: api_autocomplete_autocomplete_person_name_path} %>
-            <%= submit_tag 'Search' %>
+            <%= submit_tag 'Go', :class => 'submit-search' %>
           <% end %>
         </div>
         <div class="navigation-container">
@@ -64,3 +66,4 @@
 <% end %>
     <%= render :partial => 'person_partial', :locals => {:people => @people} %>
 </div>
+
