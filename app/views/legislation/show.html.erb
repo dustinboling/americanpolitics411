@@ -7,12 +7,12 @@
 
   <article>
   <div class="twelve columns">
-    <h4 id="legislation-title"><%= @legislation.bill_type.upcase %> <%= @legislation.bill_number %>: <%= @legislation.bill_title.upcase %></h4>
+    <h4 id="legislation-title" style="font-size: 14px;"><%= @legislation.bill_type.upcase %> <%= @legislation.bill_number %>: <%= @legislation.bill_title.upcase %></h4>
     <div class="bill_pdf">
-      <% if @legislation.bill_pdf != nil %>
-      <iframe src="http://docs.google.com/gview?url=<%= @legislation.bill_pdf %>&embedded=true" class="twelve columns" style="height:900px;" frameborder="0"></iframe>
+      <% if @legislation.summary %>
+        <p style="font-size: 14px; padding-left: 10px;"><%= @legislation.summary %></p>
       <% else %>
-      <p style="font-size: 14px; padding-left: 10px;">No pdf on file for this bill.</p>
+        <p style="font-size: 14px; padding-left: 10px;">No summary for this bill</p>
       <% end %>
     </div>
   </div>
