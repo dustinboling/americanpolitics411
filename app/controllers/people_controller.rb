@@ -10,7 +10,8 @@ class PeopleController < ApplicationController
     :refresh_officials                 , :switch_to_senator_by_party       ,
     :switch_to_representative_by_state , :switch_to_representative_by_name ,
     :switch_to_representative_by_party , :switch_to_senator_by_state       ,
-    :switch_to_senator_by_name         , :refresh_bubble_rect
+    :switch_to_senator_by_name         , :refresh_bubble_rect              ,
+    :search
   ]
 
   def index
