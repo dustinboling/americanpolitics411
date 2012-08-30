@@ -71,4 +71,16 @@ module PeopleHelper
   def print_contact_info
     contact_info = @person.contact_phone
   end
+
+  def fetch_json(url)
+    require 'json'
+    require 'net/http'
+
+    begin
+      resp = Net::HTTP.get_response(URI.parse(url))
+      data = resp.body
+      JSON.parse(data)
+    rescue Exception => e
+    end
+  end
 end

@@ -1,1 +1,27 @@
-<h1>Articles for <%= @person.full_name %></h1>
+<%
+  endpoint = "http://ap411.pagodabox.com/official/"
+  url = endpoint + @person.slug + "/?output=json"
+  articles_json = fetch_json(url)
+%>
+<h4 style="padding-left: 10px;">Articles for <%= @person.full_name %></h4>
+<% if articles_json.nil? || articles_json['articles'].length < 1 %>
+<p style="padding-left: 10px;">None</p>
+<% else %>
+  <table class="table-striped" style="width: 98%; margin-left: 10px;">
+    <thead>
+      <tr>
+        <th>Posted</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% articles = articles_json['articles'] %>
+      <% articles.each do |a| %>
+        <tr>
+          <td><%= link_to a[1]['post_date'].to_date, a[1]['guid'] %></td>
+          <td><%= link_to a[1]['post_title'], a[1]['guid'] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
