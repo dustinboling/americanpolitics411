@@ -11,6 +11,7 @@
     <div class="bill_pdf">
       <% if @legislation.summary %>
         <p style="font-size: 14px; padding-left: 10px;"><%= @legislation.summary %></p>
+        <p class="attribution" style="padding-left: 10px;">SOURCE: Congressional Research Service</p>
       <% else %>
         <p style="font-size: 14px; padding-left: 10px;">No summary for this bill</p>
       <% end %>
