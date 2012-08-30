@@ -32,10 +32,17 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @person = Person.where(:name => params[:name])
-    endpoint = "http://ap411.pagodabox.com/official/"
-    url = endpoint + @person.slug + "/?output=json"
-    @articles = fetch_json(url)
+    if params[:name]
+      @person = Person.where(:name => params[:name])
+      endpoint = "http://ap411.pagodabox.com/official/"
+      url = endpoint + @person.slug + "/?output=json"
+      @articles = fetch_json(url)
+    else
+      @person = Person.find(params[:id])
+      endpoint = "http://ap411.pagodabox.com/official/"
+      url = endpoint + @person.slug + "/?output=json"
+      @articles = fetch_json(url)
+    end
 
     respond_to do |format|
       format.html # show.html.erb
