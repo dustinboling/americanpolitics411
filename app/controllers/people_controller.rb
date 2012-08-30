@@ -64,6 +64,14 @@ class PeopleController < ApplicationController
   def person_not_found
   end
 
+  def videos
+    @person = Person.find(params[:id])
+  end
+
+  def articles
+    @person = Person.find(params[:id])
+  end
+
   def senators
     @people = Person.where("chamber = 'S'").order("people.last_name ASC")
   end

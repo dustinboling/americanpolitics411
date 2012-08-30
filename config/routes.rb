@@ -16,10 +16,12 @@ Politics411::Application.routes.draw do
   match "senators" => "people#senators"
   match "representatives" => "people#representatives"
 
+  get "people/index"
+  get "people/videos"
+  get "people/articles"
   get "people/senators"
   get "people/representatives"
   get "people/refresh_officials"
-  get "people/index"
   get "people/switch_to_representative_by_state"
   get "people/switch_to_representative_by_name"
   get "people/switch_to_representative_by_party"

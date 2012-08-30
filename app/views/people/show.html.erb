@@ -44,23 +44,24 @@
   </div>
   <div id="media-center" class="sixteen columns">
     <div id="media-center-articles" class="eight columns">
-      <% if @articles.nil? || @articles.length < 1 %>
+      <% if @articles.nil? || @articles['articles'].length < 1 %>
       <h2>No articles have been added.</h2>
       <% else %>
-      <% @articles = @articles['articles'] %>
-      <% i = 1 %>
-      <% @articles.take(8).each do |a| %>
-      <% article = a[1] %>
-      <% if i == 1 %>
-      <div class="article first">
-      <% else %>
-      <div class="article">
-      <% end %>
-        <h4><%= link_to article['post_title'], article['guid'].gsub(/#038;/, "") %></h4>
-        <p><%= truncate(article['post_excerpt'], :length => 140) %><%= link_to " Read More >", article['guid'].gsub(/#038;/, ""), {:style => "color:red;"} %></p>
-      </div>
-      <% i = i + 1 %>
-      <% end %>
+        <% @articles = @articles['articles'] %>
+        <% i = 1 %>
+        <% @articles.take(8).each do |a| %>
+        <% article = a[1] %>
+        <% if i == 1 %>
+          <div class="article first">
+          <% else %>
+          <div class="article">
+          <% end %>
+            <h4><%= link_to article['post_title'], article['guid'].gsub(/#038;/, "") %></h4>
+            <p><%= truncate(article['post_excerpt'], :length => 140) %><%= link_to " Read More >", article['guid'].gsub(/#038;/, ""), {:style => "color:red;"} %></p>
+          </div>
+          <% i = i + 1 %>
+        <% end %>
+        <%= link_to "More articles >>", :action => 'articles', :id => @person.id %>
       <% end %>
     </div>
     <div id="media-center-videos" class="seven columns">

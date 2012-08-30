@@ -1,0 +1,45 @@
+<h4 style="padding-left: 10px;">Videos for <%= @person.full_name %></h4>
+
+<% if @person.youtube_id.blank? %>
+  <%= videos = $youtube.videos_by(:query => "#{@person.full_name}", :page => 1, :per_page => 20) %>
+  <table class="table-striped" style="width: 98%; margin-left: 10px;">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% videos.videos.each do |v| %>
+        <% url = v.media_content[0].url %>
+        <% title = v.title %>
+        <% thumbnail = v.thumbnails.first %>
+        <tr>
+          <td><%= link_to image_tag(thumbnail.url), url %></td>
+          <td><%= link_to title, url %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <% videos = $youtube.videos_by(:user => "#{@person.youtube_id}", :page => 1, :per_page => 20) %>
+  <table class="table-striped" style="width: 98%; margin-left: 10px;">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% videos.videos.each do |v| %>
+        <% url = v.media_content[0].url %>
+        <% title = v.title %>
+        <% thumbnail = v.thumbnails.first %>
+        <tr>
+          <td><%= link_to image_tag(thumbnail.url), url %></td>
+          <td><%= link_to title, url %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
