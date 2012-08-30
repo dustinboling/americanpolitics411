@@ -3,8 +3,7 @@ class LegislationController < ApplicationController
   layout 'public'
 
   def index
-    list
-    render('list')
+    @legislation = Legislation.order('introduced_date DESC').page(params[:page]).per(25)
   end
 
   def refresh
