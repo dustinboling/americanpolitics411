@@ -1,1 +1,2 @@
 $('#legislation-container').html("<%= escape_javascript(render(:partial => 'legislation_partial', :locals => {:legislation => @legislation})).html_safe %><div id='paginator'><%= escape_javascript(render(:partial => 'legislation_pagination_partial_refresh', :locals => {:legislation => @legislation})).html_safe %></div>")
+$('#legislation-table').show()

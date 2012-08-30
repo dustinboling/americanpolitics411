@@ -1,4 +1,7 @@
 <%= stylesheet_link_tag "legislation" %>
+<div id="legislation-loader" style="display: none">
+  <%= image_tag 'ajax-loader.gif' %>
+</div>
 <% if @legislation.count == 0 %>
 <h2>No records found.</h2>
 <% else %>
