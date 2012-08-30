@@ -15,6 +15,6 @@
       <iframe class="youtube-player" type="text/html" width="400" height="241" src="http://www.youtube.com/embed/<%= v.unique_id %>" frameborder="0">
       </iframe>
   <% end %>
-  <%= link_to "More Videos >>", :action => 'videos', :id => @person.id %>
+  <%= link_to "More Videos >>", videos_person_path(@person), :id => @person.id %>
 <% end %>
 <% end %>

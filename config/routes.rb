@@ -16,9 +16,7 @@ Politics411::Application.routes.draw do
   match "senators" => "people#senators"
   match "representatives" => "people#representatives"
 
-  get "people/index"
-  get "people/videos"
-  get "people/articles"
+  # Additional routes for people
   get "people/senators"
   get "people/representatives"
   get "people/refresh_officials"
@@ -50,6 +48,12 @@ Politics411::Application.routes.draw do
   get "signup" => "users#new", :as => "signup"
 
   # Resourceful routes
+  resources :people do
+    member do 
+      get 'videos'
+      get 'articles'
+    end
+  end
   resources :main_issues
   resources :issues
   resources :committees
@@ -67,7 +71,6 @@ Politics411::Application.routes.draw do
   resources :campaign_platforms
   resources :supporters
   resources :contributors
-  resources :people  
   resources :articles 
   resources :attachments
   resources :personal_assets

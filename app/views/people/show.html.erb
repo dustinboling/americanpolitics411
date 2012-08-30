@@ -61,7 +61,7 @@
           </div>
           <% i = i + 1 %>
         <% end %>
-        <%= link_to "More articles >>", :action => 'articles', :id => @person.id %>
+        <%= link_to "More articles >>", articles_person_path(@person), :id => @person.id %>
       <% end %>
     </div>
     <div id="media-center-videos" class="seven columns">
