@@ -43,7 +43,7 @@ Politics411::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w( jquery.wysiwyg.css wysiwyg.link.js wysiwyg.image.js jquery.wysiwyg.js wysiwyg.table.js wysiwyg.css wysiwyg.css wysiwyg.css wysiwyg.link.js wysiwyg.table.js )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
