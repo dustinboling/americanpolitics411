@@ -6,7 +6,7 @@
     <%= form_for :legislations, :remote => true, :url => {:action => 'refresh'} do |f| %>
     <label class="two columns">
       By Year
-      <%= f.text_field :introduced_year, :class => 'box_g', :style => 'width: 90px;' %>
+      <%= f.select :introduced_year, Legislation::YEARS, {}, :class => 'box_g', :style => 'width: 90px;' %>
     </label>
     <%= f.submit "Go", :class => 'no-padding box_red' %>
     <% end %>
