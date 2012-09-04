@@ -10,7 +10,7 @@
     <h4 id="legislation-title" style="font-size: 14px;"><%= @legislation.bill_type.upcase %> <%= @legislation.bill_number %>: <%= @legislation.bill_title.upcase %></h4>
     <div class="bill_pdf">
       <% if @legislation.summary %>
-        <p style="font-size: 14px; padding-left: 10px;"><%= @legislation.summary %></p>
+        <p style="font-size: 14px; padding-left: 10px;"><%= parse_summary(@legislation.summary) %></p>
       <% else %>
         <p style="font-size: 14px; padding-left: 10px;">No summary for this bill</p>
       <% end %>
@@ -20,9 +20,9 @@
   <div class="four columns">
     <div id="full_text" class="box_d">
       <% if @legislation.bill_pdf %>
-      <h2><a href="<%= @legislation.bill_pdf %>" style="color: #FFF; text-decoration: none;">Download PDF</a></h2>
+        <h2><a href="<%= @legislation.bill_pdf %>" style="color: #FFF; text-decoration: none;">Download PDF</a></h2>
       <% else %>
-      <h2>No PDF</h2>
+        <h2>No PDF</h2>
       <% end %>
     </div>
 
