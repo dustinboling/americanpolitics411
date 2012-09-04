@@ -227,7 +227,7 @@ window.onload = function () {
 
     // main-infotabs
     if (window.state_represented != "") {
-        r.text(380, 30, full_name + " (" + current_party + ") - " + state_represented ).attr({"font-size": "14px", "text-anchor": "start"});
+        r.text(380, 30, full_name + " (" + current_party + ") " + state_represented + "-" +  district).attr({"font-size": "14px", "text-anchor": "start"});
     } else {
         r.text(382, 30, full_name).attr({"font-size": "14px", "text-anchor": "start"});
     }
