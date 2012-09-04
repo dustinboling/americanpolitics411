@@ -1,0 +1,27 @@
+<div class="three columns">
+  <%= form_for :legislations, :remote => true, :url => {:action => 'refresh'} do |f| %>
+  <label class="two columns">
+    By Year
+    <%= f.select :introduced_year, Legislation::YEARS, {}, :class => 'box_g', :style => 'width: 90px; height: 30px;' %>
+  </label>
+  <%= f.submit "Go", :class => 'no-padding box_red', :onclick => "$('#legislation-table').hide();$('#legislation-loader').show();" %>
+  <% end %>
+</div>
+<div class="four columns">
+  <%= form_for :legislations, :remote => true, :url => {:action => 'refresh'} do |f| %>
+  <label class="three columns">
+    By Session
+    <%= f.select :session, Legislation::SESSIONS, {}, :class => 'box_g', :style => "height: 30px;" %>
+  </label>
+  <%= f.submit "Go", :class => 'no-padding box_red', :onclick => "$('#legislation-table').hide();$('#legislation-loader').show();" %>
+  <% end %>
+</div>
+<div class="four columns">
+  <%= form_for :legislations, :remote => true, :url => {:action => 'refresh'} do |f| %>
+  <label class="three columns">
+    By Issue
+    <%= f.text_field :issue_name, :class => 'issues-list box_g', :data => {issues_source: api_autocomplete_autocomplete_issues_name_path}, :style => 'width: 150px;' %>
+  </label>
+  <%= f.submit "Go", :class => 'no-padding box_red', :onclick => "$('#legislation-table').hide();$('#legislation-loader').show();"%>
+  <% end %>
+</div>
