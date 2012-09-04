@@ -54,6 +54,9 @@ class PeopleController < ApplicationController
 
   def search
     @person = Person.where(:name => params[:name]).first
+    endpoint = "http://ap411.pagodabox.com/official/"
+    url = endpoint + @person.slug + "/?output=json"
+    @articles = fetch_json(url)
 
     if @person
       render :action => 'show', :locals => {:person => @person}
