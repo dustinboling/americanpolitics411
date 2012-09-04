@@ -9,9 +9,9 @@ class Person < ActiveRecord::Base
   before_save :set_slug
   
   belongs_to :religion
-
-  has_many :person_votes
   
+  has_many :addresses
+  has_many :person_votes
   has_many :legislative_offices
   
   has_many :legislation_cosponsors

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120803165313) do
+ActiveRecord::Schema.define(:version => 20120904210127) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -39,6 +39,23 @@ ActiveRecord::Schema.define(:version => 20120803165313) do
     t.datetime "updated_at"
     t.string   "resource_type"
     t.integer  "resource_id"
+  end
+
+  create_table "addresses", :force => true do |t|
+    t.integer  "person_id"
+    t.string   "title"
+    t.string   "street_address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip_code"
+    t.string   "twitter_id"
+    t.string   "phone"
+    t.string   "fax"
+    t.string   "email"
+    t.string   "web_page_name"
+    t.string   "web_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "admin_users", :force => true do |t|

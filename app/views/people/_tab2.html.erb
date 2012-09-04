@@ -1,0 +1,14 @@
+<h2 class="edit-title">Contact Info</h2>
+<% if @person.addresses.count == 0 %>
+  <p>No addresses have been added.</p>
+  <%= link_to_add_fields "Add Contact", f, :addresses %>
+<% else %>
+  <%= f.fields_for :addresses do |address| %>
+    <%= render 'address_fields', :f => address %>
+  <% end %>
+  <div>
+    <div>
+      <%= link_to_add_fields "Add Contact", f, :addresses %>
+    </div>
+  </div>
+<% end %>

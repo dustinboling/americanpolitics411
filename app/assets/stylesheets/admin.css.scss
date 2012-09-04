@@ -33,6 +33,14 @@ table tr th, table tr td { vertical-align: top; text-align: left;
 	margin-left: 10px;
 }
 
+.contact-column {
+  input {
+    height: 15px !important;
+    padding: 0;
+    margin: 0;
+  }
+}
+
 /* Vertical Tabs */
 .ui-tabs-vertical { width: 55em; }
 .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
