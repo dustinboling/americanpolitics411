@@ -1,8 +1,9 @@
 <% p = Person.find(params[:pid]) %>
-<% votes = p.person_votes %>
+<% votes = p.person_votes.includes(:legislation) %>
 
 <h1 class="popup-title">Voting Behavior</h1>
 <% if votes.count > 0 %>
+  <p class="attribution">SOURCE: <a href="http://www.sunlightlabs.com/">Sunlight Labs</a></p>
   <table id="data-table" class="table-striped">
     <thead>
       <tr>
@@ -14,7 +15,7 @@
       <% votes.each do |v| %>
       <% l = v.legislation %>
       <tr>
-        <td><%= l.bill_type.upcase  %>i <%= l.bill_number %></td>
+        <td><%= l.bill_type.upcase  %> <%= l.bill_number %></td>
         <td><%= v.vote %></td>
       </tr>
       <% end %>
