@@ -15,6 +15,7 @@
 
 <h1 class="popup-title">Demographics & Endorsements</h1>
 <% if @success != false && @sectors.count > 0 %>
+  <p class="attribution">SOURCE: <a href="http://www.sunlightlabs.com/">Sunlight Foundation</a></p>
   <table class="table-striped" style="width: 920px;">
     <thead>
       <tr>
@@ -38,7 +39,6 @@
       <td><h4><%= number_to_currency(@i) %></h4></td>
     </tbody>
   </table>
-  <p class="attribution">SOURCE: <a href="http://www.sunlightlabs.com/">Sunlight Foundation</a></p>
 <% else %>
   Information is not currently available, research is in progress.
 <% end %>

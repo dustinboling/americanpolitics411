@@ -1,8 +1,9 @@
 <% p = Person.find(params[:pid]) %>
 
 <h1 class="popup-title">Net Worth</h1>
+<p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p><br>
+
 <h2 class="popup-subtitle">Average: <%= number_to_currency(p.net_worth_average) %></h2>
 <h2 class="popup-subtitle">Minimum: <%= number_to_currency(p.net_worth_minimum) %></h2>
 <h2 class="popup-subtitle">Maximum: <%= number_to_currency(p.net_worth_maximum) %></h2>
 
-<p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p>

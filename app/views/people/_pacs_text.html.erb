@@ -3,17 +3,25 @@
 p = Person.find(params[:pid])
 person_name = "#{p.first_name} " + "#{p.last_name}"
 
-pac_contributors = TransparencyData::Client.contributions(
-  :recipient_ft => "#{person_name}", 
-  :cycle => 2011,
-  :amount => {:gte => 2300},
-  :contributor_type => "C"
-)
+begin
+  pac_contributors = TransparencyData::Client.contributions(
+    :recipient_ft => "#{person_name}", 
+    :cycle => 2011,
+    :amount => {:gte => 2300},
+    :contributor_type => "C"
+  )
+rescue MonsterMash::HTTPError => e
+  @success = false
+  @message = e
+end
 %>
 
 <%# print data (for humans) %>
 <h1 class="popup-title">PAC Contributions</h1>
-<% if pac_contributors.count > 0 %>
+<% if @success == false %>
+  <p>Error connecting to API, please try again later.<br> (<%= @message %>)</p>
+<% elsif pac_contributors.count > 0 %>
+  <p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p>
   <table id="data-table" class="table-striped">
     <thead>
       <tr>
@@ -32,7 +40,6 @@ pac_contributors = TransparencyData::Client.contributions(
       <% end %>
     </tbody>
   </table>
-  <p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p>
 <% else %>
   <p>No PAC contributors found for <%= person_name %></p>
 <% end %>

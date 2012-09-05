@@ -4,6 +4,7 @@
 
 <h1 class="popup-title">Sponsored Legislation</h1>
 <% if sponsored_legislation.count > 0 %>
+  <p class="attribution">SOURCE: <a href="www.sunlightlabs.com">Sunlight Labs</a></p>
   <table id="data-table">
     <thead>
       <tr>
@@ -20,7 +21,6 @@
       <% end %>
     </tbody>
   </table>
-  <p class="attribution">SOURCE: <a href="www.sunlightlabs.com">Sunlight Labs</a></p>
 <% else %>
   <p><%= p.full_name %> has no sponsored legislation.</p>
 <% end %>
