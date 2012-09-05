@@ -1,4 +1,5 @@
 class Address < ActiveRecord::Base
-  belongs_to :person
+  attr_accessible :person_id, :title, :street_address, :city, :state, :zip_code, :phone, :fax
 
+  belongs_to :person
 end

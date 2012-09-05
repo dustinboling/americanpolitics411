@@ -1,14 +1,60 @@
 <h2 class="edit-title">Contact Info</h2>
-<% if @person.addresses.count == 0 %>
-  <p>No addresses have been added.</p>
-  <%= link_to_add_fields "Add Contact", f, :addresses %>
-<% else %>
-  <%= f.fields_for :addresses do |address| %>
-    <%= render 'address_fields', :f => address %>
-  <% end %>
-  <div>
-    <div>
-      <%= link_to_add_fields "Add Contact", f, :addresses %>
-    </div>
-  </div>
-<% end %>
+<%= f.label :twitter_id %>
+<%= f.text_field :twitter_id %>
+
+<%= f.label :youtube_id %>
+<%= f.text_field :youtube_id %>
+
+<%= f.label :contact_email %>
+<%= f.text_field :contact_email %>
+
+<%= f.label :contact_web_page_url, "Web Page URL" %>
+<%= f.text_field :contact_web_page_url %>
+
+<hr>
+
+<h2 class="edit-title">Addresses</h2>
+<table class="zebra-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Street Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip Code</th>
+      <th>Phone</th>
+      <th>Fax</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= f.fields_for :addresses do |address| %>
+      <%= render 'address_fields', :f => address %>
+    <% end %>
+    <% if @person.addresses.count == 0 %>
+    <tr>
+      <td>
+        No addresses have been added.
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <% end %>
+    <tr class="addfield">
+      <td>
+        <%= link_to_add_fields "Add Contact", f, :addresses %>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

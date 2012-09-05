@@ -1,42 +1,12 @@
-<div class="fields">
-  <div class="contact-column seven columns">
-    <%= f.hidden_field :person_id, :value => @person.id %>
+<tr class="fields">
+  <%= f.hidden_field :person_id, :value => @person.id %>
 
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-
-    <%= f.label :street_address, "Street Address" %>
-    <%= f.text_field :street_address %>
-
-    <%= f.label :city, "City" %>
-    <%= f.text_field :city %>
-
-    <%= f.label :state, "State" %>
-    <%= f.text_field :state %>
-
-    <%= f.label :zip_code, "Zip Code" %>
-    <%= f.text_field :zip_code %>
-
-    <%= f.label "Twitter ID" %>
-    <%= f.text_field :twitter_id %>
-  </div>
-
-  <div class="contact-column seven columns">
-    <%= f.label :phone, "Phone" %>
-    <%= f.text_field :phone %>
-
-    <%= f.label :fax, "Fax" %>
-    <%= f.text_field :fax %>
-
-
-    <%= f.label :email, "Email" %>
-    <%= f.text_field :email %>
-
-    <%= f.label :web_page_name, "Web Page Name" %>
-    <%= f.text_field :web_page_name %>
-
-    <%= f.label :web_url, "Web Page URL" %>
-    <%= f.text_field :web_url %>
-    <%= link_to_remove_fields "remove", f %>
-  </div>
-</div>
+  <td><%= f.text_field :title, :style => 'width: 100px; height: 15px;' %></td>
+  <td><%= f.text_field :street_address, :style => 'height: 15px;' %></td>
+  <td><%= f.text_field :city, :style => 'width: 100px; height: 15px;' %></td>
+  <td><%= f.text_field :state, :style => 'width: 50px; height: 15px;' %></td>
+  <td><%= f.text_field :zip_code, :style => 'width: 60px; height: 15px;' %></td>
+  <td><%= f.text_field :phone, :style => 'width: 80px; height: 15px;' %></td>
+  <td><%= f.text_field :fax, :style => 'width: 80px; height: 15px;' %></td>
+  <td><%= link_to_remove_fields "remove", f %></td>
+</tr>
