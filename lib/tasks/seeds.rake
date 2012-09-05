@@ -17,6 +17,36 @@ namespace :seed do
   ###
   # NEW STUFF
   #
+  #<Sunlight::Legislator:0x007f8ea7176e60 @website="http://www.kohl.senate.gov/", @fax="202-224-9787", @govtrack_id="300061", @firstname="Herbert", @middlename="H.", @lastname="Kohl", @congress_office="330 Hart Senate Office Building", @phone="202-224-5653", @webform="http://www.kohl.senate.gov/contact.cfm", @youtube_url="http://www.youtube.com/SenatorKohl", @nickname="Herb", @gender="M", @district="Senior Seat", @title="Sen", @congresspedia_url="http://www.opencongress.org/wiki/Herbert_Kohl", @in_office=true, @senate_class="I", @name_suffix="", @twitter_id="", @birthdate=1935-02-07 00:00:00 -0800, @bioguide_id="K000305", @fec_id="S6WI00061", @state="WI", @crp_id="N00004309", @facebook_id="herbkohl", @party="D", @email="", @votesmart_id="53362">
+  desc "Populate database with addresses of congress members"
+  task :addresses => :environment do |t, args|
+    puts "Getting list of congress members..."
+    people = Person.where(:is_congress_member => true)
+    people.each do |p|
+      person_id = p.id
+      person = Sunlight::Legislator.all_where(:bioguide_id => p.bioguide_id)
+      unless person.nil? || person.first.nil?
+        person = person.first
+        a = Address.new
+        a.person_id = person_id
+        a.title = "Congressional Office"
+        a.street_address = person.congress_office
+        a.city = "Washington" 
+        a.state = "D.C."
+        a.phone = person.phone
+        a.fax = person.fax
+        a.email = person.email
+        a.web_url = person.website
+        if a.save
+          puts "Addded 1 address for #{p.bioguide_id}..."
+        else
+          puts "Error on: #{p.bioguide_id}..."
+        end
+      end
+    end
+    puts "All done."
+  end
+
   desc "Populate database with legislation"
   task :legislation, [:session] => :environment do |t, args|
     if args.session.nil?
