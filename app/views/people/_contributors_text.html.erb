@@ -3,17 +3,24 @@
 p = Person.find(params[:pid])
 person_name = "#{p.first_name} " + "#{p.last_name}"
 
-contributors = TransparencyData::Client.contributions(
-  :recipient_ft => "#{person_name}",
-  :cycle => 2011,
-  :amount => {:gte => 2300},
-  :contributor_type => "I"
-)
+begin
+  contributors = TransparencyData::Client.contributions(
+    :recipient_ft => "#{person_name}",
+    :cycle => 2011,
+    :amount => {:gte => 2300},
+    :contributor_type => "I"
+  )
+rescue MonsterMash::HTTPError => e
+  @success = false
+  @message = e
+end
 %>
 
 <%# for humans. %>
 <h1 class="popup-title">Contributors (Individual)</h1>
-<% if contributors.count > 0 %>
+<% if @success == false %>
+  <p>Could not connect to the api, please try again later.</p>
+<% elsif contributors.count > 0 %>
   <table id="data-table" class="table-striped">
     <thead>
       <tr>
