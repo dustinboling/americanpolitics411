@@ -1,25 +1,25 @@
 <% p = Person.find(params[:pid]) %>
 <% votes = p.person_votes %>
 
-<h1>Voting Behavior</h1>
+<h1 class="popup-title">Voting Behavior</h1>
 <% if votes.count > 0 %>
-<table id="data-table" class="table-striped">
-  <thead>
-    <tr>
-      <th>Bill</th>
-      <th>Vote</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% votes.each do |v| %>
-    <% l = v.legislation %>
-    <tr>
-      <td><%= l.bill_type.upcase  %>i <%= l.bill_number %></td>
-      <td><%= v.vote %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table id="data-table" class="table-striped">
+    <thead>
+      <tr>
+        <th>Bill</th>
+        <th>Vote</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% votes.each do |v| %>
+      <% l = v.legislation %>
+      <tr>
+        <td><%= l.bill_type.upcase  %>i <%= l.bill_number %></td>
+        <td><%= v.vote %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
-<p><%= p.full_name %> has no votes on record.</p>
+  <p><%= p.full_name %> has no votes on record.</p>
 <% end %>

@@ -4,35 +4,35 @@ p = Person.find(params[:pid])
 person_name = "#{p.first_name} " + "#{p.last_name}"
 
 contributors = TransparencyData::Client.contributions(
-:recipient_ft => "#{person_name}",
-:cycle => 2011,
-:amount => {:gte => 2300},
-:contributor_type => "I"
+  :recipient_ft => "#{person_name}",
+  :cycle => 2011,
+  :amount => {:gte => 2300},
+  :contributor_type => "I"
 )
 %>
 
 <%# for humans. %>
-<h1>Contributors (Individual)</h1>
+<h1 class="popup-title">Contributors (Individual)</h1>
 <% if contributors.count > 0 %>
-<table id="data-table" class="table-striped">
-  <thead>
-    <tr>
-      <th>Amount</th>
-      <th>Contributor</th>
-      <th>Contribution Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% contributors.each do |c| %>
-    <tr>
-      <td><%= c.amount %></td>
-      <td><%= c.contributor_name %></td>
-      <td><%= c.date %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p>
+  <table id="data-table" class="table-striped">
+    <thead>
+      <tr>
+        <th>Amount</th>
+        <th>Contributor</th>
+        <th>Contribution Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% contributors.each do |c| %>
+      <tr>
+        <td><%= c.amount %></td>
+        <td><%= c.contributor_name %></td>
+        <td><%= c.date %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p>
 <% else %>
-<p>No contributors found for <%= person_name %></p>
+  <p>No contributors found for <%= person_name %></p>
 <% end %>

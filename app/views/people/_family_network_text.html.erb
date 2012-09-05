@@ -1,7 +1,7 @@
 <% p = Person.find(params[:pid]) %>
 <% family_members = p.family_members %>
 
-<h1>Family Network</h1>
+<h1 class="popup-title">Family Network</h1>
 <% if family_members.count > 0 %>
 <table class="table-striped">
   <thead>

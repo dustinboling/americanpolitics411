@@ -15,9 +15,10 @@ unless cid.nil?
   json = JSON.parse(data)
 end
 %>
+
 <% if json.blank? %>
   <% investments = p.personal_assets %>
-  <h1>Investments</h1>
+  <h1 class="popup-title">Investments</h1>
   <% if investments.count > 0 %>
   <table class="table-striped">
     <thead>
@@ -44,7 +45,7 @@ end
   <% end %>
 <% else %>
   <% investments = json['response']['member_profile']['assets']['asset'] %>
-  <h1>Investments</h1>
+  <h1 class="popup-title">Investments</h1>
   <table class="table-striped">
     <thead>
       <tr>

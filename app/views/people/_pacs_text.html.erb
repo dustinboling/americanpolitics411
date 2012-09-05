@@ -12,27 +12,27 @@ pac_contributors = TransparencyData::Client.contributions(
 %>
 
 <%# print data (for humans) %>
-<h1>PAC Contributions</h1>
+<h1 class="popup-title">PAC Contributions</h1>
 <% if pac_contributors.count > 0 %>
-<table id="data-table" class="table-striped">
-  <thead>
-    <tr>
-      <th>Amount</th>
-      <th>Contributor</th>
-      <th>Contribution Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% pac_contributors.each do |p| %>
-    <tr>
-      <td><%= p.amount %></td>
-      <td><%= p.contributor_name %></td>
-      <td><%= p.date %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p>
+  <table id="data-table" class="table-striped">
+    <thead>
+      <tr>
+        <th>Amount</th>
+        <th>Contributor</th>
+        <th>Contribution Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% pac_contributors.each do |p| %>
+      <tr>
+        <td><%= p.amount %></td>
+        <td><%= p.contributor_name %></td>
+        <td><%= p.date %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p>
 <% else %>
-<p>No PAC contributors found for <%= person_name %></p>
+  <p>No PAC contributors found for <%= person_name %></p>
 <% end %>

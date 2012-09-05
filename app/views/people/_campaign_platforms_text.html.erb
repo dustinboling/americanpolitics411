@@ -1,26 +1,26 @@
 <% p = Person.find(params[:pid]) %>
 <% platforms = p.campaign_platforms %>
 
-<h1>Campaign Platforms</h1>
+<h1 class="popup-title">Campaign Platforms</h1>
 <% if platforms.count > 0 %>
-<table class="table-striped">
-  <thead>
-    <tr>
-      <th>Year</th>
-      <th>Topic</th>
-      <th>Position</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% platforms.each do |p| %>
-    <tr>
-      <td><%= p.campaign_year.year %></td>
-      <td><%= p.topic %></td>
-      <td><%= p.position_on_issue %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table class="table-striped">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Topic</th>
+        <th>Position</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% platforms.each do |p| %>
+      <tr>
+        <td><%= p.campaign_year.year %></td>
+        <td><%= p.topic %></td>
+        <td><%= p.position_on_issue %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
-<p>Research is in progress.</p>
+  <p>Research is in progress.</p>
 <% end %>

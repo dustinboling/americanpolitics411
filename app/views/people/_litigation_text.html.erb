@@ -1,24 +1,24 @@
 <% p = Person.find(params[:pid]) %>
 <% litigation = p.litigations %>
 
-<h1>Litigation</h1>
+<h1 class="popup-title">Litigation</h1>
 <% if litigation.count > 0 %>
-<table class="table-striped">
-  <thead>
-    <th>Year</th>
-    <th>Litigation</th>
-    <th>Outcome</th>
-  </thead>
-  <tbody>
-    <% litigation.each do |l| %>
-    <tr>
-      <td><%= l.date.year %></td>
-      <td><%= l.litigation %></td>
-      <td><%= l.outcome %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table class="table-striped">
+    <thead>
+      <th>Year</th>
+      <th>Litigation</th>
+      <th>Outcome</th>
+    </thead>
+    <tbody>
+      <% litigation.each do |l| %>
+      <tr>
+        <td><%= l.date.year %></td>
+        <td><%= l.litigation %></td>
+        <td><%= l.outcome %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
-<p>Research is in progress.</p>
+  <p>Research is in progress.</p>
 <% end %>

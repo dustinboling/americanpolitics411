@@ -1,26 +1,26 @@
 <% p = Person.find(params[:pid]) %>
 <% flip_flops = p.flip_flops %>
 
-<h1>Flip-flops</h1>
+<h1 class="popup-title">Flip-flops</h1>
 <% if flip_flops.count > 0 %>
-<table class="table-striped">
-  <thead>
-    <tr>
-      <th>Year</th>
-      <th>Issue</th>
-      <th>Flip-flop</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% flip_flops.each do |f| %>
-    <tr>
-      <td><%= f.year.year %></td>
-      <td><%= f.issue %></td>
-      <td><%= f.flipflop %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table class="table-striped">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Issue</th>
+        <th>Flip-flop</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% flip_flops.each do |f| %>
+      <tr>
+        <td><%= f.year.year %></td>
+        <td><%= f.issue %></td>
+        <td><%= f.flipflop %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
-<p>Research is in progress.</p>
+  <p>Research is in progress.</p>
 <% end %>
