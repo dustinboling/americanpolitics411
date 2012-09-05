@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904210127) do
+ActiveRecord::Schema.define(:version => 20120905230801) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -396,12 +396,6 @@ ActiveRecord::Schema.define(:version => 20120904210127) do
     t.string   "current_residence"
     t.text     "dates_in_office"
     t.string   "photo_url"
-    t.string   "contact_street_address"
-    t.string   "contact_city"
-    t.string   "contact_state"
-    t.integer  "contact_zip"
-    t.string   "contact_phone"
-    t.string   "contact_fax"
     t.string   "contact_email"
     t.string   "contact_web_page_name"
     t.string   "contact_web_page_url"
