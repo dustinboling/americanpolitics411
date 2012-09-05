@@ -1,13 +1,20 @@
 <% p = Person.find(params[:pid]) %>
-<h1>Contact</h1>
-<h4>Address</h4>
-<address>
-  <%= p.contact_street_address %><br>
-  <%= p.contact_city %>, <%= p.contact_state %> <%= p.contact_zip %>
-</address><br>
+<h1 class="popup-title">Contact</h1>
+<% if p.addresses.count > 0 %>
+  <% addresses = p.addresses %>
+  <% addresses.each do |a| %>
+    <address>
+      <h4 class="popup-subtitle"><%= a.title %></h4>
+      <%= a.street_address %><br>
+      <%= a.city %>, <%= a.state %> <%= a.zip_code %><br>
+      Phone: <%= a.phone %><br>
+      Fax: <%= a.fax %>
+    </address><br>
+  <% end %>
+<% end %>
 
-<h4>Phone/Fax/Email</h4>
-<b>Phone: </b><%= p.contact_phone %><br>
-<b>Email: </b><%= p.contact_email %><br>
-<b>Fax: </b><%= p.contact_fax %><br>
+<% unless p.contact_email.blank? %>
+  <h4 class="popup-subtitle">Email</h4>
+  <%= p.contact_email %><br>
+<% end %>
 
