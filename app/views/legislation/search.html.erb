@@ -1,0 +1,15 @@
+<div class="sixteen columns">
+  <div class="four columns">
+    <h1 class="page-title">Legislation</h1>
+  </div>
+  <%= render :partial => 'legislation_search' %>
+</div>
+
+<div id="legislation-container" class="fifteen columns box_a" style="margin-left: 20px;">
+  <div id="legislation">
+    <%= render :partial => 'legislation_partial', :locals => { :legislation => @legislation } %>
+  </div>
+  <div id="paginator">
+    <%= render :partial => 'legislation_pagination_partial', :locals => { :legislation => @legislation } %>
+  </div>
+</div>
