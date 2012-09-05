@@ -1,5 +1,5 @@
 <% p = Person.find(params[:pid]) %>
-<% cosponsored_legislation = p.legislation_cosponsors %>
+<% cosponsored_legislation = p.legislation_cosponsors.includes(:legislation) %>
 
 <h1 class="popup-title">Co-sponsored Legislation</h1>
 <% if cosponsored_legislation.count > 0 %>
