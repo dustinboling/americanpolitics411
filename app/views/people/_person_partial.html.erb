@@ -12,7 +12,11 @@
     <% @people.each do |p| %>
     <tr class="<%= cycle("even", "odd") %>">
       <td><%= link_to "#{p.name} (#{p.current_party}-#{p.state_represented})", person_path(p.to_param) %></td>
-      <td><%= p.contact_phone %></td>
+      <% if p.addresses.count > 0 %>
+      <td><%= p.addresses.first.phone %></td>
+      <% else %>
+      <td></td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>

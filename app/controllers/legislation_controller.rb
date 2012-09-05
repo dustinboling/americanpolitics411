@@ -3,7 +3,7 @@ class LegislationController < ApplicationController
   layout 'public'
 
   def index
-    @legislation = Legislation.order('introduced_date DESC').page(params[:page]).per(25)
+    @legislation = Legislation.order('introduced_date DESC').page(params[:page]).per(25).includes(:passage_votes)
   end
 
   def refresh
@@ -48,7 +48,7 @@ class LegislationController < ApplicationController
 
   def show
     if params[:bill_number]
-      @legislation = Legislation.find_by_bill_number(params[:bill_number])
+      @legislation = Legislation.find_by_bill_number(params[:bill_number]).includes(:legislation_issues)
     else
       @legislation = Legislation.find(params[:id])
     end 

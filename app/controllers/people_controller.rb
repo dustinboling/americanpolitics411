@@ -29,10 +29,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  def list
-    @people = People.order("people.id ASC")
-  end
-
   def show
     if params[:name]
       @person = Person.where(:name => params[:name])
@@ -134,18 +130,18 @@ class PeopleController < ApplicationController
 
   def refresh_officials
     if params.has_key?(:state_represented) && params.has_key?(:chamber)
-      @people = Person.where(:state_represented => params[:state_represented], :chamber => params[:chamber])
+      @people = Person.where(:state_represented => params[:state_represented], :chamber => params[:chamber]).includes(:addresses)
     elsif params.has_key?(:name) && params.has_key?(:chamber)
       name_range  = params[:name].split('-')
-      @people = Person.where("chamber = '#{params[:chamber]}' AND last_name BETWEEN '#{name_range[0]}' AND '#{name_range[1]}'")
+      @people = Person.where("chamber = '#{params[:chamber]}' AND last_name BETWEEN '#{name_range[0]}' AND '#{name_range[1]}'").includes(:addresses)
     elsif params.has_key?(:chamber) && params.has_key?(:party)
-      @people = Person.where(:chamber => params[:chamber], :current_party => params[:party])
+      @people = Person.where(:chamber => params[:chamber], :current_party => params[:party]).includes(:addresses)
     elsif params.has_key?(:state)
-      @people = Person.where(:state_represented => params[:state])
+      @people = Person.where(:state_represented => params[:state]).includes(:addresses)
     elsif params.has_key?(:party)
-      @people = Person.where(:current_party => params[:party])
+      @people = Person.where(:current_party => params[:party]).includes(:addresses)
     elsif params.has_key?(:chamber)
-      @people = Person.where(:chamber => params[:chamber])
+      @people = Person.where(:chamber => params[:chamber]).includes(:addresses)
     end
 
     respond_to do |format|
