@@ -39,8 +39,8 @@ window.onload = function () {
         this.attr({stroke: "#BBB"});
     }
     function hoverInText(i) {
-        var index = i;
-        shapes[index].attr({stroke: "#000"});
+        var indSensenbrenneosionalx = i;
+        shapes[i].attr({stroke: "#000"});
     }
     function hoverOutText(i) {
         shapes[i].attr({stroke: "BBB"});
@@ -228,8 +228,10 @@ window.onload = function () {
     }
 
     // main-infotabs
-    if (window.state_represented != "") {
-        r.text(380, 30, full_name + " (" + current_party + ") " + state_represented + "-" +  district).attr({"font-size": "14px", "text-anchor": "start"});
+    if (window.state_represented != "" && window.chamber == "H") {
+        r.text(380, 30, full_name + " (" + current_party + ") " + state_represented + "-" +  district).attr({"font-size": "13px", "text-anchor": "start"});
+    } else if (window.chamber == "S") {
+        r.text(380, 30, full_name + " (" + current_party + ") " + state_represented).attr({"font-size": "13px", "text-anchor": "start"}); 
     } else {
         r.text(382, 30, full_name).attr({"font-size": "14px", "text-anchor": "start"});
     }
