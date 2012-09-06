@@ -18,8 +18,8 @@
       <% articles = articles_json['articles'] %>
       <% articles.each do |a| %>
         <tr>
-          <td><%= link_to a[1]['post_date'].to_date, a[1]['guid'] %></td>
-          <td><%= link_to a[1]['post_title'], a[1]['guid'] %></td>
+          <td><%= link_to a[1]['post_date'].to_date, a[1]['guid'].gsub(/#038;/, "") %></td>
+          <td><%= link_to a[1]['post_title'], a[1]['guid'].gsub(/#038;/, "") %></td>
         </tr>
       <% end %>
     </tbody>
