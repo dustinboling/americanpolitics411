@@ -17,7 +17,7 @@
       <% l = v.legislation %>
       <tr>
         <td><%= l.bill_type.upcase  %> <%= l.bill_number %></td>
-        <td><%= truncate(l.bill_title, :length => 120) %></td>
+        <td><%= truncate(l.bill_title, :length => 110) %></td>
         <td><%= v.vote %></td>
       </tr>
       <% end %>
