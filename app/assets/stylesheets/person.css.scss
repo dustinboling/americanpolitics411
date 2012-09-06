@@ -1,6 +1,6 @@
 /* AJAX WINDOW */
 .attribution {
-  font-size: 9px;
+  font-size: 11px;
   margin: 0;
 }
 
@@ -113,10 +113,12 @@ h2.edit-title {
 }
 #data-table_filter label {
   text-align: right;
-  margin: 0;
+  margin-right: 5px;
   padding: 0;
 }
 #data-table_filter input {
-  margin: 0;
   padding: 0;
+}
+#data-table_first {
+  padding: 0 !important;
 }
