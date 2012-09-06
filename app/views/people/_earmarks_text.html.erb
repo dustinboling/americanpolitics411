@@ -4,6 +4,7 @@
 <h1 class="popup-title">Earmarks</h1>
 <% if earmarks.count > 0 %>
   <div id="data-table-wrapper" style="width: 920px;">
+    <p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p>
     <table id="data-table">
       <thead>
         <tr>
@@ -24,7 +25,6 @@
         </tr>
       </tbody>
     </table>
-    <p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p>
   </div>
 <% else %>
   <p>No earmarks on record for <%= p.full_name %>.</p>

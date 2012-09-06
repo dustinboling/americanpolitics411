@@ -39,7 +39,8 @@ window.onload = function () {
         this.attr({stroke: "#BBB"});
     }
     function hoverInText(i) {
-        shapes[i].attr({stroke: "#000"});
+        var index = i;
+        shapes[index].attr({stroke: "#000"});
     }
     function hoverOutText(i) {
         shapes[i].attr({stroke: "BBB"});
@@ -68,8 +69,8 @@ window.onload = function () {
             sx = shapes[i].attrs.x + 50;
             sy = shapes[i].attrs.y + 23;
             texts[i] = r.text(sx, sy, nodeTexts[i - 4]).attr({"font-size": "12px"});
-            // texts[i].mouseover(hoverIn);
-            // texts[i].mouseout(hoverOut);
+            texts[i].mouseover(hoverInText(i));
+            texts[i].mouseout(hoverOutText(i));
             texts[i].node.onclick = function() {
                 newRect = makeRectBlank();
                 n = 23;
