@@ -9,11 +9,12 @@
   <article>
   <div class="twelve columns">
     <h4 id="legislation-title" style="font-size: 14px;"><%= @legislation.bill_type.upcase %> <%= @legislation.bill_number %>: <%= @legislation.bill_title.upcase %></h4>
-    <div class="bill_pdf">
+    <div class="bill_pdf box_b" style="margin-left: 9px;">
       <% if @legislation.summary %>
-        <p style="font-size: 14px; padding-left: 10px;"><%= parse_summary(@legislation.summary) %></p>
+        <h5 id="summary-title">Summary</h5>
+        <p style="font-size: 12px;"><%= parse_summary(@legislation.summary) %></p>
       <% else %>
-        <p style="font-size: 14px; padding-left: 10px;">No summary for this bill</p>
+        <p style="font-size: 12px;">No summary for this bill</p>
       <% end %>
     </div>
   </div>
