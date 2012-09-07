@@ -4,7 +4,7 @@ class Api::AutocompleteController < ApplicationController
   # PEOPLE
   #
   def autocomplete_person_name
-    @people = Person.order(:name).where("name like ?", "%#{params[:term]}%")
+    @people = Person.order(:name).where("name ilike ?", "%#{params[:term]}%")
     render json: @people.map(&:name)
   end
 
