@@ -37,3 +37,48 @@ h5#summary-title {
   font-weight: bold;
   text-transform: uppercase;
 }
+
+#voter-ids {
+  background-color: #fff;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  min-height: 400px;
+  width: 700px;
+  z-index: 99999999;
+}
+
+#voter-ids div p {
+  padding: 4px 0;
+  text-transform: uppercase;
+}
+
+#voter-ids div ul {
+  text-align: justify;
+  -moz-column-count: 3;
+  -moz-column-gap: 1.5em;
+  /* -moz-column-rule: 1px solid #c4c8cc; */
+  -webkit-column-count: 3;
+  -webkit-column-gap: 1.5em;
+  /* -webkit-column-rule: 1px solid #c4c8cc; */
+}
+
+#voter-ids div ul li {
+  font-size: 10px;
+}
+
+.close-button {
+  background: none repeat scroll 0 0 #9F1D21;
+  border-color: #BBBBBB #BBBBBB #BBBBBB -moz-use-text-color;
+  border-radius: 0 0 0 0;
+  border-style: solid solid solid none;
+  border-width: 1px 1px 1px medium;
+  color: #FFFFFF;
+  line-height: 13px;
+  margin: 0;
+  padding: 0 10px;
+  text-shadow: none !important;
+  float: right;
+  font-size: 16px !important;
+  text-transform: uppercase;
+}

@@ -1,6 +1,6 @@
 module LegislationHelper
   def remove_hyphens(string)
-     string.gsub(/-/, "").gsub(/!/, "").gsub(/'/, "")
+    string.gsub(/-/, "").gsub(/!/, "").gsub(/'/, "")
   end
 
   def parse_summary(summary)
@@ -12,5 +12,75 @@ module LegislationHelper
 
     return summary
   end
-end
 
+  def get_vote_breakdown
+  end
+
+  def split_voter_ids
+    voter_ids = @votes['votes'].last['voter_ids']
+    yeas = []
+    nays = []
+    abstains = []
+
+    # split up into yeas, nays, abstains
+    voter_ids.each do |id|
+      if id[1] == 'Yea'
+        yeas << id[0]
+      elsif id[1] == 'Nay'
+        nays << id[0]
+      elsif id[1] == 'Not Voting'
+        abstains << id[0]
+      end
+    end
+
+    # compose sql statements
+    find_yeas = "SELECT * FROM people WHERE "
+    find_nays = "SELECT * FROM people WHERE "
+    find_abstains = "SELECT * FROM people WHERE "
+
+    yeas_length = yeas.length
+    nays_length = nays.length
+    abstains_length = abstains.length
+
+    i = 0
+    yeas.each do |y|
+      if i == yeas_length - 1
+        find_yeas = find_yeas + 
+          "bioguide_id = '#{y.capitalize}'"
+      else
+        find_yeas = find_yeas + 
+          "bioguide_id = '#{y.capitalize}' OR "
+        i = i + 1
+      end
+    end
+    @yeas = Person.find_by_sql(find_yeas)
+
+    i = 0
+    nays.each do |n|
+      if i == nays_length - 1
+        find_nays = find_nays + 
+          "bioguide_id = '#{n.capitalize}'"
+      else
+        find_yeas = find_nays + 
+          "bioguide_id = '#{n.capitalize}' OR "
+        i = i + 1
+      end
+    end
+    @nays = Person.find_by_sql(find_nays)
+
+    i = 0
+    abstains.each do |a|
+      if i == abstains_length - 1
+        find_abstains = find_abstains + "bioguide_id = '#{a.capitalize}'"
+      else
+        find_abstains = find_abstains + 
+          "bioguide_id = '#{a.capitalize}' OR "
+        i = i + 1
+      end
+    end
+    @abstains = Person.find_by_sql(find_abstains)
+
+    return @yeas, @nays, @abstains
+  end
+
+end

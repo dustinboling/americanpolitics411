@@ -29,99 +29,136 @@
     </div>
 
     <aside id="status" class="box_c">
-    <h2>Status</h2>
-    <% if @legislation.actions %>
-    <% actions = @legislation.actions %>
-    <table>
-      <% actions.each do |a| %>
-      <tr>
-        <td><%= truncate(a.text, :length => 80) %></td>
-        <td><%= a.acted_at.to_date %></td>
-      </tr>
+      <h2>Status</h2>
+      <% if @legislation.actions %>
+      <% actions = @legislation.actions.order('acted_at DESC').take(4) %>
+      <table>
+        <% actions.each do |a| %>
+        <tr>
+          <td><%= truncate(a.text, :length => 80) %></td>
+          <td><%= a.acted_at.to_date %></td>
+        </tr>
+        <% end %>
+        <% if @legislation.passage_votes %>
+        <% passage_votes = @legislation.passage_votes %>
+        <% passage_votes.each do |pv| %>
+        <tr>
+          <td><%= "#{pv.result}ed".capitalize %> <%= pv.chamber.capitalize %></td>
+          <td><%= pv.voted_at.to_date %></td>
+        </tr>
+        <% end %>
+        <% end %>
+      </table>
+      <% else %>
+        No actions recorded.
       <% end %>
-      <% if @legislation.passage_votes %>
-      <% passage_votes = @legislation.passage_votes %>
-      <% passage_votes.each do |pv| %>
-      <tr>
-        <td><%= "#{pv.result}ed".capitalize %> <%= pv.chamber.capitalize %></td>
-        <td><%= pv.voted_at.to_date %></td>
-      </tr>
-      <% end %>
-      <% end %>
-    </table>
-    <% else %>
-      No actions recorded.
-    <% end %>
     </aside>
 
     <aside id="votes" class="box_d">
-    <% client = Congress::Client.new %>
-    <% votes = client.votes(:bill_id => @legislation.rtc_id) %>
-    <% if votes['count'] == 0 %>
-    <h2>No Votes</h2>
-    <% else %>
-    <% vote = votes['votes'].last %>
-    <% breakdown = vote.vote_breakdown.total %>
-    <% yea = breakdown.yea %>
-    <% nay = breakdown.nay %>
-    <h2>Votes: Yea (<%= yea %>) - Nay (<%= nay %>)</h2>
-    <% end %>
+      <% if @votes['count'] == 0 %>
+        <h2>No Votes</h2>
+      <% else %>
+        <% vote = @votes['votes'].last %>
+        <% breakdown = vote.vote_breakdown.total %>
+        <% yea = breakdown.yea %>
+        <% nay = breakdown.nay %>
+        <h2 id="votes-header">
+          <a href="#" onclick="return false;" style="color: #fff;"> 
+            Votes: Yea (<%= yea %>) - Nay (<%= nay %>)
+          </a>
+        </h2>
+        <div id="voter-ids" class="box_a" style="display: none;">
+          <p class="close-button">Close X</p>
+          <h5>Votes</h5>
+          <% split_voter_ids %>
+          <div id="yea">
+            <p>Yea (<%= @yeas.count %>)</p>
+            <ul id="yea-list">
+              <% @yeas.each do |y| %>
+              <li>
+                <%= link_to "[#{y.state_represented}-#{y.district}] #{y.full_name} (#{y.current_party})", person_path(y.id) %>
+              </li>
+              <% end %>
+            </ul>
+          </div>
+          <div id="nay">
+            <p>Nay (<%= @nays.length %>)</p>
+            <ul id="nay-list">
+              <% @nays.each do |n| %>
+              <li>
+                <%= link_to "[#{n.state_represented}-#{n.district}] #{n.full_name} (#{n.current_party})", person_path(n.id) %>
+              </li>
+              <% end %>
+            </ul>
+          </div>
+          <div id="abstain">
+            <p>Abstain (<%= @abstains.count %>)</p>
+            <ul id="abstain-list">
+              <% @abstains.each do |a| %>
+              <li>
+                <%= link_to "[#{a.state_represented}-#{a.district}] #{a.full_name} (#{a.current_party})", person_path(a.id) %>
+              </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
     </aside>
 
     <aside id="issues" class="box_c">
-    <h2>Issues (sectors)</h2>
-    <% legislation_issues = @legislation.legislation_issues %>
-    <% issue_count = legislation_issues.count %>
-    <% n = 1 %>
-    <% legislation_issues.each do |i| %>
-    <% issue = i.issue %>
-    <% if n < 7 %>
-    <p><a href="/issues/<%= issue.to_param %>"><%= issue.name %></a></p>
-    <% elsif n == 7 %>
-    <p>
-      <%= link_to "more...", "#", :id => "more-issues", :onclick => "return false;" %>
-    </p>
-    <p class="hidden-issue" style="display:none;">
-      <%= link_to issue.name, issue_path(issue.to_param) %>
-    </p>
-    <% else %>
-    <p class="hidden-issue" style="display:none;">
-      <%= link_to issue.name, issue_path(issue.to_param) %>
-    </p>
-    <% end %>
-    <% n = n + 1 %>
-    <% end %>
+      <h2>Issues (sectors)</h2>
+      <% legislation_issues = @legislation.legislation_issues %>
+      <% issue_count = legislation_issues.count %>
+      <% n = 1 %>
+      <% legislation_issues.each do |i| %>
+      <% issue = i.issue %>
+      <% if n < 7 %>
+        <p><a href="/issues/<%= issue.to_param %>"><%= issue.name %></a></p>
+      <% elsif n == 7 %>
+        <p>
+          <%= link_to "more...", "#", :id => "more-issues", :onclick => "return false;" %>
+        </p>
+        <p class="hidden-issue" style="display:none;">
+          <%= link_to issue.name, issue_path(issue.to_param) %>
+        </p>
+      <% else %>
+        <p class="hidden-issue" style="display:none;">
+          <%= link_to issue.name, issue_path(issue.to_param) %>
+        </p>
+      <% end %>
+        <% n = n + 1 %>
+      <% end %>
     </aside>
 
     <aside id="sponsors" class="box_c">
-    <h2>Sponsor</h2>
-      <% unless Person.find_by_bioguide_id(@legislation.bill_sponsor_id).nil? %>
-        <p><a href="<%= person_path(Person.find_by_bioguide_id(@legislation.bill_sponsor_id)) %>"><%= @legislation.bill_sponsor %></a></p>
-      <% end %>
+      <h2>Sponsor</h2>
+        <% unless Person.find_by_bioguide_id(@legislation.bill_sponsor_id).nil? %>
+          <p><a href="<%= person_path(Person.find_by_bioguide_id(@legislation.bill_sponsor_id)) %>"><%= @legislation.bill_sponsor %></a></p>
+        <% end %>
     </aside>
 
     <aside id="cosponsors" class="box_d">
-    <% cosponsors = @legislation.legislation_cosponsors %>
-    <h2 id="cosponsors-header"><a href="#" onclick="return false;">Cosponsors (<%= cosponsors.count %>)</a></h2>
-    <ul id="cosponsors-list">
-      <% cosponsors.each do |c| %>
-      <p><a href="<%= person_path(Person.find(c.person.id)) %>"><%= c.person.name %></a></p>
-      <% end %>
-    </ul>
+      <% cosponsors = @legislation.legislation_cosponsors %>
+      <h2 id="cosponsors-header"><a href="#" onclick="return false;">Cosponsors (<%= cosponsors.count %>)</a></h2>
+      <ul id="cosponsors-list">
+        <% cosponsors.each do |c| %>
+        <p><a href="<%= person_path(Person.find(c.person.id)) %>"><%= c.person.name %></a></p>
+        <% end %>
+      </ul>
     </aside>
 
     <aside id="committees" class="box_c">
-    <h2>Committees</h2>
-    <% committees = CommitteeLegislation.where(:legislation_id => @legislation.id) %>
-    <% committees.each do |c| %>
-      <% com = Committee.find(c.committee_id) %>
-      <p><%= link_to com.name, com %></p>
-    <% end %>
+      <h2>Committees</h2>
+      <% committees = CommitteeLegislation.where(:legislation_id => @legislation.id) %>
+      <% committees.each do |c| %>
+        <% com = Committee.find(c.committee_id) %>
+        <p><%= link_to com.name, com %></p>
+      <% end %>
     </aside>
 
     <aside id="prognosis" class="box_c">
-    <h2>SOURCE</h2>
-    <p>Congressional Research Service</p>
+      <h2>SOURCE</h2>
+      <p>Congressional Research Service</p>
     </aside>
 
   </div>
