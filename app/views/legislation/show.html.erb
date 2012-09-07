@@ -139,7 +139,7 @@
 
     <aside id="cosponsors" class="box_d">
       <% cosponsors = @legislation.legislation_cosponsors %>
-      <h2 id="cosponsors-header"><a href="#" onclick="return false;">Cosponsors (<%= cosponsors.count %>)</a></h2>
+      <h2 id="cosponsors-header"><a href="#" onclick="return false;">Cosponsors (<%= cosponsors.count %>)</a> <span class="plus-button">+</span></h2>
       <ul id="cosponsors-list">
         <% cosponsors.each do |c| %>
         <p><a href="<%= person_path(Person.find(c.person.id)) %>"><%= c.person.name %></a></p>
