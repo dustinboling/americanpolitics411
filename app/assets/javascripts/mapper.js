@@ -386,7 +386,8 @@ function makeRect(partial) {
     $('#follow-button').hide();
     $('#current-tweet').hide();
     loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
-    closeButton = r.text(850, 30, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start", fill: "#9F1D21", "fill-opacity": 1});
+    closeButton = r.rect(835, 20, 100, 20).attr({fill: "#9F1D21"})
+    closeButtonText = r.text(850, 30, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF"});
     // get data
     var xhr = $.ajax({
         type: "GET",
@@ -420,6 +421,15 @@ function makeRect(partial) {
         newRect.hide();
         closeButton.hide();
     }
+    closeButtonText.node.onclick = function() {
+        loader.hide();
+        $('#popup-text').hide();
+        $('#follow-button').show();
+        $('#current-tweet').show();
+        newRect.hide();
+        closeButton.hide();
+    }
+    return newRect;
 }
 
 function makeRectBlank() {
@@ -431,7 +441,9 @@ function makeRectBlank() {
     });
     $('#follow-button').hide();
     $('#current-tweet').hide();
-    closeButton = r.text(850, 30, "CLOSE X").attr({"font-size": "16px;", "text-anchor": "start"});
+    loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
+    closeButton = r.rect(835, 20, 100, 20).attr({fill: "#9F1D21"})
+    closeButtonText = r.text(850, 30, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF"});
     closeButton.node.onclick = function() {
         loader.hide();
         $('#popup-text').hide();
@@ -440,7 +452,14 @@ function makeRectBlank() {
         newRect.hide();
         closeButton.hide();
     }
-    loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
+    closeButtonText.node.onclick = function() {
+        loader.hide();
+        $('#popup-text').hide();
+        $('#follow-button').show();
+        $('#current-tweet').show();
+        newRect.hide();
+        closeButton.hide();
+    }
     return newRect;
 }
 
