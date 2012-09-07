@@ -12,8 +12,8 @@ module LegislationHelper
     summary_sp3 = summary_sp2.split(': ').join(': <br>')
     summary_sp4 = summary_sp3.split(/\((?=\d)/).join('<br>(')
     summary_sp5 = summary_sp4.split('. (').join('. <br>(')
-    summary_sp6 = summary_sp5.split(/\. (?=\D)/).join('. <br>')
-    summary = summary_sp5.html_safe
+    summary_sp6 = summary_sp5.split('.) ').join('.)<br>')
+    summary = summary_sp6.html_safe
 
     return summary
   end
