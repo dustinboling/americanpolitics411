@@ -61,7 +61,7 @@ module LegislationHelper
         find_nays = find_nays + 
           "bioguide_id = '#{n.capitalize}'"
       else
-        find_yeas = find_nays + 
+        find_nays = find_nays + 
           "bioguide_id = '#{n.capitalize}' OR "
         i = i + 1
       end
