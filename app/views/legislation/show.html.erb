@@ -31,7 +31,7 @@
     <aside id="status" class="box_c">
       <h2>Status</h2>
       <% if @legislation.actions %>
-      <% actions = @legislation.actions.order('acted_at DESC').take(4) %>
+      <% actions = @legislation.actions.order('acted_at ASC').take(4) %>
       <table>
         <% actions.each do |a| %>
         <tr>
