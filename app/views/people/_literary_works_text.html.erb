@@ -1,7 +1,7 @@
 <% p = Person.find(params[:pid]) %>
 <% literary_work = p.literary_work %>
 
-<h1>Literary work</h1>
+<h1 class="popup-title">Literary work</h1>
 <% if literary_work != nil %>
 <%= literary_work.html_safe %>
 <% else %>

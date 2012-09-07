@@ -15,11 +15,13 @@ unless cid.nil?
   json = JSON.parse(data)
 end
 %>
-<h1>Organizations</h1>
+
+<h1 class="popup-title">Organizations</h1>
 <% if json.blank? || json.length <= 1 %>
   <p>Research is in progress.</p>
 <% else %>
   <% organizations = json['response']['member_profile']['positions']['position'] %>
+  <p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p>
   <table class="table-striped">
     <thead>
       <tr>
@@ -37,5 +39,4 @@ end
       <% end %>
     </tbody>
   </table>
-  <p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p>
 <% end %>
