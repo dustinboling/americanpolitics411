@@ -4,11 +4,16 @@ module LegislationHelper
   end
 
   def parse_summary(summary)
-    summary_sp1 = summary.split('. *?!\)').join('. <br>') 
-    summary_sp2 = summary_sp1.split('.*?!\)').join('.<br>')
+    # TODO: summary_sp1 and summary_sp2 basically do nothing, we need to
+    # look ahead and make sure that the NEXT NON DIGIT CHARACTER is
+    # not a ")" or "}"
+    summary_sp1 = summary.split('. *?![^\)]').join('. <br>') 
+    summary_sp2 = summary_sp1.split('.*?![^\)]').join('.<br>')
     summary_sp3 = summary_sp2.split(': ').join(': <br>')
     summary_sp4 = summary_sp3.split(/\((?=\d)/).join('<br>(')
-    summary = summary_sp4.html_safe
+    summary_sp5 = summary_sp4.split('. (').join('. <br>(')
+    summary_sp6 = summary_sp5.split(/\. (?=\D)/).join('. <br>')
+    summary = summary_sp5.html_safe
 
     return summary
   end
