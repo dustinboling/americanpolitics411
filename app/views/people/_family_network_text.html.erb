@@ -3,18 +3,20 @@
 
 <h1 class="popup-title">Family Network</h1>
 <% if family_members.count > 0 %>
-<table class="table-striped">
+<table class="table-striped" style="width: 900px;">
   <thead>
     <tr>
       <th>Name</th>
       <th>Relationship</th>
+      <th>Notes</th>
     </tr>
   </thead>
   <tbody>
     <% family_members.each do |f| %>
     <tr>
-      <th><%= f.family_member %></th>
-      <th><%= f.relationship %></th>
+      <td><%= f.family_member %></td>
+      <td><%= f.relationship %></td>
+      <td><%= f.notes %></td>
     </tr>
     <% end %>
   </tbody>
