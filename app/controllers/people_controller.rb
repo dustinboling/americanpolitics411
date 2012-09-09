@@ -55,7 +55,7 @@ class PeopleController < ApplicationController
     @articles = fetch_json(url)
 
     if @person
-      render :action => 'show', :locals => {:person => @person}
+      redirect_to :action => 'show', :id => @person.slug
     else
       render :action => 'person_not_found', :locals => {:name => params[:name]}
     end
