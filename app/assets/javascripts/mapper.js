@@ -245,7 +245,28 @@ window.onload = function () {
     } else {
         r.text(382, 335, "Birthdate: Unknown").attr({"text-anchor": "start", "font-size": "12px"});
     }
-    religionInfo = r.text(382, 350, "Religion: " + religion).attr({"text-anchor": "start", "font-size": "12px"});
+
+    // set up split-lines for religion
+    var maxWidth = 190;
+    var religionText = religion;
+    if (religionText.length < 20) {
+        religionInfo = r.text(382, 350, "Religion: " + religionText).attr({"text-anchor": "start", "font-size": "12px"});
+    } else {
+        var religionWords = religion.split(" ");
+        religionInfo = r.text(382, 355).attr({"text-anchor": "start", "font-size": "12px"});
+
+        var religionTempText = "Religion: ";
+        for (var i=0; i < religionWords.length; i++) {
+            religionInfo.attr("text", religionTempText + " " + religionWords[i]);
+            if (religionInfo.getBBox().width > maxWidth) {
+                religionTempText += "\n" + religionWords[i];
+            } else {
+                religionTempText += " " + religionWords[i];
+            }
+        }
+        religionInfo.attr("text", religionTempText.substring(0));
+    }
+
     eduRect = r.rect(380, 370, 170, 15, 5).attr({stroke: "none", fill: "red"});
     eduRectText = r.text(425, 378, "EDUCATION").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
     litRect = r.rect(380, 390, 170, 15, 5).attr({stroke: "none", fill: "red"});
