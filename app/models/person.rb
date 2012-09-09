@@ -21,6 +21,9 @@ class Person < ActiveRecord::Base
   
   has_many :committee_assignments
   has_many :committees, :through => :committee_assignments
+
+  has_many :organizations_people
+  accepts_nested_attributes_for :organizations_people, :allow_destroy => true
   
   # maps to edit -> contact tab
   has_many :addresses

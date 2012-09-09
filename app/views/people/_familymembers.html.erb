@@ -63,3 +63,29 @@
     <td></td>
   </tr>
 </table>
+
+<h2 class="edit-title">Organizations</h2>
+<table class="zebra-striped">
+  <thead>
+    <tr>
+      <th>Organization</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= f.fields_for :organizations_people do |organization_person| %>
+    <%= render 'organizations_people_fields', :f => organization_person %>
+    <% end %>
+    <% if @person.organizations_people.count == 0 %>
+    <tr>
+      <td>
+        No organizations have been added.
+      </td>
+    </tr>
+    <% end %>
+    <tr>
+      <td>
+        <%= link_to_add_fields "Add new organization", f, :organizations_people %>
+      </td>
+    </tr>
+  </tbody>
+</table>
