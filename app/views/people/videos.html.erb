@@ -1,7 +1,7 @@
 <h4 style="padding-left: 10px;">Videos for <%= @person.full_name %></h4>
 
 <% if @person.youtube_id.blank? %>
-  <%= videos = $youtube.videos_by(:query => "#{@person.full_name}", :page => 1, :per_page => 20) %>
+  <% videos = $youtube.videos_by(:query => "#{@person.full_name}", :page => 1, :per_page => 20) %>
   <table class="table-striped" style="width: 98%; margin-left: 10px;">
     <thead>
       <tr>
