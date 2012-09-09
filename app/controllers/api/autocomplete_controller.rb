@@ -3,7 +3,9 @@ class Api::AutocompleteController < ApplicationController
   ###
   # PEOPLE
   #
+
   def autocomplete_person_name
+    # ilike does a case-insensitive search!
     @people = Person.order(:name).where("name ilike ?", "%#{params[:term]}%")
     render json: @people.map(&:name)
   end
