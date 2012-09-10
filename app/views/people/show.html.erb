@@ -5,7 +5,11 @@
   window.pid = "<%= @person.id %>";
   window.nytid = "<%= @person.bioguide_id %>";
   window.photo_url = "<%= @person.photo_url %>";
-  window.full_name = "<%= @person.first_name + " " + @person.last_name %>";
+  <% if @person.title.blank? %>
+    window.full_name = "<%= @person.first_name + " " + @person.last_name %>";
+  <% else %>
+    window.full_name = "<%= @person.title + " " + @person.first_name + " " + @person.last_name %>";
+  <% end %>
   window.current_party = "<%= @person.current_party %>";
   window.state_represented = "<%= @person.state_represented %>";
   window.district = "<%= @person.district %>";
