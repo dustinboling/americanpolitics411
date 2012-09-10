@@ -1,6 +1,9 @@
 <tr class="fields">
   <%= f.hidden_field :person_id, :value => @person.id %>
-  <td><%= f.select(:organization_id, Organization.all.collect {|o| [o.name, o.id]}) %></td>
+  <td>
+    <%= f.select(:organization_id, Organization.all.collect {|o| [o.name, o.id]}) %>
+    <%= link_to "Add Organization", new_organization_path %>
+  </td>
   <td><%= f.text_field :position %></td>
   <td><%= link_to_remove_fields "remove", f %></td>
 </tr>
