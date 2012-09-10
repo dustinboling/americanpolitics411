@@ -1,10 +1,9 @@
 <div class="sixteen columns">
-<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @organization.name %>
-</p>
+<h1 class="page-title"><%= @organization.name %></h1>
+<h4>Members</h4>
+  <%= @organization.people.collect { |p| link_to p.full_name, p }.to_sentence %>
+<br>
 
 
 <%= link_to 'Edit', edit_organization_path(@organization) %> |

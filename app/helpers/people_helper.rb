@@ -83,4 +83,22 @@ module PeopleHelper
     rescue Exception => e
     end
   end
+
+  def fetch_organizations
+    require 'json'
+    require 'net/http'
+
+    cid = p.crp_id 
+
+    unless cid.nil?
+      apikey = "3c994a55a6b79f30f22b6b3942941f62"
+      endpoint = "http://www.opensecrets.org/api/?method=memPFDprofile"
+      url = endpoint + "&year=2009&cid=" + cid + "&output=json&apikey=" + apikey 
+      resp = Net::HTTP.get_response(URI.parse(url))
+      data = resp.body
+      json = JSON.parse(data)
+
+      return json
+    end
+  end
 end

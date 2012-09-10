@@ -1,40 +1,45 @@
-<% 
-require 'json'
-require 'net/http'
-
-p = Person.find(params[:pid])
-cid = p.crp_id 
-
-# get json
-unless cid.nil?
-  apikey = "3c994a55a6b79f30f22b6b3942941f62"
-  endpoint = "http://www.opensecrets.org/api/?method=memPFDprofile"
-  url = endpoint + "&year=2009&cid=" + cid + "&output=json&apikey=" + apikey 
-  resp = Net::HTTP.get_response(URI.parse(url))
-  data = resp.body
-  json = JSON.parse(data)
-end
-%>
+<% p = Person.find(params[:pid]) %>
 
 <h1 class="popup-title">Organizations</h1>
-<% if json.blank? || json.length <= 1 %>
-  <p>Research is in progress.</p>
+<% if p.organization_people.empty? %>
+  <% fetch_organizations %>
+  <% if json.blank? || json.length <= 1 %>
+    <p>Research is in progress.</p>
+  <% else %>
+    <% organizations = json['response']['member_profile']['positions']['position'] %>
+    <p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p>
+    <table class="table-striped">
+      <thead>
+        <tr>
+          <th>Organization</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% organizations.each do |organization| %>
+        <% o = organization['@attributes'] %>
+          <tr>
+            <td><%= o['organization'] %></td>
+            <td><%= o['title'] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 <% else %>
-  <% organizations = json['response']['member_profile']['positions']['position'] %>
-  <p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p>
-  <table class="table-striped">
+  <table class="table-striped" style="width: 900px;">
     <thead>
       <tr>
+        <th>Position</th>
         <th>Organization</th>
-        <th>Title</th>
       </tr>
     </thead>
     <tbody>
-    <% organizations.each do |organization| %>
-      <% o = organization['@attributes'] %>
+      <% organizations = p.organization_people %> 
+      <% organizations.each do |o| %>
         <tr>
-          <td><%= o['organization'] %></td>
-          <td><%= o['title'] %></td>
+          <td><%= link_to o.position, :controller => 'organizations', :action => 'show', :id => o.organization_id %></td>
+          <td><%= link_to o.organization.name, :controller => 'organizations', :action => 'show', :id => o.organization_id %></td>
         </tr>
       <% end %>
     </tbody>
