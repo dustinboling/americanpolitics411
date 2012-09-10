@@ -69,23 +69,29 @@
   <thead>
     <tr>
       <th>Organization</th>
+      <th>Position</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-    <%= f.fields_for :organizations_people do |organization_person| %>
-    <%= render 'organizations_people_fields', :f => organization_person %>
+    <%= f.fields_for :organization_people do |organization_person| %>
+    <%= render 'organization_person_fields', :f => organization_person %>
     <% end %>
-    <% if @person.organizations_people.count == 0 %>
+    <% if @person.organization_people.count == 0 %>
     <tr>
       <td>
         No organizations have been added.
       </td>
+      <td></td>
+      <td></td>
     </tr>
     <% end %>
     <tr>
       <td>
-        <%= link_to_add_fields "Add new organization", f, :organizations_people %>
+        <%= link_to_add_fields "Add new organization", f, :organization_people %>
       </td>
+      <td></td>
+      <td></td>
     </tr>
   </tbody>
 </table>
