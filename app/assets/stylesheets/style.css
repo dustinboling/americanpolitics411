@@ -694,9 +694,22 @@ aside.box_c h2,
   text-decoration: none;
 }
 
+h2#bill-number {
+  font-size: 60px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+h1#session-number{
+  padding-left: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+
 h4#legislation-title {
   padding-left: 10px;
-  font-weight: 600;
+  padding-bottom: 20px;
+  font-size: 14px;
 }
 
 /*
