@@ -1,5 +1,5 @@
 <% if @person.youtube_id.blank? %>
-  <% @personal_videos = $youtube.videos_by(:query => "#{@person.full_name}", :page => 1, :per_page => 2) %>
+  <% @personal_videos = $youtube.videos_by(:query => "#{@person.full_name}", :page => 1, :per_page => 12) %>
   <% @personal_videos.videos.each do |v| %>
       <% title = v.title %>
       <% thumbnail = v.thumbnails.first.url %>
