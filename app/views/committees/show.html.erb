@@ -45,21 +45,34 @@
       <% @committee.contact_info %>
       <% end %>
     </div>
+    <div id="attribution" class="nine columns box_b committee-right">
+      <h2 class="sub-title">Attribution</h2>
+      <p>
+        Member names, committee names and subcommittee names provided by <b><%= link_to "Sunlight Labs", "http://www.sunlightlabs.com" %></b>
+      </p>
+    </div>
   </div>
 
   <div id="bills">
-    <h2>Bills Overseen</h2>
-    <% legislations = @committee.legislations %>
+    <h4>Recent Actions</h4>
+    <% legislations = @committee.legislations.order('latest_major_action_date DESC').take(5) %>
     <table class="table-striped">
       <thead>
         <th>Bill Number</th>
         <th>Bill Title</th>
+        <th>Latest Action</th>
       </thead>
       <tbody>
         <% legislations.each do |l| %>
         <tr>
           <td><%= link_to "#{l.bill_type.upcase} #{l.bill_number}", l %></td>
           <td><%= link_to l.bill_title, l %></td>
+          <% if l.latest_major_action %>
+            <td><%= link_to l.latest_major_action, l %>
+          <% elsif l.actions.last %>
+            <% latest_action = l.actions.last %>
+            <td><%= latest_action.text %></td>
+          <% end %>
         </tr>
         <% end %>
       </tbody>
