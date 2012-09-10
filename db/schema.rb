@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120909235332) do
+ActiveRecord::Schema.define(:version => 20120910215512) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -442,6 +442,7 @@ ActiveRecord::Schema.define(:version => 20120909235332) do
     t.text     "congresspedia_url"
     t.boolean  "in_office"
     t.string   "district"
+    t.text     "title"
   end
 
   add_index "people", ["bioguide_id"], :name => "index_people_on_bioguide_id"
