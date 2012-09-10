@@ -100,6 +100,7 @@ class Person < ActiveRecord::Base
   
   def set_slug
     self.slug = "#{self.id}" + "-" + self.first_name + "-" + self.last_name
+    self.slug = self.slug.gsub(/ /, "-")
   end
   
   # use slugs for urls
