@@ -3,6 +3,9 @@
 </div>
 
 <div class="seven columns">
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
   <%= f.label :first_name %>
   <%= f.text_field :first_name %>
 
@@ -15,11 +18,12 @@
   <%= f.label :suffix %>
   <%= f.text_field :suffix %>
 
-  <%= f.label :is_congress_member, "This person has been a member of congress" %>
-  <%= f.check_box :is_congress_member %>
 </div>
 
 <div class="seven columns">
+  <%= f.label :is_congress_member, "This person has been a member of congress" %>
+  <%= f.check_box :is_congress_member %>
+
   <%= f.label :photo_url %>
   <%= f.text_field :photo_url %>
 
