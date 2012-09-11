@@ -3,10 +3,14 @@
 <h1 class="popup-title">Net Worth</h1>
 <p class="attribution">SOURCE: <a href="http://www.opensecrets.org">OpenSecrets.org</a></p><br>
 <% if p.net_worth_minimum.blank? && p.net_worth_average.blank? && p.net_worth_maximum.blank? %>
-  <% fetch_net_worth(p) %>
-  <h2 class="popup-subtitle">Average: <%= number_to_currency(@net_worth_average) %></h2>
-  <h2 class="popup-subtitle">Minimum: <%= number_to_currency(@net_worth_minimum) %></h2>
-  <h2 class="popup-subtitle">Maximum: <%= number_to_currency(@net_worth_maximum) %></h2>
+  <% net_worth_json = fetch_net_worth(p) %>
+  <% if net_worth_json.empty? %>
+    <p><%= RESEARCH_IN_PROGRESS %><p>
+  <% else %>
+    <h2 class="popup-subtitle">Average: <%= number_to_currency(@net_worth_average) %></h2>
+    <h2 class="popup-subtitle">Minimum: <%= number_to_currency(@net_worth_minimum) %></h2>
+    <h2 class="popup-subtitle">Maximum: <%= number_to_currency(@net_worth_maximum) %></h2>
+  <% end %>
 <% else %>
   <h2 class="popup-subtitle">Average: <%= number_to_currency(p.net_worth_average) %></h2>
   <h2 class="popup-subtitle">Minimum: <%= number_to_currency(p.net_worth_minimum) %></h2>

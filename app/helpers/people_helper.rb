@@ -131,10 +131,14 @@ module PeopleHelper
 
   def fetch_net_worth(person)
     json = fetch_pfd_profile(person)
-    json_attributes = json['response']['member_profile']['@attributes']
-    @net_worth_minimum = json_attributes['net_low'].to_i
-    @net_worth_maximum = json_attributes['net_high'].to_i
-    @net_worth_average = (@net_worth_maximum + @net_worth_minimum) / 2
+    if json.empty?
+      return []
+    else
+      json_attributes = json['response']['member_profile']['@attributes']
+      @net_worth_minimum = json_attributes['net_low'].to_i
+      @net_worth_maximum = json_attributes['net_high'].to_i
+      @net_worth_average = (@net_worth_maximum + @net_worth_minimum) / 2
+    end
 
     return @net_worth_minimum, @net_worth_maximum, @net_worth_average
   end
