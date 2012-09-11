@@ -129,7 +129,7 @@ module PeopleHelper
     return @net_worth_minimum, @net_worth_maximum, @net_worth_average
   end
 
-    # http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/A000055/votes.json?api-key=#### 
+  # http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/A000055/votes.json?api-key=#### 
   def fetch_votes(person)
     nyt_apikey = "b16efb69e13af05498fe536551a7bc67:15:65673083"
     nyt_endpoint = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/"
@@ -138,8 +138,10 @@ module PeopleHelper
       if @bioguide_id.empty?
         return []
       else
+        # save the bioguide id
         person.bioguide_id = @bioguide_id
         person.save
+
         nyt_url = nyt_endpoint + @bioguide_id + "/votes.json?api-key=" + nyt_apikey
         json = fetch_json(nyt_url)
 
