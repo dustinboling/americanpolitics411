@@ -110,10 +110,10 @@ class Person < ActiveRecord::Base
   end
   
   def full_name
-    if !suffix.blank?
-      "#{first_name} #{middle_name} #{last_name}, #{suffix}"
-    else
+    if suffix.blank?
       "#{first_name} #{middle_name} #{last_name}"
+    else
+      "#{first_name} #{middle_name} #{last_name}, #{suffix}"
     end
   end
   
