@@ -115,20 +115,6 @@ module PeopleHelper
     end
   end
 
-  def get_crp_id(name)
-    # get the bioguide_id using firstname, lastname, nameod
-    govtrack_endpoint = "http://www.govtrack.us/api/v1/person/?lastname=" + name
-    govtrack_json = fetch_json(govtrack_endpoint)
-    govtrack_count = govtrack_json['meta']['total_count']
-
-    if govtrack_count > 0 && govtrack_count < 2
-      crp_id = govtrack_json['objects'][0]['osid']
-      return crp_id
-    else
-      return []
-    end
-  end
-
   def fetch_net_worth(person)
     json = fetch_pfd_profile(person)
     if json.empty?
@@ -142,4 +128,56 @@ module PeopleHelper
 
     return @net_worth_minimum, @net_worth_maximum, @net_worth_average
   end
+
+    # http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/A000055/votes.json?api-key=#### 
+  def fetch_votes(person)
+    nyt_apikey = "b16efb69e13af05498fe536551a7bc67:15:65673083"
+    nyt_endpoint = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/"
+    if person.bioguide_id.nil?
+      @bioguide_id = get_bioguide_id(person.last_name)
+      if @bioguide_id.empty?
+        return []
+      else
+        person.bioguide_id = @bioguide_id
+        person.save
+        nyt_url = nyt_endpoint + @bioguide_id + "/votes.json?api-key=" + nyt_apikey
+        json = fetch_json(nyt_url)
+
+        return json
+      end
+    else
+      @bioguide_id = person.bioguide_id
+      nyt_url = nyt_endpoint + @bioguide_id + "/votes.json?api-key=" + nyt_apikey
+      json = fetch_json(nyt_url)
+
+      return json
+    end
+  end
+
+  def get_bioguide_id(name)
+    govtrack_endpoint = "http://www.govtrack.us/api/v1/person/?lastname=" + name
+    govtrack_json = fetch_json(govtrack_endpoint)
+    govtrack_count = govtrack_json['meta']['total_count']
+    if govtrack_count > 0 && govtrack_count < 2
+      bioguide_id = govtrack_json['objects'][0]['bioguideid']
+      return bioguide_id
+    else
+      return []
+    end
+  end
+
+  def get_crp_id(name)
+    # get the crp_id using firstname, lastname, nameod
+    govtrack_endpoint = "http://www.govtrack.us/api/v1/person/?lastname=" + name
+    govtrack_json = fetch_json(govtrack_endpoint)
+    govtrack_count = govtrack_json['meta']['total_count']
+
+    if govtrack_count > 0 && govtrack_count < 2
+      crp_id = govtrack_json['objects'][0]['osid']
+      return crp_id
+    else
+      return []
+    end
+  end
+
 end

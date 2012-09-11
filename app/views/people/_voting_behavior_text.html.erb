@@ -24,5 +24,31 @@
     </tbody>
   </table>
 <% else %>
-  <p><%= p.full_name %> has no votes on record.</p>
+  <% json = fetch_votes(p) %>
+  <% votes = json['results'][0]['votes'] %>
+  <% if votes.count < 1 %>
+    <p><%= p.full_name %> has no votes on record.</p>
+  <% else %>
+    <p class="attribution">SOURCE: <a href="http://www.sunlightlabs.com/">Sunlight Labs</a></p>
+    <table id="data-table" class="table-striped">
+      <thead>
+        <tr>
+          <td>Bill</td>
+          <td>Title</td>
+          <td>Vote</td>
+        </tr>
+      </thead>
+      <tbody>
+      <% votes.each do |v| %>
+        <% unless v['bill']['number'].nil? %>
+          <tr>
+            <td><%= v['bill']['number'] %></td>
+            <td><%= truncate(v['bill']['title'], :length => 120) %></td>
+            <td><%= v['position'] %></td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
 <% end %>
