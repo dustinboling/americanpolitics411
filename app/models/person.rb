@@ -6,6 +6,7 @@ class Person < ActiveRecord::Base
 
   before_create :set_name
   before_update :set_name
+  before_update :set_slug
   before_save :set_slug
   
   belongs_to :religion
@@ -105,7 +106,7 @@ class Person < ActiveRecord::Base
   
   # use slugs for urls
   def to_param
-    "#{id} #{full_name}".parameterize
+    "#{slug}".parameterize
   end
   
   def full_name

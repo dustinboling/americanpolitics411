@@ -46,7 +46,7 @@
   </div>
   <div id="media-center" class="sixteen columns">
     <div id="media-center-articles" class="eight columns">
-      <% if @articles.nil? || @articles['articles'].length < 1 %>
+      <% if @articles.nil? || @articles['articles'].length == 0 %>
       <h2 class="popup-subtitle">No articles have been added</h2>
       <% else %>
         <% @articles = @articles['articles'] %>
