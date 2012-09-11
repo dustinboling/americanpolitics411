@@ -6,7 +6,7 @@ person_name = "#{p.first_name} " + "#{p.last_name}"
 begin
   pac_contributors = TransparencyData::Client.contributions(
     :recipient_ft => "#{person_name}", 
-    :cycle => 2011,
+    :cycle => 2012,
     :amount => {:gte => 2300},
     :contributor_type => "C"
   )
