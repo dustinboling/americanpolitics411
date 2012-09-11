@@ -2,7 +2,7 @@
 
 <h1 class="popup-title">Organizations</h1>
 <% if p.organization_people.empty? %>
-  <% fetch_organizations %>
+  <% json = fetch_pfd_profile(p) %>
   <% if json.blank? || json.length <= 1 %>
     <p>Research is in progress.</p>
   <% else %>

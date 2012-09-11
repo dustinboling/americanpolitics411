@@ -24,7 +24,7 @@ module PeopleHelper
       end
     end
   end
-  
+
   def state_federal_breakdown
     if @id.nil?
       "N/A"
@@ -40,14 +40,14 @@ module PeopleHelper
        <p>State Contributions: #{sprintf("%0.02f", @state_percent)}% (#{number_to_currency(@state_amount)})</p>".html_safe
     end
   end
-  
+
   def contributions_by_sector_math
     @i = 0
     @sectors.each do |s|
       @i = @i + s.amount.to_i
     end    
   end
-  
+
   def get_tweet_ids
     @tweet_ids = []
     @tweet_text = []
@@ -55,13 +55,13 @@ module PeopleHelper
       @tweet_ids << t.id
     end
   end
-  
+
   def bubble_safe(str, opts={})
     opts[:width] ||= 80
     zero_width_space = "&#8203;"
-    regex = /.{1,#{opts[:width]}}/
-    (str.length < opts[:width]) ? text :
-    str.scan(regex).join(zero_width_space)
+      regex = /.{1,#{opts[:width]}}/
+      (str.length < opts[:width]) ? text :
+      str.scan(regex).join(zero_width_space)
   end
 
   def js_safe(html)
@@ -79,26 +79,63 @@ module PeopleHelper
     begin
       resp = Net::HTTP.get_response(URI.parse(url))
       data = resp.body
-      JSON.parse(data)
+      json = JSON.parse(data)
+
+      return json
     rescue Exception => e
     end
   end
 
-  def fetch_organizations
+  def fetch_pfd_profile(person)
     require 'json'
     require 'net/http'
 
-    cid = p.crp_id 
+    apikey = "3c994a55a6b79f30f22b6b3942941f62"
+    endpoint = "http://www.opensecrets.org/api/?method=memPFDprofile"
 
-    unless cid.nil?
-      apikey = "3c994a55a6b79f30f22b6b3942941f62"
-      endpoint = "http://www.opensecrets.org/api/?method=memPFDprofile"
-      url = endpoint + "&year=2009&cid=" + cid + "&output=json&apikey=" + apikey 
-      resp = Net::HTTP.get_response(URI.parse(url))
-      data = resp.body
-      json = JSON.parse(data)
+    cid = person.crp_id
+
+    if cid.nil?
+      cid = get_crp_id(person.last_name)
+      if cid.empty?
+        return []
+      else
+        person.crp_id = cid
+        person.save
+      end
+      url = endpoint + "&year=2009&cid=" + cid + "&output=json&apikey=" + apikey
+      json = fetch_json(url)
+
+      return json
+    else
+      url = endpoint + "&year=2009&cid=" + cid + "&output=json&apikey=" + apikey
+      json = fetch_json(url)
 
       return json
     end
+  end
+
+  def get_crp_id(name)
+    # get the bioguide_id using firstname, lastname, nameod
+    govtrack_endpoint = "http://www.govtrack.us/api/v1/person/?lastname=" + name
+    govtrack_json = fetch_json(govtrack_endpoint)
+    govtrack_count = govtrack_json['meta']['total_count']
+
+    if govtrack_count > 0 && govtrack_count < 2
+      crp_id = govtrack_json['objects'][0]['osid']
+      return crp_id
+    else
+      return []
+    end
+  end
+
+  def fetch_net_worth(person)
+    json = fetch_pfd_profile(person)
+    json_attributes = json['response']['member_profile']['@attributes']
+    @net_worth_minimum = json_attributes['net_low'].to_i
+    @net_worth_maximum = json_attributes['net_high'].to_i
+    @net_worth_average = (@net_worth_maximum + @net_worth_minimum) / 2
+
+    return @net_worth_minimum, @net_worth_maximum, @net_worth_average
   end
 end
