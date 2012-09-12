@@ -194,7 +194,7 @@ module PeopleHelper
 
   def parse_google_summary(summary)
     doc = Nokogiri::HTML(summary)
-    summary = doc.xpath('//div')[1].inner_text
+    summary = doc.xpath('//div/font[2]').inner_text
 
     return summary
   end
