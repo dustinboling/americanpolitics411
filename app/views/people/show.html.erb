@@ -54,10 +54,10 @@
           <div class="article">
             <% title = feed_articles[z].title.split(/ - /)[0] %>
             <% url = feed_articles[z].url %>
-            <% summary = feed_articles[z].summary.html_safe %>
+            <% summary = CGI.unescapeHTML(strip_tags(feed_articles[z].summary)) %>
             <h4><%= link_to title, url %></h4>
             <p>
-              <%= truncate(strip_tags(summary), :length => 120) %>
+              <%= truncate(summary, :length => 120) %>
               <%= link_to " Read More >", url, {:style => "color:red;"} %>
             </p>
           </div>
@@ -93,10 +93,10 @@
             <div class="article">
               <% title = feed_articles[z].title.split(/ - /)[0] %>
               <% url = feed_articles[z].url %>
-              <% summary = feed_articles[z].summary.html_safe %>
+              <% summary = CGI.unescapeHTML(strip_tags(feed_articles[z].summary)) %>
               <h4><%= link_to title, url %></h4>
               <p>
-                <%= truncate(strip_tags(summary), :length => 120) %>
+                <%= truncate(summary, :length => 120) %>
                 <%= link_to " Read More >", url, {:style => "color:red;"} %>
               </p>
             </div>
