@@ -3,9 +3,28 @@
   url = endpoint + @person.slug + "/?output=json"
   articles_json = fetch_json(url)
 %>
-<h4 style="padding-left: 10px;">Articles for <%= @person.full_name %></h4>
+
+<h2 style="padding-left: 10px;" class="sub-title">Articles for <%= @person.first_last_name %></h2>
 <% if articles_json.nil? || articles_json['articles'].length < 1 %>
-<p style="padding-left: 10px;">None</p>
+  <table class="table-striped" style="width: 98%; margin-left: 10px;">
+    <thead>
+      <tr>
+        <th>Posted</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% feed_articles = parse_google_rss_feed(@person.first_last_name, {:num => 100}) %>
+      <% feed_articles.each do |a| %>
+        <% title = a.title.split(/ - /)[0] %>
+        <% url = a.url %>
+        <tr>
+          <td><%= link_to a.published.to_date, url %></td>
+          <td><%= link_to title, url %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
   <table class="table-striped" style="width: 98%; margin-left: 10px;">
     <thead>
@@ -20,6 +39,15 @@
         <tr>
           <td><%= link_to a[1]['post_date'].to_date, a[1]['guid'].gsub(/#038;/, "") %></td>
           <td><%= link_to a[1]['post_title'], a[1]['guid'].gsub(/#038;/, "") %></td>
+        </tr>
+      <% end %>
+      <% feed_articles = parse_google_rss_feed(@person.first_last_name, {:num => 100}) %>
+      <% feed_articles.each do |a| %>
+        <% title = a.title.split(/ - /)[0] %>
+        <% url = a.url %>
+        <tr>
+          <td><%= link_to a.published.to_date, url %></td>
+          <td><%= link_to title, url %></td>
         </tr>
       <% end %>
     </tbody>

@@ -1,4 +1,4 @@
-<% @page_title = "#{@person.full_name}" %>
+<% @page_title = "#{@person.first_last_name}" %>
 
 <%# push necessary data to DOM %>
 <script>
@@ -47,7 +47,7 @@
   <div id="media-center" class="sixteen columns">
     <div id="media-center-articles" class="eight columns">
       <% if @articles.nil? || @articles['articles'].length == 0 %>
-        <% feed_articles = parse_google_rss_feed(@person.full_name) %>
+        <% feed_articles = parse_google_rss_feed(@person.first_last_name) %>
         <% n = 0 %>
         <% z = 0 %>
         <% while n < 10 %>
@@ -86,7 +86,7 @@
             <% i = i + 1 %>
         <% end %>
         <% if count < 10 %>
-          <% feed_articles = parse_google_rss_feed(@person.full_name) %>
+          <% feed_articles = parse_google_rss_feed(@person.first_last_name) %>
           <% n = count %>
           <% z = 0 %>
           <% while n < 10 %>

@@ -181,14 +181,18 @@ module PeopleHelper
     end
   end
 
-  def parse_google_rss_feed(full_name)
+  def parse_google_rss_feed(full_name, options={})
+    options[:num] ||= 10
     full_name = full_name.gsub(/ /, "%20")
     endpoint = "http://news.google.com/news?q=" 
-    url = endpoint + full_name + "&output=rss"
+    url = endpoint + full_name + "&output=rss&num=" + options[:num].to_s
     feed = Feedzirra::Feed.fetch_and_parse(url)
     articles = feed.entries
 
     return articles
+  end
+
+  def parse_google_summary(summary)
   end
 
 end
