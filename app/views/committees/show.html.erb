@@ -53,8 +53,8 @@
     </div>
   </div>
 
-  <div id="bills">
-    <h4>Recent Actions</h4>
+  <div id="bills" class="box_a">
+    <h2 class="sub-title">Recent Actions</h2>
     <% legislations = @committee.legislations.order('latest_major_action_date DESC').take(5) %>
     <table class="table-striped">
       <thead>
