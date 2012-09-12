@@ -193,7 +193,10 @@ module PeopleHelper
   end
 
   def parse_google_summary(summary)
-    summary = summary.gsub(/\\/, "")
+    doc = Nokogiri::HTML(summary)
+    summary = doc.xpath('//div')[1].inner_text
+
+    return summary
   end
 
 end
