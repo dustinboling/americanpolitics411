@@ -1,7 +1,7 @@
 <div id="committee-page" class="sixteen columns">
   <h1 class="page-title"><%= @subcommittee.name.gsub(/Subcommittee/, "") %> (<%= @subcommittee.chamber %>)</h1>
   <div id="about" class="eight columns box_b">
-    <h2 class="subtitle">About</h2>
+    <h2 class="sub-title">About</h2>
     <% if @subcommittee.about == nil %>
     <p><%= RESEARCH_IN_PROGRESS %></p>
     <% else %>
@@ -9,7 +9,7 @@
     <% end %>
   </div>
   <div id="members" class="six columns box_b">
-    <h2 class="subtitle">Members</h2>
+    <h2 class="sub-title">Members</h2>
     <ul>
       <% @subcommittee.people.each do |p| %>
       <li><%= link_to "#{p.full_name}", person_path(p.id) %></li>
