@@ -47,24 +47,65 @@
   <div id="media-center" class="sixteen columns">
     <div id="media-center-articles" class="eight columns">
       <% if @articles.nil? || @articles['articles'].length == 0 %>
-      <h2 class="popup-subtitle">No articles have been added</h2>
+        <% feed_articles = parse_google_rss_feed(@person.full_name) %>
+        <% n = 0 %>
+        <% z = 0 %>
+        <% while n < 10 %>
+          <div class="article">
+            <% title = feed_articles[z].title.split(/ - /)[0] %>
+            <% url = feed_articles[z].url %>
+            <% summary = feed_articles[z].summary.html_safe %>
+            <h4><%= link_to title, url %></h4>
+            <p>
+              <%= truncate(strip_tags(summary), :length => 120) %>
+              <%= link_to " Read More >", url, {:style => "color:red;"} %>
+            </p>
+          </div>
+          <% n = n + 1 %>
+          <% z = z + 1 %>
+        <% end %>
+        <br>
+        <%= link_to "More Articles >>", articles_person_path(@person), :id => @person.id %>
       <% else %>
         <% @articles = @articles['articles'] %>
         <% i = 1 %>
+        <% count = @articles.take(8).count %>
         <% @articles.take(8).each do |a| %>
-        <% article = a[1] %>
-        <% if i == 1 %>
-          <div class="article first">
-          <% else %>
-          <div class="article">
+          <% article = a[1] %>
+          <% if i == 1 %>
+            <div class="article">
+            <% else %>
+            <div class="article">
+            <% end %>
+              <h4><%= link_to article['post_title'], article['guid'].gsub(/#038;/, "") %></h4>
+              <p>
+                <%= truncate(article['post_excerpt'], :length => 120) %>
+                <%= link_to " Read More >", article['guid'].gsub(/#038;/, ""), {:style => "color:red;"} %>
+              </p>
+            </div>
+            <% i = i + 1 %>
+        <% end %>
+        <% if count < 10 %>
+          <% feed_articles = parse_google_rss_feed(@person.full_name) %>
+          <% n = count %>
+          <% z = 0 %>
+          <% while n < 10 %>
+            <div class="article">
+              <% title = feed_articles[z].title.split(/ - /)[0] %>
+              <% url = feed_articles[z].url %>
+              <% summary = feed_articles[z].summary.html_safe %>
+              <h4><%= link_to title, url %></h4>
+              <p>
+                <%= truncate(strip_tags(summary), :length => 120) %>
+                <%= link_to " Read More >", url, {:style => "color:red;"} %>
+              </p>
+            </div>
+            <% n = n + 1 %>
+            <% z = z + 1 %>
           <% end %>
-            <h4><%= link_to article['post_title'], article['guid'].gsub(/#038;/, "") %></h4>
-            <p><%= truncate(article['post_excerpt'], :length => 140) %><%= link_to " Read More >", article['guid'].gsub(/#038;/, ""), {:style => "color:red;"} %></p>
-          </div>
-          <% i = i + 1 %>
         <% end %>
         <br>
-        <%= link_to "More articles >>", articles_person_path(@person), :id => @person.id %>
+        <%= link_to "More Articles >>", articles_person_path(@person), :id => @person.id %>
       <% end %>
     </div>
     <div id="media-center-videos" class="seven columns">

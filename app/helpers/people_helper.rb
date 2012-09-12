@@ -129,7 +129,6 @@ module PeopleHelper
     return @net_worth_minimum, @net_worth_maximum, @net_worth_average
   end
 
-  # http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/A000055/votes.json?api-key=#### 
   def fetch_votes(person)
     nyt_apikey = "b16efb69e13af05498fe536551a7bc67:15:65673083"
     nyt_endpoint = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/"
@@ -180,6 +179,16 @@ module PeopleHelper
     else
       return []
     end
+  end
+
+  def parse_google_rss_feed(full_name)
+    full_name = full_name.gsub(/ /, "%20")
+    endpoint = "http://news.google.com/news?q=" 
+    url = endpoint + full_name + "&output=rss"
+    feed = Feedzirra::Feed.fetch_and_parse(url)
+    articles = feed.entries
+
+    return articles
   end
 
 end
