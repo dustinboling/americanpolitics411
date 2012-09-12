@@ -15,13 +15,14 @@ gem 'jquery-rails'
 gem 'redis'
 gem 'sunlight'
 gem 'congress'
-gem 'transparency_data', github: 'asebastian/transparency-data'
 gem 'highline'
 gem 'youtube_it'
 gem 'twitter'
 gem 'jquery-ui-rails'
 gem 'kaminari'
+gem 'feedzirra'
 gem 'jquery-datatables-rails', :path => "vendor/gems/jquery-datatables-rails-1.10.0"
+gem 'transparency_data', github: 'asebastian/transparency-data'
 
 # helpful helper gems
 # gem 'railroady'
