@@ -557,8 +557,12 @@ namespace :seed do
       else
         committee.subcommittees.each do |sub|
           puts "Saving #{sub.name}..."
-          @subcommittee = Subcommittee.new(:name => sub.name, :code => sub.id, :chamber => sub.chamber, :committee_id => Committee.find_by_code(committee.id).id)
-          @subcommittee.save
+          if Subcommittee.find_by_name(sub.name)
+            @subcommittee = Subcommittee.find_by_name(sub.name)
+          else
+            @subcommittee = Subcommittee.new(:name => sub.name, :code => sub.id, :chamber => sub.chamber, :committee_id => Committee.find_by_code(committee.id).id)
+            @subcommittee.save
+          end
 
           sub.load_members
           sub.members.each do |sm|
