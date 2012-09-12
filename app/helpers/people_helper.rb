@@ -193,6 +193,7 @@ module PeopleHelper
   end
 
   def parse_google_summary(summary)
+    summary = summary.gsub(/\\/, "")
   end
 
 end

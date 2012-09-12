@@ -472,6 +472,11 @@ namespace :seed do
   desc "Add all committees from the sunlightlabs API"
   task :main_committees => :environment do
 
+    puts "Deleting committees..."
+    Committee.delete_all
+    puts "Deleting committee assignments..."
+    CommitteeAssignment.delete_all
+
     puts "Populating committee arrays..."
     @senate_committees = Sunlight::Committee.all_for_chamber("Senate")
     sleep 1
@@ -485,7 +490,7 @@ namespace :seed do
       sleep 1
       puts "Saving #{sc.name}..."
       @committee = Committee.new(:name => sc.name, :code => sc.id, :chamber => sc.chamber)
-      @committee.save
+      @committee.save!
 
       sc.load_members
       sc.members.each do |member|
@@ -542,6 +547,10 @@ namespace :seed do
 
   desc "Add subcommittees to committees"
   task :subcommittees => :environment do
+    puts "Deleting subcommittees..."
+    Subcommittee.delete_all
+    puts "Deleting committee assignments..."
+    SubcommitteeAssignment.delete_all
     puts "Populating committee arrays..."
     @senate_committees = Sunlight::Committee.all_for_chamber("Senate")
     sleep 1
@@ -567,11 +576,13 @@ namespace :seed do
           sub.load_members
           sub.members.each do |sm|
             puts "Mapping #{sm.bioguide_id} to #{sub.name}..."
-            @subcommittee_assignment = SubcommitteeAssignment.new(
-              :person_id => Person.find_by_bioguide_id(sm.bioguide_id).id,
-              :subcommittee_id => Subcommittee.find_by_code(sub.id).id
-            )
-            @subcommittee_assignment.save
+            unless Person.find_by_bioguide_id(sm.bioguide_id).nil?
+              @subcommittee_assignment = SubcommitteeAssignment.new(
+                :person_id => Person.find_by_bioguide_id(sm.bioguide_id).id,
+                :subcommittee_id => Subcommittee.find_by_code(sub.id).id
+              )
+              @subcommittee_assignment.save
+            end
           end
         end
       end
@@ -584,17 +595,23 @@ namespace :seed do
       else
         committee.subcommittees.each do |sub|
           puts "Saving #{sub.name}..."
-          @subcommittee = Subcommittee.new(:name => sub.name, :code => sub.id, :chamber => sub.chamber, :committee_id => Committee.find_by_code(committee.id).id)
-          @subcommittee.save
+          if Subcommittee.find_by_name(sub.name)
+            @subcommittee = Subcommittee.find_by_name(sub.name)
+          else
+            @subcommittee = Subcommittee.new(:name => sub.name, :code => sub.id, :chamber => sub.chamber, :committee_id => Committee.find_by_code(committee.id).id)
+            @subcommittee.save
+          end
 
           sub.load_members
           sub.members.each do |sm|
             puts "Mapping #{sm.bioguide_id} to #{sub.name}..."
-            @subcommittee_assignment = SubcommitteeAssignment.new(
-              :person_id => Person.find_by_bioguide_id(sm.bioguide_id).id,
-              :subcommittee_id => Subcommittee.find_by_code(sub.id).id
-            )
-            @subcommittee_assignment.save
+            unless Person.find_by_bioguide_id(sm.bioguide_id).nil? || Subcommittee.find_by_code(sub.id).nil?
+              @subcommittee_assignment = SubcommitteeAssignment.new(
+                :person_id => Person.find_by_bioguide_id(sm.bioguide_id).id,
+                :subcommittee_id => Subcommittee.find_by_code(sub.id).id
+              )
+              @subcommittee_assignment.save
+            end
           end
         end
       end
@@ -607,17 +624,23 @@ namespace :seed do
       else
         committee.subcommittees.each do |sub|
           puts "Saving #{sub.name}..."
-          @subcommittee = Subcommittee.new(:name => sub.name, :code => sub.id, :chamber => sub.chamber, :committee_id => Committee.find_by_code(committee.id).id)
-          @subcommittee.save
+          if Subcommittee.find_by_name(sub.name)
+            @subcommittee = Subcommittee.find_by_name(sub.name)
+          else
+            @subcommittee = Subcommittee.new(:name => sub.name, :code => sub.id, :chamber => sub.chamber, :committee_id => Committee.find_by_code(committee.id).id)
+            @subcommittee.save
+          end
 
           sub.load_members
           sub.members.each do |sm|
             puts "Mapping #{sm.bioguide_id} to #{sub.name}..."
-            @subcommittee_assignment = SubcommitteeAssignment.new(
-              :person_id => Person.find_by_bioguide_id(sm.bioguide_id).id,
-              :subcommittee_id => Subcommittee.find_by_code(sub.id).id
-            )
-            @subcommittee_assignment.save
+            unless Person.find_by_bioguide_id(sm.bioguide_id).nil?
+              @subcommittee_assignment = SubcommitteeAssignment.new(
+                :person_id => Person.find_by_bioguide_id(sm.bioguide_id).id,
+                :subcommittee_id => Subcommittee.find_by_code(sub.id).id
+              )
+              @subcommittee_assignment.save
+            end
           end
         end
       end

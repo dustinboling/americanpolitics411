@@ -1,5 +1,7 @@
 class Committee < ActiveRecord::Base
   
+  attr_accessible :name, :code, :chamber 
+  
   has_many :subcommittees
   
   has_many :committee_assignments
