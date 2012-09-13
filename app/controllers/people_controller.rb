@@ -149,18 +149,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  def fetch_json(url)
-    require 'json'
-    require 'net/http'
-
-    begin
-      resp = Net::HTTP.get_response(URI.parse(url))
-      data = resp.body
-      JSON.parse(data)
-    rescue Exception => e
-    end
-  end
-
   def pac_contributors
     @person = Person.find(params[:id])
     @pac_contributors = TransparencyData::Client.contributions(
@@ -238,4 +226,20 @@ class PeopleController < ApplicationController
       format.json { head :ok }
     end
   end
+
+
+  private
+
+  def fetch_json(url)
+    require 'json'
+    require 'net/http'
+
+    begin
+      resp = Net::HTTP.get_response(URI.parse(url))
+      data = resp.body
+      JSON.parse(data)
+    rescue Exception => e
+    end
+  end
+
 end

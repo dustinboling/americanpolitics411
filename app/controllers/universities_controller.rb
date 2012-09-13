@@ -82,6 +82,7 @@ class UniversitiesController < ApplicationController
     end
   end
   
+
   private
   
   def find_person
