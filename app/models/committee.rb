@@ -1,6 +1,6 @@
 class Committee < ActiveRecord::Base
   
-  attr_accessible :name, :code, :chamber 
+  attr_accessible :name, :code, :chamber, :about, :jurisdiction, :contact_info
   
   has_many :subcommittees
   

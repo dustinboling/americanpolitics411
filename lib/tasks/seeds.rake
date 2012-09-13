@@ -114,7 +114,7 @@ namespace :seed do
         )
 
         # add legislation issues
-        puts "Adding issues... for #{b.number}"
+        puts "Adding issues for #{b.number}"
         legislation_issues = @bill.keywords
         legislation_issues.each do |li|
           if Issue.find_by_name(li)
@@ -150,37 +150,39 @@ namespace :seed do
         # add committees
         puts "Adding committees..."
         committees = @bill.committees
-        committees.each do |c|
-          code = c[1]['committee']['committee_id']
-          name = c[1]['committee']['name']
-          chamber = c[1]['committee']['chamber']
-          if Committee.find_by_code(code)
-            cl = CommitteeLegislation.create(
-              :committee_id => Committee.find_by_code(code).id,
-              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
-            )
-          else 
-            co = Committee.create(
-              :code => code,
-              :name => name,
-              :chamber => chamber
-            )
-            cl = CommitteeLegislation.create(
-              :committee_id => co.id,
-              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
+        unless committees.nil?
+          committees.each do |c|
+            code = c[1]['committee']['committee_id']
+            name = c[1]['committee']['name']
+            chamber = c[1]['committee']['chamber']
+            if Committee.find_by_code(code)
+              cl = CommitteeLegislation.create(
+                :committee_id => Committee.find_by_code(code).id,
+                :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
+              )
+            else 
+              co = Committee.create(
+                :code => code,
+                :name => name,
+                :chamber => chamber
+              )
+              cl = CommitteeLegislation.create(
+                :committee_id => co.id,
+                :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
+              )
+            end
+          end
+
+          # add actions
+          puts "Adding actions..."
+          actions = @bill.actions
+          actions.each do |a|
+            action = Action.create(
+              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
+              :acted_at => a.acted_at,
+              :text => a.text
             )
           end
-        end
-
-        # add actions
-        puts "Adding actions..."
-        actions = @bill.actions
-        actions.each do |a|
-          action = Action.create(
-            :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
-            :acted_at => a.acted_at,
-            :text => a.text
-          )
         end
 
         # add votes

@@ -1,5 +1,7 @@
 class Legislation < ActiveRecord::Base
 
+  attr_accessible :rtc_id, :bill_type, :bill_number, :session, :introduced_year, :introduced_date, :chamber, :short_title, :bill_title, :popular_title, :summary, :bill_sponsor, :bill_sponsor_id, :bill_pdf, :latest_major_action, :latest_major_action_date
+
   before_save :set_introduced_year
 
   has_many :actions

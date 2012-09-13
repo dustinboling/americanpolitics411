@@ -154,7 +154,7 @@
 
     <aside id="committees" class="box_c">
       <h2>Committees</h2>
-      <% committees = CommitteeLegislation.where(:legislation_id => @legislation.id) %>
+      <% committees = CommitteeLegislation.where(:legislation_id => @legislation.id).includes(:committee) %>
       <% committees.each do |c| %>
         <% com = Committee.find(c.committee_id) %>
         <p><%= link_to com.name, com %></p>

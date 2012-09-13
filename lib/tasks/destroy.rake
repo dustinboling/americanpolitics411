@@ -20,7 +20,7 @@ namespace :destroy do
     puts "Deleting CommitteeLegislations..."
     CommitteeLegislation.find_each(&:destroy)
     puts "Deleting PassageVotes..."
-    PassageVotes.find_each(&:destroy)
+    PassageVote.find_each(&:destroy)
     puts "Success."
   end
 
