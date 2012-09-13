@@ -15,51 +15,11 @@ namespace :update do
       create_or_skip_person(s, "S")
     end
 
-    u = Update.new(:task => "People", :count => @count)
+    u = Update.new(:task => "people", :count => @count)
     u.save
 
     puts "#{@count} records added..."
     puts "all done."
-  end
-
-  def create_or_skip_person(person, chamber)
-    unless Person.find_by_bioguide_id(person.bioguide_id)
-      youtube_url = person.youtube_url
-      youtube_url_array = youtube_url.split('/')
-      youtube_id = youtube_url_array[-1]
-      p = Person.new
-      p.update_attributes({
-        :is_congress_member => true,
-        :chamber => chamber,
-        :in_office => person.in_office,
-        :state_represented => person.state,
-        :district => person.district,
-        :crp_id => person.crp_id,
-        :current_party => person.party,
-        :contact_email => person.email,
-        :votesmart_id => person.votesmart_id,
-        :contact_web_page_url => person.website,
-        :contact_fax => person.fax,
-        :govtrack_id => person.govtrack_id,
-        :first_name => person.firstname,
-        :middle_name => person.middlename,
-        :last_name => person.lastname,
-        :contact_street_address => person.congress_office,
-        :contact_phone => person.phone,
-        :webform => person.webform,
-        :youtube_id => youtube_id,
-        :nickname => person.nickname,
-        :bioguide_id => person.bioguide_id,
-        :fec_id => person.fec_id,
-        :gender => person.gender,
-        :senate_class => person.senate_class,
-        :suffix => person.name_suffix,
-        :twitter_id => person.twitter_id,
-        :date_of_birth => person.birthdate,
-        :congresspedia_url => person.congresspedia_url
-      })
-      @count = @count + 1
-    end
   end
 
   desc "Update legislation since last update."
@@ -270,5 +230,45 @@ namespace :update do
     end
     Update.create(:task => "votes", :count => @vote_count)
     puts "Added #{@vote_count} votes."
+  end
+
+  def create_or_skip_person(person, chamber)
+    unless Person.find_by_bioguide_id(person.bioguide_id)
+      youtube_url = person.youtube_url
+      youtube_url_array = youtube_url.split('/')
+      youtube_id = youtube_url_array[-1]
+      p = Person.new
+      p.update_attributes({
+        :is_congress_member => true,
+        :chamber => chamber,
+        :in_office => person.in_office,
+        :state_represented => person.state,
+        :district => person.district,
+        :crp_id => person.crp_id,
+        :current_party => person.party,
+        :contact_email => person.email,
+        :votesmart_id => person.votesmart_id,
+        :contact_web_page_url => person.website,
+        :contact_fax => person.fax,
+        :govtrack_id => person.govtrack_id,
+        :first_name => person.firstname,
+        :middle_name => person.middlename,
+        :last_name => person.lastname,
+        :contact_street_address => person.congress_office,
+        :contact_phone => person.phone,
+        :webform => person.webform,
+        :youtube_id => youtube_id,
+        :nickname => person.nickname,
+        :bioguide_id => person.bioguide_id,
+        :fec_id => person.fec_id,
+        :gender => person.gender,
+        :senate_class => person.senate_class,
+        :suffix => person.name_suffix,
+        :twitter_id => person.twitter_id,
+        :date_of_birth => person.birthdate,
+        :congresspedia_url => person.congresspedia_url
+      })
+      @count = @count + 1
+    end
   end
 end
