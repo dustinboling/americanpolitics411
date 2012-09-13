@@ -11,12 +11,11 @@ module LegislationHelper
     # summary_sp2 = summary_sp1.split('.*?![^\)]').join('.<br>')
     # summary_sp5 = summary_sp4.split('. (').join('. <br>(')
     # summary_sp6 = summary_sp5.split('.) ').join('.)<br>')
-    summary_sp1 = summary.gsub(/\.  /, '.<br>')
-    summary_sp2 = summary_sp1.gsub(/\. /, '.<br>')
+    summary_sp1 = summary.gsub(/(\.  ?=*\))/, '.<br>')
+    summary_sp2 = summary_sp1.gsub(/(\. ?=*\))/, '.<br>').gsub(/\.<br>/, ".)")
     summary_sp3 = summary_sp2.split(': ').join(': <br>')
     summary_sp4 = summary_sp3.split(/\((?=\d)/).join('<br>(')
     summary_sp5 = summary_sp4.gsub(/<br><br>/, '<br>')
-    # summary_sp6 = summary_sp5.gsub(/\(([^<br>)]+)\)/).gsub!(/<br>/, '')
     summary = summary_sp5.html_safe
 
     return summary
