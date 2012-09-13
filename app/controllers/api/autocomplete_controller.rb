@@ -10,7 +10,7 @@ class Api::AutocompleteController < ApplicationController
   end
 
   def autocomplete_person_name_to_slug
-    @people = Person.order(:slug).where("slug like ?", "%#{params[:term]}%")
+    @people = Person.order(:slug).where("slug ilike ?", "%#{params[:term]}%")
     render json: @people.collect { |p| 
       { 
         :label => "#{p.first_name} #{p.last_name}", 
@@ -23,7 +23,7 @@ class Api::AutocompleteController < ApplicationController
   # RELIGIONS
   #
   def autocomplete_religion_name
-    @religions = Religion.order(:name).where("name like ?", "%#{params[:term]}%")
+    @religions = Religion.order(:name).where("name ilike ?", "%#{params[:term]}%")
     render json: @religions.map(&:name)
   end
 
@@ -31,7 +31,7 @@ class Api::AutocompleteController < ApplicationController
   # UNIVERSITIES
   #
   def autocomplete_university_name
-    @universities = University.order(:name).where("name like ?", "%#{params[:term]}%")
+    @universities = University.order(:name).where("name ilike ?", "%#{params[:term]}%")
     render json: @universities.map(&:name)
   end
 
@@ -39,7 +39,7 @@ class Api::AutocompleteController < ApplicationController
   # ORGANIZATIONS
   #
   def autocomplete_organization_name
-    @organizations = Organization.order(:name).where("name like ?", "%#{params[:term]}%")
+    @organizations = Organization.order(:name).where("name ilike ?", "%#{params[:term]}%")
     render json: @organizations.map(&:name)
   end
   
@@ -47,17 +47,17 @@ class Api::AutocompleteController < ApplicationController
   # ISSUES
   #
   def autocomplete_main_issues_name
-    @main_issues = MainIssue.order(:name).where("name like?", "%#{params[:term]}%")
+    @main_issues = MainIssue.order(:name).where("name ilike?", "%#{params[:term]}%")
     render json: @main_issues.map(&:name)  
   end
 
   def autocomplete_issues_name
-    @issues = Issue.order(:name).where("name like?", "%#{params[:term]}%")
+    @issues = Issue.order(:name).where("name ilike?", "%#{params[:term]}%")
     render json: @issues.map(&:name) 
   end
 
   def autocomplete_issues_name_id
-    @issues = Issue.order(:name).where("name like?", "%#{params[:term]}%")
+    @issues = Issue.order(:name).where("name ilike?", "%#{params[:term]}%")
     render json: @issues.collect { |i|
       {
         :label => "#{i.name}",
