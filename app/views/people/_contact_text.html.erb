@@ -19,3 +19,8 @@
   <%= p.contact_email %><br>
 <% end %>
 
+<% unless p.contact_web_page_url.blank? %>
+  <h4 class="popup-subtitle">Website</h4>
+  <%= p.contact_web_page_url %><br>
+<% end %>
+
