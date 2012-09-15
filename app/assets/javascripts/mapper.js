@@ -316,6 +316,7 @@ window.onload = function () {
                     url: "https://api.twitter.com/1/users/lookup.json",
                     dataType: "jsonp",
                     data: { screen_name: twitter_id, callback: this.callback },
+                    timeout: 1000,
                     success: function(data) {
                         $('#follow-button').show();
                         return data;
@@ -328,6 +329,7 @@ window.onload = function () {
                     type: "GET",
                     url: "https://api.twitter.com/1/statuses/user_timeline.json",
                     dataType: "jsonp",
+                    timeout: 1000,
                     data: { screen_name: twitter_id, calllback: this.callback },
                     success: function(timeline) {
                         return timeline;
