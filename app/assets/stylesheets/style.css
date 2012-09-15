@@ -321,7 +321,8 @@ input.submit-search {
 
 #footer nav ul li {
   float: left;
-  font-size: 12px;
+  padding-left: 5px;
+  font-size: 13.2px;
 }
 
 #footer nav ul li a {
