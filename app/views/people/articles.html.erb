@@ -19,8 +19,8 @@
         <% title = a.title.split(/ - /)[0] %>
         <% url = a.url %>
         <tr>
-          <td><%= link_to a.published.to_date, url %></td>
-          <td><%= link_to title, url %></td>
+          <td><%= link_to a.published.to_date, url, :target => "_blank" %></td>
+          <td><%= link_to title, url, :target => "_blank" %></td>
         </tr>
       <% end %>
     </tbody>
@@ -37,8 +37,8 @@
       <% articles = articles_json['articles'] %>
       <% articles.each do |a| %>
         <tr>
-          <td><%= link_to a[1]['post_date'].to_date, a[1]['guid'].gsub(/#038;/, "") %></td>
-          <td><%= link_to a[1]['post_title'], a[1]['guid'].gsub(/#038;/, "") %></td>
+          <td><%= link_to a[1]['post_date'].to_date, a[1]['guid'].gsub(/#038;/, ""), :target => "_blank" %></td>
+          <td><%= link_to a[1]['post_title'], a[1]['guid'].gsub(/#038;/, ""), :target => "_blank" %></td>
         </tr>
       <% end %>
       <% feed_articles = parse_google_rss_feed(@person.first_last_name, {:num => 100}) %>
@@ -46,8 +46,8 @@
         <% title = a.title.split(/ - /)[0] %>
         <% url = a.url %>
         <tr>
-          <td><%= link_to a.published.to_date, url %></td>
-          <td><%= link_to title, url %></td>
+          <td><%= link_to a.published.to_date, url, :target => "_blank" %></td>
+          <td><%= link_to title, url, :target => "_blank" %></td>
         </tr>
       <% end %>
     </tbody>
