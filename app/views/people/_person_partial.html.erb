@@ -11,7 +11,11 @@
   <tbody>
     <% @people.each do |p| %>
     <tr class="<%= cycle("even", "odd") %>">
-      <td><%= link_to "#{p.name} (#{p.current_party}-#{p.state_represented})", person_path(p.to_param) %></td>
+      <% if p.chamber == 'H' %>
+      <td><%= link_to "#{p.name} (#{p.current_party}) #{p.state_represented}-#{p.district}", person_path(p.to_param) %></td>
+      <% else %>
+        <td><%= link_to "#{p.name} (#{p.current_party}-#{p.state_represented})", person_path(p.to_param) %></td>
+      <% end %>
       <% if p.addresses.count > 0 %>
       <td><%= p.addresses.first.phone %></td>
       <% else %>
