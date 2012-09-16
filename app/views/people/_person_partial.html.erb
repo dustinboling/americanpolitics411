@@ -5,6 +5,9 @@
   <thead>
     <tr>
       <th>Name (Party)</th>
+      <% if @people.first.chamber == 'H' %>
+      <th>District</th>
+      <% end %>
       <th>Contact Phone</th>
     </tr>
   </thead>
@@ -12,7 +15,8 @@
     <% @people.each do |p| %>
     <tr class="<%= cycle("even", "odd") %>">
       <% if p.chamber == 'H' %>
-      <td><%= link_to "#{p.name} (#{p.current_party}) #{p.state_represented}-#{p.district}", person_path(p.to_param) %></td>
+      <td><%= link_to "#{p.name} (#{p.current_party}-#{p.state_represented})", person_path(p.to_param) %></td>
+      <td><%= p.district %></td>
       <% else %>
         <td><%= link_to "#{p.name} (#{p.current_party}-#{p.state_represented})", person_path(p.to_param) %></td>
       <% end %>
