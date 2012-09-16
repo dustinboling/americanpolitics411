@@ -23,7 +23,7 @@
       <% if legislation.introduced_date.nil? %>
       <td></td>
       <% else %>
-      <td><%= link_to legislation.introduced_date.to_date, legislation %></td>
+      <td><%= link_to legislation.introduced_date.to_date.strftime("%-m-%e-%Y"), legislation %></td>
       <% end %>
       <td class="span3"><%= link_to "#{legislation.bill_type.upcase} #{legislation.bill_number}", legislation %></td>
       <td><%= link_to truncate(legislation.bill_title, :length => 110), legislation %></td>
