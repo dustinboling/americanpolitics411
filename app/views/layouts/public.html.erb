@@ -9,7 +9,12 @@
     <script src="html5shiv.js"></script>
     <script src="modernizr.custom.59269.js"></script>
     <script src="selectivizr-min.js"></script>
-    <script src="ie7fixes.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#header-nav ul li').css({"float": "left"});
+        $('#menu-item-news').css({"width": "80px", "padding-left": "60px"});
+      });
+    </script>
     <![endif]-->
     <script type='text/javascript'>
       (function (d, t) {
