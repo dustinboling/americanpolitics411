@@ -1,27 +1,28 @@
 <% p = Person.find(params[:pid]) %>
 <% family_members = p.family_members %>
 
-<div id="family-network" style="margin-top: 10px; height: 410px; width: 925px; overflow: auto;">
-<h1 class="popup-title" style="margin-topp: -10px;">Family Network</h1>
-<% if family_members.count > 0 %>
-<table class="table-striped" style="width: 900px;">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Relationship</th>
-      <th>Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% family_members.each do |f| %>
-    <tr>
-      <td><%= f.family_member %></td>
-      <td><%= f.relationship %></td>
-      <td><%= f.notes %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<% else %>
-<p>Research is in progress.</p>
-<% end %>
+<div class="scrollable-layover">
+  <h1 class="popup-title">Family Network</h1>
+  <% if family_members.count > 0 %>
+  <table class="table-striped" style="width: 900px;">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Relationship</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% family_members.each do |f| %>
+      <tr>
+        <td><%= f.family_member %></td>
+        <td><%= f.relationship %></td>
+        <td><%= f.notes %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% else %>
+  <p>Research is in progress.</p>
+  <% end %>
+</div>

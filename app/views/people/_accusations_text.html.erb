@@ -1,24 +1,26 @@
 <% p = Person.find(params[:pid]) %>
 <% accusations = p.accusations %>
 
-<h1 class="popup-title">Accusations</h1>
-<% if accusations.count > 0 %>
-  <table class="table-striped">
-    <thead>
-      <th>Date</th>
-      <th>Accusation</th>
-      <th>Outcome</th>
-    </thead>
-    <tbody>
-      <% accusations.each do |a| %>
-      <tr>
-        <td><%= a.date.year %></td>
-        <td><%= a.accusation %></td>
-        <td><%= a.outcome %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>Research is currently in progress.</p>
-<% end %>
+<div class="scrollable-layover">
+  <h1 class="popup-title">Accusations</h1>
+  <% if accusations.count > 0 %>
+    <table class="table-striped">
+      <thead>
+        <th>Date</th>
+        <th>Accusation</th>
+        <th>Outcome</th>
+      </thead>
+      <tbody>
+        <% accusations.each do |a| %>
+        <tr>
+          <td><%= a.date.year %></td>
+          <td><%= a.accusation %></td>
+          <td><%= a.outcome %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>Research is currently in progress.</p>
+  <% end %>
+</div>

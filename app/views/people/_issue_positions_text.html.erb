@@ -1,24 +1,26 @@
 <% p = Person.find(params[:pid]) %>
 <% issue_positions = p.issue_positions %>
 
-<h1 class="popup-title">Issue Positions</h1>
-<% if issue_positions.count > 0 %>
-  <table class="table-striped">
-    <thead>
-      <th>Topic</th>
-      <th>Question</th>
-      <th>Position</th>
-    </thead>
-    <tbody>
-      <% issue_positions.each do |i| %>
-      <tr>
-        <td><%= i.issue_topic %></td>
-        <td><%= i.question %></td>
-        <td><%= i.position %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>Research is currently in progress</p>
-<% end %>
+<div class="scrollable-layover">
+  <h1 class="popup-title">Issue Positions</h1>
+  <% if issue_positions.count > 0 %>
+    <table class="table-striped">
+      <thead>
+        <th>Topic</th>
+        <th>Question</th>
+        <th>Position</th>
+      </thead>
+      <tbody>
+        <% issue_positions.each do |i| %>
+        <tr>
+          <td><%= i.issue_topic %></td>
+          <td><%= i.question %></td>
+          <td><%= i.position %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>Research is currently in progress</p>
+  <% end %>
+</div>
