@@ -1,13 +1,24 @@
-<% p = Person.find(params[:pid]) %>
-<% committees = CommitteeAssignment.where(:person_id => params[:pid]) %>
+<% p = Person.includes([:committees, :subcommittees]).find(params[:pid]) %>
+<% committees = p.committees %>
+<% subcommittees = p.subcommittees %>
 
 <h1 class="popup-title">Committees</h1>
 <% if committees.count > 0 %>
   <ul>
     <% committees.each do |c| %>
-    <li><%= link_to Committee.find(c.committee_id).name, committee_path(c.committee_id) %></li>
+    <li><%= link_to c.name, committee_path(c) %></li>
     <% end %>
   </ul>
 <% else %>
   <p><%= p.full_name %> is not assigned to any committees.</p>
+<% end %>
+
+<% if subcommittees.count > 0 %>
+<br>
+<h1 class="popup-title">Subcommittees</h1>
+  <ul>
+    <% subcommittees.each do |s| %>
+    <li><%= link_to s.name, subcommittee_path(s) %></li>
+    <% end %>
+  </ul>
 <% end %>
