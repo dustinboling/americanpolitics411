@@ -52,7 +52,6 @@ namespace :update do
 
         # add legislation
         puts "==||=============================="
-        puts "Adding legislation: #{b.number}..."
         if b.sponsor.nil?
           @first_name = ""
           @last_name = ""
@@ -72,8 +71,8 @@ namespace :update do
             puts "This happened: #{e}, continuing..."
           end
         end
-        unless b.bill_number == nil
-          l = Legislation.find_or_create_by_bill_number(
+        unless b.bill_id == nil || Legislation.find_by_rtc_id(b.bill_id)
+          l = Legislation.create(
             :rtc_id => b.bill_id,
             :bill_type => b.bill_type,
             :bill_number => b.number, 
@@ -91,23 +90,26 @@ namespace :update do
             :latest_major_action => @last_major_action,
             :latest_major_action_date => b.last_action_at
           )
+          puts "added #{l.rtc_id}!"
         end
       
         # add legislation issues
         puts "Adding issues... for #{b.number}"
         legislation_issues = @bill.keywords
-        unless Legislation.find_by_rtc_id(@bill.bill_id).nil? || Issue.find_by_name(li).nil?
-          legislation_issues.each do |li|
-            if Issue.find_or_create_by_name(li)
-              puts "assigning #{li} to #{Legislation.find_by_rtc_id(@bill.bill_id).bill_number}"
+        unless Legislation.find_by_rtc_id(@bill.bill_id).nil? || legislation_issues.nil?
+          legislation_id = Legislation.find_by_rtc_id(@bill.bill_id).id
+
+          legislation_issues.each do |legislation_issue|
+            if Issue.find_by_name(legislation_issue) && LegislationIssue.does_not_exist(legislation_id, Issue.find_by_name(legislation_issue).id)
+              puts "assigning #{legislation_issue} to #{Legislation.find_by_rtc_id(@bill.bill_id).bill_number}"
               l_issue = LegislationIssue.create(
                 :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
-                :issue_id => Issue.find_by_name(li).id
+                :issue_id => Issue.find_by_name(legislation_issue).id
               )
             else 
-              puts "adding issue: #{li}."
+              puts "adding issue: #{legislation_issue}."
               issue = Issue.create(
-                :name => li
+                :name => legislation_issue
               )
               l_issue = LegislationIssue.create(
                 :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
@@ -122,36 +124,50 @@ namespace :update do
         cosponsors = @bill.cosponsors
         cosponsors.each do |c|
           unless Person.find_by_bioguide_id(c.bioguide_id).nil? || Legislation.find_by_rtc_id(@bill.bill_id).nil?
-            l = LegislationCosponsor.create(
-              :person_id => Person.find_by_bioguide_id(c.bioguide_id).id,
-              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
-            )
+            person_id = Person.find_by_bioguide_id(c.bioguide_id).id
+            legislation_id = Legislation.find_by_rtc_id(@bill.bill_id).id
+
+            unless LegislationCosponsor.exists?(person_id, legislation_id)
+              l = LegislationCosponsor.create(
+                :person_id => person_id,
+                :legislation_id => legislation_id
+              )
+              puts "Added #{c.bioguide_id} to #{@bill.bill_id}!"
+            end
           end
         end
 
         # add committees
         puts "Adding committees..."
         committees = @bill.committees
-        committees.each do |c|
-          code = c[1]['committee']['committee_id']
-          name = c[1]['committee']['name']
-          chamber = c[1]['committee']['chamber']
-          unless Committee.find_by_code(code).nil? || Legislation.find_by_rtc_id(@bill.bill_id).nil?
-            if Committee.find_by_code(code)
-              cl = CommitteeLegislation.create(
-                :committee_id => Committee.find_by_code(code).id,
-                :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
-              )
-            else 
-              co = Committee.create(
-                :code => code,
-                :name => name,
-                :chamber => chamber
-              )
-              cl = CommitteeLegislation.create(
-                :committee_id => co.id,
-                :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id
-              )
+        unless committees.nil?
+          committees.each do |c|
+            code = c[1]['committee']['committee_id']
+            name = c[1]['committee']['name']
+            chamber = c[1]['committee']['chamber']
+            
+            unless Committee.find_by_code(code).nil? || Legislation.find_by_rtc_id(@bill.bill_id).nil?
+              committee_id = Committee.find_by_code(code).id
+              legislation_id = Legislation.find_by_rtc_id(@bill.bill_id).id
+
+              if Committee.find_by_code(code) && CommitteeLegislation.does_not_exist(committee_id, legislation_id)
+                cl = CommitteeLegislation.create(
+                  :committee_id => committee_id,
+                  :legislation_id => legislation_id
+                )
+              elsif Committee.find_by_code(code) && CommitteeLegislation.exists?(committee_id, legislation_id)
+                # do nothing
+              else 
+                co = Committee.create(
+                  :code => code,
+                  :name => name,
+                  :chamber => chamber
+                )
+                cl = CommitteeLegislation.create(
+                  :committee_id => co.id,
+                  :legislation_id => legislation_id
+                )
+              end
             end
           end
         end
@@ -161,11 +177,15 @@ namespace :update do
         actions = @bill.actions
         actions.each do |a|
           unless Legislation.find_by_rtc_id(@bill.bill_id).nil?
-            action = Action.create(
-              :legislation_id => Legislation.find_by_rtc_id(@bill.bill_id).id,
-              :acted_at => a.acted_at,
-              :text => a.text
-            )
+            legislation_id = Legislation.find_by_rtc_id(@bill.bill_id).id
+            if Action.does_not_exist(legislation_id, a.acted_at, a.text)
+              action = Action.create(
+                :legislation_id => legislation_id,
+                :acted_at => a.acted_at,
+                :text => a.text
+              )
+              puts "Added action ##{action.id}!"
+            end
           end
         end
         @bill_count = @bill_count + 1
@@ -207,7 +227,7 @@ namespace :update do
           voters.each do |voter|
             bioguide_id = voter[1].voter.bioguide_id
             vote = voter[1].vote
-            if Person.find_by_bioguide_id(bioguide_id)
+            if Person.find_by_bioguide_id(bioguide_id) && PersonVote.does_not_exist(legislation_id, person_id, @voted_at)
               person_id = Person.find_by_bioguide_id(bioguide_id).id
               PersonVote.create(
                 :legislation_id => legislation_id,

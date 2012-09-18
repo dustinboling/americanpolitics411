@@ -237,14 +237,16 @@ namespace :seed do
             vote = voter[1].vote
             if Person.find_by_bioguide_id(bioguide_id)
               person_id = Person.find_by_bioguide_id(bioguide_id).id
-              PersonVote.create(
-                :legislation_id => legislation_id,
-                :person_id => person_id,
-                :vote => vote,
-                :voted_at => @voted_at,
-                :how => @how,
-                :result => @result
-              )
+              if PersonVote.does_not_exist(legislation_id, person_id, @voted_at)
+                PersonVote.create(
+                  :legislation_id => legislation_id,
+                  :person_id => person_id,
+                  :vote => vote,
+                  :voted_at => @voted_at,
+                  :how => @how,
+                  :result => @result
+                )
+              end
             else
               # do nothing
             end
@@ -287,6 +289,7 @@ namespace :seed do
       puts "#{s.bioguide_id}"
     end
     puts "All done!"
+    Update.create(:task => "people")
   end
 
   def create_person(person, chamber)
