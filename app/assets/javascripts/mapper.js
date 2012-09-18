@@ -409,8 +409,8 @@ function makeRect(partial) {
     $('#follow-button').hide();
     $('#current-tweet').hide();
     loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
-    closeButton = r.rect(835, 20, 100, 20).attr({fill: "#9F1D21"})
-    closeButtonText = r.text(850, 30, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF"});
+    closeButton = r.rect(825, 10, 100, 20).attr({fill: "#9F1D21"})
+    closeButtonText = r.text(840, 20, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF"});
     // get data
     var xhr = $.ajax({
         type: "GET",
@@ -465,8 +465,8 @@ function makeRectBlank() {
     $('#follow-button').hide();
     $('#current-tweet').hide();
     loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
-    closeButton = r.rect(835, 20, 100, 20).attr({fill: "#9F1D21"})
-    closeButtonText = r.text(850, 30, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF"});
+    closeButton = r.rect(825, 10, 100, 20).attr({fill: "#9F1D21"})
+    closeButtonText = r.text(840, 20, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF"});
     closeButton.node.onclick = function() {
         loader.hide();
         $('#popup-text').hide();
