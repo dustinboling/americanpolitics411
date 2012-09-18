@@ -21,7 +21,7 @@ gem 'twitter'
 gem 'jquery-ui-rails'
 gem 'kaminari'
 gem 'feedzirra'
-gem 'amazon-associates'
+gem 'amazon-ecs', github: 'jugend/amazon-ecs'
 gem 'jquery-datatables-rails', :path => "vendor/gems/jquery-datatables-rails-1.10.0"
 gem 'transparency_data', github: 'asebastian/transparency-data'
 
@@ -35,7 +35,6 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'guard-rspec'
-  gem 'webmock'
   gem 'faker'
 end
 
