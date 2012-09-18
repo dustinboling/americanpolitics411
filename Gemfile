@@ -34,6 +34,7 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'guard-rspec'
+  gem 'webmock'
   gem 'faker'
 end
 
