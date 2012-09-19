@@ -3,12 +3,12 @@
 <div class="scrollable-layover">
 <% number_of_books_by = books_by_req.total_results %>
 <% if number_of_books_by > 0 %>
-  <h1 class="popup-title">Books By</h1>
+  <h1 class="popup-title">Books by <%= @person.first_last_name %></h1>
   <table class="table-striped" style="width: 900px;">
     <thead>
       <tr>
         <th>Title</th>
-        <th></th>
+        <th style="width: 80px;"></th>
       </tr>
     </thead>
     <tbody>
@@ -36,7 +36,7 @@
     <thead>
       <tr>
         <th>Title</th>
-        <th></th>
+        <th style="width: 80px;"></th>
       </tr>
     </thead>
     <tbody>
