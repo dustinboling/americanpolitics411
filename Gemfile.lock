@@ -7,9 +7,8 @@ GIT
       monster_mash (~> 0.1.0)
       rake
 
-GIT
-  remote: git://github.com/jugend/amazon-ecs.git
-  revision: 1a5bd8b327af0beaecd544f916d48010b96f0a00
+PATH
+  remote: vendor/gems/amazon-ecs
   specs:
     amazon-ecs (2.2.4)
       nokogiri (~> 1.4)
