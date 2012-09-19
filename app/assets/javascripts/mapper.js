@@ -4,46 +4,39 @@ window.onload = function () {
     connections = [];
     shapes = [];
     shapes = [  
-        r.rect(370, 10, 200, 40, 10),   // [0] = name
-        r.rect(1, 310, 340, 150, 10),   // [1] = twitter box
-        r.rect(370, 80, 200, 200, 10),  // [2] = picture
-        r.rect(370, 309, 200, 150, 10), // [3] = details
-        r.rect(180, 30, 100, 45, 10),   // [4] = professional experience
-        r.rect(200, 170, 100, 45, 10),  // [5] = controversy
-        r.rect(180, 245, 100, 45, 10),  // [6] = issue positions
-        r.rect(600, 200, 100, 45, 10),  // [7] = political offices
-        r.rect(35, 1, 100, 45, 10),     // [8] = family network
-        r.rect(13, 70, 100, 45, 10),    // [9] = investments
-        r.rect(5, 140, 100, 45, 10),    // [10] = net worth
-        r.rect(155, 100, 100, 45, 10),  // [11] = accusations 
-        r.rect(80, 200, 100, 45, 10),   // [12] = litigation
-        r.rect(620, 300, 100, 45, 10),  // [13] = voting behavior
-        r.rect(760, 315, 100, 45, 10),  // [14] = earmarks
-        r.rect(780, 400, 100, 45, 10),  // [15] = co-sponsored
-        r.rect(630, 380, 100, 45, 10),  // [16] = sponsored
-        r.rect(735, 250, 100, 45, 10),  // [17] = committees
-        r.rect(750, 180, 100, 45, 10),  // [18] = campaign platforms
-        r.rect(780, 120, 100, 45, 10),  // [19] = flip flops
-        r.rect(640, 90, 100, 45, 10),   // [20] = contributors
-        r.rect(805, 50, 100, 45, 10),   // [21] = PACs
-        r.rect(700, 5, 100, 45, 10)     // [22] = demographics & endorsements
+        r.rect(370, 10, 200, 40, 10).attr({cursor: "move"}),   // [0] = name
+        r.rect(1, 310, 340, 150, 10).attr({cursor: "move"}),   // [1] = twitter box
+        r.rect(370, 80, 200, 200, 10).attr({cursor: "move"}),  // [2] = picture
+        r.rect(370, 309, 200, 150, 10).attr({cursor: "move"}), // [3] = details
+        r.rect(180, 30, 100, 45, 10).attr({cursor: "move"}),   // [4] = professional experience
+        r.rect(200, 170, 100, 45, 10).attr({cursor: "move"}),  // [5] = controversy
+        r.rect(180, 245, 100, 45, 10).attr({cursor: "move"}),  // [6] = issue positions
+        r.rect(600, 200, 100, 45, 10).attr({cursor: "move"}),  // [7] = political offices
+        r.rect(35, 1, 100, 45, 10).attr({cursor: "move"}),     // [8] = family network
+        r.rect(13, 70, 100, 45, 10).attr({cursor: "move"}),    // [9] = investments
+        r.rect(5, 140, 100, 45, 10).attr({cursor: "move"}),    // [10] = net worth
+        r.rect(155, 100, 100, 45, 10).attr({cursor: "move"}),  // [11] = accusations
+        r.rect(80, 200, 100, 45, 10).attr({cursor: "move"}),   // [12] = litigation
+        r.rect(620, 300, 100, 45, 10).attr({cursor: "move"}),  // [13] = voting behavior
+        r.rect(760, 315, 100, 45, 10).attr({cursor: "move"}),  // [14] = earmarks
+        r.rect(780, 400, 100, 45, 10).attr({cursor: "move"}),  // [15] = co-sponsored
+        r.rect(630, 380, 100, 45, 10).attr({cursor: "move"}),  // [16] = sponsored
+        r.rect(735, 250, 100, 45, 10).attr({cursor: "move"}),  // [17] = committees
+        r.rect(750, 180, 100, 45, 10).attr({cursor: "move"}),  // [18] = campaign platforms
+        r.rect(780, 120, 100, 45, 10).attr({cursor: "move"}),  // [19] = flip flops
+        r.rect(640, 90, 100, 45, 10).attr({cursor: "move"}),   // [20] = contributors
+        r.rect(805, 50, 100, 45, 10).attr({cursor: "move"}),   // [21] = PACs
+        r.rect(700, 5, 100, 45, 10).attr({cursor: "move"}),    // [22] = demographics & endorsements
     ];
 
     nodeTexts = ["Professional\n experience", "Controversy", "Issue Positions", "Political Offices", "Family Network", "Investments", "Net Worth", "Accusations", "Litigation", "Voting Behavior", "Earmarks", "Co-sponsored", "Sponsored\n Legislation", "Committees", "Campaign\nPlatforms", "Flip flops", "Contributors", "PACs", "Demographics &\n Endorsements"];
     ajaxPartials = ["professional_experience_text", "controversy_text", "issue_positions_text", "political_offices_text", "family_network_text", "investments_text", "net_worth_text", "accusations_text", "litigation_text", "voting_behavior_text", "earmarks_text", "cosponsored_legislation_text", "sponsored_legislation_text", "committees_text", "campaign_platforms_text", "flip_flops_text", "contributors_text", "pacs_text", "demographics_and_endorsements_text"];
 
     function hoverIn() {
-        this.attr({stroke: "#000"});
+        // this.attr({stroke: "#000"});
     }
     function hoverOut() {
-        this.attr({stroke: "#BBB"});
-    }
-    function hoverInText(i) {
-        var indSensenbrenneosionalx = i;
-        shapes[i].attr({stroke: "#000"});
-    }
-    function hoverOutText(i) {
-        shapes[i].attr({stroke: "BBB"});
+        // this.attr({stroke: "#BBB"});
     }
 
     i = 0;
@@ -68,9 +61,7 @@ window.onload = function () {
         } else {
             sx = shapes[i].attrs.x + 50;
             sy = shapes[i].attrs.y + 23;
-            texts[i] = r.text(sx, sy, nodeTexts[i - 4]).attr({"font-size": "12px"});
-            texts[i].mouseover(hoverInText(i));
-            texts[i].mouseout(hoverOutText(i));
+            texts[i] = r.text(sx, sy, nodeTexts[i - 4]).attr({"font-size": "12px", cursor: "move"});
             texts[i].node.onclick = function() {
                 newRect = makeRectBlank();
                 n = 23;
@@ -409,8 +400,8 @@ function makeRect(partial) {
     $('#follow-button').hide();
     $('#current-tweet').hide();
     loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
-    closeButton = r.rect(825, 10, 100, 20).attr({fill: "#9F1D21"})
-    closeButtonText = r.text(840, 20, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF"});
+    closeButton = r.rect(10, 10, 100, 20).attr({fill: "#9F1D21"})
+    closeButtonText = r.text(23, 20, "<< BACK").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF"});
     // get data
     var xhr = $.ajax({
         type: "GET",
@@ -434,6 +425,7 @@ function makeRect(partial) {
         $('#follow-button').show();
         newRect.hide();
         closeButton.hide();
+        closeButtonText.hide();
     }
     closeButton.node.onclick = function() {
         xhr.abort();
@@ -443,14 +435,17 @@ function makeRect(partial) {
         $('#current-tweet').show();
         newRect.hide();
         closeButton.hide();
+        closeButtonText.hide();
     }
     closeButtonText.node.onclick = function() {
+        xhr.abort();
         loader.hide();
         $('#popup-text').hide();
         $('#follow-button').show();
         $('#current-tweet').show();
         newRect.hide();
         closeButton.hide();
+        closeButtonText.hide();
     }
     return newRect;
 }
