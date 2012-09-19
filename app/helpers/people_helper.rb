@@ -210,4 +210,34 @@ module PeopleHelper
     return @url, @title, @author
   end
 
+  def get_demographics(person)
+    begin
+      @entity = TransparencyData::Client.entities(:search => "#{person.remove_name_numericality}")
+      if @entity.first
+        @id = @entity.first.id
+        @sectors = TransparencyData::Client.top_sectors(@id)
+      else
+        @sectors = []
+      end
+    rescue Exception => e
+      @success = false
+    end
+
+    return @sectors, @id, @success, @entity
+  end
+
+  def load_demographic_pie_percentages(sectors)
+    contributions_by_sector_math
+    @demographic_pie_percentages = [] 
+    @legend = []
+    @sectors.collect do |s|
+      percentage = sprintf("%0.02f", ((s.amount.to_f / @i.to_f)) * 100).to_f
+      legend = s.name
+      @demographic_pie_percentages << percentage
+      @legend << legend
+    end
+
+    return @demographic_pie_percentages, @legend
+  end
+
 end

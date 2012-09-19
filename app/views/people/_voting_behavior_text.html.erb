@@ -16,9 +16,10 @@
       <% votes.each do |v| %>
       <% l = v.legislation %>
       <tr>
-        <td><%= l.bill_type.upcase  %> <%= l.bill_number %></td>
-        <td><%= truncate(l.bill_title, :length => 110) %></td>
-        <td><%= v.vote %></td>
+        <% bill_number = l.bill_type.upcase + " " + l.bill_number %>
+        <td><%= link_to bill_number, legislation_path(l) %></td>
+        <td><%= link_to truncate(l.bill_title, :length => 110), legislation_path(l) %></td>
+        <td><%= link_to v.vote, legislation_path(l) %></td>
       </tr>
       <% end %>
     </tbody>

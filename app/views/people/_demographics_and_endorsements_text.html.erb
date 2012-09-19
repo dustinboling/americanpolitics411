@@ -1,44 +1,47 @@
-<% 
-  @person = Person.find(params[:pid])
-  begin
-    @entity = TransparencyData::Client.entities(:search => "#{@person.remove_name_numericality}")
-    if @entity.first
-      @id = @entity.first.id
-      @sectors = TransparencyData::Client.top_sectors(@id)
-    else
-      @sectors = []
-    end
-  rescue Exception => e
-    @success = false
-  end
-%>
+<% get_demographics(@person) %>
 
-<h1 class="popup-title">Demographics & Endorsements</h1>
+<h1 class="popup-title">Demographics</h1>
 <% if @success != false && @sectors.count > 0 %>
-  <p class="attribution">SOURCE: <a href="http://www.sunlightlabs.com/">Sunlight Foundation</a></p>
-  <table class="table-striped" style="width: 920px;">
-    <thead>
-      <tr>
-        <th>Name</th>				
-        <th>Percent</th>
-        <th>Total Amount</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% contributions_by_sector_math %>
-      <% @sectors.collect do |s| %>
-      <tr>
-        <td><%= s.name %></td>
-        <td><%= sprintf("%0.02f", ((s.amount.to_f / @i.to_f)) * 100) %></td>
-        <td><%= number_to_currency(s.amount) %></td>
-      </tr>
+  <% load_demographic_pie_percentages(@sectors) %>
+  <script>
+    var percentages = <%= @demographic_pie_percentages %>;
+    var p = Raphael("demographics-pie-chart");
+    var pie = p.piechart(190, 170, 150, percentages, {legend: percentages});
+  </script>
+  <div id="demographics-pie-chart" style="width: 900px;">
+    <ul id="demographics-legend">
+      <% @legend.each do |l| %>
+        <li><%= l %></li>
       <% end %>
-      <tr>
-        <td></td>
-        <td><h4>Total:</h4></h4></td>
-      <td><h4><%= number_to_currency(@i) %></h4></td>
-    </tbody>
-  </table>
+      </ul>
+  </div>
+  <!--
+  <div class="six columns" style="float: right;">  
+    <p class="attribution">SOURCE: <a href="http://www.sunlightlabs.com/">Sunlight Foundation</a></p>
+    <table class="table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>				
+          <th>Percent</th>
+          <th>Total Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @sectors.collect do |s| %>
+        <tr>
+          <td><%= s.name %></td>
+          <td><%= sprintf("%0.02f", ((s.amount.to_f / @i.to_f)) * 100) %></td>
+          <td><%= number_to_currency(s.amount) %></td>
+        </tr>
+        <% end %>
+        <tr>
+          <td></td>
+          <td><h4>Total:</h4></h4></td>
+        <td><h4><%= number_to_currency(@i) %></h4></td>
+      </tbody>
+    </table>
+  </div>
+    -->
 <% else %>
   Information is not currently available, research is in progress.
 <% end %>
