@@ -199,4 +199,15 @@ module PeopleHelper
     return summary
   end
 
+  def parse_book(b)
+    book = b.get_hash
+    attributes = "<Book>" + book["ItemAttributes"] + "</Book>"
+    book_attributes = Nokogiri::XML(attributes)
+    @url = book["DetailPageURL"]
+    @title = book_attributes.xpath('//Title').inner_text
+    @author = book_attributes.xpath('//Author').inner_text
+
+    return @url, @title, @author
+  end
+
 end

@@ -123,6 +123,8 @@ class PeopleController < ApplicationController
   end
 
   def refresh_bubble_rect
+    @person = Person.find(params[:pid])
+
     respond_to do |format|
       format.js { render :layout => false }
     end

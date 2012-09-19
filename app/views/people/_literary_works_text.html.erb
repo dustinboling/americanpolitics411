@@ -1,9 +1,58 @@
-<% p = Person.find(params[:pid]) %>
-<% literary_work = p.literary_work %>
+<% books_by_req = Amazon::Ecs.item_search(@person.first_last_name, {:response_group => 'Small', :type => 'author'}) %>
 
-<h1 class="popup-title">Literary work</h1>
-<% if literary_work != nil %>
-<%= literary_work.html_safe %>
-<% else %>
-<p>Research is in progress.</p>
+<div class="scrollable-layover">
+<% number_of_books_by = books_by_req.total_results %>
+<% if number_of_books_by > 0 %>
+  <h1 class="popup-title">Books By</h1>
+  <table class="table-striped" style="width: 900px;">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% books_by = books_by_req.items %>
+    <% already_listed = [] %>
+    <% books_by.take(6).each do |b| %>
+      <% parse_book(b) %>
+      <% unless already_listed.include?(@title) %>
+        <tr>
+          <td><%= link_to @title, @url %></td>
+          <td><%= link_to image_tag('buy-now.gif'), @url %></td>
+        </tr>
+      <% end %>
+      <% already_listed << @title %>
+    <% end %>
+    </tbody>
+  </table>
 <% end %>
+
+<% books_about_req = Amazon::Ecs.item_search(@person.first_last_name, {:response_group => 'Small'}) %>
+<% number_of_books_about = books_by_req.total_results %>
+<% if number_of_books_about > 0 %>
+  <h1 class="popup-title">Book Mentions</h1>
+  <table class="table-striped" style="width: 900px">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% books_about = books_about_req.items %>
+    <% already_listed = [] %>
+    <% books_about.take(6).each do |b| %>
+      <% parse_book(b) %>
+      <% unless already_listed.include?(@title) %>
+        <tr>
+          <td><%= link_to @title, @url %></td>
+          <td><%= link_to image_tag('buy-now.gif'), @url %></td>
+        </tr>
+      <% end %>
+      <% already_listed << @title %>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+</div>
