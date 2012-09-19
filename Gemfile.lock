@@ -8,13 +8,6 @@ GIT
       rake
 
 PATH
-  remote: vendor/gems/amazon-ecs
-  specs:
-    amazon-ecs (2.2.4)
-      nokogiri (~> 1.4)
-      ruby-hmac (~> 0.3)
-
-PATH
   remote: vendor/gems/jquery-datatables-rails-1.10.0
   specs:
     jquery-datatables-rails (1.10.0)
@@ -262,7 +255,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  amazon-ecs!
   cancan
   capybara
   coffee-rails (~> 3.1.1)
