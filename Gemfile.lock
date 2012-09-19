@@ -8,10 +8,11 @@ GIT
       rake
 
 PATH
-  remote: vendor/gems/amazon-ecs
+  remote: vendor/gems/amazon-ecs-2.2.4
   specs:
     amazon-ecs (2.2.4)
       nokogiri (~> 1.4)
+      ruby-hmac (~> 0.3)
 
 PATH
   remote: vendor/gems/jquery-datatables-rails-1.10.0
