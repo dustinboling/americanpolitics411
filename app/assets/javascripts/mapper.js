@@ -95,6 +95,7 @@ window.onload = function () {
                     $('#current-tweet').show();
                     $('#follow-button').show();
                     closeButton.hide();
+                    closeButtonText.hide();
                 }
             }
             shapes[i].mouseover(hoverIn);
@@ -134,6 +135,7 @@ window.onload = function () {
                     $('#follow-button').show();
                     $('#current-tweet').show();
                     closeButton.hide();
+                    closeButtonText.hide();
                 }
             }
         }
@@ -460,8 +462,17 @@ function makeRectBlank() {
     $('#follow-button').hide();
     $('#current-tweet').hide();
     loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
-    closeButton = r.rect(825, 10, 100, 20).attr({fill: "#9F1D21"})
-    closeButtonText = r.text(840, 20, "CLOSE X").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF"});
+    closeButton = r.rect(10, 10, 100, 20).attr({fill: "#9F1D21"})
+    closeButtonText = r.text(23, 20, "<< BACK").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF"});
+    newRect.node.onclick = function() {
+        loader.hide();
+        $('#popup-text').hide();
+        $('#follow-button').show();
+        $('#current-tweet').show();
+        newRect.hide();
+        closeButton.hide();
+        closeButtonText.hide();
+    }
     closeButton.node.onclick = function() {
         loader.hide();
         $('#popup-text').hide();
@@ -469,6 +480,7 @@ function makeRectBlank() {
         $('#current-tweet').show();
         newRect.hide();
         closeButton.hide();
+        closeButtonText.hide();
     }
     closeButtonText.node.onclick = function() {
         loader.hide();
@@ -477,6 +489,7 @@ function makeRectBlank() {
         $('#current-tweet').show();
         newRect.hide();
         closeButton.hide();
+        closeButtonText.hide();
     }
     return newRect;
 }
