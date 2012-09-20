@@ -24,7 +24,14 @@
   <%= f.label :is_congress_member, "This person has been a member of congress" %>
   <%= f.check_box :is_congress_member %>
 
-  <%= f.label :photo_url %>
+  <div class="row" style="margin: 0; padding: 0;">
+    <div class="three columns" style="margin: 0; padding: 0;">
+      <%= f.label :photo_url %>
+    </div>
+    <div class="three columns" style="padding-left: 10px;">
+      <%= image_tag(@person.photo_url.micro_thumb) %>
+    </div>
+  </div>
   <%= f.file_field :photo_url %>
 
   <div class="row" style="margin: 0;">
