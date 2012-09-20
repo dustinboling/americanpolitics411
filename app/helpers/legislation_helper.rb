@@ -47,43 +47,55 @@ module LegislationHelper
     nays_length = nays.length
     abstains_length = abstains.length
 
-    i = 0
-    yeas.each do |y|
-      if i == yeas_length - 1
-        find_yeas = find_yeas + 
-          "bioguide_id = '#{y.capitalize}'"
-      else
-        find_yeas = find_yeas + 
-          "bioguide_id = '#{y.capitalize}' OR "
-        i = i + 1
+    if yeas_length == 0
+      @yeas = []
+    else
+      i = 0
+      yeas.each do |y|
+        if i == yeas_length - 1
+          find_yeas = find_yeas + 
+            "bioguide_id = '#{y.capitalize}'"
+        else
+          find_yeas = find_yeas + 
+            "bioguide_id = '#{y.capitalize}' OR "
+          i = i + 1
+        end
       end
+      @yeas = Person.find_by_sql(find_yeas)
     end
-    @yeas = Person.find_by_sql(find_yeas)
 
-    i = 0
-    nays.each do |n|
-      if i == nays_length - 1
-        find_nays = find_nays + 
-          "bioguide_id = '#{n.capitalize}'"
-      else
-        find_nays = find_nays + 
-          "bioguide_id = '#{n.capitalize}' OR "
-        i = i + 1
+    if nays_length == 0
+      @nays = []
+    else
+      i = 0
+      nays.each do |n|
+        if i == nays_length - 1
+          find_nays = find_nays + 
+            "bioguide_id = '#{n.capitalize}'"
+        else
+          find_nays = find_nays + 
+            "bioguide_id = '#{n.capitalize}' OR "
+          i = i + 1
+        end
       end
+      @nays = Person.find_by_sql(find_nays)
     end
-    @nays = Person.find_by_sql(find_nays)
 
-    i = 0
-    abstains.each do |a|
-      if i == abstains_length - 1
-        find_abstains = find_abstains + "bioguide_id = '#{a.capitalize}'"
-      else
-        find_abstains = find_abstains + 
-          "bioguide_id = '#{a.capitalize}' OR "
-        i = i + 1
+    if abstains_length == 0
+      @abstains = []
+    else
+      i = 0
+      abstains.each do |a|
+        if i == abstains_length - 1
+          find_abstains = find_abstains + "bioguide_id = '#{a.capitalize}'"
+        else
+          find_abstains = find_abstains + 
+            "bioguide_id = '#{a.capitalize}' OR "
+          i = i + 1
+        end
       end
+      @abstains = Person.find_by_sql(find_abstains)
     end
-    @abstains = Person.find_by_sql(find_abstains)
 
     return @yeas, @nays, @abstains
   end
