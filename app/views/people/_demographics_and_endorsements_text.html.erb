@@ -4,44 +4,30 @@
 <% if @success != false && @sectors.count > 0 %>
   <% load_demographic_pie_percentages(@sectors) %>
   <script>
-    var percentages = <%= @demographic_pie_percentages %>;
+    var percentages = <%= raw @demographic_pie_percentages.as_json %>;
+    var legend = <%= raw @legend.as_json %>;
     var p = Raphael("demographics-pie-chart");
-    var pie = p.piechart(190, 170, 150, percentages, {legend: percentages});
+    var pie = p.piechart(195, 195, 175, percentages, {legend: legend});
+    pie.hover(function () {
+        this.sector.stop();
+        this.sector.scale(1.1, 1.1, this.cx, this.cy);
+
+        if (this.label) {
+            this.label[0].stop();
+            this.label[0].attr({ r: 7.5 });
+            this.label[1].attr({ "font-weight": 800 });
+        }
+    }, function () {
+        this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
+
+        if (this.label) {
+            this.label[0].animate({ r: 5 }, 500, "bounce");
+            this.label[1].attr({ "font-weight": 400 });
+        }
+    });
   </script>
-  <div id="demographics-pie-chart" style="width: 900px;">
-    <ul id="demographics-legend">
-      <% @legend.each do |l| %>
-        <li><%= l %></li>
-      <% end %>
-      </ul>
+  <div id="demographics-pie-chart" style="width: 900px; height: 550px;">
   </div>
-  <!--
-  <div class="six columns" style="float: right;">  
-    <p class="attribution">SOURCE: <a href="http://www.sunlightlabs.com/">Sunlight Foundation</a></p>
-    <table class="table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>				
-          <th>Percent</th>
-          <th>Total Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @sectors.collect do |s| %>
-        <tr>
-          <td><%= s.name %></td>
-          <td><%= sprintf("%0.02f", ((s.amount.to_f / @i.to_f)) * 100) %></td>
-          <td><%= number_to_currency(s.amount) %></td>
-        </tr>
-        <% end %>
-        <tr>
-          <td></td>
-          <td><h4>Total:</h4></h4></td>
-        <td><h4><%= number_to_currency(@i) %></h4></td>
-      </tbody>
-    </table>
-  </div>
-    -->
 <% else %>
   Information is not currently available, research is in progress.
 <% end %>

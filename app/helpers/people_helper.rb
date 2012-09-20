@@ -232,7 +232,8 @@ module PeopleHelper
     @legend = []
     @sectors.collect do |s|
       percentage = sprintf("%0.02f", ((s.amount.to_f / @i.to_f)) * 100).to_f
-      legend = s.name
+      percentage_as_percent = number_to_percentage(percentage, :precision => 2)
+      legend = percentage_as_percent + " " + s.name + " - (#{number_to_currency(s.amount)})"
       @demographic_pie_percentages << percentage
       @legend << legend
     end
