@@ -22,7 +22,6 @@ gem 'jquery-ui-rails'
 gem 'kaminari'
 gem 'feedzirra'
 gem 'carrierwave'
-gem 'ruby-hmac', '~> 0.3'
 gem 'amazon-ecs', :path => 'vendor/gems/amazon-ecs-2.2.4'
 gem 'jquery-datatables-rails', :path => "vendor/gems/jquery-datatables-rails-1.10.0"
 gem 'transparency_data', github: 'asebastian/transparency-data'
