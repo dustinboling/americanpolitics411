@@ -9,7 +9,7 @@
     <% photo_url = photo_url_ary[1] %>
     window.photo_url = "<%= photo_url %>";
   <% else %>
-    window.photo_url = "<%= @person.photo_url %>";
+    window.photo_url = "<%= @person.photo_url.thumb %>";
   <% end %>
   <% if @person.title.blank? %>
     window.full_name = "<%= @person.first_name + " " + @person.last_name %>";
