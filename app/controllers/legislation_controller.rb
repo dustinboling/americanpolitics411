@@ -49,10 +49,10 @@ class LegislationController < ApplicationController
   def show
     if params[:bill_number]
       @legislation = Legislation.find_by_bill_number(params[:bill_number]).includes(:legislation_issues)
-      get_votes
+      @votes = get_votes
     else
       @legislation = Legislation.find(params[:id])
-      get_votes
+      @votes = get_votes
     end 
   end
 
@@ -90,7 +90,5 @@ class LegislationController < ApplicationController
   def get_votes
     client = Congress::Client.new
     @votes = client.votes(:bill_id => @legislation.rtc_id)
-
-    return @votes
   end
 end
