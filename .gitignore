@@ -33,3 +33,5 @@ bm-udp.rb
 # ignore swap files (vim)
 *.swo
 *.swp
+
+/public/uploads/tmp

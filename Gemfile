@@ -21,6 +21,8 @@ gem 'twitter'
 gem 'jquery-ui-rails'
 gem 'kaminari'
 gem 'feedzirra'
+gem 'fog', '~> 1.3.1'
+gem 'rmagick'
 gem 'carrierwave'
 gem 'amazon-ecs', :path => 'vendor/gems/amazon-ecs-2.2.4'
 gem 'jquery-datatables-rails', :path => "vendor/gems/jquery-datatables-rails-1.10.0"
