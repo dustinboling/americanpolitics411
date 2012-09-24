@@ -1,5 +1,5 @@
 /*global window */
-window.onload = function () {
+$(document).ready(function() {
     r = Raphael("bubble-map", 940, 480);
     connections = [];
     shapes = [];
@@ -26,7 +26,7 @@ window.onload = function () {
         r.rect(780, 120, 100, 45, 10).attr({cursor: "pointer"}),  // [19] = flip flops
         r.rect(640, 90, 100, 45, 10).attr({cursor: "pointer"}),   // [20] = contributors
         r.rect(805, 50, 100, 45, 10).attr({cursor: "pointer"}),   // [21] = PACs
-        r.rect(700, 5, 100, 45, 10).attr({cursor: "pointer"}),    // [22] = demographics & endorsements
+        r.rect(700, 5, 100, 45, 10).attr({cursor: "pointer"})    // [22] = demographics & endorsements
     ];
 
     nodeTexts = ["Professional\n experience", "Controversy", "Issue Positions", "Political Offices", "Family Network", "Investments", "Net Worth", "Accusations", "Litigation", "Voting Behavior", "Earmarks", "Co-sponsored", "Sponsored\n Legislation", "Committees", "Campaign\nPlatforms", "Flip flops", "Contributors", "PACs", "Demographics &\n Endorsements"];
@@ -389,7 +389,7 @@ window.onload = function () {
     connections.push(r.connection(shapes[20], shapes[21], "#444"));
     connections.push(r.connection(shapes[20], shapes[22], "#444"));
     connections.push(r.connection(shapes[18], shapes[19], "#444"));
-};
+});
 
 function makeRect(partial) {
     // instantiate objects

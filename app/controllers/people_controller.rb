@@ -126,7 +126,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:pid])
 
     respond_to do |format|
-      format.js { render :layout => false }
+      format.js
     end
   end
 
