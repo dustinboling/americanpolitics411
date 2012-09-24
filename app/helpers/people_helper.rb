@@ -206,7 +206,9 @@ module PeopleHelper
     @url = book["DetailPageURL"]
     @title = book_attributes.xpath('//Title').inner_text
     @author = book_attributes.xpath('//Author').inner_text
-    @image = b.get_hash('SmallImage')["URL"]
+    unless b.get_hash('SmallImage').nil?
+      @image = b.get_hash('SmallImage')["URL"]
+    end
 
     return @url, @title, @author, @image
   end
