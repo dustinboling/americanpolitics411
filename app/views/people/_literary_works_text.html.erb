@@ -1,4 +1,4 @@
-<% books_by_req = Amazon::Ecs.item_search(@person.first_last_name, {:response_group => 'Small', :type => 'author'}) %>
+<% books_by_req = Amazon::Ecs.item_search(@person.first_last_name, {:response_group => 'Medium', :type => 'author'}) %>
 
 <div class="scrollable-layover">
 <% number_of_books_by = books_by_req.total_results %>
@@ -7,6 +7,7 @@
   <table class="table-striped" style="width: 900px;">
     <thead>
       <tr>
+        <th>Cover</th>
         <th>Title</th>
         <th style="width: 80px;"></th>
       </tr>
@@ -18,6 +19,7 @@
       <% parse_book(b) %>
       <% unless already_listed.include?(@title) %>
         <tr>
+          <td class="book-image" align="center"><%= link_to image_tag(@image), @url %></td>
           <td><%= link_to @title, @url %></td>
           <td><%= link_to image_tag('buy-now.gif'), @url %></td>
         </tr>
@@ -28,13 +30,14 @@
   </table>
 <% end %>
 
-<% books_about_req = Amazon::Ecs.item_search(@person.first_last_name, {:response_group => 'Small'}) %>
+<% books_about_req = Amazon::Ecs.item_search(@person.first_last_name, {:response_group => 'Medium'}) %>
 <% number_of_books_about = books_by_req.total_results %>
 <% if number_of_books_about > 0 %>
   <h1 class="popup-title">Book Mentions</h1>
   <table class="table-striped" style="width: 900px">
     <thead>
       <tr>
+        <th>Cover</th>
         <th>Title</th>
         <th style="width: 80px;"></th>
       </tr>
@@ -46,6 +49,7 @@
       <% parse_book(b) %>
       <% unless already_listed.include?(@title) %>
         <tr>
+          <td class="book-image" align="center"><%= link_to image_tag(@image), @url %></td>
           <td><%= link_to @title, @url %></td>
           <td><%= link_to image_tag('buy-now.gif'), @url %></td>
         </tr>

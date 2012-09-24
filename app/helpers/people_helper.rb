@@ -206,8 +206,9 @@ module PeopleHelper
     @url = book["DetailPageURL"]
     @title = book_attributes.xpath('//Title').inner_text
     @author = book_attributes.xpath('//Author').inner_text
+    @image = b.get_hash('SmallImage')["URL"]
 
-    return @url, @title, @author
+    return @url, @title, @author, @image
   end
 
   def get_demographics(person)
