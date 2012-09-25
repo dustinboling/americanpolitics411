@@ -264,6 +264,7 @@ $(document).ready(function() {
     eduRectText = r.text(425, 378, "EDUCATION").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
     litRect = r.rect(380, 390, 170, 15, 5).attr({stroke: "none", fill: "red"});
     litRectText = r.text(443, 398, "LITERARY WORKS").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
+    litRectStar = r.image(star, 500, 390, 17, 15).toFront();
     orgRect = r.rect(380, 410, 170, 15, 5).attr({stroke: "none", fill: "red"});
     orgRectText = r.text(438, 418, "ORGANIZATIONS").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
     contactRect = r.rect(380, 430, 170, 15, 5).attr({stroke: "none", fill: "red"});
@@ -280,6 +281,9 @@ $(document).ready(function() {
         makeRect("literary_works_text");
     }
     litRectText.node.onclick = function() {
+        makeRect("literary_works_text");
+    }
+    litRectStar.node.onclick = function() {
         makeRect("literary_works_text");
     }
     orgRect.node.onclick = function() {
