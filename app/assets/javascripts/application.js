@@ -8,7 +8,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require dataTables/jquery.dataTables
-//= require_tree .
+//= require_directory .
 
 function remove_fields(link) {
     $(link).prev("input[type=hidden]").val("1");
