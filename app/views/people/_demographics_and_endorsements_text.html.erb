@@ -7,7 +7,7 @@
       var percentages = <%= raw @demographic_pie_percentages.as_json %>;
       var legend = <%= raw @legend.as_json %>;
       // var p = Raphael("demographics-pie-chart");
-      var pie = r.piechart(195, 260, 170, percentages, {legend: legend});
+      var pie = r.piechart(210, 260, 170, percentages, {legend: legend});
       pie.hover(function () {
           this.sector.stop();
           this.sector.scale(1.1, 1.1, this.cx, this.cy);
