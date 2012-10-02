@@ -3,29 +3,29 @@
 <h1 class="popup-title">Demographics</h1>
 <% if @success != false && @sectors.count > 0 %>
   <% load_demographic_pie_percentages(@sectors) %>
-  <script>
-    var percentages = <%= raw @demographic_pie_percentages.as_json %>;
-    var legend = <%= raw @legend.as_json %>;
-    var p = Raphael("demographics-pie-chart");
-    var pie = p.piechart(195, 195, 175, percentages, {legend: legend});
-    pie.hover(function () {
-        this.sector.stop();
-        this.sector.scale(1.1, 1.1, this.cx, this.cy);
+    <script>
+      var percentages = <%= raw @demographic_pie_percentages.as_json %>;
+      var legend = <%= raw @legend.as_json %>;
+      // var p = Raphael("demographics-pie-chart");
+      var pie = r.piechart(195, 260, 170, percentages, {legend: legend});
+      pie.hover(function () {
+          this.sector.stop();
+          this.sector.scale(1.1, 1.1, this.cx, this.cy);
 
-        if (this.label) {
-            this.label[0].stop();
-            this.label[0].attr({ r: 7.5 });
-            this.label[1].attr({ "font-weight": 800 });
-        }
-    }, function () {
-        this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
+          if (this.label) {
+              this.label[0].stop();
+              this.label[0].attr({ r: 7.5 });
+              this.label[1].attr({ "font-weight": 800 });
+          }
+      }, function () {
+          this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
 
-        if (this.label) {
-            this.label[0].animate({ r: 5 }, 500, "bounce");
-            this.label[1].attr({ "font-weight": 400 });
-        }
-    });
-  </script>
+          if (this.label) {
+              this.label[0].animate({ r: 5 }, 500, "bounce");
+              this.label[1].attr({ "font-weight": 400 });
+          }
+      });
+    </script>
   <div id="demographics-pie-chart" style="width: 900px; height: 550px;">
   </div>
 <% else %>

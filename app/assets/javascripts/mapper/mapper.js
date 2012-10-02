@@ -96,6 +96,7 @@ $(document).ready(function() {
                     $('#follow-button').show();
                     closeButton.hide();
                     closeButtonText.hide();
+                    pie.hide();
                 }
             }
             shapes[i].mouseover(hoverIn);
@@ -136,6 +137,7 @@ $(document).ready(function() {
                     $('#current-tweet').show();
                     closeButton.hide();
                     closeButtonText.hide();
+                    pie.hide();
                 }
             }
         }
@@ -432,6 +434,7 @@ function makeRect(partial) {
         newRect.hide();
         closeButton.hide();
         closeButtonText.hide();
+        pie.hide();
     }
     closeButton.node.onclick = function() {
         xhr.abort();
@@ -442,6 +445,7 @@ function makeRect(partial) {
         newRect.hide();
         closeButton.hide();
         closeButtonText.hide();
+        pie.hide();
     }
     closeButtonText.node.onclick = function() {
         xhr.abort();
@@ -452,6 +456,7 @@ function makeRect(partial) {
         newRect.hide();
         closeButton.hide();
         closeButtonText.hide();
+        pie.hide();
     }
     return newRect;
 }
@@ -479,6 +484,7 @@ function makeRectBlank() {
         newRect.hide();
         closeButton.hide();
         closeButtonText.hide();
+        pie.hide();
     }
     closeButton.node.onclick = function() {
         if (typeof xhr != 'undefined') {
@@ -491,6 +497,7 @@ function makeRectBlank() {
         newRect.hide();
         closeButton.hide();
         closeButtonText.hide();
+        pie.hide();
     }
     closeButtonText.node.onclick = function() {
         if (typeof xhr != 'undefined') {
@@ -503,6 +510,7 @@ function makeRectBlank() {
         newRect.hide();
         closeButton.hide();
         closeButtonText.hide();
+        pie.hide();
     }
     return newRect;
 }
