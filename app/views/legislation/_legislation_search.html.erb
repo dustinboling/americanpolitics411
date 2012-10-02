@@ -1,4 +1,4 @@
-<div class="three columns">
+<div class="three columns" style="margin: 0;">
   <%= form_for :legislations, :remote => true, :url => {:action => 'refresh'} do |f| %>
   <label class="two columns">
     By Year
@@ -7,21 +7,30 @@
   <%= f.submit "Go", :class => 'no-padding box_red', :onclick => "$('#legislation-table').hide();$('#legislation-loader').show();" %>
   <% end %>
 </div>
-<div class="four columns">
+<div class="three columns" style="margin: 0;">
   <%= form_for :legislations, :remote => true, :url => {:action => 'refresh'} do |f| %>
-  <label class="three columns">
-    By Session
-    <%= f.select :session, Legislation::SESSIONS, {}, :class => 'box_g', :style => "height: 30px;" %>
+  <label class="two columns">
+    By Bill Number
+    <%= f.text_field :bill_number, :class => 'box_g', :style => 'width: 90px; height: 20px;' %>
   </label>
   <%= f.submit "Go", :class => 'no-padding box_red', :onclick => "$('#legislation-table').hide();$('#legislation-loader').show();" %>
   <% end %>
 </div>
-<div class="four columns">
+<div class="three columns" style="margin: 0;">
   <%= form_for :legislations, :remote => true, :url => {:action => 'refresh'} do |f| %>
-  <label class="three columns">
-    By Issue
-    <%= f.text_field :issue_name, :class => 'issues-list box_g', :data => {issues_source: api_autocomplete_autocomplete_issues_name_path}, :style => 'width: 150px;' %>
+  <label class="two columns">
+    By Session
+    <%= f.select :session, Legislation::SESSIONS, {}, :class => 'box_g', :style => "height: 30px; width: 100px;" %>
   </label>
-  <%= f.submit "Go", :class => 'no-padding box_red', :onclick => "$('#legislation-table').hide();$('#legislation-loader').show();"%>
+    <%= f.submit "Go", :class => 'no-padding box_red', :onclick => "$('#legislation-table').hide();$('#legislation-loader').show();" %>
+  <% end %>
+</div>
+<div class="four columns" style="margin: 0;">
+  <%= form_for :legislations, :remote => true, :url => {:action => 'refresh'} do |f| %>
+  <label class="three columns" style="width: 140px">
+    By Issue
+    <%= f.text_field :issue_name, :class => 'issues-list box_g', :data => {issues_source: api_autocomplete_autocomplete_issues_name_path}, :style => 'width: 130px;' %>
+  </label>
+  <%= f.submit "Go", :class => 'no-padding box_red', :onclick => "$('#legislation-table').hide();$('#legislation-loader').show();" %>
   <% end %>
 </div>

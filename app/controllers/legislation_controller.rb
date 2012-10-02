@@ -21,6 +21,12 @@ class LegislationController < ApplicationController
         @legislation << l.legislation
       end
       @legislation = Kaminari.paginate_array(@legislation).page(params[:page]).per(25)
+    elsif params[:legislations][:bill_number]
+      bill = params[:legislations][:bill_number]
+      bill_number = bill.gsub(/[^0-9]/, "")
+
+      @legislation = Legislation.where(:bill_number => bill_number)
+        .page(params[:page]).per(25)
     end
 
     respond_to do |format|
