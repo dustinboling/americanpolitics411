@@ -9,10 +9,14 @@ class LegislationController < ApplicationController
   def refresh
     if params[:legislations][:introduced_year]
       year = params[:legislations][:introduced_year]
-      @legislation = Legislation.where("introduced_year = ?", "#{year}").page(params[:page]).per(25)
+      @legislation = Legislation.where("introduced_year = ?", "#{year}")
+        .order('introduced_date DESC')
+        .page(params[:page]).per(25)
     elsif params[:legislations][:session]
       congress_year = params[:legislations][:session]
-      @legislation = Legislation.where(:session => congress_year).page(params[:page]).per(25)
+      @legislation = Legislation.where(:session => congress_year)
+        .order('introduced_date DESC')
+        .page(params[:page]).per(25)
     elsif params[:legislations][:issue_name]
       issue = Issue.find_by_name(params[:legislations][:issue_name])
       li = LegislationIssue.where(:issue_id => issue.id).includes(:legislation)
@@ -26,6 +30,7 @@ class LegislationController < ApplicationController
       bill_number = bill.gsub(/[^0-9]/, "")
 
       @legislation = Legislation.where(:bill_number => bill_number)
+        .order('introduced_date DESC')
         .page(params[:page]).per(25)
     end
 
