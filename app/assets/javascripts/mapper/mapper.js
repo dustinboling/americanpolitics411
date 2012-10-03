@@ -308,6 +308,7 @@ $(document).ready(function() {
 
         if (window.twitter_id == "") {
             tb_error = r.text(65, 345, "Could not load feed.").attr({"font-size": "24px", "text-anchor": "start", fill: "#999"});
+            $('#follow-button').hide();
         } else {
             function getUser() {
                 return $.ajax({
