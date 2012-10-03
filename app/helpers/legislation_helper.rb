@@ -7,18 +7,13 @@ module LegislationHelper
     # TODO: summary_sp1 and summary_sp2 basically do nothing, we need to
     # look ahead and make sure that the NEXT NON DIGIT CHARACTER is
     # not a ")" or "}"
-    # summary_sp1 = summary.split('. *?![^\)]').join('. <br>') 
-    # summary_sp2 = summary_sp1.split('.*?![^\)]').join('.<br>')
-    # summary_sp5 = summary_sp4.split('. (').join('. <br>(')
-    # summary_sp6 = summary_sp5.split('.) ').join('.)<br>')
     summary_sp1 = summary.gsub(/(\.  ?=*\))/, '.<br>')
     summary_sp2 = summary_sp1.gsub(/(\. ?=*\))/, '.<br>').gsub(/\.<br>/, ".)")
     summary_sp3 = summary_sp2.split(': ').join(': <br>')
     summary_sp4 = summary_sp3.split(/\((?=\d)/).join('<br>(')
     summary_sp5 = summary_sp4.gsub(/<br><br>/, '<br>')
-    summary = summary_sp5.html_safe
 
-    return summary
+    summary = summary_sp5.html_safe
   end
 
   def split_voter_ids
