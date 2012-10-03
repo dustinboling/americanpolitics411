@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120910215512) do
+ActiveRecord::Schema.define(:version => 20121003183814) do
 
   create_table "accusations", :force => true do |t|
     t.integer  "person_id"
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(:version => 20120910215512) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "addresses", ["person_id"], :name => "index_addresses_on_person_id"
 
   create_table "admin_users", :force => true do |t|
     t.string   "first_name",      :limit => 25

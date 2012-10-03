@@ -4,8 +4,7 @@
       <% title = v.title %>
       <% thumbnail = v.thumbnails.first.url %>
       <% video_url = v.media_content[0].url %>
-      <%= link_to image_tag(thumbnail), video_url %>
-    </iframe>
+      <%= link_to image_tag(thumbnail), video_url, :class => 'video-thumb' %>
   <% end %>
   <br>
   <%= link_to "More Videos >>", :action => 'videos', :id => @person.id %>
@@ -19,7 +18,7 @@
       <% title = v.title %>
       <% thumbnail = v.thumbnails.first.url %>
       <% video_url = v.media_content[0].url %>
-      <%= link_to image_tag(thumbnail), video_url %>
+      <%= link_to image_tag(thumbnail), video_url, :class => 'video-thumb' %>
     <% end %>
     <%= link_to "More Videos >>", videos_person_path(@person), :id => @person.id %>
   <% end %>
