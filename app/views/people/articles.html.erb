@@ -17,7 +17,7 @@
       <% feed_articles = parse_google_rss_feed(@person.first_last_name, {:num => 100}) %>
       <% feed_articles.each do |a| %>
         <% title = a.title.split(/ - /)[0] %>
-        <% url = a.url %>
+        <% url = a.url.split("http://")[2].prepend("http://") %>
         <tr>
           <td><%= link_to a.published.to_date, url, :target => "_blank" %></td>
           <td><%= link_to title, url, :target => "_blank" %></td>
@@ -44,7 +44,7 @@
       <% feed_articles = parse_google_rss_feed(@person.first_last_name, {:num => 100}) %>
       <% feed_articles.each do |a| %>
         <% title = a.title.split(/ - /)[0] %>
-        <% url = a.url %>
+        <% url = a.url.split("http://")[2].prepend("http://") %>
         <tr>
           <td><%= link_to a.published.to_date, url, :target => "_blank" %></td>
           <td><%= link_to title, url, :target => "_blank" %></td>

@@ -62,7 +62,7 @@
           <% while n < feed_articles.count %>
             <div class="article">
               <% title = feed_articles[z].title.split(/ - /)[0] %>
-              <% url = feed_articles[z].url %>
+              <% url = feed_articles[z].url.split("http://")[2].prepend("http://") %>
               <% summary = parse_google_summary(feed_articles[z].summary) %>
               <h4><%= link_to title, url, :target => "_blank" %></h4>
               <p>
@@ -102,7 +102,7 @@
           <% while n < 10 %>
             <div class="article">
               <% title = feed_articles[z].title.split(/ - /)[0] %>
-              <% url = feed_articles[z].url %>
+              <% url = feed_articles[z].url.split("http://")[2].prepend("http://") %>
               <% summary = parse_google_summary(feed_articles[z].summary) %>
               <h4><%= link_to title, url, :target => "_blank" %></h4>
               <p>
