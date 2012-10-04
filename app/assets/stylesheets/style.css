@@ -160,11 +160,12 @@ hr {
 }
 
 .box_red {
-  background-color: red !important;
+  background-color: #9F1D21 !important;
   color: #fff !important;
-  border: 1px solid red !important;
+  border: 1px solid #9F1D21 !important;
   border-radius: 5px !important;
   padding: 1px;
+  height: 31px !important;
 }
 
 .box_g {
@@ -265,7 +266,11 @@ input.person-search {
 
 input.submit-search {
   float: left;
-  height: 32px !important;
+}
+
+td.gsc-input,
+td.gsc-search-button {
+  border: none !important;
 }
 
 #menu-item-officials-subnav-col2, 
@@ -812,6 +817,42 @@ h4#legislation-title {
   height: 200px;
 }
 
+/* Google Search */
+.google-search {
+  position: absolute;
+  right: 4px;
+  bottom: -3px;
+  width: 280px;
+}
+
+table.gsc-search-box{
+  border: none;
+}
+
+form.gsc-search-box {
+  padding: 0;
+}
+
+input.gsc-input {
+  margin-bottom: 0;
+  padding: 3px 6px;
+}
+
+.gsc-input {
+  padding-right: 0 !important;
+  height: 20px;
+}
+
+.gsc-clear-button {
+  display: none;
+}
+
+.cse input.gsc-search-button,
+input.gsc-search-button {
+  background-color: #9F1D21 !important;
+  border-color: #9F1D21 !important;
+  height: 26px !important;
+}
 
 
 /* #Media Queries
