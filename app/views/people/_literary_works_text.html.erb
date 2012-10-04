@@ -1,62 +1,65 @@
-<% books_by_req = Amazon::Ecs.item_search(@person.first_last_name, {:response_group => 'Medium', :type => 'author'}) %>
-
 <div class="scrollable-layover">
-<% number_of_books_by = books_by_req.total_results %>
-<% if number_of_books_by > 0 %>
+  <% books_by_req = Amazon::Ecs.item_search(@person.first_last_name, {:response_group => 'Medium', :type => 'author'}) %>
+  <% number_of_books_by = books_by_req.total_results %>
   <h1 class="popup-title">Books by <%= @person.first_last_name %></h1>
-  <table class="table-striped" style="width: 900px;">
-    <thead>
-      <tr>
-        <th>Cover</th>
-        <th>Title</th>
-        <th style="width: 80px;"></th>
-      </tr>
-    </thead>
-    <tbody>
-    <% books_by = books_by_req.items %>
-    <% already_listed = [] %>
-    <% books_by.take(6).each do |b| %>
-      <% parse_book(b) %>
-      <% unless already_listed.include?(@title) %>
+  <% if number_of_books_by > 0 %>
+    <table class="table-striped" style="width: 900px;">
+      <thead>
         <tr>
-          <td class="book-image" align="center"><%= link_to image_tag(@image), @url %></td>
-          <td><%= link_to @title, @url %></td>
-          <td><%= link_to image_tag('buy-now.gif'), @url %></td>
+          <th>Cover</th>
+          <th>Title</th>
+          <th style="width: 80px;"></th>
         </tr>
+      </thead>
+      <tbody>
+      <% books_by = books_by_req.items %>
+      <% already_listed = [] %>
+      <% books_by.take(6).each do |b| %>
+        <% parse_book(b) %>
+        <% unless already_listed.include?(@title) %>
+          <tr>
+            <td class="book-image" align="center"><%= link_to image_tag(@image), @url %></td>
+            <td><%= link_to @title, @url %></td>
+            <td><%= link_to image_tag('buy-now.gif'), @url %></td>
+          </tr>
+        <% end %>
+        <% already_listed << @title %>
       <% end %>
-      <% already_listed << @title %>
-    <% end %>
-    </tbody>
-  </table>
-<% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No books found.</p>
+  <% end %>
 
-<% books_about_req = Amazon::Ecs.item_search(@person.first_last_name, {:response_group => 'Medium'}) %>
-<% number_of_books_about = books_by_req.total_results %>
-<% if number_of_books_about > 0 %>
+  <% books_about_req = Amazon::Ecs.item_search(@person.first_last_name, {:response_group => 'Medium'}) %>
+  <% number_of_books_about = books_by_req.total_results %>
   <h1 class="popup-title">Book Mentions</h1>
-  <table class="table-striped" style="width: 900px">
-    <thead>
-      <tr>
-        <th>Cover</th>
-        <th>Title</th>
-        <th style="width: 80px;"></th>
-      </tr>
-    </thead>
-    <tbody>
-    <% books_about = books_about_req.items %>
-    <% already_listed = [] %>
-    <% books_about.take(6).each do |b| %>
-      <% parse_book(b) %>
-      <% unless already_listed.include?(@title) %>
+  <% if number_of_books_about > 0 %>
+    <table class="table-striped" style="width: 900px">
+      <thead>
         <tr>
-          <td class="book-image" align="center"><%= link_to image_tag(@image), @url %></td>
-          <td><%= link_to @title, @url %></td>
-          <td><%= link_to image_tag('buy-now.gif'), @url %></td>
+          <th>Cover</th>
+          <th>Title</th>
+          <th style="width: 80px;"></th>
         </tr>
+      </thead>
+      <tbody>
+      <% books_about = books_about_req.items %>
+      <% already_listed = [] %>
+      <% books_about.take(6).each do |b| %>
+        <% parse_book(b) %>
+        <% unless already_listed.include?(@title) %>
+          <tr>
+            <td class="book-image" align="center"><%= link_to image_tag(@image), @url %></td>
+            <td><%= link_to @title, @url %></td>
+            <td><%= link_to image_tag('buy-now.gif'), @url %></td>
+          </tr>
+        <% end %>
+        <% already_listed << @title %>
       <% end %>
-      <% already_listed << @title %>
-    <% end %>
-    </tbody>
-  </table>
-<% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No books found.</p>
+  <% end %>
 </div>
