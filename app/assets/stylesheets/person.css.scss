@@ -59,6 +59,7 @@
   -webkit-column-count: 2;
   -webkit-column-gap: 1.5em;
   /* -webkit-column-rule: 1px solid #c4c8cc; */
+  min-height: 525px;
 }
 
 h2.edit-title {
@@ -115,6 +116,18 @@ h2.edit-title {
 #video-media-header {
   padding-left: 60px;
   line-height: 1;
+}
+
+#more-articles-link {
+  position: absolute;
+  bottom: 56px;
+  right: 494px;
+}
+  
+#more-videos-link {
+  position: absolute;
+  bottom: 56px;
+  right: 42px;
 }
 
 #popup-text {
