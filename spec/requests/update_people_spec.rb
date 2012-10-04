@@ -7,19 +7,14 @@ describe "UpdatePeople" do
     before :each do
       @user = FactoryGirl.create(:user, roles_mask: 1)
       @religion = FactoryGirl.create(:religion)
-      @person = Person.new(
-        first_name: 'test', 
-        last_name: 'person', 
-        religion_id: 7
-      )
-      @person.save
+      @person = FactoryGirl.create(:person)
 
       visit login_path
       fill_in "Username", with: @user.username
       fill_in "Password", with: "123"
       click_button "Log in"
-      visit person_path(@person)
-      page.should have_content("#{@person.first_name}")
+      # visit edit_person_path(@person.id)
+      # page.should have_content("#{@person.first_name}")
     end
 
     it "should allow the addition of contact info" do

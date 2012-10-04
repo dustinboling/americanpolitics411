@@ -6,6 +6,16 @@ FactoryGirl.define do
     bio "This is a test bio"
     professional_experience "This is some test professional experience"
     literary_work "This is some test literary work"
+    photo_url "http://www.govtrack.us/data/photos/400221-200px.jpeg"
+    current_party "D"
+    state_represented "CA"
+    district "1"
+    birthplace "Orange, CA"
+    date_of_birth "1947-07-05"
+    religion_id 7
+    twitter_id "ToddAkin"
+    is_congress_member true
+    chamber "H"
   end
 
   ## roles_mask

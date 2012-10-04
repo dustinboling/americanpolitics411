@@ -18,7 +18,7 @@ describe UserMailer do
     end
     
     it "should send a password reset email with a url to reset password" do
-      mail.body.encoded.should match("http://0.0.0.0:3000/password_resets/#{user.reset_password_token}/edit")
+      mail.body.encoded.should match("http://opensource.americanpolitics411.com/password_resets/#{user.reset_password_token}/edit")
     end
   end
 end
