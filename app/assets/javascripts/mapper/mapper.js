@@ -92,8 +92,13 @@ $(document).ready(function() {
                     loader.hide();
                     newRect.hide();
                     $('#popup-text').hide();
-                    $('#current-tweet').show();
-                    $('#follow-button').show();
+                    if (window.twitter_id == "") {
+                        tb_error = r.text(65, 345, "Could not load feed.").attr({"font-size": "24px", "text-anchor": "start", fill: "#999"});
+                        $('#follow-button').hide();
+                    } else {
+                        $('#current-tweet').show();
+                        $('#follow-button').show();
+                    }
                     closeButton.hide();
                     closeButtonText.hide();
                     pie.hide();
@@ -133,8 +138,13 @@ $(document).ready(function() {
                     loader.hide();
                     newRect.hide();
                     $('#popup-text').hide();
-                    $('#follow-button').show();
-                    $('#current-tweet').show();
+                    if (window.twitter_id == "") {
+                        tb_error = r.text(65, 345, "Could not load feed.").attr({"font-size": "24px", "text-anchor": "start", fill: "#999"});
+                        $('#follow-button').hide();
+                    } else {
+                        $('#current-tweet').show();
+                        $('#follow-button').show();
+                    }
                     closeButton.hide();
                     closeButtonText.hide();
                     pie.hide();
@@ -430,8 +440,13 @@ function makeRect(partial) {
         xhr.abort();
         loader.hide();
         $('#popup-text').hide();
-        $('#current-tweet').show();
-        $('#follow-button').show();
+        if (window.twitter_id == "") {
+            tb_error = r.text(65, 345, "Could not load feed.").attr({"font-size": "24px", "text-anchor": "start", fill: "#999"});
+            $('#follow-button').hide();
+        } else {
+            $('#current-tweet').show();
+            $('#follow-button').show();
+        }
         newRect.hide();
         closeButton.hide();
         closeButtonText.hide();
@@ -441,8 +456,14 @@ function makeRect(partial) {
         xhr.abort();
         loader.hide();
         $('#popup-text').hide();
-        $('#follow-button').show();
-        $('#current-tweet').show();
+        $('#popup-text').hide();
+        if (window.twitter_id == "") {
+            tb_error = r.text(65, 345, "Could not load feed.").attr({"font-size": "24px", "text-anchor": "start", fill: "#999"});
+            $('#follow-button').hide();
+        } else {
+            $('#current-tweet').show();
+            $('#follow-button').show();
+        }
         newRect.hide();
         closeButton.hide();
         closeButtonText.hide();
@@ -452,8 +473,13 @@ function makeRect(partial) {
         xhr.abort();
         loader.hide();
         $('#popup-text').hide();
-        $('#follow-button').show();
-        $('#current-tweet').show();
+        if (window.twitter_id == "") {
+            tb_error = r.text(65, 345, "Could not load feed.").attr({"font-size": "24px", "text-anchor": "start", fill: "#999"});
+            $('#follow-button').hide();
+        } else {
+            $('#current-tweet').show();
+            $('#follow-button').show();
+        }
         newRect.hide();
         closeButton.hide();
         closeButtonText.hide();
@@ -480,8 +506,13 @@ function makeRectBlank() {
         }
         loader.hide();
         $('#popup-text').hide();
-        $('#follow-button').show();
-        $('#current-tweet').show();
+        if (window.twitter_id == "") {
+            tb_error = r.text(65, 345, "Could not load feed.").attr({"font-size": "24px", "text-anchor": "start", fill: "#999"});
+            $('#follow-button').hide();
+        } else {
+            $('#current-tweet').show();
+            $('#follow-button').show();
+        }
         newRect.hide();
         closeButton.hide();
         closeButtonText.hide();
@@ -493,8 +524,13 @@ function makeRectBlank() {
         }
         loader.hide();
         $('#popup-text').hide();
-        $('#follow-button').show();
-        $('#current-tweet').show();
+        if (window.twitter_id == "") {
+            tb_error = r.text(65, 345, "Could not load feed.").attr({"font-size": "24px", "text-anchor": "start", fill: "#999"});
+            $('#follow-button').hide();
+        } else {
+            $('#current-tweet').show();
+            $('#follow-button').show();
+        }
         newRect.hide();
         closeButton.hide();
         closeButtonText.hide();
@@ -506,8 +542,13 @@ function makeRectBlank() {
         }
         loader.hide();
         $('#popup-text').hide();
-        $('#follow-button').show();
-        $('#current-tweet').show();
+        if (window.twitter_id == "") {
+            tb_error = r.text(65, 345, "Could not load feed.").attr({"font-size": "24px", "text-anchor": "start", fill: "#999"});
+            $('#follow-button').hide();
+        } else {
+            $('#current-tweet').show();
+            $('#follow-button').show();
+        }
         newRect.hide();
         closeButton.hide();
         closeButtonText.hide();
