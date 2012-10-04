@@ -59,7 +59,7 @@
         <% unless feed_articles == 0 %>
           <% n = 0 %>
           <% z = 0 %>
-          <% while n < 10 %>
+          <% while n < feed_articles.count %>
             <div class="article">
               <% title = feed_articles[z].title.split(/ - /)[0] %>
               <% url = feed_articles[z].url %>
