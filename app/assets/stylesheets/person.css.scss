@@ -144,13 +144,24 @@ td.book-image {
   }
 }
 
-#current-tweet p {
-  position: absolute;
-  left: 20px;
-  top: 430px;
-  font-size: 12px;
-  width: 325px;
-  word-wrap: break-word;
+#current-tweet {
+  .tweet-date {
+    position: absolute;
+    left: 20px;
+    top: 428px;
+    font-size: 12px;
+    width: 100px;
+    height: 15px;
+    overflow: hidden;
+  }
+  .tweet-content {
+    position: absolute;
+    left: 20px;
+    top: 442px;
+    font-size: 12px;
+    width: 325px;
+    word-wrap: break-word;
+  }
 }
 
 /* fix datatable */

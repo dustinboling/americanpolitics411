@@ -350,25 +350,25 @@ $(document).ready(function() {
                 img = data[0]['profile_image_url'].toString();
                 tb_profile_link = "http://www.twitter.com/" + twitter_id;
                 tb_img = r.image(img, 10, 325, 48, 48).attr({href: tb_profile_link});
-                tb_name = r.text(65, 330, data[0]['name']).attr({"font-size": "14px", "text-anchor": "start", stroke: "#999", fill: "#999", href: tb_profile_link });
-                tb_screen_name = r.text(65, 345, "@" + twitter_id).attr({"font-size": "12px", "text-anchor": "start", fill: "red", href: tb_profile_link });
+                tb_name = r.text(65, 330, data[0]['name']).attr({"font-size": "14px", "text-anchor": "start", fill: "#444", href: tb_profile_link });
+                tb_screen_name = r.text(65, 345, "@" + twitter_id).attr({"font-size": "12px", "text-anchor": "start", fill: "#9F1D21", href: tb_profile_link });
             });
 
             timelinePromise = getTimeline();
             var i = 0;
             timelinePromise.success(function(timeline) {
                 // most-current tweet
-                $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
+                $('#current-tweet').html('<p class="tweet-date">' + timeline[i]['created_at'] + '</p>' +'<p class="tweet-content">' + timeline[i]['text'] + '</p>');
 
                 // controls
-                twitter_right_arrow = r.image('/assets/twitter_right_arrow.png', 310, 420, 25, 25)
-                twitter_left_arrow = r.image('/assets/twitter_left_arrow.png', 280, 420, 25, 25)
+                twitter_right_arrow = r.image('/assets/twitter_right_arrow.png', 310, 430, 25, 25)
+                twitter_left_arrow = r.image('/assets/twitter_left_arrow.png', 280, 430, 25, 25)
                 twitter_right_arrow.node.onclick = function() {
                     i = i + 1; 
                     if (timeline[i] == undefined) {
                         i = i - 1;
                     } else {
-                        $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
+                        $('#current-tweet').html('<p class="tweet-date">' + timeline[i]['created_at'] + '</p>' + '<p class="tweet-content">' + timeline[i]['text'] + '</p>');
                     }
                 }
                 twitter_left_arrow.node.onclick = function() {
@@ -376,7 +376,7 @@ $(document).ready(function() {
                     if (timeline[i] == undefined) {
                         i = i + 1;
                     } else {
-                        $('#current-tweet').html('<p>' + timeline[i]['text'] + '</p>');
+                        $('#current-tweet').html('<p class="tweet-date">' + timeline[i]['created_at'] + '</p>' + '<p class="tweet-content">' + timeline[i]['text'] + '</p>');
                     }
                 }
             });
