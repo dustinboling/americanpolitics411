@@ -1,36 +1,7 @@
 <% @page_title = "#{@person.first_last_name}" %>
 <%= javascript_include_tag "mapper/mapper.js" %>
 
-<%# push necessary data to DOM %>
-<script>
-  window.pid = "<%= @person.id %>";
-  window.nytid = "<%= @person.bioguide_id %>";
-  <% unless @person.photo_url.blank? %>
-    <% if @person.photo_url.to_s.match(/govtrack/) || @person.photo_url.to_s.match(/pagodabox/)%>
-      <% photo_url_ary = @person.photo_url.to_s.split(/http:/) %>
-      <% photo_url = photo_url_ary[1] %>
-      window.photo_url = "<%= photo_url %>";
-    <% else %>
-      window.photo_url = "<%= @person.photo_url.thumb %>";
-    <% end %>
-  <% end %>
-  <% if @person.title.blank? %>
-    window.full_name = "<%= @person.first_name + " " + @person.last_name %>";
-  <% else %>
-    window.full_name = "<%= @person.title + " " + @person.first_name + " " + @person.last_name %>";
-  <% end %>
-  window.current_party = "<%= @person.current_party %>";
-  window.state_represented = "<%= @person.state_represented %>";
-  window.district = "<%= @person.district %>";
-  window.birthplace = "<%= @person.birthplace %>";
-  window.birthdate = "<%= @person.date_of_birth %>";
-  window.religion = "<%= @person.religion.name %>";
-  window.twitter_id = "<%= @person.twitter_id %>";
-  window.congressmember = "<%= @person.is_congress_member %>";
-  window.chamber = "<%= @person.chamber %>";
-  window.star = '<%= asset_path("silver-star-15px.png") %>';
-  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-</script>
+<%= render 'js_push_to_window' %>
 
 <div class="sixteen columns">
   <div id="bubble-map"></div>
@@ -55,7 +26,7 @@
     </div>
   </div>
   <div id="media-center" class="sixteen columns">
-    <%= render :partial => 'articles' %>
-    <%= render :partial => 'media' %>
+    <%= render 'articles' %>
+    <%= render 'media' %>
   </div>
 </div>
