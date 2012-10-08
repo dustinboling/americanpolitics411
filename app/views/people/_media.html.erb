@@ -1,10 +1,15 @@
 <% if @person.youtube_id.blank? %>
   <% @personal_videos = $youtube.videos_by(:query => "#{@person.full_name}", :page => 1, :per_page => 15) %>
   <% @personal_videos.videos.each do |v| %>
-      <% title = v.title %>
-      <% thumbnail = v.thumbnails.first.url %>
-      <% video_url = v.media_content[0].url %>
+    <% title = v.title %>
+    <% thumbnail = v.thumbnails.first.url %>
+    <% video_url = v.media_content[0].url %>
+    <div class="youtube-video">
       <%= link_to image_tag(thumbnail), video_url, :class => 'video-thumb' %>
+      <div class="video-thumb-layover" style="display:none">
+        <p><%= truncate(title, length: 45) %></p>
+      </div>
+    </div>
   <% end %>
   <br>
   <%= link_to "More Videos >>", videos_person_path(@person), :id => 'more-videos-link' %>
@@ -18,7 +23,12 @@
       <% title = v.title %>
       <% thumbnail = v.thumbnails.first.url %>
       <% video_url = v.media_content[0].url %>
-      <%= link_to image_tag(thumbnail), video_url, :class => 'video-thumb' %>
+      <div class="youtube-video">
+        <%= link_to image_tag(thumbnail), video_url, :class => 'video-thumb' %>
+        <div class="video-thumb-layover" style="display:none">
+          <p><%= truncate(title, length: 45) %></p>
+        </div>
+      </div>
     <% end %>
     <%= link_to "More Videos >>", videos_person_path(@person), :id => 'more-videos-link' %>
   <% end %>

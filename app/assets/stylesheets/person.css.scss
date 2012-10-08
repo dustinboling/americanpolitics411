@@ -62,6 +62,30 @@
   min-height: 525px;
 }
 
+.youtube-video {
+  display: inline-block;
+  position: relative;
+  .video-thumb {
+  }
+
+  .video-thumb-layover {
+    background: #222;
+    color: #fff;
+    opacity: 0.8;
+    font-size: 12px;
+    position: absolute;
+    bottom: 13px;
+    right: 5px;
+    width: 120px;
+    min-height: 50px;
+    max-height: 50px;
+    z-index: 99999;
+  }
+  p {
+    padding: 4px 4px;
+  }
+}
+
 h2.edit-title {
   font-size: 22px;
   text-transform: uppercase;
