@@ -55,72 +55,7 @@
     </div>
   </div>
   <div id="media-center" class="sixteen columns">
-    <div id="media-center-articles" class="eight columns">
-      <% if @articles.nil? || @articles['articles'].length == 0 %>
-        <% feed_articles = parse_google_rss_feed(@person.first_last_name) %>
-        <% unless feed_articles == 0 %>
-          <% n = 0 %>
-          <% z = 0 %>
-          <% while n < feed_articles.count %>
-            <div class="article">
-              <% title = feed_articles[z].title.split(/ - /)[0] %>
-              <% url = feed_articles[z].url.split("http://")[2].prepend("http://") %>
-              <% summary = parse_google_summary(feed_articles[z].summary) %>
-              <h4><%= link_to title, url, :target => "_blank" %></h4>
-              <p>
-                <%= truncate(summary, :length => 120) %><br>
-                <%= link_to " Read More >", url, {:style => "color:red;"}, :target => "_blank" %>
-              </p>
-            </div>
-            <% n = n + 1 %>
-            <% z = z + 1 %>
-          <% end %>
-        <% end %>
-        <br>
-        <%= link_to "More Articles >>", articles_person_path(@person), :id => 'more-articles-link' %>
-      <% else %>
-        <% @articles = @articles['articles'] %>
-        <% i = 1 %>
-        <% count = @articles.take(8).count %>
-        <% @articles.take(8).each do |a| %>
-          <% article = a[1] %>
-          <% if i == 1 %>
-            <div class="article">
-            <% else %>
-            <div class="article">
-            <% end %>
-              <h4><%= link_to article['post_title'], article['guid'].gsub(/#038;/, ""), :target => "_blank" %></h4>
-              <p>
-                <%= truncate(article['post_excerpt'], :length => 120) %><br>
-                <%= link_to " Read More >", article['guid'].gsub(/#038;/, ""), {:style => "color:red;"}, :target => "_blank" %>
-              </p>
-            </div>
-            <% i = i + 1 %>
-        <% end %>
-        <% if count < 10 %>
-          <% feed_articles = parse_google_rss_feed(@person.first_last_name) %>
-          <% n = count %>
-          <% z = 0 %>
-          <% while n < 10 %>
-            <div class="article">
-              <% title = feed_articles[z].title.split(/ - /)[0] %>
-              <% url = feed_articles[z].url.split("http://")[2].prepend("http://") %>
-              <% summary = parse_google_summary(feed_articles[z].summary) %>
-              <h4><%= link_to title, url, :target => "_blank" %></h4>
-              <p>
-                <%= truncate(summary, :length => 120) %>
-                <%= link_to " Read More >", url, {:style => "color:red;"}, :target => "_blank" %>
-              </p>
-            </div>
-            <% n = n + 1 %>
-            <% z = z + 1 %>
-          <% end %>
-        <% end %>
-        <%= link_to "More Articles >>", articles_person_path(@person), :id => 'more-articles-link' %>
-      <% end %>
-    </div>
-    <div id="media-center-videos" class="seven columns">
-      <%= render :partial => 'media' %>
-    </div>
+    <%= render :partial => 'articles' %>
+    <%= render :partial => 'media' %>
   </div>
 </div>
