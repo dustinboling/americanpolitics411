@@ -28,7 +28,7 @@
       <%= f.label :photo_url %>
     </div>
     <div class="three columns" style="padding-left: 10px;">
-      <%= image_tag(@person.photo_url.micro_thumb) %>
+      <%= image_tag(@person.photo_url.micro_thumb) unless @person.photo_url.blank? %>
     </div>
   </div>
   <%= f.file_field :photo_url %>

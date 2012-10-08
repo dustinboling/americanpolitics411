@@ -8,8 +8,8 @@ class Person < ActiveRecord::Base
 
   before_create :set_name
   before_update :set_name
+  before_create :set_slug
   before_update :set_slug
-  before_save :set_slug
   
   belongs_to :religion
   
@@ -102,15 +102,14 @@ class Person < ActiveRecord::Base
   end
   
   def set_slug
-    self.slug = "#{self.id}" + "-" + self.first_name + "-" + self.last_name
+    self.slug = "#{self.id}-#{self.first_name}-#{self.last_name}"
     self.slug = self.slug.gsub(/ /, "-")
   end
-  
-  # use slugs for urls
+
   def to_param
-    "#{slug}".parameterize
+    "#{id}-#{first_name}-#{last_name}".parameterize
   end
-  
+
   def full_name
     if suffix.blank?
       "#{first_name} #{middle_name} #{last_name}"
