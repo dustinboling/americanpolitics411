@@ -322,12 +322,13 @@ td.gsc-search-button {
 
 #footer nav ul {
   float: left;
+  width: 710px;
 }
 
 #footer nav ul li {
   float: left;
   padding-left: 5px;
-  font-size: 13.2px;
+  font-size: 12px;
 }
 
 #footer nav ul li a {
