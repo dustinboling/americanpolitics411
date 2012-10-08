@@ -21,8 +21,10 @@ $(document).ready ->
   $('#more-issues').click ->
     if $('p.hidden-issue').is(':visible')
       $('p.hidden-issue').hide()
+      $('a#more-issues').html('more...')
     else
       $('p.hidden-issue').show()
+      $('a#more-issues').html('less...')
 
   $('h2#cosponsors-header').click ->
     if $('ul#cosponsors-list').is(':visible')
