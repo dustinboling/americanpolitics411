@@ -1,4 +1,4 @@
-<h4 style="padding-left: 10px;">Videos for <%= @person.full_name %></h4>
+<h4 style="padding-left: 10px;" class="sub-title">Videos for <%= link_to @person.full_name, person_path(@person), style: "color: #24638C" %></h4>
 
 <% if @person.youtube_id.blank? %>
   <% videos = $youtube.videos_by(:query => "#{@person.full_name}", :page => 1, :per_page => 20) %>
@@ -14,7 +14,7 @@
         <% url = v.media_content[0].url %>
         <% title = v.title %>
         <% thumbnail = v.thumbnails.first %>
-        <tr>
+        <tr style="<%= cycle("odd", "even") %>">
           <td><%= link_to image_tag(thumbnail.url), url %></td>
           <td><%= link_to title, url %></td>
         </tr>
@@ -35,7 +35,7 @@
         <% url = v.media_content[0].url %>
         <% title = v.title %>
         <% thumbnail = v.thumbnails.first %>
-        <tr>
+        <tr style="<%= cycle("odd", "even") %>">
           <td><%= link_to image_tag(thumbnail.url), url %></td>
           <td><%= link_to title, url %></td>
         </tr>
