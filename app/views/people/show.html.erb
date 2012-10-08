@@ -5,12 +5,14 @@
 <script>
   window.pid = "<%= @person.id %>";
   window.nytid = "<%= @person.bioguide_id %>";
-  <% if @person.photo_url.to_s.match(/govtrack/) || @person.photo_url.to_s.match(/pagodabox/)%>
-    <% photo_url_ary = @person.photo_url.to_s.split(/http:/) %>
-    <% photo_url = photo_url_ary[1] %>
-    window.photo_url = "<%= photo_url %>";
-  <% else %>
-    window.photo_url = "<%= @person.photo_url.thumb %>";
+  <% unless @person.photo_url.blank? %>
+    <% if @person.photo_url.to_s.match(/govtrack/) || @person.photo_url.to_s.match(/pagodabox/)%>
+      <% photo_url_ary = @person.photo_url.to_s.split(/http:/) %>
+      <% photo_url = photo_url_ary[1] %>
+      window.photo_url = "<%= photo_url %>";
+    <% else %>
+      window.photo_url = "<%= @person.photo_url.thumb %>";
+    <% end %>
   <% end %>
   <% if @person.title.blank? %>
     window.full_name = "<%= @person.first_name + " " + @person.last_name %>";
