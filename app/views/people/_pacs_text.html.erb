@@ -1,7 +1,11 @@
 <%# get data. %>
 <% 
 p = Person.find(params[:pid])
+
 person_name = "#{p.first_name} " + "#{p.last_name}"
+if person_name.match(/Biden/)
+  person_name = "Joseph Biden"
+end
 
 begin
   pac_contributors = TransparencyData::Client.contributions(
@@ -10,6 +14,14 @@ begin
     :amount => {:gte => 2300},
     :contributor_type => "C"
   )
+  if pac_contributors.empty?
+    pac_contributors = TransparencyData::Client.contributions(
+      :recipient_ft => "#{person_name}", 
+      :cycle => 2010,
+      :amount => {:gte => 2300},
+      :contributor_type => "C"
+    )
+  end
 rescue MonsterMash::HTTPError => e
   @success = false
   @message = e
