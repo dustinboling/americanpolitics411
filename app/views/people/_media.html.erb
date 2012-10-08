@@ -8,7 +8,7 @@
       <div class="youtube-video">
         <%= link_to image_tag(thumbnail), video_url, :class => 'video-thumb' %>
         <div class="video-thumb-layover" style="display:none">
-          <p><%= truncate(title, length: 45) %></p>
+          <p><%= link_to truncate(title, length: 45), video_url %></p>
         </div>
       </div>
     <% end %>
@@ -27,7 +27,7 @@
         <div class="youtube-video">
           <%= link_to image_tag(thumbnail), video_url, :class => 'video-thumb' %>
           <div class="video-thumb-layover" style="display:none">
-            <p><%= truncate(title, length: 45) %></p>
+           <p><%= link_to truncate(title, length: 45), video_url %></p>
           </div>
         </div>
       <% end %>
