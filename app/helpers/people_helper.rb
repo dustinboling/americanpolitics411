@@ -216,6 +216,10 @@ module PeopleHelper
   def get_demographics(person)
     begin
       @entity = TransparencyData::Client.entities(:search => "#{person.remove_name_numericality}")
+      if @entity.empty?
+        @entity = TransparencyData::Client.id_lookup(:namespace => "urn:crp:recipient", :id => person.crp_id)
+      end
+
       if @entity.first
         @id = @entity.first.id
         @sectors = TransparencyData::Client.top_sectors(@id)
