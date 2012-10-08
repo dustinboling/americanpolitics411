@@ -68,7 +68,7 @@
               <% summary = parse_google_summary(feed_articles[z].summary) %>
               <h4><%= link_to title, url, :target => "_blank" %></h4>
               <p>
-                <%= truncate(summary, :length => 120) %>
+                <%= truncate(summary, :length => 120) %><br>
                 <%= link_to " Read More >", url, {:style => "color:red;"}, :target => "_blank" %>
               </p>
             </div>
@@ -91,7 +91,7 @@
             <% end %>
               <h4><%= link_to article['post_title'], article['guid'].gsub(/#038;/, ""), :target => "_blank" %></h4>
               <p>
-                <%= truncate(article['post_excerpt'], :length => 120) %>
+                <%= truncate(article['post_excerpt'], :length => 120) %><br>
                 <%= link_to " Read More >", article['guid'].gsub(/#038;/, ""), {:style => "color:red;"}, :target => "_blank" %>
               </p>
             </div>
@@ -116,7 +116,6 @@
             <% z = z + 1 %>
           <% end %>
         <% end %>
-        <br>
         <%= link_to "More Articles >>", articles_person_path(@person), :id => 'more-articles-link' %>
       <% end %>
     </div>
