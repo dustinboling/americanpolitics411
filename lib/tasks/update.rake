@@ -196,6 +196,117 @@ namespace :update do
     puts "Added #{@bill_count} bills."
   end
 
+  desc "Update existing legislation (all of it)"
+  task :existing_legislation => :environment do
+    client = Congress::Client.new
+
+    Legislation.find_each do |l|
+      bill_id = "#{l.bill_type}#{l.bill_number}-#{l.session}"
+      puts "updating #{bill_id}..."
+
+      legislation = client.bills(bill_id: bill_id)
+      bill = legislation.bills[0]
+      if bill.last_action
+        @latest_major_action = bill.last_action.text
+      else
+        @latest_major_action = nil
+      end
+
+      l.update_attributes(
+        :short_title => bill.short_title,
+        :bill_title => bill.bill_title,
+        :popular_title => bill.popular_title,
+        :summary => bill.summary,
+        :latest_major_action => @latest_major_action,
+        :latest_major_action_date => bill.last_action_at
+      )
+
+      puts "updating issues for #{bill_id}..."
+      legislation_issues = bill.keywords
+      legislation_issues.each do |i|
+        if Issue.find_by_name(i) && LegislationIssue.does_not_exist(l.id, Issue.find_by_name(l).id)
+          legislation_issue = LegislationIssue.create(
+            :legislation_id => Legislation.find_by_rtc_id(bill.bill_id).id,
+            :issue_id => Issue.find_by_name(l).id
+          )
+        else
+          puts "adding issue #{l}!"
+          issue = Issue.create(
+            :name => l
+          )
+          legislation_issue = LegislationIssue.create(
+            :legislation_id => Legislation.find_by_rtc_id(bill.bill_id).id,
+            :issue_id => issue.id
+          )
+        end
+      end
+
+      puts "updating cosponsors for #{bill_id}..."
+      cosponsors = bill.cosponsors
+      cosponsors.each do |c|
+        unless Person.find_by_bioguide_id(c.bioguide_id).nil? || Legislation.find_by_rtc_id(bill.bill_id).nil?
+          person_id = Person.find_by_bioguide_id(c.bioguide_id).id
+          legislation_id = Legislation.find_by_rtc_id(bill.bill_id).id
+
+          unless LegislationCosponsor.exists?(person_id, legislation_id)
+            l = LegislationCosponsor.create(
+              :person_id => person_id,
+              :legislation_id => legislation_id
+            )
+          end
+        end
+      end
+      
+      puts "updating committees for #{bill_id}..."
+      committees = @bill.committees
+      unless committees.nil?
+        committees.each do |c|
+          code = c[1]['committee']['committee_id']
+          name = c[1]['committee']['name']
+          chamber = c[1]['committee']['chamber']
+
+          unless Committee.find_by_code(code).nil? || Legislation.find_by_rtc_id(bill.bill_id).nil?
+            committee_id = Committee.find_by_code(code).id
+            legislation_id = Legislation.find_by_rtc_id(bill.bill_id).id
+
+            if Committee.find_by_code(code) && CommitteeLegislation.does_not_exist(committee_id, legislation_id)
+              cl = CommitteeLegislation.create(
+                :committee_id => committee_id,
+                :legislation_id => legislation_id
+              )
+            elsif Committee.find_by_code(code) && CommitteeLegislation.exists?(committee_id, legislation_id)
+              # do nothing
+            else
+              co = Committee.create(
+                :code => code,
+                :name => name,
+                :chmaber => chamber
+              )
+
+              cl = CommitteeLegislation.create(
+                :committee_id => co.id,
+                :legislation_id => legislation_id
+              )
+            end
+          end
+        end
+      end
+
+      puts "updating actions for #{bill_id}..."
+      actions = bill.actions
+      actions.each do |a|
+        legislation_id = l.id
+        if Action.does_not_exist(legislation_id, a.acted_at, a.text)
+          action = Action.create(
+            :legislation_id => legislation_id,
+            :acted_at => a.acted_at,
+            :text => a.text
+          )
+        end
+      end
+    end
+  end
+
   desc "Update votes"
   task :votes => :environment do
     puts "Connecting client..."
