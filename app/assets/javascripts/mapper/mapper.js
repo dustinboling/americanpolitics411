@@ -418,7 +418,7 @@ function makeRect(partial) {
     $('#current-tweet').hide();
     loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
     closeButton = r.rect(10, 10, 100, 20).attr({fill: "#9F1D21"})
-    closeButtonText = r.text(23, 20, "<< BACK").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF"});
+    closeButtonText = r.text(23, 20, "<< BACK").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF", cursor: "pointer"});
     // get data
     var xhr = $.ajax({
         type: "GET",
@@ -497,7 +497,7 @@ function makeRectBlank() {
     $('#current-tweet').hide();
     loader = r.image('../assets/ajax-loader.gif', 450, 210, 40, 40);
     closeButton = r.rect(10, 10, 100, 20).attr({fill: "#9F1D21"})
-    closeButtonText = r.text(23, 20, "<< BACK").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF"});
+    closeButtonText = r.text(23, 20, "<< BACK").attr({"font-size": "16px", "text-anchor": "start", fill: "#FFF", cursor: "pointer"});
     newRect.node.onclick = function() {
         if (typeof xhr != 'undefined') {
             xhr.abort();
