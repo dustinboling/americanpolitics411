@@ -272,15 +272,15 @@ $(document).ready(function() {
         religionInfo.attr("text", religionTempText.substring(0));
     }
 
-    eduRect = r.rect(380, 370, 170, 15, 5).attr({stroke: "none", fill: "red"});
-    eduRectText = r.text(425, 378, "EDUCATION").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
-    litRect = r.rect(380, 390, 170, 15, 5).attr({stroke: "none", fill: "red"});
-    litRectText = r.text(443, 398, "LITERARY WORKS").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
-    litRectStar = r.image(star, 500, 390, 17, 15).toFront();
-    orgRect = r.rect(380, 410, 170, 15, 5).attr({stroke: "none", fill: "red"});
-    orgRectText = r.text(438, 418, "ORGANIZATIONS").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
-    contactRect = r.rect(380, 430, 170, 15, 5).attr({stroke: "none", fill: "red"});
-    contactRectText = r.text(419, 438, "CONTACT").attr({fill: "#FFF", "font-size": 12, "font-weight": "100"});
+    eduRect = r.rect(380, 370, 170, 15, 5).attr({stroke: "none", fill: "red", cursor: "pointer"});
+    eduRectText = r.text(425, 378, "EDUCATION").attr({fill: "#FFF", "font-size": 12, "font-weight": "100", cursor: "pointer"});
+    litRect = r.rect(380, 390, 170, 15, 5).attr({stroke: "none", fill: "red", cursor: "pointer"});
+    litRectText = r.text(443, 398, "LITERARY WORKS").attr({fill: "#FFF", "font-size": 12, "font-weight": "100", cursor: "pointer"});
+    litRectStar = r.image(star, 500, 390, 17, 15).toFront().attr({cursor: "pointer"});
+    orgRect = r.rect(380, 410, 170, 15, 5).attr({stroke: "none", fill: "red", cursor: "pointer"});
+    orgRectText = r.text(438, 418, "ORGANIZATIONS").attr({fill: "#FFF", "font-size": 12, "font-weight": "100", cursor: "pointer"});
+    contactRect = r.rect(380, 430, 170, 15, 5).attr({stroke: "none", fill: "red", cursor: "pointer"});
+    contactRectText = r.text(419, 438, "CONTACT").attr({fill: "#FFF", "font-size": 12, "font-weight": "100", cursor: "pointer"});
 
     // main-infotabs listeners
     eduRect.node.onclick = function() {
