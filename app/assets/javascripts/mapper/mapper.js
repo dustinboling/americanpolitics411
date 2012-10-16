@@ -361,8 +361,8 @@ $(document).ready(function() {
                 $('#current-tweet').html('<p class="tweet-date">' + timeline[i]['created_at'] + '</p>' +'<p class="tweet-content">' + timeline[i]['text'] + '</p>');
 
                 // controls
-                twitter_right_arrow = r.image('/assets/twitter_right_arrow.png', 310, 430, 25, 25)
-                twitter_left_arrow = r.image('/assets/twitter_left_arrow.png', 280, 430, 25, 25)
+                twitter_right_arrow = r.image('/assets/twitter_right_arrow.png', 310, 430, 25, 25).attr({cursor: "pointer"});
+                twitter_left_arrow = r.image('/assets/twitter_left_arrow.png', 280, 430, 25, 25).attr({cursor: "pointer"});
                 twitter_right_arrow.node.onclick = function() {
                     i = i + 1; 
                     if (timeline[i] == undefined) {
