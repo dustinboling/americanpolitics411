@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/asebastian/amazon-ecs.git
+  revision: 1a5bd8b327af0beaecd544f916d48010b96f0a00
+  specs:
+    amazon-ecs (2.2.4)
+      nokogiri (~> 1.4)
+      ruby-hmac (~> 0.3)
+
+GIT
   remote: git://github.com/asebastian/transparency-data.git
   revision: 84f1551c9fee492fdc8d8b661e06e7367dcf397c
   specs:
@@ -6,13 +14,6 @@ GIT
       hashie (~> 1.0.0)
       monster_mash (~> 0.1.0)
       rake
-
-PATH
-  remote: vendor/gems/amazon-ecs-2.2.4
-  specs:
-    amazon-ecs (2.2.4)
-      nokogiri (~> 1.4)
-      ruby-hmac (~> 0.3)
 
 PATH
   remote: vendor/gems/jquery-datatables-rails-1.10.0
@@ -307,6 +308,7 @@ DEPENDENCIES
   redis
   rmagick
   rspec-rails
+  ruby-hmac
   sass-rails (~> 3.1.3)
   sorcery
   sunlight

@@ -26,7 +26,8 @@ gem 'feedzirra'
 gem 'fog', '~> 1.3.1'
 gem 'rmagick'
 gem 'carrierwave'
-gem 'amazon-ecs', :path => 'vendor/gems/amazon-ecs-2.2.4'
+gem 'ruby-hmac'
+gem 'amazon-ecs', github: 'asebastian/amazon-ecs'
 gem 'jquery-datatables-rails', :path => "vendor/gems/jquery-datatables-rails-1.10.0"
 gem 'transparency_data', github: 'asebastian/transparency-data'
 
