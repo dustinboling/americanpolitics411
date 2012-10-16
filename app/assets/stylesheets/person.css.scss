@@ -75,19 +75,20 @@
     font-size: 12px;
     position: absolute;
     bottom: 13px;
-    right: 5px;
-    width: 120px;
+    right: 6px;
+    width: 119px;
     min-height: 50px;
     max-height: 50px;
     z-index: 99999;
-  }
-  p {
-    padding: 4px 4px;
-    a {
-      color: #fff;
-      display: block;
-      width: 120px;
-      min-height: 50px;
+    p {
+      padding: 4px 6px;
+      a {
+        color: #fff;
+        display: block;
+        width: 120px;
+        min-height: 50px;
+        width: 115px;
+      }
     }
   }
 }
